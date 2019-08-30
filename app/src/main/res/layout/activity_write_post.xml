@@ -81,16 +81,24 @@
 
         <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="마감기한 선택" android:textSize="16dp" android:textColor="#262626"/>
+                android:text="마감기한 선택" android:textSize="16dp" android:textColor="#262626"
+                android:id="@+id/txt_deadline_write_post"
+        />
         <Button
                 android:layout_width="24dp" android:layout_height="24dp"
                 android:layout_alignParentRight="true"
         />
+            <ImageButton
+                    android:layout_width="70dp" android:layout_height="29dp"
+                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/yellow_round_layout_border"
+            />
+            <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="1일" android:textSize="14dp" android:textColor="#ffc107"
+                    android:layout_below="@id/txt_deadline_write_post"
+            />
     </RelativeLayout>
-        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-                                                android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
     <View android:layout_width="match_parent" android:layout_height="1dp"
           android:layout_marginTop="15dp" android:background="#f1f1f1"/>
     <EditText
