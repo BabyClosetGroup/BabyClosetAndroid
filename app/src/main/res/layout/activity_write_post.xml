@@ -88,15 +88,14 @@
                 android:layout_width="24dp" android:layout_height="24dp"
                 android:layout_alignParentRight="true"
         />
-            <ImageButton
-                    android:layout_width="70dp" android:layout_height="29dp"
+            <Button
+                    android:layout_width="73dp" android:layout_height="29dp"
+                    android:layout_marginTop="10dp"
                     android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/yellow_round_layout_border"
-            />
-            <TextView
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="1일" android:textSize="14dp" android:textColor="#ffc107"
-                    android:layout_below="@id/txt_deadline_write_post"
+                    android:clickable="false"
             />
+
     </RelativeLayout>
 
     <View android:layout_width="match_parent" android:layout_height="1dp"
