@@ -6,19 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UI.Activity.ListPeopleActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:gravity="center"
-        android:text="신청자 목록"
-        android:textSize="16dp"
-        android:textStyle="bold" />
-
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000000" />
+    <include layout="@layout/toolbar_list_people" android:id="@+id/toolbar_list_people"/>
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+      android:background="@drawable/tab_shadow"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -111,10 +101,9 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="#000000" />
+
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+          android:background="#f1f1f1"/>
 
     <LinearLayout
         android:layout_marginTop="22dp"
@@ -152,4 +141,13 @@
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false">
     </android.support.v7.widget.RecyclerView>
+    <Button
+            android:background="#ffc107"
+            android:textColor="#ffffff"
+            android:layout_gravity="bottom"
+            android:textSize="20sp"
+            android:text="선택 후 쪽지 보내기"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/btn_send_note"/>
 </LinearLayout>

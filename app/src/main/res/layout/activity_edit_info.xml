@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:background="#ffffff"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.Activity.EditInfoActivity" android:orientation="vertical">
+    <include layout="@layout/toolbar_edit_info" android:id="@+id/toolbar_edit_info"/>
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+          android:background="@drawable/tab_shadow"/>
+    <ImageView
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:id="@+id/img_info_thumbnail"
+            android:layout_marginTop="26dp"/>
+    <RelativeLayout
+            android:layout_marginHorizontal="16dp"
+            android:layout_height="42dp"
+            android:layout_width="wrap_content">
+        <ImageView
+                android:background="@drawable/info_name_border"
+                android:layout_height="42dp"
+                android:layout_width="match_parent"
+                android:id="@+id/txt_info_name"
+                android:layout_weight="1"/>
+        <TextView
+                android:layout_height="42dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:text="unknown"/>
+
+    </RelativeLayout>
+
+    <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="26dp"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:textColor="#767676"
+            android:text="프로필 사진과 닉네임을 변경해 보세요"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+    android:background="#f1f1f1"/>
+    <TextView
+            android:textSize="16sp"
+            android:textColor="#262626"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="16dp"
+            android:text="계정정보"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    />
+    <LinearLayout
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="47dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:text="이름"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView4"/>
+        <EditText
+                android:layout_marginLeft="51dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="UNKNOWN"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:id="@+id/editText4" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_marginBottom="47dp"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:text="아이디"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+        <EditText
+                android:layout_marginLeft="37dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="UNKNOWN"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:id="@+id/editText3" android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_marginBottom="47dp"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:text="비밀번호"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+        <EditText
+                android:layout_marginLeft="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="10자 이내"
+                android:textSize="16sp"
+                android:textColor="#262626"
+                android:id="@+id/editText2" android:layout_weight="1"/>
+        <Button
+                android:layout_width="64dp"
+                android:layout_height="24dp"
+                android:text="변경"
+                android:textColor="#ffffff"
+                android:background="@drawable/yellow_fill_border"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -6,17 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UI.Activity.ReceiveProductActivity">
-    <TextView
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:text="받은 상품" />
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000000"/>
+    <include layout="@layout/toolbar_receive_product" android:id="@+id/toolbar_receive_product"/>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,7 +18,7 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="22dp"
                 android:layout_marginHorizontal="16dp"
-                android:id="@+id/rv_complete_product_overview"
+                android:id="@+id/rv_receive_product_overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false">
