@@ -65,12 +65,20 @@
                     >
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                             <TextView
-                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/txt_category_write_post"
                                     android:text="카테고리 선택" android:textSize="16dp" android:textColor="#262626"/>
                             <Button
                                     android:layout_width="24dp" android:layout_height="24dp"
                                     android:layout_alignParentRight="true"
+                                    android:id="@+id/btn_category_write_post"
                             />
+                            <android.support.v7.widget.RecyclerView
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_below="@id/txt_category_write_post" android:layout_marginTop="10dp"
+                                    android:visibility="gone" android:id="@+id/rv_category_write_post"
+                            >
+
+                            </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -88,13 +96,13 @@
                             <Button
                                     android:layout_width="24dp" android:layout_height="24dp"
                                     android:layout_alignParentRight="true"
+                                    android:id="@+id/btn_deadline_write_post"
                             />
                             <Button
-                                    android:layout_width="73dp" android:layout_height="29dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/yellow_round_layout_border"
-                                    android:text="1일" android:textSize="14dp" android:textColor="#ffc107"
-                                    android:clickable="false"
+                                    android:layout_width="82dp" android:layout_height="28dp" android:layout_marginTop="10dp"
+                                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/yellow_square_layout_border"
+                                    android:text="1일" android:textSize="14dp" android:textColor="#ffffff"
+                                    android:clickable="false"  android:visibility="gone" android:id="@+id/txt_deadline_tag"
                             />
 
                         </RelativeLayout>
@@ -135,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#ffc107"
+                    android:id="@+id/btn_share_write_post"
             />
             <TextView
                     android:layout_width="wrap_content"
@@ -144,7 +153,6 @@
                     android:text="나눔 등록하기"
                     android:textColor="#ffffff"
                     android:textSize="20dp"
-                    android:id="@+id/btn_share_write_post"
             />
 
         </RelativeLayout>
