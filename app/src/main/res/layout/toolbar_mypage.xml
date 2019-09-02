@@ -23,7 +23,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/ic_settings_black_24dp"
-                android:id="@+id/btn_save_info"/>
+                android:id="@+id/btn_edit_info"/>
     </LinearLayout>
 
 </android.support.v7.widget.Toolbar>

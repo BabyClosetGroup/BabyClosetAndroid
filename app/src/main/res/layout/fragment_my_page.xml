@@ -73,6 +73,7 @@
                 </LinearLayout>
 
                 <RatingBar
+                        android:isIndicator="true"
                     android:rating="3.5"
                     android:stepSize="0.5"
                     android:numStars="5"
@@ -83,7 +84,7 @@
         <view
             android:layout_width="match_parent"
             android:layout_height="6dp"
-            android:background="#000000"
+            android:background="#BDBDBD"
             />
 
         <LinearLayout
