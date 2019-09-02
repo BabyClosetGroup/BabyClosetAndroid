@@ -14,5 +14,9 @@ class ShareIncompleteFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_incomplete, container, false)
+
+
+        //상품정보 가져오기
+        //나눔하기 누르면 신청자목록으로
     }
 }
