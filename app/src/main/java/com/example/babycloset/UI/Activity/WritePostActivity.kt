@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
 import android.content.DialogInterface
+import android.text.Html
 import android.util.Log
 import android.view.View
 import org.jetbrains.anko.toast
@@ -34,9 +35,7 @@ class WritePostActivity : AppCompatActivity() {
 
         //통신 + 검사(카테고리 선택, 마감기한 선택)
         btn_share_write_post.setOnClickListener {
-           if(deadline==""){
-                showNoticeDialog("마감기한을 선택해주세요!","마감기한을 선택해야\n글을 작성할 수 있습니다." )
-           }
+           isValid()
         }
     }
 
@@ -47,14 +46,13 @@ class WritePostActivity : AppCompatActivity() {
     fun showDeadlineDialog(){
         val deadlineList = arrayOf<CharSequence>("1일","2일", "3일", "4일", "5일")
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("카테고리 선택")
         builder.setItems(deadlineList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
-                0->{ setDialogTag(deadlineList, 0)}
-                1->{ setDialogTag(deadlineList, 1)}
+                0->{ setDialogTag(deadlineList, 4)}
+                1->{ setDialogTag(deadlineList, 3)}
                 2->{ setDialogTag(deadlineList, 2)}
-                3->{ setDialogTag(deadlineList, 3)}
-                4->{ setDialogTag(deadlineList, 4) }
+                3->{ setDialogTag(deadlineList, 1)}
+                4->{ setDialogTag(deadlineList, 0) }
 
             }
             dialog.dismiss()
@@ -83,13 +81,23 @@ class WritePostActivity : AppCompatActivity() {
         builder.show()
     }
 
+    fun isValid(){
+        if(deadline==""){
+            showNoticeDialog("마감기한을 선택해주세요!\n","마감기한을 선택해야","글을 작성할 수 있습니다." )
+        }
+        else if(edt_title_write_post.text.toString()==""){
+            showNoticeDialog("제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
+
+        }
+    }
+
     //알림 팝업
-    fun showNoticeDialog(title : String, msg : String){
+    fun showNoticeDialog(title : String, msg1 : String, msg2 : String){
         val builder = AlertDialog.Builder(this)
         builder
             .setTitle(title)
-            .setMessage(msg)
-            .setNeutralButton("확인", DialogInterface.OnClickListener { dialog, which ->  })
+            .setMessage(Html.fromHtml("<font color='#767676'>$msg1<br>$msg2</font>"))
+            .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
         builder.show()
     }
 }
