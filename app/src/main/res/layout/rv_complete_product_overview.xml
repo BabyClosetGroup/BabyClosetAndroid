@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:background="#ffffff">
+    android:background="#ffffff"
+              android:id="@+id/ll_rv_item_complete_overview_container">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -14,8 +15,7 @@
         android:paddingTop="22dp"
         android:paddingBottom="22dp"
         android:paddingLeft="16dp"
-        android:gravity="center"
-        android:id="@+id/ll_rv_item_complete_overview_container">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/img_rv_item_complete_overview_thumbnail"
