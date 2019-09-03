@@ -1,6 +1,8 @@
 package com.example.babycloset.UI.Adapter
 
 import android.content.Context
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,10 @@ import com.bumptech.glide.Glide
 import com.example.babycloset.Data.CompleteProductOverviewData
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.RatingActivity
+import com.example.babycloset.UI.Activity.ShareProductActivity
+import com.example.babycloset.UI.Fragment.ShareCompleteFragment
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<CompleteProductOverviewData>): RecyclerView.Adapter<CompleteProductOverviewRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
@@ -41,6 +46,11 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         }
         holder.info.setOnClickListener {
             // 팝업창
+            var dialog = AlertDialog.Builder(ctx)
+            dialog.setView(R.layout.info_dialog)
+            dialog.setTitle("")
+            dialog.setIcon(R.mipmap.ic_launcher)
+            dialog.show()
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
