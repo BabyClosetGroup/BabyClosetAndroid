@@ -40,9 +40,7 @@ class DeadLineProductActivity : AppCompatActivity() {
             DeadLineProcuctData(20,"상큼한 노란색 상의 옷","D-2",
                 "https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567255151131.jpeg", "동작구" ))
 
-        dataList.add(
-            DeadLineProcuctData(19,"상큼한 주황색 상의 옷","D-0",
-                "https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567255151131.jpeg", "송파구" ))
+
 
         deadLineProductRecyclerViewAdapter = DeadLineProductRecyclerViewAdapter(this,dataList)
         rv_item_deadline_product.adapter = deadLineProductRecyclerViewAdapter
