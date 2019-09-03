@@ -27,7 +27,7 @@
                 android:id="@+id/img_profile"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
-                tools:src="@tools:sample/avatars"
+                tools:src="@drawable/user"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="24dp"/>
 
@@ -62,14 +62,7 @@
                         android:id="@+id/txt_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <TextView
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="점" />
+                        android:text="0점" />
                 </LinearLayout>
 
                 <RatingBar

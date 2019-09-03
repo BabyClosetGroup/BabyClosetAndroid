@@ -44,6 +44,9 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         if(!holder.rate.text.equals("미부여")){
             holder.btn.visibility=View.GONE
         }
+        holder.btn.setOnClickListener {
+            ctx.startActivity<RatingActivity>()
+        }
         holder.info.setOnClickListener {
             // 팝업창
             var dialog = AlertDialog.Builder(ctx)

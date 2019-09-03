@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.IncompleteProductOverviewData
 import com.example.babycloset.R
+import com.example.babycloset.UI.Activity.ListPeopleActivity
 import com.example.babycloset.UI.Activity.RatingActivity
 import org.jetbrains.anko.image
 import org.jetbrains.anko.startActivity
@@ -33,11 +34,9 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         holder.date.text = dataList[position].productDate
         holder.num.text = dataList[position].productNumber
 
-        /*holder.container.setOnClickListener {
-            ctx.startActivity<ViewPortActivity>(
-                "portfolioIdx" to dataList[position].portfolioIdx
-            )
-        }*/
+        holder.btn.setOnClickListener {
+            ctx.startActivity<ListPeopleActivity>()
+        }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var container = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
@@ -45,7 +44,7 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         var location = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_incomplete_overview_location) as TextView
         var date = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_date) as TextView
         var num = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_number) as TextView
-        //var btn = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as ImageView
+        var btn = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
         //var thumbnail = itemView.findViewById(R.id.img_rv_item_incomplete_overview_thumbnail) as ImageView
     }
 }
