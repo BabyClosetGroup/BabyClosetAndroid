@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:background="#ffffff">
+    android:background="#ffffff"
+              android:id="@+id/ll_rv_item_incomplete_overview_container">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -14,8 +15,7 @@
         android:paddingTop="22dp"
         android:paddingBottom="22dp"
         android:paddingLeft="16dp"
-        android:gravity="center"
-        android:id="@+id/ll_rv_item_incomplete_overview_container">
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/img_rv_item_incomplete_overview_thumbnail"
@@ -107,12 +107,12 @@
             android:layout_marginHorizontal="16dp"
             android:layout_height="42dp"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="22dp">
+            android:layout_marginBottom="22dp"
+            android:id="@+id/btn_rv_item_incomplete_overview_share">
         <ImageView
                 android:background="@drawable/yellow_fill_border"
                 android:layout_height="42dp"
                 android:layout_width="match_parent"
-                android:id="@+id/btn_rv_item_incomplete_overview_share"
                 android:layout_weight="1"/>
         <TextView
                 android:layout_height="42dp"

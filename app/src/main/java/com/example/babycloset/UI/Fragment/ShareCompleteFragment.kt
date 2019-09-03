@@ -31,7 +31,7 @@ class ShareCompleteFragment : Fragment() {
 
         var dataList: ArrayList<CompleteProductOverviewData> = ArrayList()
         dataList.add(CompleteProductOverviewData(
-            "우주복", "동대문구","2019.09.01","박지윤","2"))
+            "우주복", "동대문구","2019.09.01","박지윤","미부여"))
         dataList.add(CompleteProductOverviewData(
             "한복", "관악구","2019.09.03","신초희","4"))
 

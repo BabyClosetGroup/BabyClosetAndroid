@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.CompleteProductOverviewData
 import com.example.babycloset.R
+import com.example.babycloset.UI.Activity.RatingActivity
 import org.jetbrains.anko.startActivity
 
 class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<CompleteProductOverviewData>): RecyclerView.Adapter<CompleteProductOverviewRecyclerViewAdapter.Holder>() {
@@ -29,13 +31,17 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.location.text = dataList[position].productLocation
         holder.date.text = dataList[position].productDate
         holder.owner.text = dataList[position].productOwner
-        holder.rate.text = dataList[position].productRate
+        if(dataList[position].productRate.equals("미부여"))
+            holder.rate.text = dataList[position].productRate
+        else
+            holder.rate.text = dataList[position].productRate+"점"
 
-        /*holder.container.setOnClickListener {
-            ctx.startActivity<ViewPortActivity>(
-                "portfolioIdx" to dataList[position].portfolioIdx
-            )
-        }*/
+        if(!holder.rate.text.equals("미부여")){
+            holder.btn.visibility=View.GONE
+        }
+        holder.info.setOnClickListener {
+            // 팝업창
+        }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var container = itemView.findViewById(R.id.ll_rv_item_complete_overview_container) as RelativeLayout
@@ -44,6 +50,8 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         var date = itemView.findViewById(R.id.txt_rv_item_complete_overview_date) as TextView
         var owner = itemView.findViewById(R.id.txt_rv_item_complete_overview_name) as TextView
         var rate = itemView.findViewById(R.id.txt_rv_item_complete_overview_rate) as TextView
+        var btn = itemView.findViewById(R.id.btn_rv_item_complete_overview_rate) as RelativeLayout
+        var info = itemView.findViewById(R.id.btn_rv_item_complete_overview_info) as ImageView
         //var thumbnail = itemView.findViewById(R.id.img_rv_item_complete_overview_thumbnail) as ImageView
     }
 }
