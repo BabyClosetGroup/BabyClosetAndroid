@@ -61,6 +61,7 @@
 
         <RatingBar
                 android:id="@+id/ratingStar"
+                android:progressDrawable="@drawable/custom_rating_selector"
                 android:layout_marginTop="48.9dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="32dp"
