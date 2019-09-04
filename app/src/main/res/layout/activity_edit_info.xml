@@ -6,7 +6,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UI.Activity.EditInfoActivity" android:orientation="vertical">
+        tools:context=".UI.Activity.EditInfoActivity"
+        android:orientation="vertical">
     <include layout="@layout/toolbar_edit_info" android:id="@+id/toolbar_edit_info"/>
     <View android:layout_width="match_parent" android:layout_height="3dp"
           android:background="@drawable/tab_shadow"/>
@@ -26,15 +27,16 @@
                 android:background="@drawable/info_name_border"
                 android:layout_height="42dp"
                 android:layout_width="match_parent"
-                android:id="@+id/txt_info_name"
                 android:layout_weight="1"/>
-        <TextView
+        <EditText
+                android:background="@null"
                 android:layout_height="42dp"
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:textSize="16sp"
                 android:textColor="#262626"
-                android:text="unknown"/>
+                android:text="unknown"
+                android:id="@+id/txt_info_nickname"/>
 
     </RelativeLayout>
 
@@ -63,7 +65,7 @@
     <LinearLayout
             android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
-            android:layout_marginBottom="47dp"
+            android:layout_marginBottom="9dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <TextView
@@ -71,8 +73,9 @@
                 android:textSize="16sp"
                 android:textColor="#262626"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView4"/>
-        <EditText
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:background="@null"
                 android:layout_marginLeft="51dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,10 +83,18 @@
                 android:text="UNKNOWN"
                 android:textSize="16sp"
                 android:textColor="#262626"
-                android:id="@+id/editText4" android:layout_weight="1"/>
+                android:id="@+id/txt_info_name"
+                android:layout_weight="1"/>
     </LinearLayout>
+    <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginRight="16dp"
+          android:background="#CFCFCF"
+            android:layout_marginBottom="37dp"/>
     <LinearLayout
-            android:layout_marginBottom="47dp"
+            android:layout_marginBottom="9dp"
             android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -96,6 +107,7 @@
                 android:layout_height="wrap_content"
         />
         <EditText
+                android:background="@null"
                 android:layout_marginLeft="37dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,10 +115,22 @@
                 android:text="UNKNOWN"
                 android:textSize="16sp"
                 android:textColor="#262626"
-                android:id="@+id/editText3" android:layout_weight="1"/>
+                android:id="@+id/txt_info_id" android:layout_weight="1"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_close_black_24dp"
+                android:id="@+id/btn_id_del"/>
     </LinearLayout>
+    <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginRight="16dp"
+            android:background="#CFCFCF"
+            android:layout_marginBottom="37dp"/>
     <LinearLayout
-            android:layout_marginBottom="47dp"
+            android:layout_marginBottom="9dp"
             android:layout_marginHorizontal="16dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -119,6 +143,7 @@
                 android:layout_height="wrap_content"
         />
         <EditText
+                android:background="@null"
                 android:layout_marginLeft="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,14 +151,18 @@
                 android:hint="10자 이내"
                 android:textSize="16sp"
                 android:textColor="#262626"
-                android:id="@+id/editText2" android:layout_weight="1"/>
-        <Button
-                android:layout_width="64dp"
-                android:layout_height="24dp"
-                android:text="변경"
-                android:textColor="#ffffff"
-                android:background="@drawable/yellow_fill_border"/>
+                android:id="@+id/txt_info_pw" android:layout_weight="1"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:srcCompat="@drawable/ic_close_black_24dp"
+                android:id="@+id/btn_pw_del"/>
     </LinearLayout>
-
+    <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginRight="16dp"
+            android:background="#CFCFCF"
+            android:layout_marginBottom="37dp"/>
 
 </LinearLayout>

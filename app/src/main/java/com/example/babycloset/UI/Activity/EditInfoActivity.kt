@@ -3,6 +3,7 @@ package com.example.babycloset.UI.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.babycloset.R
+import kotlinx.android.synthetic.main.activity_edit_info.*
 
 class EditInfoActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class EditInfoActivity : AppCompatActivity() {
         //사진 수정기능(갤러리연동)
         //체크버튼 누를시 저장되고 마이페이지로 이동
 
-        //비번은 비활성화되어있다가 변경버튼 눌렀을때 활성화되게
+        img_info_thumbnail.setOnClickListener {
+            //갤러리 연동
+        }
     }
 }
