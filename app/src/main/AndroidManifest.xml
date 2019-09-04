@@ -11,7 +11,7 @@
             android:theme="@style/AppTheme">
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
-        <activity android:name=".UI.Activity.InfoConsentActivity">
+        <activity android:name=".UI.Activity.EditInfoActivity">
         </activity>
         <activity android:name=".UI.Activity.RatingActivity">
         </activity>
@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".UI.Adapter.BlankActivity">
         </activity>
-        <activity android:name=".UI.Activity.EditInfoActivity">
+        <activity android:name=".UI.Activity.InfoConsentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -86,12 +86,12 @@
                 android:id="@+id/txt_info_name"
                 android:layout_weight="1"/>
     </LinearLayout>
-    <view
+    <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="95dp"
             android:layout_marginRight="16dp"
-          android:background="#CFCFCF"
+            android:background="#CFCFCF"
             android:layout_marginBottom="37dp"/>
     <LinearLayout
             android:layout_marginBottom="9dp"
@@ -122,7 +122,7 @@
                 app:srcCompat="@drawable/ic_close_black_24dp"
                 android:id="@+id/btn_id_del"/>
     </LinearLayout>
-    <view
+    <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="95dp"
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content" app:srcCompat="@drawable/ic_close_black_24dp"
                 android:id="@+id/btn_pw_del"/>
     </LinearLayout>
-    <view
+    <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="95dp"

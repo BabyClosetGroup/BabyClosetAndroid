@@ -11,23 +11,35 @@ class InfoConsentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_info_consent)
 
         btn_agree_all_info.setOnClickListener {
-            btn_agree_all_select.isSelected=!btn_agree_all_select.isSelected
-            btn_agree1_select.isSelected=!btn_agree1_select.isSelected
-            btn_agree2_select.isSelected=!btn_agree2_select.isSelected
+            if(btn_agree_all_select.isSelected==false){
+                btn_agree_all_select.isSelected=true
+                btn_agree1_select.isSelected=true
+                btn_agree2_select.isSelected=true
+            }else{
+                btn_agree_all_select.isSelected=false
+                btn_agree1_select.isSelected=false
+                btn_agree2_select.isSelected=false
+            }
         }
         btn_agree1_info.setOnClickListener {
-            btn_agree1_select.isSelected=!btn_agree1_select.isSelected
+            if(btn_agree1_select.isSelected==false){
+                btn_agree1_select.isSelected=true
+                if(btn_agree2_select.isSelected==true)
+                    btn_agree_all_select.isSelected=true
+            }else{
+                btn_agree1_select.isSelected=false
+                btn_agree_all_select.isSelected=false
+            }
         }
         btn_agree2_info.setOnClickListener {
-            btn_agree2_select.isSelected=!btn_agree2_select.isSelected
-        }
-
-        if(btn_agree1_select.isSelected==true&&btn_agree2_select.isSelected==true){
-            if(btn_agree_all_select.isSelected==false)
-                btn_agree_all_select.isSelected=!btn_agree_all_select.isSelected
-        }else {
-            if (btn_agree_all_select.isSelected == true)
-                btn_agree_all_select.isSelected=!btn_agree_all_select.isSelected
+            if(btn_agree2_select.isSelected==false){
+                btn_agree2_select.isSelected=true
+                if(btn_agree1_select.isSelected==true)
+                    btn_agree_all_select.isSelected=true
+            }else{
+                btn_agree2_select.isSelected=false
+                btn_agree_all_select.isSelected=false
+            }
         }
         //둘 다 선택될 때 맨 위 바뀌게
 
