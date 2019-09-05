@@ -7,7 +7,6 @@ import com.example.babycloset.Data.DeadLineProcuctData
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.DeadLineProductRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_dead_line_product.*
-import kotlinx.android.synthetic.main.rv_item_deadline_product.*
 import kotlinx.android.synthetic.main.toolbar_all_product.*
 
 
@@ -19,7 +18,7 @@ class DeadLineProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dead_line_product)
 
-        txt_product.text = "마감임박"
+        txt_title_all_product.text = "마감임박"
 
         var dataList : ArrayList<DeadLineProcuctData> = ArrayList()
         dataList.add(DeadLineProcuctData(27, "귀여운 하얀색 상의 옷", "D-2",

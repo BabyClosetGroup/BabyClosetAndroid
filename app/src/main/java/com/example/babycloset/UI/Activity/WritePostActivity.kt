@@ -13,6 +13,8 @@ import android.text.Html
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import org.jetbrains.anko.imageResource
+import java.nio.file.Files
 
 
 class WritePostActivity : AppCompatActivity() {
@@ -29,7 +31,6 @@ class WritePostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
-
 
         //이미지 선택
         img_write_post1.setOnClickListener { showImageDialog(1) }
@@ -94,15 +95,21 @@ class WritePostActivity : AppCompatActivity() {
                         4->{ startActivityForResult(intent,REQUEST_CODE_PICTURE4) }
                     }
                 }
-                1->{ }
+                1->{
+                    when(requestCodeNumber){
+                        1->{ img_write_post1.setImageBitmap(null) }
+                        2->{ img_write_post2.setImageBitmap(null) }
+                        3->{ img_write_post3.setImageBitmap(null) }
+                        4->{ img_write_post4.setImageBitmap(null) }
+                    }
+                }
             }
             dialog.dismiss()
         })
         builder.show()
     }
 
-
-    //startActivity->
+    //갤러리에서 선택한 이미지 보여주기(썸네일)
    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQUEST_CODE_PICTURE1){
@@ -138,6 +145,7 @@ class WritePostActivity : AppCompatActivity() {
             }
         }
     }
+
 
     fun isValid(){
         if(deadline==""){
