@@ -9,16 +9,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".UI.Activity.ShareProductActivity">
-        </activity>
-        <activity android:name=".UI.Activity.EditInfoActivity">
-        </activity>
-        <activity android:name=".UI.Activity.RatingActivity">
-        </activity>
-        <activity android:name=".UI.Activity.ListPeopleActivity">
-        </activity>
-        <activity android:name=".UI.Adapter.BlankActivity">
-        </activity>
+        <activity android:name=".UI.Activity.Signin2Activity"/>
+        <activity android:name=".UI.Activity.SigninActivity"/>
+        <activity android:name=".UI.Activity.ShareProductActivity"/>
+        <activity android:name=".UI.Activity.EditInfoActivity"/>
+        <activity android:name=".UI.Activity.RatingActivity"/>
+        <activity android:name=".UI.Activity.ListPeopleActivity"/>
+        <activity android:name=".UI.Adapter.BlankActivity"/>
+
         <activity android:name=".UI.Activity.InfoConsentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_info_consent.*
+import org.jetbrains.anko.startActivity
 
 class InfoConsentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +44,10 @@ class InfoConsentActivity : AppCompatActivity() {
         }
         //둘 다 선택될 때 맨 위 바뀌게
 
+        // 전체동의시에만 처리되게 해야함
         btn_agree_info.setOnClickListener {
             // 회원가입 정보입력 페이지
+            startActivity<SigninActivity>()
         }
     }
 }
