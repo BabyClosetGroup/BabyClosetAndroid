@@ -1,20 +1,30 @@
 package com.example.babycloset.UI.Activity
 
-import android.content.Context
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.text.Html
-import android.util.Log
 import android.view.View
-import org.jetbrains.anko.toast
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 
 class WritePostActivity : AppCompatActivity() {
     var deadline : String = ""
+    lateinit var pictureUri : Uri
+
+    val REQUEST_CODE_PICTURE1 : Int = 100
+    val REQUEST_CODE_PICTURE2 : Int = 200
+    val REQUEST_CODE_PICTURE3 : Int = 300
+    val REQUEST_CODE_PICTURE4 : Int = 400
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +32,10 @@ class WritePostActivity : AppCompatActivity() {
 
 
         //이미지 선택
-        img_write_post1.setOnClickListener { showImageDialog() }
-        img_write_post2.setOnClickListener { showImageDialog() }
-        img_write_post3.setOnClickListener { showImageDialog() }
-        img_write_post4.setOnClickListener { showImageDialog() }
+        img_write_post1.setOnClickListener { showImageDialog(1) }
+        img_write_post2.setOnClickListener { showImageDialog(2) }
+        img_write_post3.setOnClickListener { showImageDialog(3) }
+        img_write_post4.setOnClickListener { showImageDialog(4) }
 
         //카테고리 선택 액티비티 이동
         btn_category_write_post.setOnClickListener {  }
@@ -33,7 +43,7 @@ class WritePostActivity : AppCompatActivity() {
         //다이얼로그 팝업
         btn_deadline_write_post.setOnClickListener { showDeadlineDialog() }
 
-        //통신 + 검사(카테고리 선택, 마감기한 선택)
+        //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {
            isValid()
         }
@@ -68,17 +78,65 @@ class WritePostActivity : AppCompatActivity() {
     }
 
     //이미지 다이얼로그
-    fun showImageDialog(){
+    fun showImageDialog(requestCodeNumber: Int){
         val option = arrayOf<CharSequence>("이미지 선택하기","삭제하기")
         val builder = AlertDialog.Builder(this)
         builder.setItems(option, DialogInterface.OnClickListener { dialog, which ->
             when(which){
-                0->{ }
+                0->{
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
+                    intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    when(requestCodeNumber){
+                        1->{ startActivityForResult(intent,REQUEST_CODE_PICTURE1) }
+                        2->{ startActivityForResult(intent,REQUEST_CODE_PICTURE2) }
+                        3->{ startActivityForResult(intent,REQUEST_CODE_PICTURE3) }
+                        4->{ startActivityForResult(intent,REQUEST_CODE_PICTURE4) }
+                    }
+                }
                 1->{ }
             }
             dialog.dismiss()
         })
         builder.show()
+    }
+
+
+    //startActivity->
+   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE_PICTURE1){
+            if(resultCode == Activity.RESULT_OK){
+                data?.let {
+                    pictureUri = it.data
+                    Glide.with(this).load(pictureUri).into(img_write_post1)
+                }
+            }
+        }
+        if(requestCode == REQUEST_CODE_PICTURE2){
+            if(resultCode == Activity.RESULT_OK){
+                data?.let {
+                    pictureUri = it.data
+                    Glide.with(this).load(pictureUri).into(img_write_post2)
+                }
+            }
+        }
+        if(requestCode == REQUEST_CODE_PICTURE3){
+            if(resultCode == Activity.RESULT_OK){
+                data?.let {
+                    pictureUri = it.data
+                    Glide.with(this).load(pictureUri).thumbnail(0.1f).into(img_write_post3)
+                }
+            }
+        }
+        if(requestCode == REQUEST_CODE_PICTURE4){
+            if(resultCode == Activity.RESULT_OK){
+                data?.let {
+                    pictureUri = it.data
+                    Glide.with(this).load(pictureUri).into(img_write_post4)
+                }
+            }
+        }
     }
 
     fun isValid(){

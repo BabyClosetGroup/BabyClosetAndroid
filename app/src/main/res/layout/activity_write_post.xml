@@ -24,7 +24,8 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="219dp" android:layout_marginBottom="42dp">
 
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                                    android:gravity="center" android:id="@+id/rl_picture_write_post">
                         <ImageView
                                 android:layout_width="100dp" android:layout_height="100dp"
                                 android:layout_marginRight="9dp"
