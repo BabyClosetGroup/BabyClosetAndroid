@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_gravity="center"
+              android:id="@+id/ll_rv_item_all_product"
+              android:layout_margin="15dp"
+>
+
+    <ImageView android:layout_width="164dp" android:layout_height="164dp" android:layout_marginBottom="10dp"
+               android:id="@+id/img_all_product"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="상품이름" android:textSize="16sp" android:textColor="#262626"
+
+              android:id="@+id/txt_all_product_title"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="지역구" android:textSize="12sp" android:layout_marginTop="5dp"
+              android:textColor="#767676"
+              android:id="@+id/txt_all_product_area"/>
+</LinearLayout>
