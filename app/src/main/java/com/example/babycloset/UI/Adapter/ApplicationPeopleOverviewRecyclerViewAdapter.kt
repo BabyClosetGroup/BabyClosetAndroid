@@ -34,14 +34,14 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
     override fun onBindViewHolder(holder: Holder, position: Int) {
        // Glide.with(ctx).load(dataList[position].productImg).into(holder.thumbnail)
         holder.name.text = dataList[position].peopleName
-        holder.rate.text = dataList[position].peopleRate+"점"/*
+        holder.rate.text = dataList[position].peopleRate+"점"
         var score = dataList[position].peopleRate.toFloat()
-        holder.rb.rating= score*/
+        holder.rb.rating= score
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var name = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_application_account_name) as TextView
         var rate = itemView.findViewById(R.id.txt_rv_item_application_score) as TextView
-        //var rb = itemView.findViewById(R.id.rb_rv_item_application_rate) as RatingBar
+        var rb = itemView.findViewById(R.id.rb_rv_item_application_rate) as RatingBar
         //var thumbnail = itemView.findViewById(R.id.img_rv_item_application_overview_profile) as ImageView
     }
 }

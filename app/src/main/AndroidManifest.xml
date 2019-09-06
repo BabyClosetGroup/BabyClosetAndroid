@@ -11,13 +11,13 @@
             android:theme="@style/AppTheme">
         <activity android:name=".UI.Activity.Signin2Activity"/>
         <activity android:name=".UI.Activity.SigninActivity"/>
-        <activity android:name=".UI.Activity.ShareProductActivity"/>
+        <activity android:name=".UI.Activity.InfoConsentActivity"/>
         <activity android:name=".UI.Activity.EditInfoActivity"/>
         <activity android:name=".UI.Activity.RatingActivity"/>
         <activity android:name=".UI.Activity.ListPeopleActivity"/>
         <activity android:name=".UI.Adapter.BlankActivity"/>
 
-        <activity android:name=".UI.Activity.InfoConsentActivity">
+        <activity android:name=".UI.Activity.ShareProductActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

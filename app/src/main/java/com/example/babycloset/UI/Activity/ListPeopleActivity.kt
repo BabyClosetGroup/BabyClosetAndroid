@@ -26,9 +26,9 @@ class ListPeopleActivity : AppCompatActivity() {
         var dataList: ArrayList<ApplicationPeopleOverviewData> = ArrayList()
         /*dataList.add(ApplicationPeopleOverviewData(
             "박지윤", "5"))*/
-       /* dataList.add(ApplicationPeopleOverviewData(
+        dataList.add(ApplicationPeopleOverviewData(
             "박지윤", "3",3f))
-*/
+
         applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
         rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
         rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

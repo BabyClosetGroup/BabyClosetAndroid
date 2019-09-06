@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_width="84dp"
             android:layout_height="84dp"
-            tools:src="@drawable/user"
+            android:background="@drawable/user"
             android:id="@+id/img_info_thumbnail"
             android:layout_marginTop="26dp"/>
     <RelativeLayout

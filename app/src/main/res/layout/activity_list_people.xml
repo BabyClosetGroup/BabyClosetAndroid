@@ -25,7 +25,7 @@
                     android:id="@+id/img_thumbnail"
                     android:layout_width="109dp"
                     android:layout_height="109dp"
-                    tools:srcCompat="@drawable/product" />
+                    android:background="@drawable/product" />
 
             <LinearLayout
                     android:layout_width="wrap_content"
