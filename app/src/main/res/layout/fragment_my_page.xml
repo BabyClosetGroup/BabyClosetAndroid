@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".UI.Fragment.MyPageFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.Fragment.MyPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_mypage" android:id="@+id/toolbar_mypage"/>
+        <View android:layout_width="match_parent" android:layout_height="3dp"
+              android:background="@drawable/tab_shadow"/>
+        <LinearLayout
+            android:layout_marginTop="26dp"
+            android:paddingBottom="26dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="mypage_blank_fragment"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:background="@drawable/user"
+                android:id="@+id/img_profile"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_account_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="unknown" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="님의 별점" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/txt_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0점" />
+                </LinearLayout>
+
+                <RatingBar
+                        android:isIndicator="true"
+                    android:rating="3.5"
+                    android:stepSize="0.5"
+                    android:numStars="5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#BDBDBD"
+            />
+
+        <LinearLayout
+            android:id="@+id/btn_to_share"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:paddingLeft="16dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="내가 나눈 상품" />
+
+            <ImageView
+                android:layout_marginRight="15.9dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+        </LinearLayout>
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            />
+        <LinearLayout
+            android:id="@+id/btn_to_receive"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:paddingLeft="16dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="내가 받은 상품" />
+
+            <ImageView
+                android:layout_marginRight="15.9dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+        </LinearLayout>
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            />
+    </LinearLayout>
+>>>>>>> 7f9f62fe1c356c66abb62192c67ff915840e3466
 </FrameLayout>
