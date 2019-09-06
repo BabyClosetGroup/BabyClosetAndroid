@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                    android:background="@drawable/user"
+                android:background="@drawable/user"
                 android:id="@+id/img_profile"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
@@ -136,4 +136,5 @@
             android:background="#000000"
             />
     </LinearLayout>
+>>>>>>> 7f9f62fe1c356c66abb62192c67ff915840e3466
 </FrameLayout>
