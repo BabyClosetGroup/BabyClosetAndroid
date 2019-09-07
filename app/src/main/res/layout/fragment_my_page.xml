@@ -77,7 +77,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="6dp"
-            android:background="#BDBDBD"/>
+            android:background="#f1f1f1"/>
 
         <LinearLayout
             android:id="@+id/btn_to_share"
@@ -105,7 +105,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#000000"
+            android:background="#f1f1f1"
             />
         <LinearLayout
             android:id="@+id/btn_to_receive"
@@ -133,7 +133,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#000000"
+                android:background="#f1f1f1"
         />
     </LinearLayout>
 </FrameLayout>
