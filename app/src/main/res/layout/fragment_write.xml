@@ -3,10 +3,12 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".UI.Fragment.SliderProductFragment">
+             tools:context=".UI.Fragment.WriteFragment">
 
-    <ImageView
-            android:layout_height="match_parent" android:layout_width="match_parent"
-            android:id="@+id/img_fragment_slider_product"/>
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="write_blank_fragment"/>
 
 </FrameLayout>
