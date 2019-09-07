@@ -13,8 +13,10 @@ import android.text.Html
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.rv_item_all_product.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 import java.nio.file.Files
 
 
@@ -43,7 +45,7 @@ class WritePostActivity : AppCompatActivity() {
 
         //카테고리 선택 액티비티 이동
         btn_category_write_post.setOnClickListener {
-            startActivityForResult<FilterActivity>(REQUEST_CODE_CATEGORY)
+            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY)
         }
 
         //다이얼로그 팝업
@@ -117,6 +119,20 @@ class WritePostActivity : AppCompatActivity() {
     //갤러리에서 선택한 이미지 보여주기(썸네일)
    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        //카테고리
+        if(requestCode == REQUEST_CODE_CATEGORY){
+            if(resultCode == Activity.RESULT_OK) {
+                txt_area_tag.text = data!!.getStringExtra("area")
+                txt_age_tag.text = data!!.getStringExtra("age")
+                txt_category_tag.text = data!!.getStringExtra("category")
+
+                txt_area_tag.visibility = View.VISIBLE
+                txt_age_tag.visibility = View.VISIBLE
+                txt_category_tag.visibility = View.VISIBLE
+            }
+        }
+
+        //이미지
         if(requestCode == REQUEST_CODE_PICTURE1){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {

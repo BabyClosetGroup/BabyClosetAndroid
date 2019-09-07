@@ -1,5 +1,7 @@
 package com.example.babycloset.UI.Activity
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
@@ -7,8 +9,12 @@ import android.widget.TextView
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_filter.*
+import org.jetbrains.anko.toast
 
 class CategoryActivity : AppCompatActivity() {
+    var area : String = ""
+    var age : String = ""
+    var category : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,31 @@ class CategoryActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        btn_finish_category.setOnClickListener {
+            isValid()
+
+        }
+    }
+
+    fun isValid(){
+        if(area == ""){
+            //카테고리 미선택시 동작
+        }else if(age == ""){
+
+        }else if(category == ""){
+
+        }else{
+            val intent  = Intent()
+            intent.putExtra("area", area)
+            intent.putExtra("age", age)
+            intent.putExtra("category", category)
+            setResult(Activity.RESULT_OK,intent)
+            finish()
+        }
+    }
+
     //자치구
     fun areaBtnClick(tag : Int){
         val id = ll_area_category.findViewWithTag<CheckBox>("cb_area_category$tag")
@@ -44,6 +75,7 @@ class CategoryActivity : AppCompatActivity() {
                     if(ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i") == id){
                         id.isEnabled = true
                     }
+                    area = id.text.toString()
                 }
             }else{
                 for(i in 1..26){
@@ -65,6 +97,7 @@ class CategoryActivity : AppCompatActivity() {
                     if(ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i") == id){
                         id.isEnabled = true
                     }
+                    age = id.text.toString()
                 }
             }else{
                 for(i in 1..5){
@@ -86,6 +119,7 @@ class CategoryActivity : AppCompatActivity() {
                     if(ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i") == id){
                         id.isEnabled = true
                     }
+                    category = id.text.toString()
                 }
             }else{
                 for(i in 1..10){

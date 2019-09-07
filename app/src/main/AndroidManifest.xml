@@ -17,11 +17,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".UI.Activity.CategoryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.QRListActivity">
         </activity>
@@ -45,6 +40,11 @@
         <activity android:name=".UI.Activity.AllProductActivity">
         </activity>
         <activity android:name=".UI.Activity.WritePostActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
