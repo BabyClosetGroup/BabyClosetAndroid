@@ -21,11 +21,6 @@
         <activity android:name=".UI.Activity.FilterActivity">
         </activity>
         <activity android:name=".UI.Activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.Signin2Activity"/>
         <activity android:name=".UI.Activity.SigninActivity"/>
@@ -39,7 +34,13 @@
         </activity>
         <activity android:name=".UI.Activity.AllProductActivity">
         </activity>
-        <activity android:name=".UI.Activity.WritePostActivity"/>
+        <activity android:name=".UI.Activity.WritePostActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
     </application>

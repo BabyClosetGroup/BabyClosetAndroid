@@ -59,11 +59,11 @@ class WritePostActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setItems(deadlineList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
-                0->{ setDialogTag(deadlineList, 4)}
-                1->{ setDialogTag(deadlineList, 3)}
+                0->{ setDialogTag(deadlineList, 0)}
+                1->{ setDialogTag(deadlineList, 1)}
                 2->{ setDialogTag(deadlineList, 2)}
-                3->{ setDialogTag(deadlineList, 1)}
-                4->{ setDialogTag(deadlineList, 0) }
+                3->{ setDialogTag(deadlineList, 3)}
+                4->{ setDialogTag(deadlineList, 4) }
 
             }
             dialog.dismiss()
