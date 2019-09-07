@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_filter.*
 
 class CategoryActivity : AppCompatActivity() {
 
-   var areaCategoryIsChecked : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
@@ -20,13 +19,21 @@ class CategoryActivity : AppCompatActivity() {
         //configCheckbox()
 
         for(i in 1..26){
-            ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i").setOnClickListener {
-                areaBtnClick(i)
-            }
+            areaBtnClick(i)
         }
+
+        for(i in 1..5){
+            ageBtnClick(i)
+        }
+
+        for(i in 1..10){
+            categoryBtnClick(i)
+        }
+
 
     }
 
+    //자치구
     fun areaBtnClick(tag : Int){
         val id = ll_area_category.findViewWithTag<CheckBox>("cb_area_category$tag")
         id.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -37,19 +44,56 @@ class CategoryActivity : AppCompatActivity() {
                     if(ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i") == id){
                         id.isEnabled = true
                     }
-                    areaCategoryIsChecked = true
                 }
             }else{
                 for(i in 1..26){
                     ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i").isEnabled = true
                 }
                 id.setTextColor(applicationContext.resources.getColor(R.color.grey))
-                areaCategoryIsChecked = false
+            }
+        }
+    }
 
+    //나이
+    fun ageBtnClick(tag:Int){
+        val id = ll_age_category.findViewWithTag<CheckBox>("cb_age_category$tag")
+        id.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                id.setTextColor(applicationContext.resources.getColor(R.color.white))
+                for(i in 1..5){
+                    ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i").isEnabled = false
+                    if(ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i") == id){
+                        id.isEnabled = true
+                    }
+                }
+            }else{
+                for(i in 1..5){
+                    ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i").isEnabled = true
+                }
+                id.setTextColor(applicationContext.resources.getColor(R.color.grey))
             }
         }
 
-
+    }
+    //카테고리
+    fun categoryBtnClick(tag: Int){
+        val id = ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$tag")
+        id.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                id.setTextColor(applicationContext.resources.getColor(R.color.white))
+                for(i in 1..10){
+                    ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i").isEnabled = false
+                    if(ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i") == id){
+                        id.isEnabled = true
+                    }
+                }
+            }else{
+                for(i in 1..10){
+                    ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i").isEnabled = true
+                }
+                id.setTextColor(applicationContext.resources.getColor(R.color.grey))
+            }
+        }
     }
 
 }
