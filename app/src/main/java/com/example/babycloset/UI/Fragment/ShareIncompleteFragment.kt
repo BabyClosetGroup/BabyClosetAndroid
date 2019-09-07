@@ -35,11 +35,7 @@ class ShareIncompleteFragment : Fragment() {
             var dataList: ArrayList<IncompleteProductOverviewData> = ArrayList()
             dataList.add(
                 IncompleteProductOverviewData(
-                    "우주복", "동대문구","2019.09.01","5")
-            )
-            dataList.add(
-                IncompleteProductOverviewData(
-                    "한복", "관악구","2019.09.03","2")
+                    27, "https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","서초구","3명")
             )
 
             incompleteProductOverviewRecyclerViewAdapter = IncompleteProductOverviewRecyclerViewAdapter(context!!, dataList)

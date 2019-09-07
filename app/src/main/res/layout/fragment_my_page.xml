@@ -24,6 +24,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                    android:scaleType="centerCrop"
                 android:background="@drawable/user"
                 android:id="@+id/img_profile"
                 android:layout_width="62dp"
