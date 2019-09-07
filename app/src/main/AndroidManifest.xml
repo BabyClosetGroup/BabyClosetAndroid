@@ -21,14 +21,16 @@
         <activity android:name=".UI.Activity.FilterActivity">
         </activity>
         <activity android:name=".UI.Activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
-        <activity android:name=".UI.Activity.Signin2Activity"/>
-        <activity android:name=".UI.Activity.SigninActivity"/>
+        <activity android:name=".UI.Activity.SigninActivity">
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
+
         <activity android:name=".UI.Activity.InfoConsentActivity"/>
         <activity android:name=".UI.Activity.EditInfoActivity"/>
         <activity android:name=".UI.Activity.RatingActivity"/>
