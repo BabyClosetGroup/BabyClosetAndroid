@@ -665,7 +665,9 @@
                 android:background="#ffc107"
                 android:textSize="20sp"
                 android:textColor="#ffffff"
-                android:paddingVertical="18dp"/>
+                android:paddingVertical="18dp"
+                android:layout_marginTop="25dp"
+        />
 
     </LinearLayout>
 
