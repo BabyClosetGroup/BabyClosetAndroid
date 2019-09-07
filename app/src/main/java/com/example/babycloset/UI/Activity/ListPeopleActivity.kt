@@ -27,7 +27,7 @@ class ListPeopleActivity : AppCompatActivity() {
         /*dataList.add(ApplicationPeopleOverviewData(
             "박지윤", "5"))*/
         dataList.add(ApplicationPeopleOverviewData(
-            "박지윤", "3",3f))
+            4, "정미",4))
 
         applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
         rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter

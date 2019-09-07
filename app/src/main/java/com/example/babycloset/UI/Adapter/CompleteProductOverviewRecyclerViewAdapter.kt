@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.RelativeLayout
@@ -17,6 +18,7 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.RatingActivity
 import com.example.babycloset.UI.Activity.ShareProductActivity
 import com.example.babycloset.UI.Fragment.ShareCompleteFragment
+import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -49,11 +51,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         }
         holder.info.setOnClickListener {
             // 팝업창
-            var dialog = AlertDialog.Builder(ctx)
-            dialog.setView(R.layout.info_dialog)
-            dialog.setTitle("")
-            dialog.setIcon(R.mipmap.ic_launcher)
-            dialog.show()
+            showDialog()
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,5 +64,29 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         var btn = itemView.findViewById(R.id.btn_rv_item_complete_overview_rate) as RelativeLayout
         var info = itemView.findViewById(R.id.btn_rv_item_complete_overview_info) as ImageView
         var thumbnail = itemView.findViewById(R.id.img_rv_item_complete_overview_thumbnail) as ImageView
+    }
+
+    fun showDialog(){
+        val builder = AlertDialog.Builder(ctx)
+        val dialogView=ctx.layoutInflater.inflate(R.layout.info_dialog, null)
+        builder.setView(dialogView)
+
+        val builderNew = builder.show()
+        builderNew.window.setBackgroundDrawableResource(R.drawable.round_border)
+        builderNew.show()
+
+        val rating_dig = builderNew.findViewById<RatingBar>(R.id.rating_dlg)
+        val txt_dig_name = builderNew.findViewById<TextView>(R.id.txt_dlg_name)
+        val txt_dig_rate = builderNew.findViewById<TextView>(R.id.txt_dlg_rate)
+
+        rating_dig?.rating = 4.toFloat()
+        txt_dig_name?.text = "정미"
+        txt_dig_rate?.text = 4.toString()+"점"
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(builderNew.window.attributes)
+        lp.width=960
+        val window = builderNew.window
+        window.attributes=lp
     }
 }
