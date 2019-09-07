@@ -31,9 +31,8 @@ class ShareCompleteFragment : Fragment() {
 
         var dataList: ArrayList<CompleteProductOverviewData> = ArrayList()
         dataList.add(CompleteProductOverviewData(
-            "우주복", "동대문구","2019.09.01","박지윤","미부여"))
-        dataList.add(CompleteProductOverviewData(
-            "한복", "관악구","2019.09.03","신초희","4"))
+            27, "3개월 아기바지","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","서초구"
+            ,4,"정미","2019. 08. 02",1))
 
         completeProductOverviewRecyclerViewAdapter = CompleteProductOverviewRecyclerViewAdapter(context!!, dataList)
         rv_complete_product_overview.adapter = completeProductOverviewRecyclerViewAdapter

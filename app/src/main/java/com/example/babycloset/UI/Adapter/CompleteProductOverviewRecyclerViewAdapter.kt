@@ -31,17 +31,17 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-       // Glide.with(ctx).load(dataList[position].productImg).into(holder.thumbnail)
-        holder.title.text = dataList[position].productTitle
-        holder.location.text = dataList[position].productLocation
-        holder.date.text = dataList[position].productDate
-        holder.owner.text = dataList[position].productOwner
-        if(dataList[position].productRate.equals("미부여"))
+        Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
+        //holder.title.text = dataList[position].productTitle
+        holder.location.text = dataList[position].areaName
+        holder.date.text = dataList[position].sharedDate
+        holder.owner.text = dataList[position].recieverNickname
+        /*if(dataList[position].isRated.equals("미부여"))
             holder.rate.text = dataList[position].productRate
         else
-            holder.rate.text = dataList[position].productRate+"점"
+            holder.rate.text = dataList[position].productRate+"점"*/
 
-        if(!holder.rate.text.equals("미부여")){
+        if(!dataList[position].isRated.equals(0)){
             holder.btn.visibility=View.GONE
         }
         holder.btn.setOnClickListener {
@@ -65,6 +65,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         var rate = itemView.findViewById(R.id.txt_rv_item_complete_overview_rate) as TextView
         var btn = itemView.findViewById(R.id.btn_rv_item_complete_overview_rate) as RelativeLayout
         var info = itemView.findViewById(R.id.btn_rv_item_complete_overview_info) as ImageView
-        //var thumbnail = itemView.findViewById(R.id.img_rv_item_complete_overview_thumbnail) as ImageView
+        var thumbnail = itemView.findViewById(R.id.img_rv_item_complete_overview_thumbnail) as ImageView
     }
 }
