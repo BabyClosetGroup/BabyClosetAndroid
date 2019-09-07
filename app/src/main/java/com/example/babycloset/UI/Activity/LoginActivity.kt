@@ -11,9 +11,13 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        // 로그인
+        //회원가입
         btn_to_signin.setOnClickListener {
             startActivity<InfoConsentActivity>()
+        }
+        //로그인
+        btn_login.setOnClickListener {
+            startActivity<MainActivity>()
         }
     }
 }
