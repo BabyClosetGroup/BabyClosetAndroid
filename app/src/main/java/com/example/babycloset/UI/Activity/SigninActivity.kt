@@ -39,7 +39,7 @@ class SigninActivity : AppCompatActivity() {
                                 val signup_u_id: String = edt_signup_id.text.toString()
                                 val signup_u_pw: String = edt_signup_password.text.toString()
                                 postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<MainActivity>()
+                                    startActivity<LoginActivity>()
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -77,7 +77,7 @@ class SigninActivity : AppCompatActivity() {
                                 val signup_u_id: String = edt_signup_id.text.toString()
                                 val signup_u_pw: String = edt_signup_password.text.toString()
                                 postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<MainActivity>()
+                                    startActivity<LoginActivity>()
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -115,7 +115,7 @@ class SigninActivity : AppCompatActivity() {
                                 val signup_u_id: String = edt_signup_id.text.toString()
                                 val signup_u_pw: String = edt_signup_password.text.toString()
                                 postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<MainActivity>()
+                                    startActivity<LoginActivity>()
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -153,7 +153,7 @@ class SigninActivity : AppCompatActivity() {
                                 val signup_u_id: String = edt_signup_id.text.toString()
                                 val signup_u_pw: String = edt_signup_password.text.toString()
                                 postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<MainActivity>()
+                                    startActivity<LoginActivity>()
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -191,7 +191,7 @@ class SigninActivity : AppCompatActivity() {
                                 val signup_u_id: String = edt_signup_id.text.toString()
                                 val signup_u_pw: String = edt_signup_password.text.toString()
                                 postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<MainActivity>()
+                                    startActivity<LoginActivity>()
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
