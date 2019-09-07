@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 app:tabMode="fixed"
                 android:stateListAnimator="@null"
-                android:background="#ffffff"
+                android:background="@drawable/toolbar_bg"
                 app:tabIndicatorColor="@android:color/transparent"
                 app:tabBackground="@android:color/transparent"
                 android:layout_alignParentBottom="true">
