@@ -56,9 +56,9 @@
             </LinearLayout>
 
             <RatingBar
-                android:id="@+id/rb_rv_item_application_rate"
+                    android:isIndicator="true"
+                    android:id="@+id/rb_rv_item_application_rate"
                 android:numStars="5"
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
