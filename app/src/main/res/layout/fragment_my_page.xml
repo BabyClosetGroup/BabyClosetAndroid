@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+             android:background="#ffffff"
     tools:context=".UI.Fragment.MyPageFragment">
 
 
@@ -13,8 +14,8 @@
         android:orientation="vertical">
 
         <include layout="@layout/toolbar_mypage" android:id="@+id/toolbar_mypage"/>
-        <!--<view android:layout_width="match_parent" android:layout_height="3dp"-->
-              <!--android:background="@drawable/tab_shadow"/>-->
+        <View android:layout_width="match_parent" android:layout_height="3dp"
+              android:background="@drawable/tab_shadow"/>
         <LinearLayout
             android:layout_marginTop="26dp"
             android:paddingBottom="26dp"
@@ -73,11 +74,10 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
-        <!--<view-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="6dp"-->
-            <!--android:background="#BDBDBD"-->
-            <!--/>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#BDBDBD"/>
 
         <LinearLayout
             android:id="@+id/btn_to_share"
@@ -102,11 +102,11 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
         </LinearLayout>
-        <!--<view-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#000000"-->
-            <!--/>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            />
         <LinearLayout
             android:id="@+id/btn_to_receive"
             android:layout_width="match_parent"
@@ -130,9 +130,10 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
         </LinearLayout>
-        <!--<view-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#000000"/>-->
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+        />
     </LinearLayout>
 </FrameLayout>

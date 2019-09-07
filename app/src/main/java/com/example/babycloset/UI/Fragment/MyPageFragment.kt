@@ -31,10 +31,7 @@ class MyPageFragment : Fragment() {
         // 이름, 평균 별점 가져오기
 
         // 원형이미지
-        img_profile.setBackground(ShapeDrawable(OvalShape()))
-        if (Build.VERSION.SDK_INT >= 21) {
-            img_profile.setClipToOutline(true)
-        }
+
         // 나눈 상품
         btn_to_share.setOnClickListener {
             startActivity<ShareProductActivity>()
