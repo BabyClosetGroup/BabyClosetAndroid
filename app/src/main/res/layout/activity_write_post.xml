@@ -105,7 +105,7 @@
                             />
                             <Button
                                     android:layout_width="82dp" android:layout_height="28dp" android:layout_marginTop="10dp"
-                                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/yellow_square_layout_border"
+                                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="1일" android:textSize="14dp" android:textColor="#ffffff"
                                     android:clickable="false"  android:visibility="gone" android:id="@+id/txt_deadline_tag"
                             />

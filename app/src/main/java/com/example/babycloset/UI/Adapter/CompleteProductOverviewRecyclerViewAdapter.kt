@@ -20,6 +20,8 @@ import com.example.babycloset.UI.Fragment.ShareCompleteFragment
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+
+
 class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<CompleteProductOverviewData>): RecyclerView.Adapter<CompleteProductOverviewRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)

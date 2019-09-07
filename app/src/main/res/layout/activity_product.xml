@@ -29,18 +29,21 @@
 
                 <RelativeLayout android:layout_width="match_parent"
                                 android:layout_height="wrap_content"  android:layout_marginStart="16dp">
+
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:layout_marginEnd="10dp"
                               android:text="D-?" android:textSize="16sp" android:textColor="#767676"
                               android:id="@+id/txt_deadline_product"/>
-                    <!--android.support.v7.widget.RecyclerView
+                    <android.support.v7.widget.RecyclerView
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/txt_deadline_product"
+                            android:layout_toEndOf="@id/txt_deadline_product"
+                            android:id="@+id/rv_product"
                     >
 
-                    </android.support.v7.widget.RecyclerView!-->
+                    </android.support.v7.widget.RecyclerView>
                 </RelativeLayout>
                 <LinearLayout
-                        android:layout_marginTop="26dp"
+                        android:layout_marginTop="25dp"
                         android:paddingBottom="26dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -48,7 +51,7 @@
 
                     <ImageView
                             android:background="@drawable/user"
-                            android:id="@+id/img_profile"
+                            android:id="@+id/img_profile_product"
                             android:layout_width="62dp"
                             android:layout_height="62dp"
                             android:layout_marginLeft="16dp"
@@ -68,24 +71,16 @@
                                     android:id="@+id/txt_account_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16dp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:text="unknown" />
 
                             <TextView
-                                    android:textSize="16dp"
+                                    android:textSize="16sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="님의 별점" />
+                                    android:text="님의 나눔별점" />
 
-                            <TextView
-                                    android:textSize="16dp"
-                                    android:textStyle="bold"
-                                    android:layout_marginLeft="8dp"
-                                    android:id="@+id/txt_score"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0점" />
                         </LinearLayout>
 
                         <RatingBar
@@ -97,7 +92,7 @@
                                 android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </LinearLayout>
-                <TextView
+                <EditText
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:layout_marginEnd="25dp"  android:layout_marginStart="16dp"
                         android:text="작성내용 \n\n\n\n\n\n\n\n\n" android:textColor="#767676" android:textSize="16sp"

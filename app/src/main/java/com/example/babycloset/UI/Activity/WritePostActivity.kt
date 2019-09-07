@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import org.jetbrains.anko.imageResource
+import org.jetbrains.anko.startActivityForResult
 import java.nio.file.Files
 
 
@@ -21,10 +22,12 @@ class WritePostActivity : AppCompatActivity() {
     var deadline : String = ""
     lateinit var pictureUri : Uri
 
+    val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300
     val REQUEST_CODE_PICTURE4 : Int = 400
+
 
 
 
@@ -39,7 +42,9 @@ class WritePostActivity : AppCompatActivity() {
         img_write_post4.setOnClickListener { showImageDialog(4) }
 
         //카테고리 선택 액티비티 이동
-        btn_category_write_post.setOnClickListener {  }
+        btn_category_write_post.setOnClickListener {
+            startActivityForResult<FilterActivity>(REQUEST_CODE_CATEGORY)
+        }
 
         //다이얼로그 팝업
         btn_deadline_write_post.setOnClickListener { showDeadlineDialog() }
