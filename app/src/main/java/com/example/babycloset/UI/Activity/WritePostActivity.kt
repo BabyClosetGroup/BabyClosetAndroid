@@ -55,7 +55,7 @@ class WritePostActivity : AppCompatActivity() {
 
     //마감기간 선택 다이얼로그
     fun showDeadlineDialog(){
-        val deadlineList = arrayOf<CharSequence>("1일","2일", "3일", "4일", "5일")
+        val deadlineList = arrayOf<CharSequence>("5일","4일", "3일", "2일", "1일")
         val builder = AlertDialog.Builder(this)
         builder.setItems(deadlineList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
