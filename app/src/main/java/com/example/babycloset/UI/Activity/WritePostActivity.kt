@@ -64,11 +64,11 @@ class WritePostActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setItems(deadlineList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
-                0->{ setDialogTag(deadlineList, 0)}
-                1->{ setDialogTag(deadlineList, 1)}
-                2->{ setDialogTag(deadlineList, 2)}
-                3->{ setDialogTag(deadlineList, 3)}
-                4->{ setDialogTag(deadlineList, 4) }
+                0-> setDialogTag(deadlineList, 0)
+                1-> setDialogTag(deadlineList, 1)
+                2-> setDialogTag(deadlineList, 2)
+                3-> setDialogTag(deadlineList, 3)
+                4-> setDialogTag(deadlineList, 4)
 
             }
             dialog.dismiss()
@@ -94,18 +94,18 @@ class WritePostActivity : AppCompatActivity() {
                     intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
                     intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     when(requestCodeNumber){
-                        1->{ startActivityForResult(intent,REQUEST_CODE_PICTURE1) }
-                        2->{ startActivityForResult(intent,REQUEST_CODE_PICTURE2) }
-                        3->{ startActivityForResult(intent,REQUEST_CODE_PICTURE3) }
-                        4->{ startActivityForResult(intent,REQUEST_CODE_PICTURE4) }
+                        1-> startActivityForResult(intent,REQUEST_CODE_PICTURE1)
+                        2-> startActivityForResult(intent,REQUEST_CODE_PICTURE2)
+                        3-> startActivityForResult(intent,REQUEST_CODE_PICTURE3)
+                        4-> startActivityForResult(intent,REQUEST_CODE_PICTURE4)
                     }
                 }
                 1->{
                     when(requestCodeNumber){
-                        1->{ img_write_post1.setImageBitmap(null) }
-                        2->{ img_write_post2.setImageBitmap(null) }
-                        3->{ img_write_post3.setImageBitmap(null) }
-                        4->{ img_write_post4.setImageBitmap(null) }
+                        1-> img_write_post1.setImageBitmap(null)
+                        2-> img_write_post2.setImageBitmap(null)
+                        3-> img_write_post3.setImageBitmap(null)
+                        4-> img_write_post4.setImageBitmap(null)
                     }
                 }
             }
