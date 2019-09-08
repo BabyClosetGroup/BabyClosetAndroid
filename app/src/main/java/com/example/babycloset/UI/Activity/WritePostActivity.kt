@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -11,13 +12,9 @@ import android.content.Intent
 import android.net.Uri
 import android.text.Html
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.rv_item_all_product.*
-import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
-import java.nio.file.Files
 
 
 class WritePostActivity : AppCompatActivity() {
@@ -29,6 +26,7 @@ class WritePostActivity : AppCompatActivity() {
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300
     val REQUEST_CODE_PICTURE4 : Int = 400
+
 
 
 
@@ -122,13 +120,13 @@ class WritePostActivity : AppCompatActivity() {
         //카테고리
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
-                txt_area_tag.text = data!!.getStringExtra("area")
-                txt_age_tag.text = data!!.getStringExtra("age")
-                txt_category_tag.text = data!!.getStringExtra("category")
+                txt_area_tag_write_post.text = data!!.getStringExtra("area")
+                txt_age_tag_write_post.text = data!!.getStringExtra("age")
+                txt_category_tag_write_post.text = data!!.getStringExtra("category")
 
-                txt_area_tag.visibility = View.VISIBLE
-                txt_age_tag.visibility = View.VISIBLE
-                txt_category_tag.visibility = View.VISIBLE
+                txt_area_tag_write_post.visibility = View.VISIBLE
+                txt_age_tag_write_post.visibility = View.VISIBLE
+                txt_category_tag_write_post.visibility = View.VISIBLE
             }
         }
 
@@ -169,22 +167,28 @@ class WritePostActivity : AppCompatActivity() {
 
 
     fun isValid(){
-        if(deadline==""){
-            showNoticeDialog("마감기한을 선택해주세요!\n","마감기한을 선택해야","글을 작성할 수 있습니다." )
+        if(txt_area_tag_write_post.visibility == View.GONE || txt_age_tag_write_post.visibility == View.GONE || txt_category_tag_write_post.visibility == View.GONE){
+            showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
+        }
+        else if(deadline==""){
+            showNoticeDialog(this,"마감기한을 선택해주세요!\n","마감기한을 선택해야","글을 작성할 수 있습니다." )
         }
         else if(edt_title_write_post.text.toString()==""){
-            showNoticeDialog("제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
-
+            showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
+        }else{
+            toast("통신")
         }
     }
 
     //알림 팝업
-    fun showNoticeDialog(title : String, msg1 : String, msg2 : String){
-        val builder = AlertDialog.Builder(this)
-        builder
-            .setTitle(title)
-            .setMessage(Html.fromHtml("<font color='#767676'>$msg1<br>$msg2</font>"))
-            .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
-        builder.show()
+    companion object{
+        fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){
+            val builder = AlertDialog.Builder(ctx)
+            builder
+                .setTitle(title)
+                .setMessage(Html.fromHtml("<font color='#767676'>$msg1<br>$msg2</font>"))
+                .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
+            builder.show()
+        }
     }
 }

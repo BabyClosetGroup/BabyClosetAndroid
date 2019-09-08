@@ -34,13 +34,34 @@
                               android:layout_marginEnd="10dp"
                               android:text="D-?" android:textSize="16sp" android:textColor="#767676"
                               android:id="@+id/txt_deadline_product"/>
-                    <android.support.v7.widget.RecyclerView
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/txt_deadline_product"
-                            android:id="@+id/rv_product"
-                    >
 
-                    </android.support.v7.widget.RecyclerView>
+                        <ScrollView android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                            <RelativeLayout android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+                                <Button
+                                        android:layout_width="wrap_content" android:layout_height="28dp"
+                                        android:layout_toEndOf="@id/txt_deadline_product"  android:background="@drawable/cb_yellow_fill_border"
+                                        android:paddingLeft="15dp" android:paddingRight="15dp" android:layout_marginEnd="5dp"
+                                        android:text="자치구" android:textSize="14sp" android:textColor="#ffffff"
+                                        android:clickable="false" android:id="@+id/txt_area_tag_product"
+                                />
+                                <Button android:layout_width="wrap_content" android:layout_height="28dp"
+                                        android:layout_toEndOf="@id/txt_area_tag_product" android:background="@drawable/cb_yellow_fill_border"
+                                        android:paddingLeft="15dp" android:paddingRight="15dp" android:layout_marginEnd="5dp"
+                                        android:text="개월수" android:textSize="14sp" android:textColor="#ffffff"
+                                        android:clickable="false" android:id="@+id/txt_age_tag_product"
+                                />
+
+                                <Button android:layout_width="wrap_content" android:layout_height="28dp"
+                                        android:layout_toEndOf="@id/txt_age_tag_product"  android:background="@drawable/cb_yellow_fill_border"
+                                        android:paddingLeft="15dp" android:paddingRight="15dp"
+                                        android:text="카테고리" android:textSize="14sp" android:textColor="#ffffff"
+                                        android:clickable="false" android:id="@+id/txt_category_tag_product"
+                                />
+
+                            </RelativeLayout>
+                        </ScrollView>
                 </RelativeLayout>
                 <LinearLayout
                         android:layout_marginTop="25dp"

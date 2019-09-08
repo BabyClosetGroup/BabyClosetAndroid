@@ -83,21 +83,21 @@
                                     android:paddingLeft="15dp" android:paddingRight="15dp"
                                     android:layout_below="@id/btn_category_write_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="자치구" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_area_tag" android:visibility="gone"
+                                    android:clickable="false" android:id="@+id/txt_area_tag_write_post" android:visibility="gone"
                             />
                             <Button
                                     android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
                                     android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_area_tag" android:background="@drawable/cb_yellow_fill_border"
+                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_area_tag_write_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="개월수" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false"  android:id="@+id/txt_age_tag" android:visibility="gone"
+                                    android:clickable="false" android:id="@+id/txt_age_tag_write_post" android:visibility="gone"
                             />
                             <Button
                                     android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp"
                                     android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_age_tag" android:background="@drawable/cb_yellow_fill_border"
+                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_age_tag_write_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="카테고리" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false"  android:id="@+id/txt_category_tag" android:visibility="gone"
+                                    android:clickable="false" android:id="@+id/txt_category_tag_write_post" android:visibility="gone"
                             />
                         </RelativeLayout>
 

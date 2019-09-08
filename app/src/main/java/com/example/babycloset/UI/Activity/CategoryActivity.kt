@@ -49,11 +49,11 @@ class CategoryActivity : AppCompatActivity() {
 
     fun isValid(){
         if(area == ""){
-            //카테고리 미선택시 동작
+            WritePostActivity.showNoticeDialog(this, "자치구를 선택해주세요!\n", "자치구를 선택해야", "글을 작성할 수 있습니다.")
         }else if(age == ""){
-
+            WritePostActivity.showNoticeDialog(this, "나이를 선택해주세요!\n", "나이를 선택해야", "글을 작성할 수 있습니다.")
         }else if(category == ""){
-
+            WritePostActivity.showNoticeDialog(this, "카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
         }else{
             val intent  = Intent()
             intent.putExtra("area", area)
