@@ -28,7 +28,8 @@ class SigninActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
-                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != "") {
+                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
@@ -66,7 +67,8 @@ class SigninActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
-                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != "") {
+                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
@@ -104,7 +106,8 @@ class SigninActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
-                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != "") {
+                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
@@ -142,7 +145,8 @@ class SigninActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
-                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != "") {
+                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
@@ -180,7 +184,8 @@ class SigninActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
-                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != "") {
+                    && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
