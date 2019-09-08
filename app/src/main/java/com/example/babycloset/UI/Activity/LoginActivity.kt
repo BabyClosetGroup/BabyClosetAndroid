@@ -17,6 +17,10 @@ class LoginActivity : AppCompatActivity() {
         }
         //로그인
         btn_login.setOnClickListener {
+            val login_u_id: String = edt_id_login.text.toString()
+            val login_u_pw: String = edt_pw_login.text.toString()
+
+            //postLoginResponse(login_u_id, login_u_pw)
             startActivity<MainActivity>()
         }
     }
