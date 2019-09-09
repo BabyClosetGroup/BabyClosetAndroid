@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.Activity.QRCreateActivity"
+        android:background="@color/white">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <include
+            layout="@layout/toolbar_qr_create"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="어떤 옷을 나눌건지"
+                android:textSize="22sp"
+                android:textColor="#262626"
+                android:layout_marginTop="63dp"
+                android:layout_marginLeft="27dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정확히 확인 하셨나요?"
+                android:textSize="22sp"
+                android:textColor="#262626"
+                android:layout_marginLeft="27dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="화면을 밝혀야 QR코드 인식이 잘 돼요!"
+                android:textSize="12sp"
+                android:textColor="#262626"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="27dp"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="46dp"
+                android:background="@drawable/qr_code_background"
+                android:layout_marginHorizontal="16dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여아 투피스 모음"
+                    android:layout_marginTop="27dp"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="#262626"/>
+            <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    app:srcCompat="@drawable/blackberry-qr-code-variant"
+                    android:id="@+id/imageView"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="38dp"
+                    android:layout_marginBottom="66dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

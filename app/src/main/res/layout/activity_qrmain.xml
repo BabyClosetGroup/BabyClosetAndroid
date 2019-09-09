@@ -76,12 +76,13 @@
         </LinearLayout>
 
         <LinearLayout
-                android:id="@+id/btn_qr_scan"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="35dp">
             <Button
+                    android:id="@+id/btn_qr_scan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="나눔 받기-코드 스캔하기"
