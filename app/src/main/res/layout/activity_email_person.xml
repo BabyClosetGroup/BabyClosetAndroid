@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:hint="메세지를 입력 해 주세요."
+                android:hint="메세지를 입력해 주세요."
                 android:inputType="textPersonName"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="26sp"
