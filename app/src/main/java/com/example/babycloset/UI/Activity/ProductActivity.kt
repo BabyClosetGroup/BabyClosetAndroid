@@ -4,6 +4,8 @@ import android.content.DialogInterface
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.support.design.widget.TabLayout
 import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,14 +18,18 @@ import com.example.babycloset.UI.Adapter.SliderProductPagerAdapter
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.dialog_custom_complain.view.*
 import kotlinx.android.synthetic.main.toolbar_product.*
+import okhttp3.MultipartBody
 import org.jetbrains.anko.colorAttr
 import org.jetbrains.anko.toast
+import java.io.File
+import java.nio.file.Files
 
 
 class ProductActivity : AppCompatActivity() {
 
     var isSender : Int = 0  //판매자 구매자 구별 변수
     var complainReson : String = "" //신고사유
+    var imgNum : Int = 4
     lateinit var builderNew: AlertDialog
     lateinit var dialogView : View
 
@@ -49,9 +55,10 @@ class ProductActivity : AppCompatActivity() {
     }
 
     fun imageSlider(){
-        vp_product_slider.adapter = SliderProductPagerAdapter(supportFragmentManager, 4)
-        vp_product_slider.offscreenPageLimit = 3
+        vp_product_slider.adapter = SliderProductPagerAdapter(supportFragmentManager, imgNum)
+        vp_product_slider.offscreenPageLimit = imgNum-1
         tl_product_indicator.setupWithViewPager(vp_product_slider)
+
     }
 
     fun showSellerDialog(){
@@ -164,7 +171,10 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-    //통신
+    /*통신
+    -이미지 수 카운트 해서 imgNum 에 저장
+    -번들로 사진 url SliderProductPagerAdapter로 전달
+    */
    fun network(){
         txt_deadline_product.text = "D-3"
         txt_area_tag_product.text = "서울 전체"
@@ -177,5 +187,5 @@ class ProductActivity : AppCompatActivity() {
                 "입으셔도 되세요 ㅎㅎ 좋은 주인을 찾길 바랍니다. 많은 분들 신청해주세요!" +
                 "\n\n\n"
 
-   }
+    }
 }
