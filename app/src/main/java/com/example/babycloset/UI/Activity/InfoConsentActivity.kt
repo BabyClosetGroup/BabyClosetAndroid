@@ -2,7 +2,6 @@ package com.example.babycloset.UI.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_info_consent.*
 import org.jetbrains.anko.startActivity
@@ -47,7 +46,7 @@ class InfoConsentActivity : AppCompatActivity() {
         btn_agree_info.setOnClickListener {
             if(btn_agree_all_select.isSelected==true){
                 // 회원가입 정보입력 페이지
-                startActivity<SigninActivity>()
+                startActivity<SignupActivity>()
             }
         }
     }

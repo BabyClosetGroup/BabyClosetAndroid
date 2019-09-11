@@ -32,7 +32,7 @@
         </activity>
         <activity android:name=".UI.Activity.MainActivity">
         </activity>
-        <activity android:name=".UI.Activity.SigninActivity">
+        <activity android:name=".UI.Activity.SignupActivity">
         </activity>
         <activity android:name=".UI.Activity.InfoConsentActivity"/>
         <activity android:name=".UI.Activity.EditInfoActivity"/>

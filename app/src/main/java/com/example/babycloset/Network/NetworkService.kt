@@ -1,6 +1,7 @@
 package com.example.babycloset.Network
 
-import com.example.babycloset.Network.Post.PostSigninResponse
+import com.example.babycloset.Network.Post.PostLoginResponse
+import com.example.babycloset.Network.Post.PostSignupResponse
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.Body
@@ -10,8 +11,15 @@ import retrofit2.http.POST
 interface NetworkService {
     //회원가입
     @POST("/user/signup")
-    fun postSigninResponse(
+    fun postSignupResponse(
         @Header("Content-Type") content_type: String,
         @Body() body: JsonObject
-    ): Call<PostSigninResponse>
+    ): Call<PostSignupResponse>
+
+    //로그인
+    @POST("/user/signin")
+    fun postLoginResponse(
+        @Header("Content-Type") content_type: String,
+        @Body() body: JsonObject
+    ): Call<PostLoginResponse>
 }
