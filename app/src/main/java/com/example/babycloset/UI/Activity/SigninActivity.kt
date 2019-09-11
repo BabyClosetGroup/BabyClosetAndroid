@@ -4,14 +4,28 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Post.PostSigninResponse
 import com.example.babycloset.R
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_signin.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class SigninActivity : AppCompatActivity() {
+
+    val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +49,11 @@ class SigninActivity : AppCompatActivity() {
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                                 btn_signin.setOnClickListener {
-                                    /*
-                                val signup_u_name: String = edt_signup_name.text.toString()
-                                val signup_u_id: String = edt_signup_id.text.toString()
-                                val signup_u_pw: String = edt_signup_password.text.toString()
-                                postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<LoginActivity>()
+                                    val signin_u_id: String = edt_id_siginin.text.toString()
+                                    val signin_u_name: String = edt_name_siginin.text.toString()
+                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
+                                    postSigninResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -74,12 +87,11 @@ class SigninActivity : AppCompatActivity() {
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                                 btn_signin.setOnClickListener {
-                                    /*
-                                val signup_u_name: String = edt_signup_name.text.toString()
-                                val signup_u_id: String = edt_signup_id.text.toString()
-                                val signup_u_pw: String = edt_signup_password.text.toString()
-                                postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<LoginActivity>()
+                                    val signin_u_id: String = edt_id_siginin.text.toString()
+                                    val signin_u_name: String = edt_name_siginin.text.toString()
+                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
+                                    postSigninResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -113,12 +125,11 @@ class SigninActivity : AppCompatActivity() {
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                                 btn_signin.setOnClickListener {
-                                    /*
-                                val signup_u_name: String = edt_signup_name.text.toString()
-                                val signup_u_id: String = edt_signup_id.text.toString()
-                                val signup_u_pw: String = edt_signup_password.text.toString()
-                                postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<LoginActivity>()
+                                    val signin_u_id: String = edt_id_siginin.text.toString()
+                                    val signin_u_name: String = edt_name_siginin.text.toString()
+                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
+                                    postSigninResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -152,12 +163,11 @@ class SigninActivity : AppCompatActivity() {
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                                 btn_signin.setOnClickListener {
-                                    /*
-                                val signup_u_name: String = edt_signup_name.text.toString()
-                                val signup_u_id: String = edt_signup_id.text.toString()
-                                val signup_u_pw: String = edt_signup_password.text.toString()
-                                postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<LoginActivity>()
+                                    val signin_u_id: String = edt_id_siginin.text.toString()
+                                    val signin_u_name: String = edt_name_siginin.text.toString()
+                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
+                                    postSigninResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -191,12 +201,11 @@ class SigninActivity : AppCompatActivity() {
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                                 btn_signin.setOnClickListener {
-                                    /*
-                                val signup_u_name: String = edt_signup_name.text.toString()
-                                val signup_u_id: String = edt_signup_id.text.toString()
-                                val signup_u_pw: String = edt_signup_password.text.toString()
-                                postSignupResponse(signup_u_name, signup_u_id, signup_u_pw)*/
-                                    startActivity<LoginActivity>()
+                                    val signin_u_id: String = edt_id_siginin.text.toString()
+                                    val signin_u_name: String = edt_name_siginin.text.toString()
+                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
+                                    postSigninResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -217,7 +226,33 @@ class SigninActivity : AppCompatActivity() {
                 }
             }
         })
-
     }
+
+    fun postSigninResponse(u_id: String, u_name: String, u_nickname: String, u_pw: String) {
+        var jsonObject = JSONObject()
+        jsonObject.put("userId", u_id)
+        jsonObject.put("name", u_name)
+        jsonObject.put("nickname", u_nickname)
+        jsonObject.put("password", u_pw)
+
+        val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+        val postSignupResponse: Call<PostSigninResponse> =
+            networkService.postSigninResponse("application/json", gsonObject)
+        postSignupResponse.enqueue(object: Callback<PostSigninResponse> {
+            override fun onFailure(call: Call<PostSigninResponse>, t: Throwable) {
+                Log.e("tag", "회원가입 실패")
+            }
+
+            override fun onResponse(call: Call<PostSigninResponse>, response: Response<PostSigninResponse>) {
+                if (response.isSuccessful){
+                    Log.e("tag", "회원가입 성공")
+                    if (response.body()!!.status == 200){
+                        startActivity<LoginActivity>()
+                    }
+                }
+            }
+        })
+    }
+
 }
 
