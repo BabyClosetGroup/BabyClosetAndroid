@@ -1,5 +1,6 @@
 package com.example.babycloset.Network
 
+import com.example.babycloset.Network.Get.GetShareCompleteResponse
 import com.example.babycloset.Network.Get.GetShareIncompleteResponse
 import com.example.babycloset.Network.Get.GetViewProfileResponse
 import com.example.babycloset.Network.Post.PostLoginResponse
@@ -50,4 +51,10 @@ interface NetworkService {
         @Header("token") token : String
     ):Call<GetShareIncompleteResponse>
 
+    //모든 나눔 완료 게시물 조회
+    @GET("/share/completed")
+    fun getsharecompleteResponse(
+        @Header("Content-Type") content_type:String,
+        @Header("token") token : String
+    ):Call<GetShareCompleteResponse>
 }
