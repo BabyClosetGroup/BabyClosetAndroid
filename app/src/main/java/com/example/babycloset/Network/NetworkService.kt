@@ -79,4 +79,11 @@ interface NetworkService {
         @Header("token") token : String,
         @Body() body: JsonObject
     ): Call<PostRatingResponse>
+
+    //별점 보기
+    @GET("/rating/{userIdx}")
+    fun getRatingResponse(
+        @Header("Content-Type") content_type:String,
+        @Header("token") token : String
+    ):Call<GetRatingResponse>
 }

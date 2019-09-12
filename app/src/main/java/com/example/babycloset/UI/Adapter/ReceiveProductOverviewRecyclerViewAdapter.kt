@@ -13,7 +13,12 @@ import android.widget.RatingBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.ReceiveProductOverviewData
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.Get.GetRatingResponse
+import com.example.babycloset.Network.Get.Getratingdata
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.RatingActivity
 import com.example.babycloset.UI.Activity.ShareProductActivity
@@ -21,8 +26,19 @@ import com.example.babycloset.UI.Fragment.ShareCompleteFragment
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ReceiveProductOverviewData>): RecyclerView.Adapter<ReceiveProductOverviewRecyclerViewAdapter.Holder>() {
+
+    var name:String =""
+    var starrate:Int =0
+
+    val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(com.example.babycloset.R.layout.rv_receive_product_overview, viewGroup, false)
@@ -54,6 +70,7 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         }
         holder.info.setOnClickListener {
             // 팝업창
+            getRatingResponse()
             showDialog()
         }
     }
@@ -67,6 +84,31 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         var btn = itemView.findViewById(R.id.btn_rv_item_receive_overview_rate) as RelativeLayout
         var info = itemView.findViewById(R.id.btn_rv_item_receive_overview_info) as ImageView
         var thumbnail = itemView.findViewById(R.id.img_rv_item_receive_overview_thumbnail) as ImageView
+    }
+    private fun getRatingResponse() {
+        val token = SharedPreference.getUserToken(ctx)
+
+        val getRatingResponse = networkService.getRatingResponse(
+            "application/json", token
+        )
+        getRatingResponse.enqueue(object : Callback<GetRatingResponse> {
+            override fun onFailure(call: Call<GetRatingResponse>, t: Throwable) {
+                //toast("error")
+            }
+
+            override fun onResponse(call: Call<GetRatingResponse>, response: Response<GetRatingResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        var tmp: ArrayList<Getratingdata> = response.body()!!.data!!
+                        name = tmp[0].nickname
+                        starrate = tmp[0].rating
+/*
+                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*/
+                    }
+                }
+            }
+        })
+
     }
 
     fun showDialog(){
@@ -82,9 +124,9 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         val txt_dig_name = builderNew.findViewById<TextView>(R.id.txt_dlg_name)
         val txt_dig_rate = builderNew.findViewById<TextView>(R.id.txt_dlg_rate)
 
-        rating_dig?.rating = 4.toFloat()
-        txt_dig_name?.text = "정미"
-        txt_dig_rate?.text = 4.toString()+"점"
+        rating_dig?.rating = starrate.toFloat()
+        txt_dig_name?.text = name
+        txt_dig_rate?.text = starrate.toString()+"점"
 
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(builderNew.window.attributes)
