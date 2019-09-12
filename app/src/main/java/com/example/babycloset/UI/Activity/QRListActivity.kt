@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -25,7 +26,11 @@ class QRListActivity : AppCompatActivity() {
         dataList.add(QRListData(0,"여아 투피스","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"))
         dataList.add(QRListData(0,"분홍색 치마","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","영등포구"))
 
-        qrListRecyclerAdapter= QRListRecyclerAdapter(this,dataList)
+        qrListRecyclerAdapter= QRListRecyclerAdapter(this,dataList){QRListData ->
+            var intent= Intent(this,QRCreateActivity::class.java)
+            //intent.putExtra("","")
+            startActivity(intent)
+        }
         rv_qr_list.adapter=qrListRecyclerAdapter
         rv_qr_list.layoutManager=LinearLayoutManager(this,LinearLayout.VERTICAL,false)
     }
