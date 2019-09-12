@@ -11,6 +11,8 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.Get.GetViewProfileResponse
+import com.example.babycloset.Network.Get.Getviewprofiledata
 import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.example.babycloset.R
@@ -45,7 +47,7 @@ class EditInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_info)
 
-        //getViewProfileResponse()
+        getViewProfileResponse()
 
         btn_save_info.setOnClickListener {
             // 데이터 저장
@@ -65,7 +67,7 @@ class EditInfoActivity : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE)
         }
     }
-/*
+
     private fun getViewProfileResponse() {
         val token = SharedPreference.getUserToken(ctx)
 
@@ -82,10 +84,10 @@ class EditInfoActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200) {
                         var tmp: ArrayList<Getviewprofiledata> = response.body()!!.data!!
                         txt_info_nickname.setText(tmp[0].nickname)
-                        txt_info_name.text = tmp[0].name
-                        txt_info_id.text = tmp[0].id
+                        txt_info_name.text = tmp[0].username
+                        txt_info_id.text = tmp[0].userId
 
-                        Glide.with(ctx).load(tmp[0].portfolioImg).into(img_info_thumbnail)
+                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)
 
                     }
                 }
@@ -93,7 +95,7 @@ class EditInfoActivity : AppCompatActivity() {
         })
 
     }
-*/
+
 
     private fun putModifyProfileResponse() {
 

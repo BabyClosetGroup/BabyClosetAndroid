@@ -1,5 +1,6 @@
 package com.example.babycloset.Network
 
+import com.example.babycloset.Network.Get.GetViewProfileResponse
 import com.example.babycloset.Network.Post.PostLoginResponse
 import com.example.babycloset.Network.Post.PostSignupResponse
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
@@ -33,4 +34,11 @@ interface NetworkService {
         @Part("nickname") nickname: RequestBody,
         @Part profileImage: MultipartBody.Part?
     ):Call<PutModifyProfileResponse>
+
+    //프로필 조회
+    @GET("/user")
+    fun getViewProfileResponse(
+        @Header("Content-Type") content_type:String,
+        @Header("token") token : String
+    ):Call<GetViewProfileResponse>
 }
