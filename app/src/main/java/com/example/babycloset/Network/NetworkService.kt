@@ -1,9 +1,6 @@
 package com.example.babycloset.Network
 
-import com.example.babycloset.Network.Get.GetListPeopleResponse
-import com.example.babycloset.Network.Get.GetShareCompleteResponse
-import com.example.babycloset.Network.Get.GetShareIncompleteResponse
-import com.example.babycloset.Network.Get.GetViewProfileResponse
+import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.PostLoginResponse
 import com.example.babycloset.Network.Post.PostSignupResponse
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
@@ -66,4 +63,11 @@ interface NetworkService {
         @Header("token") token : String,
         @Header("postIdx") postIdx:Int
     ):Call<GetListPeopleResponse>
+
+    //받은 나눔 게시물 조회
+    @GET("/share/received")
+    fun getreceiveproductResponse(
+        @Header("Content-Type") content_type:String,
+        @Header("token") token : String
+    ):Call<GetReceiveProductResponse>
 }
