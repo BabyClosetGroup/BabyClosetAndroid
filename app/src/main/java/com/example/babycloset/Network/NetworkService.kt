@@ -2,6 +2,7 @@ package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.PostLoginResponse
+import com.example.babycloset.Network.Post.PostRatingResponse
 import com.example.babycloset.Network.Post.PostSignupResponse
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.google.gson.JsonObject
@@ -70,4 +71,12 @@ interface NetworkService {
         @Header("Content-Type") content_type:String,
         @Header("token") token : String
     ):Call<GetReceiveProductResponse>
+
+    //별점 주기
+    @POST("/rating")
+    fun postRatingResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token : String,
+        @Body() body: JsonObject
+    ): Call<PostRatingResponse>
 }
