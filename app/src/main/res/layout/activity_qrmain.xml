@@ -59,12 +59,13 @@
         </LinearLayout>
 
         <LinearLayout
-                android:id="@+id/btn_qr_create"
+                android:id="@+id/view_qr_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="28dp">
             <Button
+                    android:id="@+id/btn_qr_create"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="나눔 주기-QR 생성하기"
@@ -76,12 +77,14 @@
         </LinearLayout>
 
         <LinearLayout
-                android:id="@+id/btn_qr_scan"
+                android:id="@+id/view_qr_scan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="35dp">
+                android:layout_marginTop="35dp"
+                android:orientation="vertical">
             <Button
+                    android:id="@+id/btn_qr_scan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="나눔 받기-코드 스캔하기"
