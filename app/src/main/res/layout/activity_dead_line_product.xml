@@ -22,7 +22,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="25dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
                     android:layout_below="@id/rv_item_deadline_product"
-                    android:background="@drawable/yellow_square_layout_border"/>
+                    android:background="@drawable/cb_yellow_fill_border"/>
         </RelativeLayout>
     </ScrollView>
 

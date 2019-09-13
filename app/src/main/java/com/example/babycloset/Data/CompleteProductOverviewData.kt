@@ -1,11 +1,13 @@
 package com.example.babycloset.Data
 
 data class CompleteProductOverviewData(
-    //var productIdx: Int,
-    var productTitle: String,
-    var productLocation: String,
-    var productDate: String,
-    var productOwner: String,
-    var productRate: String
-    //var productImg: String?
+    var postIdx: Int,
+    var postName: String,
+    var mainImage: String,
+    //var productTitle: String,
+    var areaName: String,
+    var recieverIdx: Int,
+    var recieverNickname: String,
+    var sharedDate: String,
+    var isRated: Int
 )

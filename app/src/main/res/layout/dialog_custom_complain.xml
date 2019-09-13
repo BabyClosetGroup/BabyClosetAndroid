@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                                android:layout_marginBottom="8dp"
+>
+
+    <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"   android:layout_marginTop="22dp"
+            android:text="신고사유를 적어주세요." android:textColor="#de000000"   android:textSize="20sp"
+            android:id="@+id/txt_dialog_title_complain"
+
+    />
+    
+    <ImageView
+            android:layout_width="18dp" android:layout_height="18dp"
+            android:layout_below="@id/txt_dialog_title_complain" android:layout_marginStart="13dp"
+            android:layout_marginTop="32dp" android:id="@+id/img_dialog_icn_complain"
+    />
+    <EditText
+            android:layout_width="280dp" android:layout_height="wrap_content"
+            android:layout_below="@id/txt_dialog_title_complain"  android:layout_marginTop="24dp"
+            android:layout_toEndOf="@id/img_dialog_icn_complain" android:layout_marginStart="8dp"
+            android:hint="내용을 작성해주세요"
+            android:textSize="16sp" android:textColor="#262626" android:theme="@style/compalinEdtTheme"
+             android:id="@+id/edt_dialog_content_complain"
+    />
+
+    <RelativeLayout
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_alignRight="@id/edt_dialog_content_complain"
+            android:layout_below="@id/edt_dialog_content_complain"
+
+    >
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="#61000000" android:text="0 " android:textSize="12sp"
+                android:id="@+id/txt_edt_count_complain"
+
+        />
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/txt_edt_count_complain"
+                android:textColor="#61000000" android:text="/ 50" android:textSize="12sp"
+        />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_below="@id/edt_dialog_content_complain" android:layout_marginTop="20dp"
+            android:layout_alignRight="@id/edt_dialog_content_complain"
+    >
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="취소" android:textColor="#262626" android:textSize="14sp"
+                android:paddingRight="25dp" android:paddingLeft="25dp" android:paddingTop="8dp" android:paddingBottom="8dp"
+                android:id="@+id/btn_cancel_dialog_complain" android:onClick="dialogComplainClick"
+        />
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="확인" android:textColor="#ffc107" android:textSize="14sp"
+                android:paddingRight="10dp" android:paddingLeft="32dp" android:paddingTop="8dp" android:paddingBottom="8dp"
+                android:layout_toEndOf="@id/btn_cancel_dialog_complain" android:onClick="dialogComplainClick"
+                android:id="@+id/btn_ok_dialog_complain"
+        />
+    </RelativeLayout>
+
+</RelativeLayout>
