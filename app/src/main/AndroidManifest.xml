@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
-            android:name=".Network.ApplicationController"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/ic_launcher"
@@ -27,6 +26,16 @@
                 tools:replace="screenOrientation"/>
         <activity android:name=".UI.Activity.QRScanActivity">
         </activity>
+        <activity android:name=".UI.Activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".UI.Activity.CategoryActivity">
+        </activity>
+        <activity android:name=".UI.Activity.ModifyPostActivity"/>
         <activity android:name=".UI.Activity.QRListActivity">
         </activity>
         <activity android:name=".UI.Activity.QRMainActivity">
@@ -34,14 +43,9 @@
         <activity android:name=".UI.Activity.FilterActivity">
         </activity>
         <activity android:name=".UI.Activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
-        <activity android:name=".UI.Activity.Signin2Activity"/>
-        <activity android:name=".UI.Activity.SigninActivity"/>
+        <activity android:name=".UI.Activity.SignupActivity">
+        </activity>
         <activity android:name=".UI.Activity.InfoConsentActivity"/>
         <activity android:name=".UI.Activity.EditInfoActivity"/>
         <activity android:name=".UI.Activity.RatingActivity"/>
@@ -55,6 +59,7 @@
         <activity android:name=".UI.Activity.WritePostActivity"/>
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
+        <activity android:name=".UI.Activity.ReceiveProductActivity"/>
     </application>
 
 </manifest>

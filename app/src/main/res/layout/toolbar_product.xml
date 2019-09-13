@@ -28,6 +28,7 @@
                      android:layout_height="24dp"
                      android:layout_alignParentEnd="true"
                      android:layout_marginStart="9dp"
+                     android:layout_marginEnd="16dp"
                      android:id="@+id/btn_ddd_toolbar_product"
         />
     </RelativeLayout>

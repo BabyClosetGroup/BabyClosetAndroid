@@ -12,7 +12,7 @@
         <ImageView
                 android:layout_width="158dp"
                 android:layout_height="158dp"
-                app:srcCompat="@drawable/img1"
+                app:srcCompat="@drawable/img_camera"
                 android:id="@+id/img_home_recent"/>
 
         <TextView

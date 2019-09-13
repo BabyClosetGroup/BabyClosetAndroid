@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.startActivity
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         configureMainTab()
+
+        btn_email.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
+
     }
 
     private fun configureMainTab(){

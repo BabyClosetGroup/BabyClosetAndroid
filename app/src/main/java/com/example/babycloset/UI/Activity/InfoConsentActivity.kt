@@ -42,12 +42,12 @@ class InfoConsentActivity : AppCompatActivity() {
                 btn_agree_all_select.isSelected=false
             }
         }
-        //둘 다 선택될 때 맨 위 바뀌게
-
         // 전체동의시에만 처리되게 해야함
         btn_agree_info.setOnClickListener {
-            // 회원가입 정보입력 페이지
-            startActivity<SigninActivity>()
+            if(btn_agree_all_select.isSelected==true){
+                // 회원가입 정보입력 페이지
+                startActivity<SignupActivity>()
+            }
         }
     }
 }

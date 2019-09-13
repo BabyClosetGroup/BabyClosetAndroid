@@ -30,29 +30,41 @@
                                 android:layout_width="100dp" android:layout_height="100dp"
                                 android:layout_marginRight="9dp"
                                 android:layout_marginBottom="9dp"
-                                android:background="#f1f1f1"
+                                android:background="@drawable/img_camera"
                                 android:id="@+id/img_write_post1"
+                                android:scaleType="centerCrop"
                         />
+
+                        <TextView
+                                android:layout_width="39dp" android:layout_height="23dp"
+                                android:text="메인" android:textColor="#767676" android:textSize="13sp"
+                                android:gravity="center"
+                                android:background="#ffc107" android:layout_alignLeft="@+id/img_write_post1"
+                        />
+
                         <ImageView
                                 android:layout_width="100dp" android:layout_height="100dp"
                                 android:layout_marginBottom="9dp"
                                 android:layout_toRightOf="@id/img_write_post1"
-                                android:background="#f1f1f1"
                                 android:id="@+id/img_write_post2"
+                                android:scaleType="centerCrop"
+                                android:background="@drawable/icn_plus"
                         />
                         <ImageView
                                 android:layout_width="100dp" android:layout_height="100dp"
                                 android:layout_marginRight="9dp"
                                 android:layout_below="@id/img_write_post1"
-                                android:background="#f1f1f1"
                                 android:id="@+id/img_write_post3"
+                                android:scaleType="centerCrop"
+                                android:background="@drawable/icn_plus"
                         />
                         <ImageView
                                 android:layout_width="100dp" android:layout_height="100dp"
                                 android:layout_below="@id/img_write_post2"
                                 android:layout_toRightOf="@id/img_write_post3"
-                                android:background="#f1f1f1"
                                 android:id="@+id/img_write_post4"
+                                android:scaleType="centerCrop"
+                                android:background="@drawable/icn_plus"
                         />
                     </RelativeLayout>
 
@@ -68,18 +80,34 @@
                             <TextView
                                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/txt_category_write_post"
                                     android:text="카테고리 선택" android:textSize="16dp" android:textColor="#262626"/>
-                            <Button
+                            <ImageButton
                                     android:layout_width="24dp" android:layout_height="24dp"
                                     android:layout_alignParentRight="true"
                                     android:id="@+id/btn_category_write_post"
+                                    android:background="@drawable/button_arrow"
                             />
-                            <android.support.v7.widget.RecyclerView
-                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:layout_below="@id/txt_category_write_post" android:layout_marginTop="10dp"
-                                    android:visibility="gone" android:id="@+id/rv_category_write_post"
-                            >
 
-                            </android.support.v7.widget.RecyclerView>
+                            <Button
+                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
+                                    android:paddingLeft="15dp" android:paddingRight="15dp"
+                                    android:layout_below="@id/btn_category_write_post" android:background="@drawable/cb_yellow_fill_border"
+                                    android:text="자치구" android:textSize="14dp" android:textColor="#ffffff"
+                                    android:clickable="false" android:id="@+id/txt_area_tag_write_post" android:visibility="gone"
+                            />
+                            <Button
+                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
+                                    android:paddingLeft="15dp" android:paddingRight="15dp"
+                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_area_tag_write_post" android:background="@drawable/cb_yellow_fill_border"
+                                    android:text="개월수" android:textSize="14dp" android:textColor="#ffffff"
+                                    android:clickable="false" android:id="@+id/txt_age_tag_write_post" android:visibility="gone"
+                            />
+                            <Button
+                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp"
+                                    android:paddingLeft="15dp" android:paddingRight="15dp"
+                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_age_tag_write_post" android:background="@drawable/cb_yellow_fill_border"
+                                    android:text="카테고리" android:textSize="14dp" android:textColor="#ffffff"
+                                    android:clickable="false" android:id="@+id/txt_category_tag_write_post" android:visibility="gone"
+                            />
                         </RelativeLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -94,14 +122,15 @@
                                     android:text="마감기한 선택" android:textSize="16dp" android:textColor="#262626"
                                     android:id="@+id/txt_deadline_write_post"
                             />
-                            <Button
+                            <ImageButton
                                     android:layout_width="24dp" android:layout_height="24dp"
                                     android:layout_alignParentRight="true"
                                     android:id="@+id/btn_deadline_write_post"
+                                    android:background="@drawable/button_arrow"
                             />
                             <Button
                                     android:layout_width="82dp" android:layout_height="28dp" android:layout_marginTop="10dp"
-                                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/yellow_square_layout_border"
+                                    android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="1일" android:textSize="14dp" android:textColor="#ffffff"
                                     android:clickable="false"  android:visibility="gone" android:id="@+id/txt_deadline_tag"
                             />

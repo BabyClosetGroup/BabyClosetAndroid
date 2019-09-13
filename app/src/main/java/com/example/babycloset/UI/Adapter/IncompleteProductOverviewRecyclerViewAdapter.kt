@@ -28,23 +28,23 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-       // Glide.with(ctx).load(dataList[position].productImg).into(holder.thumbnail)
-        holder.title.text = dataList[position].productTitle
-        holder.location.text = dataList[position].productLocation
-        holder.date.text = dataList[position].productDate
-        holder.num.text = dataList[position].productNumber
+        Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
+        holder.title.text = dataList[position].postTitle
+        holder.location.text = dataList[position].areaName
+        holder.num.text = dataList[position].registerNumber
 
         holder.btn.setOnClickListener {
-            ctx.startActivity<ListPeopleActivity>()
+            ctx.startActivity<ListPeopleActivity>(
+                "postIdx" to dataList[position].postIdx
+            )
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var container = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
         var title = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_incomplete_overview_product) as TextView
         var location = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_incomplete_overview_location) as TextView
-        var date = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_date) as TextView
         var num = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_number) as TextView
         var btn = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
-        //var thumbnail = itemView.findViewById(R.id.img_rv_item_incomplete_overview_thumbnail) as ImageView
+        var thumbnail = itemView.findViewById(R.id.img_rv_item_incomplete_overview_thumbnail) as ImageView
     }
 }
