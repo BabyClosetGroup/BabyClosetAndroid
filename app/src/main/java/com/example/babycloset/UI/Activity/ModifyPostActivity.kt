@@ -1,25 +1,20 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import com.example.babycloset.R
-import kotlinx.android.synthetic.main.activity_write_post.*
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
-import android.text.Html
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
 import com.bumptech.glide.Glide
-import okhttp3.MultipartBody
+import com.example.babycloset.R
+import kotlinx.android.synthetic.main.activity_modify_post.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
-import java.io.File
 
-
-class WritePostActivity : AppCompatActivity() {
+class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
     lateinit var pictureUri : Uri
 
@@ -31,30 +26,24 @@ class WritePostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_write_post)
+        setContentView(R.layout.activity_modify_post)
 
-        //이미지 선택
-        img_write_post1.setOnClickListener { showImageDialog(1) }
-        img_write_post2.setOnClickListener { showImageDialog(2) }
-        img_write_post3.setOnClickListener { showImageDialog(3) }
-        img_write_post4.setOnClickListener { showImageDialog(4) }
+        img_modify_post1.setOnClickListener { showImageDialog(1) }
+        img_modify_post2.setOnClickListener { showImageDialog(2) }
+        img_modify_post3.setOnClickListener { showImageDialog(3) }
+        img_modify_post4.setOnClickListener { showImageDialog(4) }
 
-        //카테고리 선택 액티비티 이동
-        btn_category_write_post.setOnClickListener {
+        btn_category_modify_post.setOnClickListener {
             startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY)
         }
-
-        //다이얼로그 팝업
-        btn_deadline_write_post.setOnClickListener { showDeadlineDialog() }
-
-        //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
-        btn_share_write_post.setOnClickListener {
-           isValid()
+        btn_deadline_modify_post.setOnClickListener {
+            showDeadlineDialog()
+        }
+        btn_share_modify_post.setOnClickListener {
+            isValid()
         }
     }
 
-
-    //툴바
 
     //마감기간 선택 다이얼로그
     fun showDeadlineDialog(){
@@ -77,8 +66,8 @@ class WritePostActivity : AppCompatActivity() {
     //마감기한 태그 설정
     fun setDialogTag(deadlineList : Array<CharSequence>, num :Int){
         deadline = deadlineList[num].toString()
-        txt_deadline_tag.text = deadline
-        txt_deadline_tag.visibility = View.VISIBLE
+        txt_deadline_modify_tag.text = deadline
+        txt_deadline_modify_tag.visibility = View.VISIBLE
     }
 
     //이미지 다이얼로그
@@ -100,10 +89,10 @@ class WritePostActivity : AppCompatActivity() {
                 }
                 1->{
                     when(requestCodeNumber){
-                        1-> img_write_post1.setImageBitmap(null)
-                        2-> img_write_post2.setImageBitmap(null)
-                        3-> img_write_post3.setImageBitmap(null)
-                        4-> img_write_post4.setImageBitmap(null)
+                        1-> img_modify_post1.setImageBitmap(null)
+                        2-> img_modify_post2.setImageBitmap(null)
+                        3-> img_modify_post3.setImageBitmap(null)
+                        4-> img_modify_post4.setImageBitmap(null)
                     }
                 }
             }
@@ -113,18 +102,18 @@ class WritePostActivity : AppCompatActivity() {
     }
 
     //갤러리에서 선택한 이미지 보여주기(썸네일)
-   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         //카테고리
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
-                txt_area_tag_write_post.text = data!!.getStringExtra("area")
-                txt_age_tag_write_post.text = data.getStringExtra("age")
-                txt_category_tag_write_post.text = data.getStringExtra("category")
+                txt_area_tag_modify_post.text = data!!.getStringExtra("area")
+                txt_age_tag_modify_post.text = data.getStringExtra("age")
+                txt_category_tag_modify_post.text = data.getStringExtra("category")
 
-                txt_area_tag_write_post.visibility = View.VISIBLE
-                txt_age_tag_write_post.visibility = View.VISIBLE
-                txt_category_tag_write_post.visibility = View.VISIBLE
+                txt_area_tag_modify_post.visibility = View.VISIBLE
+                txt_age_tag_modify_post.visibility = View.VISIBLE
+                txt_category_tag_modify_post.visibility = View.VISIBLE
             }
         }
 
@@ -133,7 +122,7 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post1)
+                    Glide.with(this).load(pictureUri).into(img_modify_post1)
                 }
             }
         }
@@ -141,7 +130,7 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post2)
+                    Glide.with(this).load(pictureUri).into(img_modify_post2)
                 }
             }
         }
@@ -149,7 +138,7 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri = it.data
-                    Glide.with(this).load(pictureUri).thumbnail(0.1f).into(img_write_post3)
+                    Glide.with(this).load(pictureUri).thumbnail(0.1f).into(img_modify_post3)
                 }
             }
         }
@@ -157,7 +146,7 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post4)
+                    Glide.with(this).load(pictureUri).into(img_modify_post4)
 
                 }
             }
@@ -166,30 +155,17 @@ class WritePostActivity : AppCompatActivity() {
 
 
     fun isValid(){
-        if(txt_area_tag_write_post.visibility == View.GONE || txt_age_tag_write_post.visibility == View.GONE || txt_category_tag_write_post.visibility == View.GONE){
-            showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
+        if(txt_area_tag_modify_post.visibility == View.GONE || txt_age_tag_modify_post.visibility == View.GONE || txt_category_tag_modify_post.visibility == View.GONE){
+            WritePostActivity.showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
         }
         else if(deadline==""){
-            showNoticeDialog(this,"마감기한을 선택해주세요!\n","마감기한을 선택해야","글을 작성할 수 있습니다." )
+            WritePostActivity.showNoticeDialog(this,"마감기한을 선택해주세요!\n","마감기한을 선택해야","글을 작성할 수 있습니다." )
         }
-        else if(edt_title_write_post.text.toString()==""){
-            showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
+        else if(edt_title_modify_post.text.toString()==""){
+            WritePostActivity.showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
         }else{
             toast("통신")
         }
     }
 
-    //알림 팝업
-    companion object{
-        fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){
-            val builder = AlertDialog.Builder(ctx)
-            builder
-                .setTitle(title)
-                .setMessage(Html.fromHtml("<font color='#767676'>$msg1<br>$msg2</font>"))
-                .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
-            builder.show()
-        }
-    }
-
-    //통신
 }

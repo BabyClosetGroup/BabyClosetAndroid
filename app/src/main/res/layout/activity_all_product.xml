@@ -22,7 +22,7 @@
             android:text="상품 더보기" android:textSize="17sp" android:textColor="#ffffff"
             android:layout_centerHorizontal="true"  android:layout_below="@id/rv_item_all_product"
             android:layout_marginTop="25dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-            android:background="@drawable/yellow_square_layout_border"/>
+            android:background="@drawable/cb_yellow_fill_border"/>
     </RelativeLayout>
     </ScrollView>
 </LinearLayout>

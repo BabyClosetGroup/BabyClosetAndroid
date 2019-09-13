@@ -7,6 +7,8 @@
 
     <ImageView
             android:layout_height="match_parent" android:layout_width="match_parent"
-            android:id="@+id/img_fragment_slider_product"/>
+            android:id="@+id/img_fragment_slider_product"
+            android:scaleType="fitXY"
+    />
 
 </FrameLayout>

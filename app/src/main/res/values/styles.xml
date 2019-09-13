@@ -11,6 +11,11 @@
     <item name="colorAccent">#B1BCBE</item>
     <item name="colorControlNormal">#B1BCBE</item>
     </style>
+    <style name="compalinEdtTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">#dedbdbdb</item>
+        <item name="colorControlActivated">#ffc107</item>
+        <item name="android:textColorHighlight">#dedbdbdb</item>
+    </style>
 
 
 </resources>
