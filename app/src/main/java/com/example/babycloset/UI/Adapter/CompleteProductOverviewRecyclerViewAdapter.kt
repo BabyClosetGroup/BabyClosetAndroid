@@ -15,10 +15,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CompleteProductOverviewData
-import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetRatingResponse
-import com.example.babycloset.Network.Get.Getratingdata
-import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Get.Getratingdata/*
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.NetworkService*/
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.RatingActivity
 import com.example.babycloset.UI.Activity.ShareProductActivity
@@ -35,9 +35,9 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
     var name:String =""
     var starrate:Int =0
 
-    val networkService: NetworkService by lazy {
+   /* val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }
+    }*/
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
@@ -70,7 +70,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         }
         holder.info.setOnClickListener {
             // 팝업창
-            getRatingResponse()
+            //getRatingResponse()
             showDialog()
         }
     }
@@ -86,6 +86,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         var thumbnail = itemView.findViewById(R.id.img_rv_item_complete_overview_thumbnail) as ImageView
     }
 
+/*
     private fun getRatingResponse() {
         val token = SharedPreference.getUserToken(ctx)
 
@@ -103,14 +104,17 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
                         var tmp: ArrayList<Getratingdata> = response.body()!!.data!!
                         name = tmp[0].nickname
                         starrate = tmp[0].rating
+*/
 /*
-                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*/
+                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*//*
+
                     }
                 }
             }
         })
 
     }
+*/
 
 
     fun showDialog(){

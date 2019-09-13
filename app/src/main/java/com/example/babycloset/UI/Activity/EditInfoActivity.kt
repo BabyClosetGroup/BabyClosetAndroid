@@ -10,10 +10,10 @@ import android.os.Bundle
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
-import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetViewProfileResponse
-import com.example.babycloset.Network.Get.Getviewprofiledata
-import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Get.Getviewprofiledata/*
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.NetworkService*/
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_edit_info.*
@@ -39,19 +39,19 @@ class EditInfoActivity : AppCompatActivity() {
     val REQUEST_CODE_SELECT_IMAGE: Int = 1004
     lateinit var selectedPicUri: Uri
 
-    val networkService: NetworkService by lazy {
+   /* val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_info)
 
-        getViewProfileResponse()
+        //getViewProfileResponse()
 
         btn_save_info.setOnClickListener {
             // 데이터 저장
-            putModifyProfileResponse()
+            //putModifyProfileResponse()
         }
 
         btn_pw_del.setOnClickListener {
@@ -68,6 +68,7 @@ class EditInfoActivity : AppCompatActivity() {
         }
     }
 
+/*
     private fun getViewProfileResponse() {
         val token = SharedPreference.getUserToken(ctx)
 
@@ -95,8 +96,10 @@ class EditInfoActivity : AppCompatActivity() {
         })
 
     }
+*/
 
 
+/*
     private fun putModifyProfileResponse() {
 
         val token = SharedPreference.getUserToken(ctx)
@@ -125,6 +128,7 @@ class EditInfoActivity : AppCompatActivity() {
             }
         })
     }
+*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

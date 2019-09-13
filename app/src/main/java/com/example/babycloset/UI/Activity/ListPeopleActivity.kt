@@ -8,11 +8,11 @@ import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.ApplicationPeopleOverviewData
 import com.example.babycloset.Data.IncompleteProductOverviewData
-import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetListPeopleResponse
 import com.example.babycloset.Network.Get.GetShareIncompleteResponse
-import com.example.babycloset.Network.Get.Getproductdata
-import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Get.Getproductdata/*
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.NetworkService*/
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.ApplicationPeopleOverviewRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_list_people.*
@@ -27,9 +27,9 @@ class ListPeopleActivity : AppCompatActivity() {
 
     lateinit var applicationPeopleOverviewRecyclerViewAdapter: ApplicationPeopleOverviewRecyclerViewAdapter
 
-    val networkService: NetworkService by lazy {
+    /*val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +51,9 @@ class ListPeopleActivity : AppCompatActivity() {
         rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
         rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        getListPeopleResponse()
+        //getListPeopleResponse()
     }
+/*
     private fun getListPeopleResponse(){
 
         val token = SharedPreference.getUserToken(ctx)
@@ -88,4 +89,5 @@ class ListPeopleActivity : AppCompatActivity() {
         })
 
     }
+*/
 }

@@ -1,3 +1,4 @@
+/*
 package com.example.babycloset.Network
 
 import android.app.Application
@@ -27,4 +28,4 @@ class ApplicationController : Application(){
 
         networkService = retrofit.create(NetworkService::class.java)
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
@@ -86,4 +87,4 @@ interface NetworkService {
         @Header("Content-Type") content_type:String,
         @Header("token") token : String
     ):Call<GetRatingResponse>
-}
+}*/

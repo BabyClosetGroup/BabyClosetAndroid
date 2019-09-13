@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.ReceiveProductOverviewData
+import com.example.babycloset.Network.Get.GetReceiveProductResponse/*
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.Get.GetReceiveProductResponse
-import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.NetworkService*/
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.ReceiveProductOverviewRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_receive_product.*
@@ -19,9 +19,9 @@ import retrofit2.Response
 class ReceiveProductActivity : AppCompatActivity() {
     lateinit var receiveProductOverviewRecyclerViewAdapter: ReceiveProductOverviewRecyclerViewAdapter
 
-    val networkService: NetworkService by lazy {
+   /* val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }
+    }*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receive_product)
@@ -37,8 +37,9 @@ class ReceiveProductActivity : AppCompatActivity() {
         rv_receive_product_overview.adapter = receiveProductOverviewRecyclerViewAdapter
         rv_receive_product_overview.layoutManager = LinearLayoutManager(this)
 
-        getReceiveProductResponse()
+       // getReceiveProductResponse()
     }
+/*
     private fun getReceiveProductResponse(){
 
         val token = SharedPreference.getUserToken(ctx)
@@ -67,5 +68,6 @@ class ReceiveProductActivity : AppCompatActivity() {
         })
 
     }
+*/
 
 }

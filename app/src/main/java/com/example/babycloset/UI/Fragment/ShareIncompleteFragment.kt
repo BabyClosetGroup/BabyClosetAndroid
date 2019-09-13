@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CompleteProductOverviewData
 import com.example.babycloset.Data.IncompleteProductOverviewData
+import com.example.babycloset.Network.Get.GetShareIncompleteResponse/*
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.Get.GetShareIncompleteResponse
-import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.NetworkService*/
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CompleteProductOverviewRecyclerViewAdapter
 import com.example.babycloset.UI.Adapter.IncompleteProductOverviewRecyclerViewAdapter
@@ -28,9 +28,9 @@ class ShareIncompleteFragment : Fragment() {
 
     lateinit var incompleteProductOverviewRecyclerViewAdapter: IncompleteProductOverviewRecyclerViewAdapter
 
-    val networkService: NetworkService by lazy {
+    /*val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }
+    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -50,9 +50,9 @@ class ShareIncompleteFragment : Fragment() {
             rv_incomplete_product_overview.adapter = incompleteProductOverviewRecyclerViewAdapter
             rv_incomplete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
-            getShareIncompleteResponse()
+            //getShareIncompleteResponse()
     }
-    private fun getShareIncompleteResponse(){
+    /*private fun getShareIncompleteResponse(){
 
         val token = SharedPreference.getUserToken(ctx)
 
@@ -79,6 +79,6 @@ class ShareIncompleteFragment : Fragment() {
             }
         })
 
-    }
+    }*/
 
 }

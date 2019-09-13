@@ -2,9 +2,9 @@ package com.example.babycloset.UI.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.babycloset.DB.SharedPreference
+import com.example.babycloset.DB.SharedPreference/*
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.NetworkService*/
 import com.example.babycloset.Network.Post.PostRatingResponse
 import com.example.babycloset.R
 import com.google.gson.JsonObject
@@ -20,10 +20,10 @@ import retrofit2.Response
 class RatingActivity : AppCompatActivity() {
 
     var recieverIdx: Int = -1
-
+/*
     val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +43,14 @@ class RatingActivity : AppCompatActivity() {
             val u_rating:Int = ratingStar.numStars
             val u_userIdx:Int = recieverIdx
 
-            postRatingResponse(u_rating, u_userIdx)
+            //postRatingResponse(u_rating, u_userIdx)
         }
         // 액티비티 종료 버튼
         btn_close.setOnClickListener {
             finish()
         }
     }
+/*
     fun postRatingResponse(u_rate: Int, u_idx: Int){
         var jsonObject = JSONObject()
         jsonObject.put("userIdx", u_idx)
@@ -77,5 +78,6 @@ class RatingActivity : AppCompatActivity() {
         })
 
     }
+*/
 
 }
