@@ -8,9 +8,5 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 
 interface NetworkService {
-    @GET("/post/main")
-    fun getHomeResponse(
-        @Header("Content-Type") content_type: String,
-        @Body() body:JsonObject
-    ): Call<GetHomeResponse>
+    
 }
