@@ -14,7 +14,7 @@ import com.example.babycloset.R
 class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListData>,val itemClick: (QRListData) -> Unit): RecyclerView.Adapter<QRListRecyclerAdapter.Holder>(){
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): QRListRecyclerAdapter.Holder {
         val view: View=LayoutInflater.from(ctx).inflate(R.layout.rv_item_qr_list_,p0,false)
-        return Holder(view,itemClick)s
+        return Holder(view,itemClick)
     }
 
     override fun getItemCount(): Int = dataList.size

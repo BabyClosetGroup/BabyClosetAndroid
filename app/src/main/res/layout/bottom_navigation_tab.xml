@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="home"/>
+            android:src="@drawable/selector_home_icon"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
-        <TextView
+        <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="mypage"
-                android:layout_centerInParent="true"/>
+                android:src="@drawable/selector_mypage_icon"/>
 
     </RelativeLayout>
 

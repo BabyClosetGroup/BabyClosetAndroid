@@ -9,6 +9,9 @@ import android.widget.RelativeLayout
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.MainPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toobar_main.*
+import org.jetbrains.anko.startActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,5 +44,8 @@ class MainActivity : AppCompatActivity() {
         tl_ac_main_bottomTab.getTabAt(0)!!.customView=navCategoryMainLayout.findViewById(R.id.btn_bottom_navi_home_tab) as RelativeLayout
         tl_ac_main_bottomTab.getTabAt(1)!!.customView=navCategoryMainLayout.findViewById(R.id.btn_bottom_navi_my_page_tab) as RelativeLayout
 
+        img_home_qr_code.setOnClickListener {
+            startActivity<QRMainActivity>("id" to 4)
+        }
     }
 }

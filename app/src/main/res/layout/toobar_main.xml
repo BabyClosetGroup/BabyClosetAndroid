@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:padding="0dp">
@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp">
 
+        <ImageView
+                android:id="@+id/img_home_qr_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/qr_code"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="18dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,8 +28,6 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="23dp"
             android:layout_marginBottom="18dp"/>
-
-
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>
