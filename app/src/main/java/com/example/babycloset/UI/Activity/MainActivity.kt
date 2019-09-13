@@ -20,9 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         configureMainTab()
 
-        btn_email.setOnClickListener {
-            startActivity<EmailActivity>()
-        }
+
 
     }
 
@@ -48,8 +46,10 @@ class MainActivity : AppCompatActivity() {
         tl_ac_main_bottomTab.getTabAt(0)!!.customView=navCategoryMainLayout.findViewById(R.id.btn_bottom_navi_home_tab) as RelativeLayout
         tl_ac_main_bottomTab.getTabAt(1)!!.customView=navCategoryMainLayout.findViewById(R.id.btn_bottom_navi_my_page_tab) as RelativeLayout
 
-        img_home_qr_code.setOnClickListener {
-            startActivity<QRMainActivity>("id" to 4)
+        btn_write_create.setOnClickListener {
+            startActivity<WritePostActivity>("id" to 5)
         }
+
+
     }
 }

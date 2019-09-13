@@ -11,7 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+        <include
+                android:id="@+id/toolbar_main"
+                layout="@layout/toobar_main"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,6 +35,7 @@
                         android:textColor="#262626"
                         android:layout_weight="4"/>
                 <TextView
+                        android:id="@+id/txt_home_go_deadline_all_product"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="더보기 >"
@@ -71,6 +74,7 @@
                         android:textColor="#262626"
                         android:layout_weight="4"/>
                 <TextView
+                        android:id="@+id/txt_home_go_recent_all_product"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="모든 상품 보기 >"
