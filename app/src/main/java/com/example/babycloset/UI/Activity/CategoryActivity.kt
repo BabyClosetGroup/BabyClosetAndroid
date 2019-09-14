@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.CheckBox
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_category.*
@@ -22,28 +24,26 @@ class CategoryActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.txt_title_toolbar_filter).text = "카테고리 선택"
 
-        //configCheckbox()
-
-        for(i in 1..26){
-            areaBtnClick(i)
+        categoryAllClick(cb_area_all_category, ll_area_category, 26,"cb_area_category")
+        categoryAllClick(cb_age_all_category, ll_age_category, 5,"cb_age_category")
+        categoryAllClick(cb_category_all_category, ll_category_category, 10,"cb_category_category_")
+        for(i in 2..26){
+            cbClick(ll_area_category,"cb_area_category",i,cb_area_all_category, 26)
         }
 
-        for(i in 1..5){
-            ageBtnClick(i)
+        for(i in 2..5){
+            cbClick(ll_age_category, "cb_age_category",i,cb_age_all_category, 5 )
         }
 
-        for(i in 1..10){
-            categoryBtnClick(i)
+        for(i in 2..10){
+            cbClick(ll_category_category, "cb_category_category_", i, cb_category_all_category, 10)
         }
-
-
     }
 
     override fun onResume() {
         super.onResume()
         btn_finish_category.setOnClickListener {
             isValid()
-
         }
     }
 
@@ -64,70 +64,70 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    fun categoryAllClick(cb : CheckBox, ll : LinearLayout, cbNum : Int, tag : String){
+        cb.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(cb.isChecked){
+                for(i in 1..cbNum){
+                    ll.findViewWithTag<CheckBox>(tag + "$i").isChecked = true
+                    ll.findViewWithTag<CheckBox>(tag + "$i").setTextColor(applicationContext.resources.getColor(R.color.white))
+                }
+            }else{
+                for(i in 1..cbNum){
+                    ll.findViewWithTag<CheckBox>(tag + "$i").isChecked = false
+                    ll.findViewWithTag<CheckBox>(tag + "$i").setTextColor(applicationContext.resources.getColor(R.color.grey))
+                }
+            }
+        }
+    }
     //자치구
-    fun areaBtnClick(tag : Int){
-        val id = ll_area_category.findViewWithTag<CheckBox>("cb_area_category$tag")
+    fun cbClick(ll: LinearLayout,tag : String, tagNum : Int, cb : CheckBox, cbNum: Int){
+        val id = ll.findViewWithTag<CheckBox>(tag + "$tagNum")
         id.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                id.setTextColor(applicationContext.resources.getColor(R.color.white))
-                for(i in 1..26){
-                    ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i").isEnabled = false
-                    if(ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i") == id){
-                        id.isEnabled = true
+
+                id.setOnClickListener {
+                    if(cb.isChecked) {
+                        cb.isChecked = false
+
+                        for (i in 2..cbNum) {
+                            ll.findViewWithTag<CheckBox>(tag + "$i").isChecked = true
+                            ll.findViewWithTag<CheckBox>(tag + "$i")
+                                .setTextColor(applicationContext.resources.getColor(R.color.white))
+                        }
+
+                        id.isChecked = false
+                        id.setTextColor(applicationContext.resources.getColor(R.color.grey))
                     }
-                    area = id.text.toString()
+
+                    if(allCategoryClickExctBtnAll(ll,tag,cbNum)){
+                        cb.isChecked = true
+                        cb.setTextColor(applicationContext.resources.getColor(R.color.white))
+                    }
+
                 }
-            }else{
-                for(i in 1..26){
-                    ll_area_category.findViewWithTag<CheckBox>("cb_area_category$i").isEnabled = true
+
+                if(id.isChecked){
+                    id.isChecked = true
+                    id.setTextColor(applicationContext.resources.getColor(R.color.white))
+
+                }else{
+                    id.isChecked = false
+                    id.setTextColor(applicationContext.resources.getColor(R.color.grey))
                 }
-                id.setTextColor(applicationContext.resources.getColor(R.color.grey))
-            }
         }
     }
 
-    //나이
-    fun ageBtnClick(tag:Int){
-        val id = ll_age_category.findViewWithTag<CheckBox>("cb_age_category$tag")
-        id.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                id.setTextColor(applicationContext.resources.getColor(R.color.white))
-                for(i in 1..5){
-                    ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i").isEnabled = false
-                    if(ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i") == id){
-                        id.isEnabled = true
-                    }
-                    age = id.text.toString()
-                }
-            }else{
-                for(i in 1..5){
-                    ll_age_category.findViewWithTag<CheckBox>("cb_age_category$i").isEnabled = true
-                }
-                id.setTextColor(applicationContext.resources.getColor(R.color.grey))
-            }
-        }
+    fun allCategoryClickExctBtnAll(ll : LinearLayout, tag: String, cbNum: Int) : Boolean{
 
-    }
-    //카테고리
-    fun categoryBtnClick(tag: Int){
-        val id = ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$tag")
-        id.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                id.setTextColor(applicationContext.resources.getColor(R.color.white))
-                for(i in 1..10){
-                    ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i").isEnabled = false
-                    if(ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i") == id){
-                        id.isEnabled = true
-                    }
-                    category = id.text.toString()
+        var state = false
+            loop@ for(i in 2..cbNum) {
+                val categoryState = ll.findViewWithTag<CheckBox>(tag +"$i").isChecked
+                if(!categoryState) break@loop
+                if(ll.findViewWithTag<CheckBox>(tag +"$cbNum").isChecked && i == cbNum){
+                    state= true
                 }
-            }else{
-                for(i in 1..10){
-                    ll_category_category.findViewWithTag<CheckBox>("cb_category_category_$i").isEnabled = true
-                }
-                id.setTextColor(applicationContext.resources.getColor(R.color.grey))
             }
-        }
+
+        return state
     }
 
 }
