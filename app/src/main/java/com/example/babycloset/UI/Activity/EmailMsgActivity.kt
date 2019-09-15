@@ -46,6 +46,13 @@ class EmailMsgActivity : AppCompatActivity() {
 
         emailMsgRecyclerAdapter= EmailMsgRecyclerAdapter(this,dataList)
         rv_email_msg.adapter = emailMsgRecyclerAdapter
-        rv_email_msg.layoutManager= LinearLayoutManager(this, LinearLayout.VERTICAL,false)
+
+        var mlm: LinearLayoutManager  = LinearLayoutManager(this) //쪽지 밑에서부터 차오르게
+        rv_email_msg.layoutManager = mlm
+        mlm.stackFromEnd = true
+        mlm.reverseLayout = false
+        mlm.orientation = LinearLayout.VERTICAL
+
+
     }
 }
