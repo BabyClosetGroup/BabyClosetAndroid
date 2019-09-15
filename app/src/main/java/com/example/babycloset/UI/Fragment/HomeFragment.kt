@@ -56,10 +56,10 @@ class HomeFragment : Fragment() {
         }
 
         txt_home_go_deadline_all_product.setOnClickListener {
-            startActivity<AllProductActivity>("id" to 5)
+            startActivity<DeadLineProductActivity>("id" to 5)
         }
         txt_home_go_recent_all_product.setOnClickListener {
-            startActivity<DeadLineProductActivity>("id" to 6)
+            startActivity<AllProductActivity>("id" to 6)
         }
 
     }

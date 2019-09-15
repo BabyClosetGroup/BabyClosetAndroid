@@ -23,7 +23,7 @@ class ModifyPostActivity : AppCompatActivity() {
     lateinit var pictureUri : Uri
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
 
-    val REQUEST_CODE_CATEGORY : Int = 1100
+    val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300

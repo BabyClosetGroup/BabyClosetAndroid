@@ -9,6 +9,12 @@
         android:orientation="vertical"
 >
     <include layout="@layout/toolbar_all_product" />
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="15dp" android:layout_marginBottom="15dp" android:layout_marginStart="16dp"
+            android:id="@+id/rv_filter_deadline_product" android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:scrollbars="none">
 
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
