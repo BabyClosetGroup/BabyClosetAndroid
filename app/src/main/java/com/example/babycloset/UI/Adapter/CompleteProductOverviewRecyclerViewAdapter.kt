@@ -45,7 +45,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
             holder.btn.visibility=View.GONE
         }
         holder.btn.setOnClickListener {
-            ctx.startActivity<RatingActivity>()
+                ctx.startActivity<RatingActivity>()
         }
         holder.info.setOnClickListener {
             // 팝업창
