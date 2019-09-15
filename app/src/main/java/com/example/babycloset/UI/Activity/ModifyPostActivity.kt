@@ -38,10 +38,10 @@ class ModifyPostActivity : AppCompatActivity() {
         img_modify_post3.setOnClickListener { showImageDialog(3) }
         img_modify_post4.setOnClickListener { showImageDialog(4) }
 
-        btn_category_modify_post.setOnClickListener {
+        rl_category_modify_post.setOnClickListener {
             startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY, "requestCode" to REQUEST_CODE_CATEGORY)
         }
-        btn_deadline_modify_post.setOnClickListener {
+        rl_deadline_modify_post.setOnClickListener {
             showDeadlineDialog()
         }
         btn_share_modify_post.setOnClickListener {

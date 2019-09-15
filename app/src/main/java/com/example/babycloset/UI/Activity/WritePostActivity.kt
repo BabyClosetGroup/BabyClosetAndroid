@@ -44,12 +44,12 @@ class WritePostActivity : AppCompatActivity() {
         img_write_post4.setOnClickListener { showImageDialog(4) }
 
         //카테고리 선택 액티비티 이동
-        btn_category_write_post.setOnClickListener {
+        rl_category_write_post.setOnClickListener {
             startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY,"requestCode" to REQUEST_CODE_CATEGORY)
         }
 
         //다이얼로그 팝업
-        btn_deadline_write_post.setOnClickListener { showDeadlineDialog() }
+        rl_deadline_write_post.setOnClickListener { showDeadlineDialog() }
 
         //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {

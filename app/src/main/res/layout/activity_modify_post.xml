@@ -76,7 +76,10 @@
                             android:orientation="vertical"
                             android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
                     >
-                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <RelativeLayout
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:id="@+id/rl_category_modify_post"
+                        >
                             <TextView
                                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/txt_category_modify_post"
                                     android:text="카테고리 선택" android:textSize="16dp" android:textColor="#262626"/>
@@ -99,7 +102,7 @@
                               android:layout_marginTop="15dp" android:background="#f1f1f1"/>
                         <RelativeLayout
                                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="15dp" android:id="@+id/rl_deadline_modify_post"
                         >
 
                             <TextView
