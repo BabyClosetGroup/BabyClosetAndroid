@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CompleteProductOverviewData
-import com.example.babycloset.Network.Get.GetShareCompleteResponse/*
+import com.example.babycloset.Network.Get.GetShareCompleteResponse
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CompleteProductOverviewRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_share_complete.*
@@ -25,9 +25,9 @@ import retrofit2.Response
 class ShareCompleteFragment : Fragment() {
     lateinit var completeProductOverviewRecyclerViewAdapter: CompleteProductOverviewRecyclerViewAdapter
 
-    /*val networkService: NetworkService by lazy {
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -46,12 +46,13 @@ class ShareCompleteFragment : Fragment() {
         rv_complete_product_overview.adapter = completeProductOverviewRecyclerViewAdapter
         rv_complete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
-        //getShareCompleteResponse()
+        getShareCompleteResponse()
     }
-/*
-    private fun getShareCompleteResponse(){
 
-        val token = SharedPreference.getUserToken(ctx)
+    private fun getShareCompleteResponse(){
+/*
+        val token = SharedPreference.getUserToken(ctx)*/
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
 
         val getShareCompleteResponse = networkService.getsharecompleteResponse("application/json", token)
         getShareCompleteResponse.enqueue(object : retrofit2.Callback<GetShareCompleteResponse>{
@@ -77,6 +78,6 @@ class ShareCompleteFragment : Fragment() {
         })
 
     }
-*/
+
 
 }

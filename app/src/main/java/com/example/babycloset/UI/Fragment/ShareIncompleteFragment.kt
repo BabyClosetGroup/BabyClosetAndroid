@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CompleteProductOverviewData
 import com.example.babycloset.Data.IncompleteProductOverviewData
-import com.example.babycloset.Network.Get.GetShareIncompleteResponse/*
+import com.example.babycloset.Network.Get.GetShareIncompleteResponse
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CompleteProductOverviewRecyclerViewAdapter
 import com.example.babycloset.UI.Adapter.IncompleteProductOverviewRecyclerViewAdapter
@@ -28,9 +28,9 @@ class ShareIncompleteFragment : Fragment() {
 
     lateinit var incompleteProductOverviewRecyclerViewAdapter: IncompleteProductOverviewRecyclerViewAdapter
 
-    /*val networkService: NetworkService by lazy {
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -50,11 +50,14 @@ class ShareIncompleteFragment : Fragment() {
             rv_incomplete_product_overview.adapter = incompleteProductOverviewRecyclerViewAdapter
             rv_incomplete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
-            //getShareIncompleteResponse()
+            getShareIncompleteResponse()
     }
-    /*private fun getShareIncompleteResponse(){
+    private fun getShareIncompleteResponse(){
 
+/*
         val token = SharedPreference.getUserToken(ctx)
+*/
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
 
         val getShareIncompleteResponse = networkService.getshareIncompleteResponse("application/json", token)
         getShareIncompleteResponse.enqueue(object : retrofit2.Callback<GetShareIncompleteResponse>{
@@ -79,6 +82,6 @@ class ShareIncompleteFragment : Fragment() {
             }
         })
 
-    }*/
+    }
 
 }

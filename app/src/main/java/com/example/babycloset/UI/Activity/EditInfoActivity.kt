@@ -11,9 +11,9 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Network.Get.GetViewProfileResponse
-import com.example.babycloset.Network.Get.Getviewprofiledata/*
+import com.example.babycloset.Network.Get.Getviewprofiledata
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_edit_info.*
@@ -39,19 +39,19 @@ class EditInfoActivity : AppCompatActivity() {
     val REQUEST_CODE_SELECT_IMAGE: Int = 1004
     lateinit var selectedPicUri: Uri
 
-   /* val networkService: NetworkService by lazy {
+   val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_info)
 
-        //getViewProfileResponse()
+        getViewProfileResponse()
 
         btn_save_info.setOnClickListener {
             // 데이터 저장
-            //putModifyProfileResponse()
+            putModifyProfileResponse()
         }
 
         btn_pw_del.setOnClickListener {
@@ -68,41 +68,44 @@ class EditInfoActivity : AppCompatActivity() {
         }
     }
 
-/*
-    private fun getViewProfileResponse() {
-        val token = SharedPreference.getUserToken(ctx)
+
+    private fun getViewProfileResponse() {/*
+        val token = SharedPreference.getUserToken(ctx)*/
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
 
         val getViewProfileResponse = networkService.getViewProfileResponse(
             "application/json", token
         )
         getViewProfileResponse.enqueue(object : Callback<GetViewProfileResponse> {
             override fun onFailure(call: Call<GetViewProfileResponse>, t: Throwable) {
-                toast("error")
+                toast("get error")
             }
 
             override fun onResponse(call: Call<GetViewProfileResponse>, response: Response<GetViewProfileResponse>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
-                        var tmp: ArrayList<Getviewprofiledata> = response.body()!!.data!!
-                        txt_info_nickname.setText(tmp[0].nickname)
-                        txt_info_name.text = tmp[0].username
-                        txt_info_id.text = tmp[0].userId
+                        var tmp: Getviewprofiledata = response.body()!!.data!!
+                        txt_info_nickname.setText(tmp.nickname)
+                        txt_info_name.text = tmp.username
+                        txt_info_id.text = tmp.userId
 
-                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)
-
+                        Glide.with(ctx).load(tmp.profileImage).into(img_info_thumbnail)
                     }
                 }
             }
         })
 
     }
-*/
 
 
-/*
+
+
     private fun putModifyProfileResponse() {
 
-        val token = SharedPreference.getUserToken(ctx)
+       // val token = SharedPreference.getUserToken(ctx)
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
         val nickname = txt_info_nickname.text.toString()
         val password = txt_info_pw.text.toString()
 
@@ -111,12 +114,13 @@ class EditInfoActivity : AppCompatActivity() {
 
         val putModifyProfileResponse = networkService.putModifyProfileResponse(
             token,
-            nickname_rb,
             password_rb,
+            nickname_rb,
             mImage
         )
         putModifyProfileResponse.enqueue(object : Callback<PutModifyProfileResponse> {
             override fun onFailure(call: Call<PutModifyProfileResponse>, t: Throwable) {
+                toast("put error")
             }
             override fun onResponse(call: Call<PutModifyProfileResponse>, response: Response<PutModifyProfileResponse>) {
                 if (response.isSuccessful) {
@@ -128,7 +132,7 @@ class EditInfoActivity : AppCompatActivity() {
             }
         })
     }
-*/
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
