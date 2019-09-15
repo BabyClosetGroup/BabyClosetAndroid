@@ -20,7 +20,7 @@ import org.jetbrains.anko.startActivityForResult
 
 class DeadLineProductActivity : AppCompatActivity() {
 
-    val REQUEST_CODE_CATEGORY = 1000
+    val REQUEST_CODE_CATEGORY = 1100
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
     lateinit var deadLineProductRecyclerViewAdapter: DeadLineProductRecyclerViewAdapter
 

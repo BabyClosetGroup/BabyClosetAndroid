@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.example.babycloset.Data.AllProductData
@@ -21,7 +22,7 @@ import org.jetbrains.anko.startActivityForResult
 
 class AllProductActivity : AppCompatActivity() {
 
-    val REQUEST_CODE_CATEGORY = 1000
+    val REQUEST_CODE_CATEGORY = 1100
     lateinit var allProductRecyclerViewAdapter: AllProductRecyclerViewAdapter
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
 

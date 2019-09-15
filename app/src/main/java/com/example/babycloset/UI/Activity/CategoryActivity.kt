@@ -22,7 +22,16 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        findViewById<TextView>(R.id.txt_title_toolbar_filter).text = "카테고리 선택"
+        val intent = getIntent()
+        var requestCode = intent.getIntExtra("requestCode", 0)
+
+        if(requestCode == 1100){
+            findViewById<TextView>(R.id.txt_title_toolbar_filter).text = "필터"
+            btn_finish_category.text = "필터 적용하기"
+       }else{
+            findViewById<TextView>(R.id.txt_title_toolbar_filter).text = "카테고리 선택"
+        }
+
 
         categoryAllClick(cb_area_all_category, ll_area_category, 26,"cb_area_category", areaList)
         categoryAllClick(cb_age_all_category, ll_age_category, 5,"cb_age_category", ageList)
