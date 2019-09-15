@@ -19,9 +19,9 @@
             <Button
                     android:layout_width="match_parent" android:layout_height="42dp"
                     android:text="상품 더보기" android:textSize="17sp" android:textColor="#ffffff"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerHorizontal="true" android:layout_marginBottom="20dp"
                     android:layout_marginTop="25dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-                    android:layout_below="@id/rv_item_deadline_product"
+                    android:layout_below="@id/rv_item_deadline_product" style="?android:attr/borderlessButtonStyle"
                     android:background="@drawable/cb_yellow_fill_border"/>
         </RelativeLayout>
     </ScrollView>
