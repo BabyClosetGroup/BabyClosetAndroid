@@ -7,9 +7,13 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.LinearLayout
 import com.bumptech.glide.Glide
+import com.example.babycloset.Data.CategoryData
 import com.example.babycloset.R
+import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
@@ -17,8 +21,9 @@ import org.jetbrains.anko.toast
 class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
     lateinit var pictureUri : Uri
+    lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
 
-    val REQUEST_CODE_CATEGORY : Int = 1000
+    val REQUEST_CODE_CATEGORY : Int = 1100
     val REQUEST_CODE_PICTURE1 : Int = 100
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300
@@ -34,7 +39,7 @@ class ModifyPostActivity : AppCompatActivity() {
         img_modify_post4.setOnClickListener { showImageDialog(4) }
 
         btn_category_modify_post.setOnClickListener {
-            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY)
+            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY, "requestCode" to REQUEST_CODE_CATEGORY)
         }
         btn_deadline_modify_post.setOnClickListener {
             showDeadlineDialog()
@@ -107,13 +112,27 @@ class ModifyPostActivity : AppCompatActivity() {
         //카테고리
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
-                txt_area_tag_modify_post.text = data!!.getStringExtra("area")
-                txt_age_tag_modify_post.text = data.getStringExtra("age")
-                txt_category_tag_modify_post.text = data.getStringExtra("category")
+                val areaList = data!!.getStringArrayListExtra("areaList")
+                val ageList = data!!.getStringArrayListExtra("ageList")
+                val categoryList = data!!.getStringArrayListExtra("categoryList")
 
-                txt_area_tag_modify_post.visibility = View.VISIBLE
-                txt_age_tag_modify_post.visibility = View.VISIBLE
-                txt_category_tag_modify_post.visibility = View.VISIBLE
+                var dataList : ArrayList<CategoryData> = ArrayList()
+
+                for(i in 0..areaList.size-1){
+                    dataList.add(CategoryData(areaList[i]))
+                }
+                for(i in 0..ageList.size-1){
+                    dataList.add(CategoryData(ageList[i]))
+                }
+                for(i in 0..categoryList.size-1){
+                    dataList.add(CategoryData(categoryList[i]))
+                }
+
+                categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this, dataList)
+                rv_category_modify_post.adapter = categoryRecyclerViewAdapter
+                rv_category_modify_post.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+
+                rv_category_modify_post.visibility = View.VISIBLE
             }
         }
 
@@ -155,7 +174,7 @@ class ModifyPostActivity : AppCompatActivity() {
 
 
     fun isValid(){
-        if(txt_area_tag_modify_post.visibility == View.GONE || txt_age_tag_modify_post.visibility == View.GONE || txt_category_tag_modify_post.visibility == View.GONE){
+        if(rv_category_modify_post.visibility == View.GONE){
             WritePostActivity.showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
         }
         else if(deadline==""){

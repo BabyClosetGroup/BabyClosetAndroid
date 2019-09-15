@@ -45,7 +45,7 @@ class WritePostActivity : AppCompatActivity() {
 
         //카테고리 선택 액티비티 이동
         btn_category_write_post.setOnClickListener {
-            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY)
+            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY,"requestCode" to REQUEST_CODE_CATEGORY)
         }
 
         //다이얼로그 팝업
