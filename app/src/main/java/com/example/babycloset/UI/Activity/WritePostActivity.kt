@@ -10,9 +10,13 @@ import kotlinx.android.synthetic.main.activity_write_post.*
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.view.View
+import android.widget.LinearLayout
 import com.bumptech.glide.Glide
+import com.example.babycloset.Data.CategoryData
+import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import okhttp3.MultipartBody
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
@@ -22,7 +26,7 @@ import java.io.File
 class WritePostActivity : AppCompatActivity() {
     var deadline : String = ""
     lateinit var pictureUri : Uri
-
+    lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
     val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
     val REQUEST_CODE_PICTURE2 : Int = 200
@@ -112,21 +116,39 @@ class WritePostActivity : AppCompatActivity() {
         builder.show()
     }
 
+
     //갤러리에서 선택한 이미지 보여주기(썸네일)
    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         //카테고리
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
-                txt_area_tag_write_post.text = data!!.getStringExtra("area")
-                txt_age_tag_write_post.text = data.getStringExtra("age")
-                txt_category_tag_write_post.text = data.getStringExtra("category")
 
-                txt_area_tag_write_post.visibility = View.VISIBLE
-                txt_age_tag_write_post.visibility = View.VISIBLE
-                txt_category_tag_write_post.visibility = View.VISIBLE
+                val areaList = data!!.getStringArrayListExtra("areaList")
+                val ageList = data!!.getStringArrayListExtra("ageList")
+                val categoryList = data!!.getStringArrayListExtra("categoryList")
+
+                var dataList : ArrayList<CategoryData> = ArrayList()
+
+                for(i in 0..areaList.size-1){
+                    dataList.add(CategoryData(areaList[i]))
+                }
+                for(i in 0..ageList.size-1){
+                    dataList.add(CategoryData(ageList[i]))
+                }
+                for(i in 0..categoryList.size-1){
+                    dataList.add(CategoryData(categoryList[i]))
+                }
+
+                categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this, dataList)
+                rv_category_write_post.adapter = categoryRecyclerViewAdapter
+                rv_category_write_post.layoutManager = LinearLayoutManager(this,LinearLayout.HORIZONTAL, false)
+
+                rv_category_write_post.visibility = View.VISIBLE
             }
         }
+
 
         //이미지
         if(requestCode == REQUEST_CODE_PICTURE1){
@@ -166,7 +188,7 @@ class WritePostActivity : AppCompatActivity() {
 
 
     fun isValid(){
-        if(txt_area_tag_write_post.visibility == View.GONE || txt_age_tag_write_post.visibility == View.GONE || txt_category_tag_write_post.visibility == View.GONE){
+        if(rv_category_write_post.visibility == View.GONE){
             showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
         }
         else if(deadline==""){

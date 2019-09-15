@@ -87,27 +87,15 @@
                                     android:background="@drawable/button_arrow"
                             />
 
-                            <Button
-                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_write_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="자치구" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_area_tag_write_post" android:visibility="gone"
-                            />
-                            <Button
-                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_area_tag_write_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="개월수" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_age_tag_write_post" android:visibility="gone"
-                            />
-                            <Button
-                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_write_post" android:layout_toEndOf="@id/txt_age_tag_write_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="카테고리" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_category_tag_write_post" android:visibility="gone"
-                            />
+                           <android.support.v7.widget.RecyclerView
+                                   android:layout_width="wrap_content" android:layout_height="match_parent"
+                                   android:layout_marginTop="10dp"
+                                   android:layout_below="@id/txt_category_write_post"
+                                   android:id="@+id/rv_category_write_post"
+                                   android:visibility="gone"
+                           >
+
+                           </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -131,7 +119,7 @@
                             <Button
                                     android:layout_width="82dp" android:layout_height="28dp" android:layout_marginTop="10dp"
                                     android:layout_below="@id/txt_deadline_write_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="1일" android:textSize="14dp" android:textColor="#ffffff"
+                                    android:text="N일" android:textSize="14dp" android:textColor="#ffffff"  style="?android:attr/borderlessButtonStyle"
                                     android:clickable="false"  android:visibility="gone" android:id="@+id/txt_deadline_tag"
                             />
 
