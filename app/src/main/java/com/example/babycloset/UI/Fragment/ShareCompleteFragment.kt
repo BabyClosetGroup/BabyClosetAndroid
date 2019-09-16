@@ -46,6 +46,14 @@ class ShareCompleteFragment : Fragment() {
         rv_complete_product_overview.adapter = completeProductOverviewRecyclerViewAdapter
         rv_complete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
+        if (dataList.isEmpty()) {
+            rv_complete_product_overview.setVisibility(View.GONE);
+            complete_empty.setVisibility(View.VISIBLE);
+        }
+        else {
+            rv_complete_product_overview.setVisibility(View.VISIBLE);
+            complete_empty.setVisibility(View.GONE);
+        }
         getShareCompleteResponse()
     }
 

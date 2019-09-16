@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.ReceiveProductOverviewData
 import com.example.babycloset.Network.Get.GetReceiveProductResponse
@@ -36,6 +37,15 @@ class ReceiveProductActivity : AppCompatActivity() {
         receiveProductOverviewRecyclerViewAdapter = ReceiveProductOverviewRecyclerViewAdapter(this, dataList)
         rv_receive_product_overview.adapter = receiveProductOverviewRecyclerViewAdapter
         rv_receive_product_overview.layoutManager = LinearLayoutManager(this)
+
+        if (dataList.isEmpty()) {
+            rv_receive_product_overview.setVisibility(View.GONE);
+            receive_empty.setVisibility(View.VISIBLE);
+        }
+        else {
+            rv_receive_product_overview.setVisibility(View.VISIBLE);
+            receive_empty.setVisibility(View.GONE);
+        }
 
         getReceiveProductResponse()
     }

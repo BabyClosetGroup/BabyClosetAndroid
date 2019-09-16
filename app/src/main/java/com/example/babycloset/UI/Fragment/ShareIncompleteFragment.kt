@@ -50,6 +50,15 @@ class ShareIncompleteFragment : Fragment() {
             rv_incomplete_product_overview.adapter = incompleteProductOverviewRecyclerViewAdapter
             rv_incomplete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
+            if (dataList.isEmpty()) {
+                rv_incomplete_product_overview.setVisibility(View.GONE);
+                incomplete_empty.setVisibility(View.VISIBLE);
+            }
+            else {
+                rv_incomplete_product_overview.setVisibility(View.VISIBLE);
+                incomplete_empty.setVisibility(View.GONE);
+            }
+
             getShareIncompleteResponse()
     }
     private fun getShareIncompleteResponse(){
