@@ -20,6 +20,8 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ApplicationPeopleOverviewData>): RecyclerView.Adapter<ApplicationPeopleOverviewRecyclerViewAdapter.Holder>() {
+
+    var nn:String=""
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(com.example.babycloset.R.layout.rv_application_people_overview, viewGroup, false)
@@ -37,7 +39,8 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         holder.rb.rating= score
 
         holder.container.setOnClickListener {
-            holder.container.setBackgroundColor(Color.parseColor("#ffecb4"))
+            nn=dataList[position].applicantNickname
+            showMailDialog()
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,6 +49,25 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         var rate = itemView.findViewById(R.id.txt_rv_item_application_score) as TextView
         var rb = itemView.findViewById(R.id.rb_rv_item_application_rate) as RatingBar
         //var thumbnail = itemView.findViewById(R.id.img_rv_item_application_overview_profile) as ImageView
+    }
+    private fun showMailDialog() {
+        val MailDialog = AlertDialog.Builder(ctx)
+        MailDialog.setTitle("")
+        MailDialog.setMessage(nn+"님께 쪽지를 보낼까요?")
 
+        /*var dialog_listener = object: DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                when(which){
+                    DialogInterface.BUTTON_POSITIVE ->
+                        //쪽지창으로
+
+                    DialogInterface.BUTTON_NEGATIVE ->
+                        finish()
+                        //toast("취소되었습니다")
+                }
+            }
+        }*/
+        MailDialog.setPositiveButton("예",null)
+        MailDialog.show()
     }
 }

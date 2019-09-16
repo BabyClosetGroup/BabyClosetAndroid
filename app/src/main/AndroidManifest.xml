@@ -47,6 +47,12 @@
         <activity android:name=".UI.Activity.EditInfoActivity"/>
         <activity android:name=".UI.Activity.RatingActivity"/>
         <activity android:name=".UI.Activity.ListPeopleActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.ProductActivity">
         </activity>
@@ -56,12 +62,6 @@
         </activity>
         <activity android:name=".UI.Activity.WritePostActivity"/>
         <activity android:name=".UI.Activity.ShareProductActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.ReceiveProductActivity">
         </activity>

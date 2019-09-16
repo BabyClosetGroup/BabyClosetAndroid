@@ -34,7 +34,7 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
 
     var name:String =""
     var starrate:Int =0
-    var nullArray= arrayOfNulls<String>(5)
+    //var nullArray= arrayOfNulls<String>(5)
 
     /*val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -52,11 +52,12 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         //holder.title.text = dataList[position].productTitle
-        nullArray = dataList[position].areaName
-        for(i in 0..nullArray.size){
+        val locList:ArrayList<String> = dataList[position].areaName
+
+        /*for(i in 0..nullArray.size){
             holder.location.text = nullArray[0]
-        }
-        //holder.location.text = dataList[position].areaName
+        }*/
+        holder.location.text = locList[0]+"외"+locList.size+"구"
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].senderNickname
         /*if(dataList[position].isRated.equals("미부여"))

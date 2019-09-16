@@ -5,7 +5,7 @@ data class CompleteProductOverviewData(
     var postName: String,
     var mainImage: String,
     //var productTitle: String,
-    var areaName: Array<String?>,
+    var areaName: ArrayList<String>,
     var recieverIdx: Int,
     var recieverNickname: String,
     var sharedDate: String,

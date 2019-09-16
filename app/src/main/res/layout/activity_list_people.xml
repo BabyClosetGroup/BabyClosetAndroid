@@ -130,7 +130,7 @@
                 android:layout_marginBottom="60dp">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-    <Button
+    <!--<Button
             android:layout_alignParentBottom="true"
             android:background="#767676"
             android:textColor="#ffffff"
@@ -139,5 +139,5 @@
             android:text="선택 후 쪽지 보내기"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/btn_send_note"/>
+            android:id="@+id/btn_send_note"/>-->
 </RelativeLayout>

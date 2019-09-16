@@ -33,10 +33,12 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         holder.title.text = dataList[position].postTitle
-        nullArray = dataList[position].areaName
-        for(i in 0..nullArray.size){
+        val locList:ArrayList<String> = dataList[position].areaName
+
+        /*for(i in 0..nullArray.size){
             holder.location.text = nullArray[0]
-        }
+        }*/
+        holder.location.text = locList[0]+"외"+locList.size+"구"
         //holder.location.text = dataList[position].areaName
         holder.num.text = dataList[position].registerNumber
 
