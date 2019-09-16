@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -27,7 +28,6 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,10 +44,11 @@ class WritePostActivity : AppCompatActivity() {
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
 
-    lateinit var pictureUri1 : Uri
-    lateinit var pictureUri2 : Uri
-    lateinit var pictureUri3 : Uri
-    lateinit var pictureUri4 : Uri
+    var pictureUri1 : Uri? = null
+    var pictureUri2 : Uri? = null
+    var pictureUri3 : Uri? = null
+    var pictureUri4 : Uri? = null
+    var pictureList =  ArrayList<MultipartBody.Part>()
 
 
     val REQUEST_CODE_CATEGORY : Int = 1000
@@ -230,39 +231,17 @@ class WritePostActivity : AppCompatActivity() {
         }
     }
 
-    //알림 팝업
-    companion object{
-        fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){
-            val builder = AlertDialog.Builder(ctx)
-            builder
-                .setTitle(title)
-                .setMessage(Html.fromHtml("<font color='#767676'>$msg1<br>$msg2</font>"))
-                .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
-            builder.show()
-        }
-    }
-
     //통신
     fun postWritePostResponse(){
-        val title = edt_title_write_post.text.toString()
-        val content = edt_contents_wirte_post.text.toString()
-        val deadline = deadline
-        val areaCategory = listToString(areaList)
-        val ageCategory = listToString(ageList)
-        val categoryCategory = listToString(categoryList)
 
-        val title_rb = RequestBody.create(MediaType.parse("text/plain"), title)
-        val content_rb = RequestBody.create(MediaType.parse("text/plain"), content)
-        val deadline_rb = RequestBody.create(MediaType.parse("text/plain"), deadline)
-        val areaC_rb = RequestBody.create(MediaType.parse("text/plain"),areaCategory)
-        val ageC_rb = RequestBody.create(MediaType.parse("text/plain"), ageCategory)
-        val catC_rb = RequestBody.create(MediaType.parse("text/plain"), categoryCategory)
+        val title_rb = stringToRequestBody(edt_title_write_post.text.toString())
+        val content_rb = stringToRequestBody(edt_contents_wirte_post.text.toString())
+        val deadline_rb = stringToRequestBody(deadline)
+        val areaC_rb = stringToRequestBody(listToString(areaList))
+        val ageC_rb = stringToRequestBody(listToString(ageList))
+        val catC_rb = stringToRequestBody(listToString(categoryList))
 
-        val photoBody = imageToRequestBody(pictureUri1)
-        val picture_rb = MultipartBody.Part.createFormData("postImages", File(pictureUri1.toString()).name, photoBody)
-
-        val pictureList =  ArrayList<MultipartBody.Part>()
-        pictureList.add(picture_rb)
+        imagesToMBP(pictureUri1!!, pictureUri2!!, pictureUri3!!, pictureUri4!!, pictureList, contentResolver)
 
         val postWritePostResponse = networkService.postWritePostResponse(token, title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList)
 
@@ -283,26 +262,62 @@ class WritePostActivity : AppCompatActivity() {
         })
     }
 
+    //ModifyPostActivity 활용
+    companion object{
+        //알림 팝업
+        fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){
+            val builder = AlertDialog.Builder(ctx)
+            builder
+                .setTitle(title)
+                .setMessage(Html.fromHtml("<font color='#767676'>$msg1<br>$msg2</font>"))
+                .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
+            builder.show()
+        }
 
-    fun imageToRequestBody(uri: Uri) : RequestBody{
-        val options = BitmapFactory.Options()
-        val inputStream: InputStream = contentResolver.openInputStream(uri)
-        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-        val photoBody = RequestBody.create(MediaType.parse("image/jpg"),byteArrayOutputStream.toByteArray())
+        //카테고리->string
+        fun listToString(list: ArrayList<String>) : String{
+            var categoryStr = ""
+            for(i in 0 ..list.size-1){
+                if(i == list.size-1){
+                    categoryStr += list[i]
+                }else{
+                    categoryStr += list[i] + ","
+                }
+            }
+            return categoryStr
+        }
 
-        return photoBody
-    }
-    fun listToString(list: ArrayList<String>) : String{
-        var categoryStr = ""
-        for(i in 0 ..list.size-1){
-            if(i == list.size-1){
-                categoryStr += list[i]
-            }else{
-                categoryStr += list[i] + ","
+        //String -> RequestBody
+        fun stringToRequestBody(str : String):RequestBody{
+            val rb =  RequestBody.create(MediaType.parse("text/plain"), str)
+            return rb
+        }
+
+        //uri -> RequestBody
+        fun imageToRequestBody(uri: Uri, contentResolver: ContentResolver) : RequestBody{
+            val options = BitmapFactory.Options()
+            val inputStream: InputStream = contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+            val photoBody = RequestBody.create(MediaType.parse("image/jpg"),byteArrayOutputStream.toByteArray())
+
+            return photoBody
+        }
+
+        //images requestBody -> ArrayList<MultipartBody.Part>
+        fun imagesToMBP(uri1: Uri, uri2: Uri, uri3: Uri, uri4: Uri, pictureList :  ArrayList<MultipartBody.Part>, contentResolver: ContentResolver){
+            val uriList = arrayListOf(uri1, uri2, uri3, uri4)
+            for(i in 0 .. uriList.size-1){
+                if(uriList[i] == null){
+                    Log.e("uri", "is null")
+                }
+                else{
+                    //리퀘스트 바디 만들기
+                    val picture_rb = MultipartBody.Part.createFormData("postImages", File(uriList[i].toString()).name, imageToRequestBody(uriList[i]!!, contentResolver))
+                    pictureList.add(picture_rb)
+                }
             }
         }
-        return categoryStr
     }
 }
