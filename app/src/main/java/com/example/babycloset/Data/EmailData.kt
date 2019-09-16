@@ -1,6 +1,6 @@
 package com.example.babycloset.Data
 
-data class EmailPersonData(
+data class EmailData( //채팅 목록 데이터
     var personIdx : Int,
     var personName : String,
     var sendTime : String,
