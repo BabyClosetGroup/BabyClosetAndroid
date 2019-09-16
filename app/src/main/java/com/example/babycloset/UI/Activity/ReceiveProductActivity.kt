@@ -55,7 +55,7 @@ class ReceiveProductActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<ReceiveProductOverviewData> = response.body()!!.data!!
-                        receiveProductOverviewRecyclerViewAdapter.dataList = tmp
+                        receiveProductOverviewRecyclerViewAdapter.RVDataList = tmp
                         receiveProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
 
                         Log.e("tag", "성공")

@@ -52,14 +52,14 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
-        //holder.title.text = dataList[position].productTitle
+        //holder.title.text = RVDataList[position].productTitle
         holder.location.text = dataList[position].areaName
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].recieverNickname
-        /*if(dataList[position].isRated.equals("미부여"))
-            holder.rate.text = dataList[position].productRate
+        /*if(RVDataList[position].isRated.equals("미부여"))
+            holder.rate.text = RVDataList[position].productRate
         else
-            holder.rate.text = dataList[position].productRate+"점"*/
+            holder.rate.text = RVDataList[position].productRate+"점"*/
 
         if(!dataList[position].isRated.equals(0)){
             holder.btn.visibility=View.GONE

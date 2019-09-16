@@ -87,15 +87,15 @@
                                     android:background="@drawable/button_arrow"
                             />
 
-                           <android.support.v7.widget.RecyclerView
-                                   android:layout_width="wrap_content" android:layout_height="match_parent"
-                                   android:layout_marginTop="10dp"
-                                   android:layout_below="@id/txt_category_write_post"
-                                   android:id="@+id/rv_category_write_post"
-                                   android:visibility="gone"
-                           >
+                            <android.support.v7.widget.RecyclerView
+                                    android:layout_width="wrap_content" android:layout_height="match_parent"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_below="@id/txt_category_write_post"
+                                    android:id="@+id/rv_category_write_post"
+                                    android:visibility="gone"
+                            >
 
-                           </android.support.v7.widget.RecyclerView>
+                            </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp"

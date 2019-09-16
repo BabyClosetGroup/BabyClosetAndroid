@@ -10,30 +10,29 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.babycloset.Data.AllProductData
+import com.example.babycloset.Data.AllPostRVData
 import com.example.babycloset.R
 
-class AllProductRecyclerViewAdapter(val ctx : Context, val dataList : ArrayList<AllProductData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
+class AllProductRecyclerViewAdapter(var ctx : Context, var RVDataList : ArrayList<AllPostRVData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):Holder {
        val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_all_product, viewGroup, false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = RVDataList.size
 
     override fun onBindViewHolder(holder : Holder, position: Int) {
+
+        val dataList : ArrayList<String> = RVDataList[position].areaName
+
         Glide.with(ctx)
-            .load(dataList[position].mainImage)
+            .load(RVDataList[position].mainImage)
             .into(holder.mainImage)
-        holder.postTitle.text = dataList[position].postTitle
-        holder.areaName.text = dataList[position].areaName
-
-
+        holder.postTitle.text = RVDataList[position].postTitle
+        holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
         holder.container.setOnClickListener {
-            Log.e("title", dataList[position].postTitle)
+
         }
-
-
     }
 
     inner class Holder(itemView:View) : RecyclerView.ViewHolder(itemView){

@@ -67,7 +67,7 @@ class ShareIncompleteFragment : Fragment() {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<IncompleteProductOverviewData> = response.body()!!.data!!
-                        incompleteProductOverviewRecyclerViewAdapter.dataList = tmp
+                        incompleteProductOverviewRecyclerViewAdapter.RVDataList = tmp
                         incompleteProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
 
                         Log.e("tag", "포폴리스트 성공")

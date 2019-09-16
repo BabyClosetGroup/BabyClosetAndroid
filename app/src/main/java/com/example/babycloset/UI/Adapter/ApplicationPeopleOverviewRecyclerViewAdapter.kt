@@ -32,7 +32,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-       // Glide.with(ctx).load(dataList[position].productImg).into(holder.thumbnail)
+       // Glide.with(ctx).load(RVDataList[position].productImg).into(holder.thumbnail)
         holder.name.text = dataList[position].applicantNickname
         holder.rate.text = dataList[position].rating.toString()+"점"
         var score = dataList[position].rating.toFloat()

@@ -1,10 +1,10 @@
-/*
 package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.PostLoginResponse
 import com.example.babycloset.Network.Post.PostRatingResponse
 import com.example.babycloset.Network.Post.PostSignupResponse
+import com.example.babycloset.Network.Post.PostWritePostResponse
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
@@ -87,4 +87,43 @@ interface NetworkService {
         @Header("Content-Type") content_type:String,
         @Header("token") token : String
     ):Call<GetRatingResponse>
-}*/
+
+    //모든 상품 보기
+    @GET("/post/all/{pagination}")
+    fun getAllPostResponse(
+        @Header("token") token: String,
+        @Path("pagination") pagination : Int
+    ): Call<GetAllPostResponse>
+
+
+    //모든 상품 보기 필터 적용
+    @GET("/post/filter/all/{pagination}")
+    fun getAllPostFilterResponse(
+        @Header("token") token: String,
+        @Body() body: JsonObject,
+        @Path("pagenation") pagenation : Int
+    ): Call<GetAllPostFilterResponse>
+
+
+    //마감 상품 필터
+    @GET("/post/filter/deadline/{pagination}")
+    fun getDeadLinePostFilterResponse(
+        @Header("token") token: String,
+        @Body() body : JsonObject,
+        @Path("pagenation") pagenation : Int
+    ): Call<GetDeadLinePostFilterResponse>
+
+    //게시물 등록
+    @Multipart
+    @POST("/post")
+    fun postWritePostResponse(
+        @Header("token") token:  String,
+        @Part("title") title :  RequestBody,
+        @Part("content") content:  RequestBody,
+        @Part("deadline") deadline:  RequestBody,
+        @Part("areaCategory") areaCategory:  RequestBody,
+        @Part("ageCategory") ageCategory:  RequestBody,
+        @Part("clothCategory") clothCategory :  RequestBody,
+        @Part postImages : ArrayList<MultipartBody.Part>
+    ) : Call<PostWritePostResponse>
+}

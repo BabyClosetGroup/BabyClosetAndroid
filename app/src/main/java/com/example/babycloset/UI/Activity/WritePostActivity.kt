@@ -9,29 +9,58 @@ import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.CategoryData
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Post.PostWritePostResponse
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.InputStream
 
 
 class WritePostActivity : AppCompatActivity() {
     var deadline : String = ""
-    lateinit var pictureUri : Uri
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
+
+    var areaList = arrayListOf<String>()
+    var ageList = arrayListOf<String>()
+    var categoryList = arrayListOf<String>()
+
+    lateinit var pictureUri1 : Uri
+    lateinit var pictureUri2 : Uri
+    lateinit var pictureUri3 : Uri
+    lateinit var pictureUri4 : Uri
+
+
     val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300
     val REQUEST_CODE_PICTURE4 : Int = 400
+
+    val networkService : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
+    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,19 +154,19 @@ class WritePostActivity : AppCompatActivity() {
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
 
-                val areaList = data!!.getStringArrayListExtra("areaList")
-                val ageList = data!!.getStringArrayListExtra("ageList")
-                val categoryList = data!!.getStringArrayListExtra("categoryList")
+                areaList = data!!.getStringArrayListExtra("areaList")
+                ageList = data!!.getStringArrayListExtra("ageList")
+                categoryList = data!!.getStringArrayListExtra("categoryList")
 
-                var dataList : ArrayList<CategoryData> = ArrayList()
+                val dataList : ArrayList<CategoryData> = ArrayList()
 
-                for(i in 0..areaList.size-1){
+                for(i in 0 .. areaList.size-1){
                     dataList.add(CategoryData(areaList[i]))
                 }
-                for(i in 0..ageList.size-1){
+                for(i in 0 .. ageList.size-1){
                     dataList.add(CategoryData(ageList[i]))
                 }
-                for(i in 0..categoryList.size-1){
+                for(i in 0 .. categoryList.size-1){
                     dataList.add(CategoryData(categoryList[i]))
                 }
 
@@ -154,32 +183,32 @@ class WritePostActivity : AppCompatActivity() {
         if(requestCode == REQUEST_CODE_PICTURE1){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post1)
+                    pictureUri1 = it.data!!
+                    Glide.with(this).load(pictureUri1).into(img_write_post1)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE2){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post2)
+                    pictureUri2 = it.data!!
+                    Glide.with(this).load(pictureUri2).into(img_write_post2)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE3){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).thumbnail(0.1f).into(img_write_post3)
+                    pictureUri3 = it.data!!
+                    Glide.with(this).load(pictureUri3).thumbnail(0.1f).into(img_write_post3)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE4){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post4)
+                    pictureUri4 = it.data!!
+                    Glide.with(this).load(pictureUri4).into(img_write_post4)
 
                 }
             }
@@ -197,7 +226,7 @@ class WritePostActivity : AppCompatActivity() {
         else if(edt_title_write_post.text.toString()==""){
             showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
         }else{
-            toast("통신")
+            postWritePostResponse()
         }
     }
 
@@ -214,4 +243,66 @@ class WritePostActivity : AppCompatActivity() {
     }
 
     //통신
+    fun postWritePostResponse(){
+        val title = edt_title_write_post.text.toString()
+        val content = edt_contents_wirte_post.text.toString()
+        val deadline = deadline
+        val areaCategory = listToString(areaList)
+        val ageCategory = listToString(ageList)
+        val categoryCategory = listToString(categoryList)
+
+        val title_rb = RequestBody.create(MediaType.parse("text/plain"), title)
+        val content_rb = RequestBody.create(MediaType.parse("text/plain"), content)
+        val deadline_rb = RequestBody.create(MediaType.parse("text/plain"), deadline)
+        val areaC_rb = RequestBody.create(MediaType.parse("text/plain"),areaCategory)
+        val ageC_rb = RequestBody.create(MediaType.parse("text/plain"), ageCategory)
+        val catC_rb = RequestBody.create(MediaType.parse("text/plain"), categoryCategory)
+
+        val photoBody = imageToRequestBody(pictureUri1)
+        val picture_rb = MultipartBody.Part.createFormData("postImages", File(pictureUri1.toString()).name, photoBody)
+
+        val pictureList =  ArrayList<MultipartBody.Part>()
+        pictureList.add(picture_rb)
+
+        val postWritePostResponse = networkService.postWritePostResponse(token, title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList)
+
+        postWritePostResponse.enqueue(object : Callback<PostWritePostResponse>{
+            override fun onFailure(call: Call<PostWritePostResponse>, t: Throwable) {
+                Log.e("게시물 등록 액티비티 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<PostWritePostResponse>, response: Response<PostWritePostResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        Log.e("성공", response.message())
+                    }
+                    Log.e("10알", response.message())
+                }
+
+            }
+        })
+    }
+
+
+    fun imageToRequestBody(uri: Uri) : RequestBody{
+        val options = BitmapFactory.Options()
+        val inputStream: InputStream = contentResolver.openInputStream(uri)
+        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+        val photoBody = RequestBody.create(MediaType.parse("image/jpg"),byteArrayOutputStream.toByteArray())
+
+        return photoBody
+    }
+    fun listToString(list: ArrayList<String>) : String{
+        var categoryStr = ""
+        for(i in 0 ..list.size-1){
+            if(i == list.size-1){
+                categoryStr += list[i]
+            }else{
+                categoryStr += list[i] + ","
+            }
+        }
+        return categoryStr
+    }
 }

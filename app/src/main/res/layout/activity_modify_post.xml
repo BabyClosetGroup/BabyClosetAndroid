@@ -83,6 +83,7 @@
                             <TextView
                                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/txt_category_modify_post"
                                     android:text="카테고리 선택" android:textSize="16dp" android:textColor="#262626"/>
+
                             <ImageButton
                                     android:layout_width="24dp" android:layout_height="24dp"
                                     android:layout_alignParentRight="true"
