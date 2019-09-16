@@ -59,7 +59,7 @@
                 android:background="@drawable/signin_enter_border"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:textSize="12sp"
                 android:ems="10"
                 android:id="@+id/edt_pw_login"/>

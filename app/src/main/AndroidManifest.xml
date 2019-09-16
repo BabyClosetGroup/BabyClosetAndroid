@@ -28,11 +28,6 @@
         <activity android:name=".UI.Activity.QRScanActivity">
         </activity>
         <activity android:name=".UI.Activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.CategoryActivity">
         </activity>
@@ -50,7 +45,13 @@
         <activity android:name=".UI.Activity.InfoConsentActivity"/>
         <activity android:name=".UI.Activity.EditInfoActivity"/>
         <activity android:name=".UI.Activity.RatingActivity"/>
-        <activity android:name=".UI.Activity.ListPeopleActivity"/>
+        <activity android:name=".UI.Activity.ListPeopleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".UI.Activity.ProductActivity">
         </activity>
         <activity android:name=".UI.Activity.DeadLineProductActivity">

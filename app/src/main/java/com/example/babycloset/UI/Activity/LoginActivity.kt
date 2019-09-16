@@ -3,9 +3,9 @@ package com.example.babycloset.UI.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.babycloset.DB.SharedPreference/*
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Post.PostLoginResponse
 import com.example.babycloset.R
 import com.google.gson.JsonObject
@@ -20,10 +20,10 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    /*val networkService: NetworkService by lazy {
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
-*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -35,11 +35,11 @@ class LoginActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             val login_u_id: String = edt_id_login.text.toString()
             val login_u_pw: String = edt_pw_login.text.toString()
-            startActivity<MainActivity>()
-            //postLoginResponse(login_u_id, login_u_pw)
+
+            postLoginResponse(login_u_id, login_u_pw)
         }
     }
-/*
+
     fun postLoginResponse(u_id: String, u_pw: String){
         var jsonObject = JSONObject()
         jsonObject.put("userId", u_id)
@@ -69,6 +69,6 @@ class LoginActivity : AppCompatActivity() {
         })
 
     }
-*/
+
 
 }

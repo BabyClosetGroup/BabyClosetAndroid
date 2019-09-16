@@ -23,7 +23,7 @@ import retrofit2.Response
 
 class ListPeopleActivity : AppCompatActivity() {
 
-    var postIdx: Int = -1
+    //var postIdx: Int = -1
 
     lateinit var applicationPeopleOverviewRecyclerViewAdapter: ApplicationPeopleOverviewRecyclerViewAdapter
 
@@ -39,14 +39,25 @@ class ListPeopleActivity : AppCompatActivity() {
         //신청자 데이터 가져오기
         //버튼 클릭시 쪽지 페이지로
 
-        postIdx = intent.getIntExtra("postIdx", -1)
+        /*postIdx = intent.getIntExtra("postIdx", -1)
         if (postIdx == -1) finish()
-
+*/
         configureRecyclerView()
     }
     private fun configureRecyclerView() {
         var dataList: ArrayList<ApplicationPeopleOverviewData> = ArrayList()
-
+        dataList.add(ApplicationPeopleOverviewData(
+            4, "정미", 4))
+        dataList.add(ApplicationPeopleOverviewData(
+          5, "슈퍼맨", 3))
+        dataList.add(ApplicationPeopleOverviewData(
+            6, "바나나", 5))
+        dataList.add(ApplicationPeopleOverviewData(
+            7, "송편", 2))
+        dataList.add(ApplicationPeopleOverviewData(
+            8, "풍행추", 5))
+        dataList.add(ApplicationPeopleOverviewData(
+            9, "샐러드", 1))
         applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
         rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
         rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -2,15 +2,13 @@ package com.example.babycloset.UI.Adapter
 
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Color
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.ApplicationPeopleOverviewData
 import com.example.babycloset.Data.CompleteProductOverviewData
@@ -37,11 +35,17 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         holder.rate.text = dataList[position].rating.toString()+"점"
         var score = dataList[position].rating.toFloat()
         holder.rb.rating= score
+
+        holder.container.setOnClickListener {
+            holder.container.setBackgroundColor(Color.parseColor("#ffecb4"))
+        }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var container = itemView.findViewById(R.id.ll_rv_item_application_overview_container) as LinearLayout
         var name = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_application_account_name) as TextView
         var rate = itemView.findViewById(R.id.txt_rv_item_application_score) as TextView
         var rb = itemView.findViewById(R.id.rb_rv_item_application_rate) as RatingBar
         //var thumbnail = itemView.findViewById(R.id.img_rv_item_application_overview_profile) as ImageView
+
     }
 }
