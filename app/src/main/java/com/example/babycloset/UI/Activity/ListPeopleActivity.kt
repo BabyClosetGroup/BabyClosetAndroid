@@ -24,6 +24,7 @@ import retrofit2.Response
 class ListPeopleActivity : AppCompatActivity() {
 
     //var postIdx: Int = -1
+    var nullArray= arrayOfNulls<String>(5)
 
     lateinit var applicationPeopleOverviewRecyclerViewAdapter: ApplicationPeopleOverviewRecyclerViewAdapter
 
@@ -81,7 +82,11 @@ class ListPeopleActivity : AppCompatActivity() {
                     if(response.body()!!.status == 200){
                         var tmp1: ArrayList<Getproductdata> = response.body()!!.post!!
                         txt_product.setText(tmp1[0].postTitle)
-                        txt_location.text = tmp1[0].areaName
+                        nullArray = tmp1[0].areaName
+                        for(i in 0..nullArray.size){
+                            txt_location.text = nullArray[0]
+                        }
+                        //txt_location.text = tmp1[0].areaName
                         txt_number.text = tmp1[0].applicantNumber
 
                         Glide.with(ctx).load(tmp1[0].mainImage).into(img_thumbnail)

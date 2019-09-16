@@ -18,6 +18,9 @@ import org.jetbrains.anko.image
 import org.jetbrains.anko.startActivity
 
 class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<IncompleteProductOverviewData>): RecyclerView.Adapter<IncompleteProductOverviewRecyclerViewAdapter.Holder>() {
+
+    var nullArray= arrayOfNulls<String>(5)
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(com.example.babycloset.R.layout.rv_incomplete_product_overview, viewGroup, false)
@@ -30,7 +33,11 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         holder.title.text = dataList[position].postTitle
-        holder.location.text = dataList[position].areaName
+        nullArray = dataList[position].areaName
+        for(i in 0..nullArray.size){
+            holder.location.text = nullArray[0]
+        }
+        //holder.location.text = dataList[position].areaName
         holder.num.text = dataList[position].registerNumber
 
         holder.btn.setOnClickListener {

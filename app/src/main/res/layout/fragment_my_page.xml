@@ -67,6 +67,7 @@
                 </LinearLayout>
 
                 <RatingBar
+                        android:id="@+id/txt_account_rate"
                         android:isIndicator="true"
                         android:rating="3.5"
                         android:stepSize="0.5"

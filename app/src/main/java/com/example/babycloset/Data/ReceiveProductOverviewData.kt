@@ -4,7 +4,7 @@ data class ReceiveProductOverviewData(
     var postIdx: Int,
     var postName: String,
     var mainImage: String,
-    var areaName: ArrayList<String>,
+    var areaName: Array<String?>,
     var senderIdx: Int,
     var senderNickname: String,
     var sharedDate: String,

@@ -20,6 +20,8 @@ import retrofit2.Response
 class RatingActivity : AppCompatActivity() {
 
     var recieverIdx: Int = -1
+    var senderIdx:Int =-1
+    var request_code:Int=-1
 /*
     val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -29,22 +31,42 @@ class RatingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
 
-        recieverIdx = intent.getIntExtra("recieverIdx", -1)
-        if (recieverIdx == -1) finish()
+        request_code=intent.getIntExtra("REQUESTCODE",-1)
+        if(request_code==-1) finish()
+        else if(request_code==100){
+            recieverIdx = intent.getIntExtra("recieverIdx", -1)
+            if (recieverIdx == -1) finish()
 
-        var recieverNickname = intent.getStringExtra("recieverNickname")
-        txt_share_name.text = recieverNickname
-        txt_share_product.text = "흠"
+            var recieverNickname = intent.getStringExtra("recieverNickname")
+            txt_share_name.text = recieverNickname
+            txt_share_product.text = "흠"
+
+            btn_rating.setOnClickListener {
+                val u_rating:Int = ratingStar.rating.toInt()
+                val u_userIdx:Int = recieverIdx
+
+                //postRatingResponse(u_rating, u_userIdx)
+            }
+        }
+        else if(request_code==200){
+            senderIdx = intent.getIntExtra("senderIdx", -1)
+            if (senderIdx == -1) finish()
+
+            var senderNickname = intent.getStringExtra("senderNickname")
+            txt_share_name.text = senderNickname
+            txt_share_product.text = "흠"
+
+            btn_rating.setOnClickListener {
+                val u_rating:Int = ratingStar.rating.toInt()
+                val u_userIdx:Int = senderIdx
+
+                //postRatingResponse(u_rating, u_userIdx)
+            }
+        }
 
         // 5개의 별!
         ratingStar.numStars=5
         // 별점주기 버튼에 post
-        btn_rating.setOnClickListener {
-            val u_rating:Int = ratingStar.numStars
-            val u_userIdx:Int = recieverIdx
-
-            //postRatingResponse(u_rating, u_userIdx)
-        }
         // 액티비티 종료 버튼
         btn_close.setOnClickListener {
             finish()

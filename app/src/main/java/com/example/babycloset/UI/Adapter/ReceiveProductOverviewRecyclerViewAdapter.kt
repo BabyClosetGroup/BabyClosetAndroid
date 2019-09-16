@@ -34,6 +34,7 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
 
     var name:String =""
     var starrate:Int =0
+    var nullArray= arrayOfNulls<String>(5)
 
     /*val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -51,7 +52,11 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         //holder.title.text = dataList[position].productTitle
-        holder.location.text = dataList[position].areaName
+        nullArray = dataList[position].areaName
+        for(i in 0..nullArray.size){
+            holder.location.text = nullArray[0]
+        }
+        //holder.location.text = dataList[position].areaName
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].senderNickname
         /*if(dataList[position].isRated.equals("미부여"))
@@ -65,7 +70,8 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
                 "senderIdx" to dataList[position].senderIdx,
-                "senderNickname" to dataList[position].senderNickname
+                "senderNickname" to dataList[position].senderNickname,
+                "REQUESTCODE" to 200
             )
         }
         holder.info.setOnClickListener {
@@ -100,9 +106,9 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
             override fun onResponse(call: Call<GetRatingResponse>, response: Response<GetRatingResponse>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
-                        var tmp: ArrayList<Getratingdata> = response.body()!!.data!!
-                        name = tmp[0].nickname
-                        starrate = tmp[0].rating
+                        var tmp: Getratingdata = response.body()!!.data!!
+                        name = tmp.nickname
+                        starrate = tmp.rating
 */
 /*
                         Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*//*
