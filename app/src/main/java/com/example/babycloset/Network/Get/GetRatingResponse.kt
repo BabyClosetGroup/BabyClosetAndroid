@@ -9,5 +9,6 @@ data class GetRatingResponse (
 data class Getratingdata(
     var userIdx:Int,
     var nickname:String,
-    var rating: Int
+    var rating: Int,
+    var profileImage:String
 )

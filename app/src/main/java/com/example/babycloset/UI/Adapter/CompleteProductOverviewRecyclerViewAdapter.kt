@@ -30,12 +30,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
 class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<CompleteProductOverviewData>): RecyclerView.Adapter<CompleteProductOverviewRecyclerViewAdapter.Holder>() {
 
     var name:String =""
     var starrate:Int =0
+    var imgstr:String=""
+    var userIdx: Int = -1
 
     val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -66,6 +66,8 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         } else
             holder.rate.text = dataList[position].receiverIsRated.toString()+"점"
 
+        userIdx = dataList[position].receiverIdx
+
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
                 "recieverIdx" to dataList[position].receiverIdx,
@@ -95,29 +97,25 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         val token = SharedPreference.getUserToken(ctx)
 
         val getRatingResponse = networkService.getRatingResponse(
-            "application/json", token
+            "application/json", token, userIdx
         )
         getRatingResponse.enqueue(object : Callback<GetRatingResponse> {
             override fun onFailure(call: Call<GetRatingResponse>, t: Throwable) {
                 //toast("error")
             }
-
             override fun onResponse(call: Call<GetRatingResponse>, response: Response<GetRatingResponse>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
                         var tmp: Getratingdata = response.body()!!.data!!
                         name = tmp.nickname
                         starrate = tmp.rating
-/*
-                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*/
-
+                        imgstr =tmp.profileImage
                     }
                 }
             }
         })
 
     }
-
 
     fun showDialog(){
         val builder = AlertDialog.Builder(ctx)
@@ -131,10 +129,12 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         val rating_dig = builderNew.findViewById<RatingBar>(R.id.rating_dlg)
         val txt_dig_name = builderNew.findViewById<TextView>(R.id.txt_dlg_name)
         val txt_dig_rate = builderNew.findViewById<TextView>(R.id.txt_dlg_rate)
+        val img_dlg_profile = builderNew.findViewById<ImageView>(R.id.img_dlg_profile)
 
         rating_dig?.rating = starrate.toFloat()
         txt_dig_name?.text = name
         txt_dig_rate?.text = starrate.toString()+"점"
+        //Glide.with(ctx).load(imgstr).into(img_dlg_profile)
 
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(builderNew.window.attributes)

@@ -84,6 +84,7 @@ interface NetworkService {
     @GET("/rating/{userIdx}")
     fun getRatingResponse(
         @Header("Content-Type") content_type:String,
-        @Header("token") token : String
+        @Header("token") token : String,
+        @Path("userIdx") userIdx : Int
     ):Call<GetRatingResponse>
 }
