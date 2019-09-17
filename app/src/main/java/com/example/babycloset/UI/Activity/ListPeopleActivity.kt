@@ -10,9 +10,9 @@ import com.example.babycloset.Data.ApplicationPeopleOverviewData
 import com.example.babycloset.Data.IncompleteProductOverviewData
 import com.example.babycloset.Network.Get.GetListPeopleResponse
 import com.example.babycloset.Network.Get.GetShareIncompleteResponse
-import com.example.babycloset.Network.Get.Getproductdata/*
+import com.example.babycloset.Network.Get.Getproductdata
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.ApplicationPeopleOverviewRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_list_people.*
@@ -23,15 +23,13 @@ import retrofit2.Response
 
 class ListPeopleActivity : AppCompatActivity() {
 
-    //var postIdx: Int = -1
-    var nullArray= arrayOfNulls<String>(5)
+    var postIdx: Int = -1
 
     lateinit var applicationPeopleOverviewRecyclerViewAdapter: ApplicationPeopleOverviewRecyclerViewAdapter
 
-    /*val networkService: NetworkService by lazy {
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
-
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_people)
@@ -40,58 +38,47 @@ class ListPeopleActivity : AppCompatActivity() {
         //신청자 데이터 가져오기
         //버튼 클릭시 쪽지 페이지로
 
-        /*postIdx = intent.getIntExtra("postIdx", -1)
+        postIdx = intent.getIntExtra("postIdx", -1)
         if (postIdx == -1) finish()
-*/
+        txt_product.text = intent.getStringExtra("postTitle")
+        txt_number.text = intent.getStringExtra("registerNumber")
+        Glide.with(ctx).load(intent.getStringExtra("mainImage")).into(img_thumbnail)
+        txt_application_num.text="("+intent.getStringExtra("registerNumber")+")"
         configureRecyclerView()
     }
     private fun configureRecyclerView() {
         var dataList: ArrayList<ApplicationPeopleOverviewData> = ArrayList()
-        dataList.add(ApplicationPeopleOverviewData(
-            4, "정미", 4))
-        dataList.add(ApplicationPeopleOverviewData(
-          5, "슈퍼맨", 3))
-        dataList.add(ApplicationPeopleOverviewData(
-            6, "바나나", 5))
-        dataList.add(ApplicationPeopleOverviewData(
-            7, "송편", 2))
-        dataList.add(ApplicationPeopleOverviewData(
-            8, "풍행추", 5))
-        dataList.add(ApplicationPeopleOverviewData(
-            9, "샐러드", 1))
         applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
         rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
         rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        //getListPeopleResponse()
+        getListPeopleResponse()
     }
-/*
-    private fun getListPeopleResponse(){
 
-        val token = SharedPreference.getUserToken(ctx)
+    private fun getListPeopleResponse(){
+        val token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+
+        //val token = SharedPreference.getUserToken(ctx)
 
         val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, postIdx)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
             }
-            override fun onResponse(
-                call: Call<GetListPeopleResponse>,
-                response: Response<GetListPeopleResponse>
-            ) {
+            override fun onResponse(call: Call<GetListPeopleResponse>, response: Response<GetListPeopleResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
-                        var tmp1: ArrayList<Getproductdata> = response.body()!!.post!!
-                        txt_product.setText(tmp1[0].postTitle)
-                        nullArray = tmp1[0].areaName
-                        for(i in 0..nullArray.size){
-                            txt_location.text = nullArray[0]
-                        }
-                        //txt_location.text = tmp1[0].areaName
-                        txt_number.text = tmp1[0].applicantNumber
+                        var tmp1: Getproductdata = response.body()!!.data.post!!
+                        //txt_product.text = tmp1.postTitle
+                        var locList:ArrayList<String?> = tmp1.areaName
+                        if(locList.size-1!=0)
+                            txt_location.text = locList[0]+" 외 "+(locList.size-1)+"구"
+                        else
+                            txt_location.text = locList[0]
+                        //txt_number.text = tmp1.applicantNumber
+                        //Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
-                        Glide.with(ctx).load(tmp1[0].mainImage).into(img_thumbnail)
-
-                        val tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data!!
+                        var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!
                         applicationPeopleOverviewRecyclerViewAdapter.dataList = tmp
                         applicationPeopleOverviewRecyclerViewAdapter.notifyDataSetChanged()
 
@@ -105,5 +92,5 @@ class ListPeopleActivity : AppCompatActivity() {
         })
 
     }
-*/
+
 }

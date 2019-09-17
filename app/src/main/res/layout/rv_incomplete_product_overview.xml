@@ -19,6 +19,7 @@
 
 
         <ImageView
+                android:scaleType="centerCrop"
             android:id="@+id/img_rv_item_incomplete_overview_thumbnail"
             android:layout_width="109dp"
             android:layout_height="109dp"

@@ -23,6 +23,7 @@
                 android:paddingBottom="22dp">
 
             <ImageView
+                    android:scaleType="centerCrop"
                     android:id="@+id/img_thumbnail"
                     android:layout_width="109dp"
                     android:layout_height="109dp"

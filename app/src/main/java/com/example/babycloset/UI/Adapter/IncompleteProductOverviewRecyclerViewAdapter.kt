@@ -41,7 +41,10 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
         holder.btn.setOnClickListener {
             ctx.startActivity<ListPeopleActivity>(
-                "postIdx" to dataList[position].postIdx
+                "postIdx" to dataList[position].postIdx,
+                "mainImage" to dataList[position].mainImage,
+                "postTitle" to dataList[position].postTitle,
+                "registerNumber" to dataList[position].registerNumber
             )
         }
     }

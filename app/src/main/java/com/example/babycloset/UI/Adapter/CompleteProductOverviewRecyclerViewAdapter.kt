@@ -61,10 +61,11 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].receiverNickname
 
-        if(!dataList[position].receiverIsRated.equals(0)){
+        if(dataList[position].receiverIsRated != 1){
+            holder.rate.text = "부여"
             holder.btn.visibility=View.GONE
         } else
-            holder.rate.text = dataList[position].receiverIsRated.toString()+"점"
+            holder.rate.text = "미부여"
 
         userIdx = dataList[position].receiverIdx
 
@@ -80,7 +81,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.info.setOnClickListener {
             // 팝업창
             getRatingResponse()
-            showDialog()
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -115,6 +115,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
                         name = tmp.nickname
                         starrate = tmp.rating
                         imgstr =tmp.profileImage
+                        showDialog()
                     }
                 }
             }

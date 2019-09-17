@@ -70,8 +70,13 @@ class ShareIncompleteFragment : Fragment() {
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<IncompleteProductOverviewData> = response.body()!!.data.allPost
                         incompleteProductOverviewRecyclerViewAdapter.dataList = tmp
-                        incompleteProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
-
+                        incompleteProductOverviewRecyclerViewAdapter.notifyDataSetChanged()/*
+                        if (dataList.isEmpty()) {
+                            incomplete_empty.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            incomplete_empty.setVisibility(View.GONE);
+                        }*/
                         Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){

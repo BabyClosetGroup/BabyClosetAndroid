@@ -62,7 +62,7 @@ interface NetworkService {
     fun getlistpeopleResponse(
         @Header("Content-Type") content_type:String,
         @Header("token") token : String,
-        @Header("postIdx") postIdx:Int
+        @Path("postIdx") postIdx:Int
     ):Call<GetListPeopleResponse>
 
     //받은 나눔 게시물 조회

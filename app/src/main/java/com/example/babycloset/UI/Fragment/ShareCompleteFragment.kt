@@ -67,14 +67,13 @@ class ShareCompleteFragment : Fragment() {
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<CompleteProductOverviewData> = response.body()!!.data.allPost
                         completeProductOverviewRecyclerViewAdapter.dataList = tmp
-                        completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
-                        /* if (dataList.isEmpty()) {
-                            rv_complete_product_overview.setVisibility(View.GONE);
+                        completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()/*
+                         if (dataList.isEmpty()) {
                             complete_empty.setVisibility(View.VISIBLE);
                         }
                         else {
-                            rv_complete_product_overview.setVisibility(View.VISIBLE);
-                            complete_empty.setVisibility(View.GONE);*/
+                            complete_empty.setVisibility(View.GONE);
+                         }*/
                         Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){

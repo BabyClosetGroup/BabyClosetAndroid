@@ -6,13 +6,18 @@ data class GetListPeopleResponse (
     val status: Int,
     val success: Boolean,
     val message: String,
-    val post: ArrayList<Getproductdata>?,
-    val data: ArrayList<ApplicationPeopleOverviewData>?
+    val data: PeopleData
 )
+
+data class PeopleData(
+    val post: Getproductdata?,
+    val applicants: ArrayList<ApplicationPeopleOverviewData>?
+)
+
 data class Getproductdata(
-    var postIdx:Int,
-    var postTitle:String,
-    var mainImage:String,
-    var areaName: ArrayList<String>,
-    var applicantNumber: String
+    var postIdx:Int?,
+    var postTitle:String?,
+    var mainImage:String?,
+    var applicantNumber: String?,
+    var areaName: ArrayList<String?>
 )

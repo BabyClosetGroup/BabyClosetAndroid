@@ -32,14 +32,14 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-       // Glide.with(ctx).load(dataList[position].productImg).into(holder.thumbnail)
+        Glide.with(ctx).load(dataList[position].profileImage).into(holder.thumbnail)
         holder.name.text = dataList[position].applicantNickname
         holder.rate.text = dataList[position].rating.toString()+"점"
-        var score = dataList[position].rating.toFloat()
+        var score = dataList[position].rating!!.toFloat()
         holder.rb.rating= score
 
         holder.container.setOnClickListener {
-            nn=dataList[position].applicantNickname
+            nn=dataList[position].applicantNickname!!
             showMailDialog()
         }
     }
@@ -48,7 +48,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         var name = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_application_account_name) as TextView
         var rate = itemView.findViewById(R.id.txt_rv_item_application_score) as TextView
         var rb = itemView.findViewById(R.id.rb_rv_item_application_rate) as RatingBar
-        //var thumbnail = itemView.findViewById(R.id.img_rv_item_application_overview_profile) as ImageView
+        var thumbnail = itemView.findViewById(R.id.img_rv_item_application_overview_profile) as ImageView
     }
     private fun showMailDialog() {
         val MailDialog = AlertDialog.Builder(ctx)
