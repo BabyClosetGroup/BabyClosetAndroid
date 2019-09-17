@@ -38,14 +38,14 @@ class ReceiveProductActivity : AppCompatActivity() {
         rv_receive_product_overview.adapter = receiveProductOverviewRecyclerViewAdapter
         rv_receive_product_overview.layoutManager = LinearLayoutManager(this)
 
-        if (dataList.isEmpty()) {
+        /*if (dataList.isEmpty()) {
             rv_receive_product_overview.setVisibility(View.GONE);
             receive_empty.setVisibility(View.VISIBLE);
         }
         else {
             rv_receive_product_overview.setVisibility(View.VISIBLE);
             receive_empty.setVisibility(View.GONE);
-        }
+        }*/
 
         getReceiveProductResponse()
     }
@@ -64,7 +64,7 @@ class ReceiveProductActivity : AppCompatActivity() {
             ) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
-                        val tmp: ArrayList<ReceiveProductOverviewData> = response.body()!!.data!!
+                        val tmp: ArrayList<ReceiveProductOverviewData> = response.body()!!.data.allPost
                         receiveProductOverviewRecyclerViewAdapter.dataList = tmp
                         receiveProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
 

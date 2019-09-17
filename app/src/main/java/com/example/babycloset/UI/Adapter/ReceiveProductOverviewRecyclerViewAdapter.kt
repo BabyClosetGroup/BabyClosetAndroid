@@ -16,9 +16,9 @@ import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.ReceiveProductOverviewData
 import com.example.babycloset.Network.Get.GetRatingResponse
-import com.example.babycloset.Network.Get.Getratingdata/*
+import com.example.babycloset.Network.Get.Getratingdata
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.RatingActivity
 import com.example.babycloset.UI.Activity.ShareProductActivity
@@ -34,11 +34,12 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
 
     var name:String =""
     var starrate:Int =0
-    //var nullArray= arrayOfNulls<String>(5)
+    var imgstr:String=""
+    var userIdx: Int = -1
 
-    /*val networkService: NetworkService by lazy {
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
@@ -51,23 +52,23 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
-        //holder.title.text = dataList[position].productTitle
-        val locList:ArrayList<String> = dataList[position].areaName
-
-        /*for(i in 0..nullArray.size){
-            holder.location.text = nullArray[0]
-        }*/
-        holder.location.text = locList[0]+"외"+locList.size+"구"
+        holder.title.text = dataList[position].postName
+        var locList:ArrayList<String> = dataList[position].areaName
+        if(locList.size-1!=0)
+            holder.location.text = locList[0]+" 외 "+(locList.size-1)+"구"
+        else
+            holder.location.text = locList[0]
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].senderNickname
-        /*if(dataList[position].isRated.equals("미부여"))
-            holder.rate.text = dataList[position].productRate
-        else
-            holder.rate.text = dataList[position].productRate+"점"*/
 
-        if(!dataList[position].isRated.equals(0)){
+        userIdx = dataList[position].senderIdx
+
+        if(dataList[position].senderIsRated != 1){
+            holder.rate.text = "부여"
             holder.btn.visibility=View.GONE
-        }
+        } else
+            holder.rate.text = "미부여"
+
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
                 "senderIdx" to dataList[position].senderIdx,
@@ -79,13 +80,12 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         }
         holder.info.setOnClickListener {
             // 팝업창
-            //getRatingResponse()
-            showDialog()
+            getRatingResponse()
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var container = itemView.findViewById(R.id.ll_rv_item_complete_overview_container) as RelativeLayout
-        var title = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_complete_overview_product) as TextView
+        var title = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_receive_overview_product) as TextView
         var location = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_receive_overview_location) as TextView
         var date = itemView.findViewById(R.id.txt_rv_item_receive_overview_date) as TextView
         var owner = itemView.findViewById(R.id.txt_rv_item_receive_overview_name) as TextView
@@ -94,12 +94,14 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         var info = itemView.findViewById(R.id.btn_rv_item_receive_overview_info) as ImageView
         var thumbnail = itemView.findViewById(R.id.img_rv_item_receive_overview_thumbnail) as ImageView
     }
-/*
+
     private fun getRatingResponse() {
-        val token = SharedPreference.getUserToken(ctx)
+        //val token = SharedPreference.getUserToken(ctx)
+        val token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
 
         val getRatingResponse = networkService.getRatingResponse(
-            "application/json", token
+            "application/json", token, userIdx
         )
         getRatingResponse.enqueue(object : Callback<GetRatingResponse> {
             override fun onFailure(call: Call<GetRatingResponse>, t: Throwable) {
@@ -112,17 +114,15 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
                         var tmp: Getratingdata = response.body()!!.data!!
                         name = tmp.nickname
                         starrate = tmp.rating
-*/
-/*
-                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*//*
-
+                        imgstr =tmp.profileImage
+                        showDialog()
                     }
                 }
             }
         })
 
     }
-*/
+
 
     fun showDialog(){
         val builder = AlertDialog.Builder(ctx)

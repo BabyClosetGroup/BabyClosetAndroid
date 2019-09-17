@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UI.Activity.ReceiveProductActivity">
+    tools:context=".UI.Activity.ReceiveProductActivity"
+android:background="#ffffff">
     <include layout="@layout/toolbar_receive_product" android:id="@+id/toolbar_receive_product"/>
     <View android:layout_width="match_parent" android:layout_height="3dp"
           android:background="@drawable/tab_shadow"/>

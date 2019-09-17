@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class RatingActivity : AppCompatActivity() {
 
-    var recieverIdx: Int = -1
+    var receiverIdx: Int = -1
     var senderIdx:Int =-1
     var request_code:Int=-1
 
@@ -34,16 +34,16 @@ class RatingActivity : AppCompatActivity() {
         request_code=intent.getIntExtra("REQUESTCODE",-1)
         if(request_code==-1) finish()
         else if(request_code==100){
-            recieverIdx = intent.getIntExtra("recieverIdx", -1)
-            if (recieverIdx == -1) finish()
+            receiverIdx = intent.getIntExtra("receiverIdx", -1)
+            if (receiverIdx == -1) finish()
 
-            var recieverNickname = intent.getStringExtra("recieverNickname")
-            txt_share_name.text = recieverNickname
+            var receiverNickname = intent.getStringExtra("receiverNickname")
+            txt_share_name.text = receiverNickname
             txt_share_product.text = intent.getStringExtra("postName")
 
             btn_rating.setOnClickListener {
                 val u_rating:Int = ratingStar.rating.toInt()
-                val u_userIdx:Int = recieverIdx
+                val u_userIdx:Int = receiverIdx
                 val u_postIdx:Int = intent.getIntExtra("postIdx",-1)
                 postRatingResponse(u_rating, u_userIdx,u_postIdx)
             }
@@ -54,7 +54,7 @@ class RatingActivity : AppCompatActivity() {
 
             var senderNickname = intent.getStringExtra("senderNickname")
             txt_share_name.text = senderNickname
-            txt_share_product.text = "흠"
+            txt_share_product.text = intent.getStringExtra("postName")
 
             btn_rating.setOnClickListener {
                 val u_rating:Int = ratingStar.rating.toInt()

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,8 +72,8 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
 
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
-                "recieverIdx" to dataList[position].receiverIdx,
-                "recieverNickname" to dataList[position].receiverNickname,
+                "receiverIdx" to dataList[position].receiverIdx,
+                "receiverNickname" to dataList[position].receiverNickname,
                 "postName" to dataList[position].postName,
                 "postIdx" to dataList[position].postIdx,
                 "REQUESTCODE" to 100
@@ -106,7 +107,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         )
         getRatingResponse.enqueue(object : Callback<GetRatingResponse> {
             override fun onFailure(call: Call<GetRatingResponse>, t: Throwable) {
-                //toast("error")
+                Log.e("tag", "실패")
             }
             override fun onResponse(call: Call<GetRatingResponse>, response: Response<GetRatingResponse>) {
                 if (response.isSuccessful) {
@@ -116,6 +117,9 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
                         starrate = tmp.rating
                         imgstr =tmp.profileImage
                         showDialog()
+                    }
+                    else if (response.body()!!.status != 200){
+                        Log.e("tag", "error~")
                     }
                 }
             }
