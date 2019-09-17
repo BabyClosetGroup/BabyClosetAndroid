@@ -30,14 +30,12 @@
     <android.support.design.widget.TabLayout
             android:id="@+id/tl_ac_main_bottomTab"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="65dp"
             app:tabMode="fixed"
             android:stateListAnimator="@null"
             android:background="@android:color/transparent"
             app:tabIndicatorColor="@android:color/transparent"
             app:tabBackground="@android:color/transparent"
-            app:tabPaddingStart="10dp"
-            app:tabPaddingEnd="10dp"
             android:layout_alignParentBottom="true">
     </android.support.design.widget.TabLayout>
 
@@ -48,5 +46,5 @@
             android:id="@+id/btn_write_create"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="25dp"/>
+            android:layout_marginBottom="30dp"/>
 </RelativeLayout>

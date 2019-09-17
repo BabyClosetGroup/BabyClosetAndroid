@@ -72,7 +72,8 @@
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#ffffff"
-                    android:background="@drawable/btn_yellow_fill_border"/>
+                    android:background="@drawable/btn_yellow_fill_border"
+                    style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 
@@ -91,7 +92,8 @@
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#ffffff"
-                    android:background="@drawable/btn_yellow_fill_border"/>
+                    android:background="@drawable/btn_yellow_fill_border"
+                    style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 

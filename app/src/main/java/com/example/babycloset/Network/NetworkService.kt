@@ -1,4 +1,4 @@
-/*
+
 package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
@@ -13,6 +13,13 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NetworkService {
+    //홈화면 조회
+    @GET("/post/main")
+    fun getHomeResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String
+    ): Call<GetHomeResponse>
+
     //회원가입
     @POST("/user/signup")
     fun postSignupResponse(
@@ -87,4 +94,4 @@ interface NetworkService {
         @Header("Content-Type") content_type:String,
         @Header("token") token : String
     ):Call<GetRatingResponse>
-}*/
+}

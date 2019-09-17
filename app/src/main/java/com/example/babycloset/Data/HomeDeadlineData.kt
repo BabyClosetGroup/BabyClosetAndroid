@@ -5,5 +5,5 @@ data class HomeDeadlineData (
     var postTitle: String,
     var deadline: String,
     var mainImage: String,
-    var areaName: String
+    var areaName: Array<String>
 )
