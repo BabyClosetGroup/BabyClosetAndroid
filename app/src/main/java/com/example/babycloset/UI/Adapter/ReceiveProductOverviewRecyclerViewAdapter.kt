@@ -72,6 +72,8 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
             ctx.startActivity<RatingActivity>(
                 "senderIdx" to dataList[position].senderIdx,
                 "senderNickname" to dataList[position].senderNickname,
+                "postName" to dataList[position].postName,
+                "postIdx" to dataList[position].postIdx,
                 "REQUESTCODE" to 200
             )
         }
