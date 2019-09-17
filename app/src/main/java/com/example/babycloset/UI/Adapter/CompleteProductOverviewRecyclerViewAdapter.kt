@@ -16,9 +16,9 @@ import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CompleteProductOverviewData
 import com.example.babycloset.Network.Get.GetRatingResponse
-import com.example.babycloset.Network.Get.Getratingdata/*
+import com.example.babycloset.Network.Get.Getratingdata
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.RatingActivity
 import com.example.babycloset.UI.Activity.ShareProductActivity
@@ -36,10 +36,10 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
 
     var name:String =""
     var starrate:Int =0
-    var nullArray= arrayOfNulls<String>(5)
-   /* val networkService: NetworkService by lazy {
+
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
@@ -52,33 +52,30 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
-        //holder.title.text = dataList[position].productTitle
-        val locList:ArrayList<String> = dataList[position].areaName
-        /*for(i in 0..nullArray.size){
-            holder.location.text = nullArray[0]
-        }*/
-        holder.location.text = locList[0]+"외"+locList.size+"구"
-        //holder.location.text = dataList[position].areaName
-        holder.date.text = dataList[position].sharedDate
-        holder.owner.text = dataList[position].recieverNickname
-        /*if(dataList[position].isRated.equals("미부여"))
-            holder.rate.text = dataList[position].productRate
+        holder.title.text = dataList[position].postName
+        var locList:ArrayList<String> = dataList[position].areaName
+        if(locList.size-1!=0)
+            holder.location.text = locList[0]+" 외 "+(locList.size-1)+"구"
         else
-            holder.rate.text = dataList[position].productRate+"점"*/
+            holder.location.text = locList[0]
+        holder.date.text = dataList[position].sharedDate
+        holder.owner.text = dataList[position].receiverNickname
 
-        if(!dataList[position].isRated.equals(0)){
+        if(!dataList[position].receiverIsRated.equals(0)){
             holder.btn.visibility=View.GONE
-        }
+        } else
+            holder.rate.text = dataList[position].receiverIsRated.toString()+"점"
+
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
-                "recieverIdx" to dataList[position].recieverIdx,
-                "recieverNickname" to dataList[position].recieverNickname,
+                "recieverIdx" to dataList[position].receiverIdx,
+                "recieverNickname" to dataList[position].receiverNickname,
                 "REQUESTCODE" to 100
             )
         }
         holder.info.setOnClickListener {
             // 팝업창
-            //getRatingResponse()
+            getRatingResponse()
             showDialog()
         }
     }
@@ -94,7 +91,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         var thumbnail = itemView.findViewById(R.id.img_rv_item_complete_overview_thumbnail) as ImageView
     }
 
-/*
     private fun getRatingResponse() {
         val token = SharedPreference.getUserToken(ctx)
 
@@ -112,9 +108,8 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
                         var tmp: Getratingdata = response.body()!!.data!!
                         name = tmp.nickname
                         starrate = tmp.rating
-*/
 /*
-                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*//*
+                        Glide.with(ctx).load(tmp[0].profileImage).into(img_info_thumbnail)*/
 
                     }
                 }
@@ -122,7 +117,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         })
 
     }
-*/
 
 
     fun showDialog(){

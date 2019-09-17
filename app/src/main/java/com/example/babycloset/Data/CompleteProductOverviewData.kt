@@ -4,10 +4,9 @@ data class CompleteProductOverviewData(
     var postIdx: Int,
     var postName: String,
     var mainImage: String,
-    //var productTitle: String,
-    var areaName: ArrayList<String>,
-    var recieverIdx: Int,
-    var recieverNickname: String,
+    var receiverIdx: Int,
+    var receiverNickname: String,
     var sharedDate: String,
-    var isRated: Int
+    var receiverIsRated: Int,
+    var areaName: ArrayList<String>
 )

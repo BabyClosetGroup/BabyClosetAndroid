@@ -25,6 +25,8 @@ import retrofit2.Response
 class ShareCompleteFragment : Fragment() {
     lateinit var completeProductOverviewRecyclerViewAdapter: CompleteProductOverviewRecyclerViewAdapter
 
+    var dataList: ArrayList<CompleteProductOverviewData> = ArrayList()
+
     val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
@@ -40,27 +42,18 @@ class ShareCompleteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var dataList: ArrayList<CompleteProductOverviewData> = ArrayList()
 
         completeProductOverviewRecyclerViewAdapter = CompleteProductOverviewRecyclerViewAdapter(context!!, dataList)
         rv_complete_product_overview.adapter = completeProductOverviewRecyclerViewAdapter
         rv_complete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
-        if (dataList.isEmpty()) {
-            rv_complete_product_overview.setVisibility(View.GONE);
-            complete_empty.setVisibility(View.VISIBLE);
-        }
-        else {
-            rv_complete_product_overview.setVisibility(View.VISIBLE);
-            complete_empty.setVisibility(View.GONE);
-        }
         getShareCompleteResponse()
     }
 
     private fun getShareCompleteResponse(){
 /*
         val token = SharedPreference.getUserToken(ctx)*/
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getShareCompleteResponse = networkService.getsharecompleteResponse("application/json", token)
         getShareCompleteResponse.enqueue(object : retrofit2.Callback<GetShareCompleteResponse>{
@@ -72,10 +65,16 @@ class ShareCompleteFragment : Fragment() {
             ) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
-                        val tmp: ArrayList<CompleteProductOverviewData> = response.body()!!.data!!
+                        val tmp: ArrayList<CompleteProductOverviewData> = response.body()!!.data.allPost
                         completeProductOverviewRecyclerViewAdapter.dataList = tmp
                         completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
-
+                        /* if (dataList.isEmpty()) {
+                            rv_complete_product_overview.setVisibility(View.GONE);
+                            complete_empty.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            rv_complete_product_overview.setVisibility(View.VISIBLE);
+                            complete_empty.setVisibility(View.GONE);*/
                         Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){
