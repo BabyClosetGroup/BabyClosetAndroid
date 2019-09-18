@@ -16,6 +16,7 @@ import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.ApplicationPeopleOverviewRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_list_people.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.ctx
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.toast
@@ -39,11 +40,7 @@ class ListPeopleActivity : AppCompatActivity() {
         //신청자 데이터 가져오기
         //버튼 클릭시 쪽지 페이지로
         postIdx = intent.getIntExtra("postIdx", -1)
-        /*if (postIdx == -1) finish()
-        txt_product.text = intent.getStringExtra("postTitle")
-        txt_number.text = intent.getStringExtra("registerNumber")
-        Glide.with(ctx).load(intent.getStringExtra("mainImage")).into(img_thumbnail)*/
-        //txt_application_num.text="("+intent.getStringExtra("registerNumber")+")"
+        if (postIdx == -1) finish()
         configureRecyclerView()
     }
     private fun configureRecyclerView() {
@@ -68,7 +65,8 @@ class ListPeopleActivity : AppCompatActivity() {
         val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, 17)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
-                toast("실패,,,")
+                Log.e("tag", "실패!")
+                t.printStackTrace()
             }
             override fun onResponse(call: Call<GetListPeopleResponse>, response: Response<GetListPeopleResponse>) {
                 if(response.isSuccessful){
@@ -81,6 +79,10 @@ class ListPeopleActivity : AppCompatActivity() {
                         else
                             txt_location.text = locList[0]
                         txt_number.text = tmp1.applicantNumber
+                        var x = tmp1.applicantNumber
+                        var item: Char
+                        item = x[0]
+                        txt_application_num.text="("+item+")"
                         Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
                         var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!

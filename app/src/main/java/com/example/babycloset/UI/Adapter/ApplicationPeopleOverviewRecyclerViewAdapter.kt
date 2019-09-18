@@ -3,6 +3,9 @@ package com.example.babycloset.UI.Adapter
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
+import android.os.Build
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -32,10 +35,17 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        Glide.with(ctx).load(dataList[position].profileImage).into(holder.thumbnail)
+        holder.thumbnail.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            holder.thumbnail.setClipToOutline(true)
+        }
+        if(dataList[position].profileImage==null){
+            holder.thumbnail.setImageResource(R.drawable.user)
+        } else
+            Glide.with(ctx).load(dataList[position].profileImage).into(holder.thumbnail)
         holder.name.text = dataList[position].applicantNickname
         holder.rate.text = dataList[position].rating.toString()+"점"
-        var score = dataList[position].rating!!.toFloat()
+        var score = dataList[position].rating
         holder.rb.rating= score
 
         holder.container.setOnClickListener {
