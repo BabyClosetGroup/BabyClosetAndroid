@@ -71,8 +71,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         } else
             holder.rate.text = "미부여"
 
-        userIdx = dataList[position].receiverIdx
-
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
                 "receiverIdx" to dataList[position].receiverIdx,
@@ -83,6 +81,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
             )
         }
         holder.info.setOnClickListener {
+            userIdx = dataList[position].receiverIdx
             // 팝업창
             getRatingResponse()
         }

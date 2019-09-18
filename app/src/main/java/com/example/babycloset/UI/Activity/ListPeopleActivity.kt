@@ -18,6 +18,7 @@ import com.example.babycloset.UI.Adapter.ApplicationPeopleOverviewRecyclerViewAd
 import kotlinx.android.synthetic.main.activity_list_people.*
 import org.jetbrains.anko.ctx
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
 
@@ -37,12 +38,6 @@ class ListPeopleActivity : AppCompatActivity() {
         //상품 데이터 가져오기
         //신청자 데이터 가져오기
         //버튼 클릭시 쪽지 페이지로
-        var dataList: ArrayList<ApplicationPeopleOverviewData> = ArrayList()
-        applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
-        rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
-        rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        getListPeopleResponse()
         postIdx = intent.getIntExtra("postIdx", -1)
         /*if (postIdx == -1) finish()
         txt_product.text = intent.getStringExtra("postTitle")
@@ -52,7 +47,16 @@ class ListPeopleActivity : AppCompatActivity() {
         configureRecyclerView()
     }
     private fun configureRecyclerView() {
+        var dataList: ArrayList<ApplicationPeopleOverviewData> = ArrayList()
 
+        /*dataList.add(ApplicationPeopleOverviewData(
+            1,"지윤",3,null
+        ))*/
+        applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
+        rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
+        rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        getListPeopleResponse()
     }
 
     private fun getListPeopleResponse(){
@@ -64,13 +68,14 @@ class ListPeopleActivity : AppCompatActivity() {
         val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, 17)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
+                toast("실패,,,")
             }
             override fun onResponse(call: Call<GetListPeopleResponse>, response: Response<GetListPeopleResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
-                        val tmp1: Getproductdata = response.body()!!.data.post!!
+                        var tmp1: Getproductdata = response.body()!!.data.post!!
                         txt_product.text = tmp1.postTitle
-                        var locList:ArrayList<String?> = tmp1.areaName
+                        var locList:ArrayList<String> = tmp1.areaName
                         if(locList.size-1!=0)
                             txt_location.text = locList[0]+" 외 "+(locList.size-1)+"구"
                         else
@@ -78,7 +83,7 @@ class ListPeopleActivity : AppCompatActivity() {
                         txt_number.text = tmp1.applicantNumber
                         Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
-                        val tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants
+                        var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!
                         applicationPeopleOverviewRecyclerViewAdapter.dataList = tmp
                         applicationPeopleOverviewRecyclerViewAdapter.notifyDataSetChanged()
 

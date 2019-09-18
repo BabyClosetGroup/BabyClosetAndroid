@@ -64,7 +64,6 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].senderNickname
 
-        userIdx = dataList[position].senderIdx
 
         if(dataList[position].senderIsRated != 0){
             holder.rate.text = "부여"
@@ -83,6 +82,7 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         }
         holder.info.setOnClickListener {
             // 팝업창
+            userIdx = dataList[position].senderIdx
             getRatingResponse()
         }
     }

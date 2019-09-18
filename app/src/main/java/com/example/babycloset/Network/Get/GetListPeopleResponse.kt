@@ -10,14 +10,14 @@ data class GetListPeopleResponse (
 )
 
 data class PeopleData(
-    val post: Getproductdata?,
+    val post: Getproductdata,
     val applicants: ArrayList<ApplicationPeopleOverviewData>
 )
 
 data class Getproductdata(
-    var postIdx:Int?,
-    var postTitle:String?,
-    var mainImage:String?,
-    var applicantNumber: String?,
-    var areaName: ArrayList<String?>
+    var postIdx:Int,
+    var postTitle:String,
+    var mainImage:String,
+    var applicantNumber: String,
+    var areaName: ArrayList<String>
 )
