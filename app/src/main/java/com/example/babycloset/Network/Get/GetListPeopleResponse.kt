@@ -11,7 +11,7 @@ data class GetListPeopleResponse (
 
 data class PeopleData(
     val post: Getproductdata?,
-    val applicants: ArrayList<ApplicationPeopleOverviewData>?
+    val applicants: ArrayList<ApplicationPeopleOverviewData>
 )
 
 data class Getproductdata(
