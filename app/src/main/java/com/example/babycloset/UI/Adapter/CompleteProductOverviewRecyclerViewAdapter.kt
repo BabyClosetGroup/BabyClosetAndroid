@@ -148,7 +148,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         }
 
         rating_dig?.rating = starrate
-        txt_dig_name?.text = name
+        txt_dig_name?.text = name+"님"
         txt_dig_rate?.text = starrate.toString()+"점"
         if(imgstr==null){
             img_dlg_profile?.setImageResource(R.drawable.user)

@@ -15,7 +15,6 @@
             android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="22dp"
-                android:layout_marginHorizontal="16dp"
                 android:id="@+id/rv_complete_product_overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

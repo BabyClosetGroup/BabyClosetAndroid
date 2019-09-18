@@ -37,7 +37,7 @@ class RatingActivity : AppCompatActivity() {
             receiverIdx = intent.getIntExtra("receiverIdx", -1)
             if (receiverIdx == -1) finish()
 
-            var receiverNickname = intent.getStringExtra("receiverNickname")
+            var receiverNickname = intent.getStringExtra("receiverNickname")+"님"
             txt_share_name.text = receiverNickname
             txt_share_product.text = intent.getStringExtra("postName")
 
@@ -52,7 +52,7 @@ class RatingActivity : AppCompatActivity() {
             senderIdx = intent.getIntExtra("senderIdx", -1)
             if (senderIdx == -1) finish()
 
-            var senderNickname = intent.getStringExtra("senderNickname")
+            var senderNickname = intent.getStringExtra("senderNickname")+"님"
             txt_share_name.text = senderNickname
             txt_share_product.text = intent.getStringExtra("postName")
 
