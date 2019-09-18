@@ -24,7 +24,6 @@ import com.example.babycloset.UI.Adapter.HomeRecentRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.textColor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,10 +72,10 @@ class HomeFragment : Fragment() {
             startActivity<EmailActivity>()
         }
 
-        txt_home_go_deadline_all_product.setOnClickListener {
+        view_home_go_deadline_all_product.setOnClickListener {
             startActivity<AllProductActivity>("id" to 5)
         }
-        txt_home_go_recent_all_product.setOnClickListener {
+        view_home_go_recent_all_product.setOnClickListener {
             startActivity<DeadLineProductActivity>("id" to 6)
         }
 
@@ -132,12 +131,13 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<GetHomeResponse>, response: Response<GetHomeResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
+                        Log.e("list success","성공")
                         deadlineDataList.clear()
                         recentDataList.clear()
 
                         val isNewMessage=response.body()!!.data.isNewMessage
-                        if(isNewMessage == 1){
-                            btn_email.textColor=resources.getColor(R.color.white)
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+
                         }
                         val tmp: ArrayList<HomeDeadlineData> = response.body()!!.data.deadlinePost
                         val tmp2: ArrayList<HomeRecentData> = response.body()!!.data.recentPost

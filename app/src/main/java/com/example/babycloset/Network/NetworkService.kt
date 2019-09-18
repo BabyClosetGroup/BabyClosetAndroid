@@ -20,6 +20,13 @@ interface NetworkService {
         @Header("token") token: String
     ): Call<GetHomeResponse>
 
+    //큐알 리스트 조회
+    @GET("/post/qrcode")
+    fun getQRListResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String
+    ): Call<GetQRListResponse>
+
     //회원가입
     @POST("/user/signup")
     fun postSignupResponse(

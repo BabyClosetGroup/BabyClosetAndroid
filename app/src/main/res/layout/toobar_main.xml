@@ -15,9 +15,8 @@
                 android:id="@+id/img_home_qr_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/qr_code"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="18dp"/>
+                app:srcCompat="@drawable/home_btn_qrcode"
+                android:layout_centerVertical="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,12 +27,13 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="23dp"
             android:layout_marginBottom="18dp"/>
-        <Button
+        <ImageView
                 android:id="@+id/btn_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="쪽지"
-                android:layout_alignParentRight="true"/>
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/home_btn_email"/>
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>

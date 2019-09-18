@@ -22,8 +22,8 @@ class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListDat
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(dataList[position])
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.qr_list_img)
-        holder.qr_list_title.text=dataList[position].postName
-        holder.qr_list_area.text=dataList[position].areaName
+        holder.qr_list_title.text=dataList[position].postTitle
+        holder.qr_list_area.text=dataList[position].areaName[0]  //수정필요
     }
 
     inner class Holder(itemView: View,itemClick: (QRListData) -> Unit): RecyclerView.ViewHolder(itemView){

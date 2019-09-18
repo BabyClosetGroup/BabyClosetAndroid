@@ -22,7 +22,7 @@ class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeR
     override fun onBindViewHolder(holder: Holder, p1: Int) {
         Glide.with(ctx).load(dataList[p1].mainImage).into(holder.img_recent)
         holder.txt_title.text=dataList[p1].postTitle
-        holder.txt_area.text=dataList[p1].areaName[0]
+        holder.txt_area.text=dataList[p1].areaName[0] //수정필요
     }
 
     inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
