@@ -47,31 +47,11 @@
                                 android:layout_height="wrap_content" android:layout_toEndOf="@id/txt_deadline_product">
                         <RelativeLayout android:layout_width="wrap_content"
                                         android:layout_height="wrap_content">
-                            <Button
-                                    android:layout_width="wrap_content" android:layout_height="28dp"
-                                    android:background="@drawable/cb_yellow_fill_border"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:text="자치구" android:textSize="14sp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_area_tag_product"
-                            />
-                            <Button android:layout_width="wrap_content" android:layout_height="28dp"
-                                    android:layout_toEndOf="@id/txt_area_tag_product"
-                                    android:background="@drawable/cb_yellow_fill_border"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:text="개월수" android:textSize="14sp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_age_tag_product"
-                            />
-
-                            <Button android:layout_width="wrap_content" android:layout_height="28dp"
-                                    android:layout_toEndOf="@id/txt_age_tag_product"
-                                    android:background="@drawable/cb_yellow_fill_border"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:text="카테고리" android:textSize="14sp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_category_tag_product"
-                            />
-
+                            <android.support.v7.widget.RecyclerView
+                                    android:layout_width="wrap_content" android:layout_height="match_parent"
+                                    android:id="@+id/rv_category_product"
+                                    android:visibility="gone">
+                            </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
                     </ScrollView>
                 </RelativeLayout>
@@ -121,7 +101,7 @@
 
                         <RatingBar
                                 android:isIndicator="true"
-                                android:rating="3.5"
+                                android:rating="0"
                                 android:stepSize="0.5"
                                 android:numStars="5"
                                 android:layout_width="wrap_content"
@@ -143,12 +123,15 @@
             </LinearLayout>
 
         </ScrollView>
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <RelativeLayout
+                android:id="@+id/rl_apply_product" android:visibility="gone"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
             <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="#ffc107"
-                    android:id="@+id/btn_apply_product" />
+                    android:id="@+id/btn_apply_product"
+            />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,6 +140,7 @@
                     android:text="신청하기"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
+                    android:id="@+id/txt_apply_product"
             />
         </RelativeLayout>
     </RelativeLayout>

@@ -216,7 +216,6 @@ class WritePostActivity : AppCompatActivity() {
         }
     }
 
-
     fun isValid(){
         if(rv_category_write_post.visibility == View.GONE){
             showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")

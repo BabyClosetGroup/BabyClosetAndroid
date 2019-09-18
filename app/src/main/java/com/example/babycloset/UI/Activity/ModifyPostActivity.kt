@@ -3,23 +3,39 @@ package com.example.babycloset.UI.Activity
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.transition.Transition
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
 import com.example.babycloset.Data.CategoryData
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.Get.GetProductDetailResponse
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
+    var imgNum : Int = 0
+    var postIdx : Int = 0
+    var imgList = ArrayList<String>()
+
     lateinit var pictureUri : Uri
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
 
@@ -28,6 +44,12 @@ class ModifyPostActivity : AppCompatActivity() {
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300
     val REQUEST_CODE_PICTURE4 : Int = 400
+
+    val networkService : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
+    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -172,7 +194,7 @@ class ModifyPostActivity : AppCompatActivity() {
         }
     }
 
-
+    //유효성 검사
     fun isValid(){
         if(rv_category_modify_post.visibility == View.GONE){
             WritePostActivity.showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
@@ -186,5 +208,74 @@ class ModifyPostActivity : AppCompatActivity() {
             toast("통신")
         }
     }
+
+    //게시물 상세보기 통신
+    fun getProductDetailResponse(){
+
+        val getProductDetailResponse = networkService.getProductDetailResponse(token, postIdx)
+
+        getProductDetailResponse.enqueue(object : Callback<GetProductDetailResponse>{
+            override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
+                Log.e("상품상세보기 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<GetProductDetailResponse>, response: Response<GetProductDetailResponse>) {
+                if (response.isSuccessful) {
+                    edt_title_modify_post.setText(response.body()!!.data.detailPost.postTitle)   //제목
+                    edt_contents_modify_post.setText(response.body()!!.data.detailPost.postContent) //내용
+                    txt_deadline_modify_post.text = response.body()!!.data.detailPost.deadline //마감일
+
+                    //카테고리
+                    val areaList = response.body()!!.data.detailPost.areaName
+                    val ageList = response.body()!!.data.detailPost.ageName
+                    val categoryList = response.body()!!.data.detailPost.clothName
+
+                    val dataList : ArrayList<CategoryData> = ArrayList()
+
+                    for(i in 0 .. areaList.size-1){
+                        dataList.add(CategoryData(areaList[i]))
+                    }
+                    for(i in 0 .. ageList.size-1){
+                        dataList.add(CategoryData(ageList[i]))
+                    }
+                    for(i in 0 .. categoryList.size-1){
+                        dataList.add(CategoryData(categoryList[i]))
+                    }
+
+                    categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this@ModifyPostActivity, dataList)
+                    rv_category_modify_post.adapter = categoryRecyclerViewAdapter
+                    rv_category_modify_post.layoutManager = LinearLayoutManager(this@ModifyPostActivity, LinearLayout.HORIZONTAL, false)
+
+                    rv_category_modify_post.visibility = View.VISIBLE
+
+                    //이미지
+                    imgNum = response.body()!!.data.detailPost.postImages.size
+                    imgList = response.body()!!.data.detailPost.postImages
+
+
+                    for(i in 0..imgList.size-1){
+                        val target = object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+
+                            }
+
+                        }
+
+                        Glide.with(this@ModifyPostActivity)
+                            .asBitmap()
+                            .load(response.body()!!.data.detailPost.postImages[0])
+                            .fitCenter()
+                            .into<SimpleTarget<Bitmap>>(target)
+
+
+                    }
+
+                }
+            }
+        })
+    }
+
+    //이미지 끼우기
+
 
 }

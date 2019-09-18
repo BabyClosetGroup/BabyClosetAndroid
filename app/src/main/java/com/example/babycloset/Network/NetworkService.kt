@@ -1,10 +1,8 @@
 package com.example.babycloset.Network
 
+import com.example.babycloset.Network.Delete.DeletePostResponse
 import com.example.babycloset.Network.Get.*
-import com.example.babycloset.Network.Post.PostLoginResponse
-import com.example.babycloset.Network.Post.PostRatingResponse
-import com.example.babycloset.Network.Post.PostSignupResponse
-import com.example.babycloset.Network.Post.PostWritePostResponse
+import com.example.babycloset.Network.Post.*
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
@@ -101,7 +99,7 @@ interface NetworkService {
     fun getAllPostFilterResponse(
         @Header("token") token: String,
         @Body() body: JsonObject,
-        @Path("pagenation") pagenation : Int
+        @Path("pagination") pagination : Int
     ): Call<GetAllPostFilterResponse>
 
 
@@ -112,6 +110,13 @@ interface NetworkService {
         @Body() body : JsonObject,
         @Path("pagenation") pagenation : Int
     ): Call<GetDeadLinePostFilterResponse>
+
+    //게시물 상세조회
+    @GET("/post/{postIdx}")
+    fun getProductDetailResponse(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<GetProductDetailResponse>
 
     //게시물 등록
     @Multipart
@@ -126,4 +131,27 @@ interface NetworkService {
         @Part("clothCategory") clothCategory :  RequestBody,
         @Part postImages : ArrayList<MultipartBody.Part>
     ) : Call<PostWritePostResponse>
+
+    //게시물 수정
+
+    //게시물 삭제
+    @DELETE("/post/{postIdx}")
+    fun deletePostResponse(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<DeletePostResponse>
+
+    //게시물 신고
+    @POST("/complain")
+    fun postComplainResponse(
+        @Header("token") token: String,
+        @Body() jsonObject: JsonObject
+    ) : Call<PostComplainResponse>
+
+    //나눔신청
+    @POST("/share")
+    fun postShareResponse(
+        @Header("token") token: String,
+        @Body() jsonObject: JsonObject
+    ) : Call<PostShareResponse>
 }

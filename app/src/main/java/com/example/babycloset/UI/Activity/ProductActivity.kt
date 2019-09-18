@@ -1,76 +1,130 @@
 package com.example.babycloset.UI.Activity
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.babycloset.Data.CategoryData
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.Delete.DeletePostResponse
+import com.example.babycloset.Network.Get.GetProductDetailResponse
+import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Post.PostComplainResponse
+import com.example.babycloset.Network.Post.PostShareResponse
 import com.example.babycloset.R
+import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import com.example.babycloset.UI.Adapter.SliderProductPagerAdapter
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.dialog_custom_complain.view.*
 import kotlinx.android.synthetic.main.toolbar_product.*
 import okhttp3.MultipartBody
 import org.jetbrains.anko.colorAttr
+import org.jetbrains.anko.db.FloatParser
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.nio.file.Files
+import kotlin.concurrent.thread
 
 
-class ProductActivity : AppCompatActivity() {
+class ProductActivity : AppCompatActivity(){
 
-    var isSender : Int = 0  //판매자 구매자 구별 변수
-    var complainReson : String = "" //신고사유
-    var imgNum : Int = 4
+    var isSender : Int = 0  //나눔자(1) 받을사람(0) 구별 변수
+    var complainReason : String = "" //신고사유
+    var imgNum : Int = 0
+    var postIdx : Int = 0
+    var userIdx : Int = 0
+
+    var imgList = ArrayList<String>()
     lateinit var builderNew: AlertDialog
     lateinit var dialogView : View
+    lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
+
+    val networkService : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
+    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
-        imageSlider()
-        network()
+        initGetResponse()
 
-        btn_apply_product.setOnClickListener {
-            //어디로 가더라
-        }
+        Handler().postDelayed({
+            configBtn()
+        }, 300)
 
-        btn_ddd_toolbar_product.setOnClickListener {
-            if(isSender == 1){  //판매자가 누르면 - 수정하기, 삭제하기 (isSender == 1)
-                showSellerDialog()
-            }
-            if(isSender == 0){  // 구매자가 누르면 - 쪽지보내기, 신고하기 (isSender == 0)
-                showBuyerDialog()
-            }
-        }
-    }
-
-    fun imageSlider(){
-        vp_product_slider.adapter = SliderProductPagerAdapter(supportFragmentManager, imgNum)
-        vp_product_slider.offscreenPageLimit = imgNum-1
-        tl_product_indicator.setupWithViewPager(vp_product_slider)
+        toast(postIdx.toString())
 
     }
 
+    fun initGetResponse(){
+        val intent : Intent = getIntent()
+        postIdx = intent.getIntExtra("postIdx", 0)
+        getProductDetailResponse()
+    }
+
+
+
+    //버튼
+   fun configBtn(){
+        Log.e("configisSender", isSender.toString())
+        //나눔신청
+        if(isSender == 0){
+            rl_apply_product.visibility = View.VISIBLE
+            btn_apply_product.setOnClickListener {
+                postShareResponse()
+            }
+        }
+
+       btn_ddd_toolbar_product.setOnClickListener {
+           if(isSender == 1){  //나눔자가 누르면 - 수정하기, 삭제하기 (isSender == 1)
+               showSellerDialog()
+           }
+           if(isSender == 0){  // 받는이가 누르면 - 쪽지보내기, 신고하기 (isSender == 0)
+               showBuyerDialog()
+           }
+       }
+    }
+
+    //나눔자 다이얼로그
     fun showSellerDialog(){
         val sellerItemList = arrayOf<CharSequence>("수정하기", "삭제하기")
         val builder = AlertDialog.Builder(this)
         builder.setItems(sellerItemList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
                 0->{
-                    //수정하기
+                    startActivity<ModifyPostActivity>("postIdx" to postIdx)
+                    finish()
                 }
                 1->{
-                    //삭제하기
+                    showDeleteDialog()
                 }
             }
         })
@@ -78,6 +132,7 @@ class ProductActivity : AppCompatActivity() {
 
     }
 
+    // 받는이 다이얼로그
     fun showBuyerDialog(){
         val buyerItemList = arrayOf<CharSequence>("쪽지보내기", "신고하기")
         val builder = AlertDialog.Builder(this)
@@ -95,6 +150,60 @@ class ProductActivity : AppCompatActivity() {
         builder.show()
     }
 
+    //삭제 다이얼로그
+    fun showDeleteDialog(){
+        val builder = AlertDialog.Builder(this)
+        builder
+            .setTitle("정말로 삭제하시겠습니까?")
+            .setNegativeButton(Html.fromHtml("<font color='#262626' size = 14>취소</font>"), DialogInterface.OnClickListener { dialog, which ->  })
+            .setPositiveButton(Html.fromHtml("<font color='#ffc107' size = 14>확인</font>"), DialogInterface.OnClickListener { dialog, which ->
+                deletePostResponse()
+                startActivity<MainActivity>()
+                finish()
+            })
+        builder.show()
+    }
+
+    //삭제 통신
+    fun deletePostResponse(){
+         val deletePostResponse = networkService.deletePostResponse(token, postIdx)
+        deletePostResponse.enqueue(object : Callback<DeletePostResponse>{
+            override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
+                Log.e("게시물 삭제 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
+                    Log.e("productActivity", response.message())
+            }
+        })
+    }
+
+    //신고 통신
+    fun complainPostResponse(){
+        var jsonObject = JSONObject()
+        jsonObject.put("postIdx", postIdx)
+        jsonObject.put("complainReason", complainReason)
+
+        val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+
+        val postComplainResponse = networkService.postComplainResponse(token, gsonObject)
+        postComplainResponse.enqueue(object : Callback<PostComplainResponse>{
+            override fun onFailure(call: Call<PostComplainResponse>, t: Throwable) {
+                Log.e("신고 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<PostComplainResponse>, response: Response<PostComplainResponse>) {
+                if(response.isSuccessful){
+                    WritePostActivity.showNoticeDialog(this@ProductActivity,"신고가 완료되었습니다.", "", "")
+                }
+            }
+        })
+
+
+
+
+    }
+
     //신고하기 다이얼로그
     fun showComplainDialog(){
        val complainItemList = arrayOf<CharSequence>("잠수", "불량 물건", "기타 (직접 입력)")
@@ -102,12 +211,14 @@ class ProductActivity : AppCompatActivity() {
         builder.setItems(complainItemList, DialogInterface.OnClickListener { dialog, which ->
             when(which) {
                 0 -> {
-                    complainReson = complainItemList[0].toString()
-                    toast(complainReson)
+                    complainReason = complainItemList[0].toString()
+                    toast(complainReason)
+                    complainPostResponse()
                 }
                 1 -> {
-                    complainReson = complainItemList[1].toString()
-                    toast(complainReson)
+                    complainReason = complainItemList[1].toString()
+                    toast(complainReason)
+                    complainPostResponse()
                 }
                 2 -> {
                     showCustomComplainDialog()
@@ -134,6 +245,20 @@ class ProductActivity : AppCompatActivity() {
 
     }
 
+    //신고하기 다이얼로그 버튼(취소/확인)
+    fun dialogComplainClick(v : View){
+        when(v.id){
+            R.id.btn_cancel_dialog_complain -> {
+                builderNew.dismiss()
+            }
+            R.id.btn_ok_dialog_complain -> {
+                complainReason = dialogView.findViewById<EditText>(R.id.edt_dialog_content_complain).text.toString()
+                builderNew.dismiss()
+                complainPostResponse()
+            }
+        }
+    }
+
     //글자 수 세기
     fun edtCharCount(){
         var str : String = ""
@@ -157,35 +282,96 @@ class ProductActivity : AppCompatActivity() {
         })
     }
 
-    //신고하기(취소/확인)
-    fun dialogComplainClick(v : View){
-        when(v.id){
-            R.id.btn_cancel_dialog_complain -> {
-                builderNew.dismiss()
+    //나눔신청 통신
+    fun postShareResponse(){
+        var jsonObject = JSONObject()
+        jsonObject.put("postIdx", postIdx)
+
+        val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+
+        val postShareResponse = networkService.postShareResponse(token,gsonObject)
+        postShareResponse.enqueue(object : Callback<PostShareResponse>{
+            override fun onFailure(call: Call<PostShareResponse>, t: Throwable) {
+                Log.e("나눔신청 통신 실패", t.toString())
             }
-            R.id.btn_ok_dialog_complain -> {
-                val complainMSG = dialogView.findViewById<EditText>(R.id.edt_dialog_content_complain).text
-                toast(complainMSG)
-                builderNew.dismiss()
+
+            override fun onResponse(call: Call<PostShareResponse>, response: Response<PostShareResponse>) {
+                if(response.isSuccessful){
+                    Log.e("나눔신청 통신 성공", response.message())
+                }
             }
-        }
+        })
+
     }
 
-    /*통신
-    -이미지 수 카운트 해서 imgNum 에 저장
-    -번들로 사진 url SliderProductPagerAdapter로 전달
-    */
-   fun network(){
-        txt_deadline_product.text = "D-3"
-        txt_area_tag_product.text = "서울 전체"
-        txt_age_tag_product.text = "24~30 개월"
-        txt_category_tag_product.text = "카테고리 전체"
+    //게시물 상세보기 통신
+   fun getProductDetailResponse(){
 
-        txt_account_name_product.text = "초희"
-        rab_product.rating = 4f
-        txt_content_product.text = "한두 번 밖에 안입힌 귀여운 모자와 상하의 세트 나눔합니다. 멸균으로 깨끗하게 세탁한거라 바로" +
-                "입으셔도 되세요 ㅎㅎ 좋은 주인을 찾길 바랍니다. 많은 분들 신청해주세요!" +
-                "\n\n\n"
+        val getProductDetailResponse = networkService.getProductDetailResponse(token, postIdx)
+
+        getProductDetailResponse.enqueue(object : Callback<GetProductDetailResponse>{
+            override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
+                Log.e("상품상세보기 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<GetProductDetailResponse>, response: Response<GetProductDetailResponse>) {
+                if (response.isSuccessful) {
+
+                    //쪽지
+                    isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
+                    Log.e("isSender", isSender.toString())
+                    txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
+
+                    if(isSender == 0){
+                        txt_content_product.text = response.body()!!.data.detailPost.postContent + "\n\n\n" //내용
+                    }else{
+                        txt_content_product.text = response.body()!!.data.detailPost.postContent
+                    }
+                    txt_deadline_product.text = response.body()!!.data.detailPost.deadline //마감일
+
+                    //카테고리
+                    val areaList = response.body()!!.data.detailPost.areaName
+                    val ageList = response.body()!!.data.detailPost.ageName
+                    val categoryList = response.body()!!.data.detailPost.clothName
+
+                    val dataList : ArrayList<CategoryData> = ArrayList()
+
+                    for(i in 0 .. areaList.size-1){
+                        dataList.add(CategoryData(areaList[i]))
+                    }
+                    for(i in 0 .. ageList.size-1){
+                        dataList.add(CategoryData(ageList[i]))
+                    }
+                    for(i in 0 .. categoryList.size-1){
+                        dataList.add(CategoryData(categoryList[i]))
+                    }
+
+                    categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this@ProductActivity, dataList)
+                    rv_category_product.adapter = categoryRecyclerViewAdapter
+                    rv_category_product.layoutManager = LinearLayoutManager(this@ProductActivity, LinearLayout.HORIZONTAL, false)
+
+                    rv_category_product.visibility = View.VISIBLE
+
+                    //나눔자 정보
+                    txt_account_name_product.text = response.body()!!.data.detailPost.nickname
+                    rab_product.rating = response.body()!!.data.detailPost.rating
+                    userIdx = response.body()!!.data.detailPost.userIdx
+
+                    //이미지
+                    imgNum = response.body()!!.data.detailPost.postImages.size
+                    imgList = response.body()!!.data.detailPost.postImages
+
+                    val sp = SliderProductPagerAdapter(supportFragmentManager, imgNum)
+                    sp.setUrl(imgList)
+
+                    vp_product_slider.adapter = sp
+                    vp_product_slider.offscreenPageLimit = imgNum-1
+                    tl_product_indicator.setupWithViewPager(vp_product_slider)
+                }
+            }
+        })
 
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.AllPostRVData
 import com.example.babycloset.R
+import com.example.babycloset.UI.Activity.ProductActivity
+import org.jetbrains.anko.startActivity
 
 class AllProductRecyclerViewAdapter(var ctx : Context, var RVDataList : ArrayList<AllPostRVData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):Holder {
@@ -31,7 +34,9 @@ class AllProductRecyclerViewAdapter(var ctx : Context, var RVDataList : ArrayLis
         holder.postTitle.text = RVDataList[position].postTitle
         holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
         holder.container.setOnClickListener {
-
+            ctx.startActivity<ProductActivity>(
+                "postIdx" to RVDataList[position].postIdx
+            )
         }
     }
 
