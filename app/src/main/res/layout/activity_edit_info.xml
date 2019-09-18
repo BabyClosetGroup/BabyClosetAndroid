@@ -29,11 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"/>
         <EditText
+                android:hint="한글로 8글자 이내로 써주세요."
                 android:background="@null"
                 android:layout_height="42dp"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textColor="#262626"
                 android:text="unknown"
                 android:id="@+id/txt_info_nickname"/>
@@ -144,9 +145,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="10자 이내"
-                android:text="111111"
-                android:textSize="16sp"
+                android:hint="영어와 숫자를 이용하여 6자 이상 가능해요. "
+                android:textSize="12sp"
                 android:textColor="#262626"
                 android:id="@+id/txt_info_pw" android:layout_weight="1"/>
         <ImageView

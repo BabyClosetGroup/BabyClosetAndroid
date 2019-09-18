@@ -34,7 +34,7 @@ import java.util.ArrayList
 import android.os.Build
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.ShapeDrawable
-
+import java.util.regex.Pattern
 
 
 class EditInfoActivity : AppCompatActivity() {
@@ -61,8 +61,11 @@ class EditInfoActivity : AppCompatActivity() {
 
         btn_save_info.setOnClickListener {
             // 데이터 저장
-            putModifyProfileResponse()
+            if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
+                && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6))
+                putModifyProfileResponse()
         }
+
 
         btn_pw_del.setOnClickListener {
             txt_info_pw.isEnabled=true
