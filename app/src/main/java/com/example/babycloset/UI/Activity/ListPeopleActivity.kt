@@ -39,11 +39,11 @@ class ListPeopleActivity : AppCompatActivity() {
         //버튼 클릭시 쪽지 페이지로
 
         postIdx = intent.getIntExtra("postIdx", -1)
-        if (postIdx == -1) finish()
+        if (postIdx == -1) finish()/*
         txt_product.text = intent.getStringExtra("postTitle")
         txt_number.text = intent.getStringExtra("registerNumber")
-        Glide.with(ctx).load(intent.getStringExtra("mainImage")).into(img_thumbnail)
-        txt_application_num.text="("+intent.getStringExtra("registerNumber")+")"
+        Glide.with(ctx).load(intent.getStringExtra("mainImage")).into(img_thumbnail)*/
+        //txt_application_num.text="("+intent.getStringExtra("registerNumber")+")"
         configureRecyclerView()
     }
     private fun configureRecyclerView() {
@@ -61,7 +61,7 @@ class ListPeopleActivity : AppCompatActivity() {
 
         //val token = SharedPreference.getUserToken(ctx)
 
-        val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, postIdx)
+        val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, 17)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
             }
@@ -69,14 +69,14 @@ class ListPeopleActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
                         var tmp1: Getproductdata = response.body()!!.data.post!!
-                        //txt_product.text = tmp1.postTitle
+                        txt_product.text = tmp1.postTitle
                         var locList:ArrayList<String?> = tmp1.areaName
                         if(locList.size-1!=0)
                             txt_location.text = locList[0]+" 외 "+(locList.size-1)+"구"
                         else
                             txt_location.text = locList[0]
-                        //txt_number.text = tmp1.applicantNumber
-                        //Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
+                        txt_number.text = tmp1.applicantNumber
+                        Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
                         var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!
                         applicationPeopleOverviewRecyclerViewAdapter.dataList = tmp

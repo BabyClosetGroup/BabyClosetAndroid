@@ -53,9 +53,9 @@ class ShareIncompleteFragment : Fragment() {
     }
     private fun getShareIncompleteResponse(){
 
-/*
-        val token = SharedPreference.getUserToken(ctx)
-*/
+
+        //val token = SharedPreference.getUserToken(ctx)
+
         val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getShareIncompleteResponse = networkService.getshareIncompleteResponse("application/json", token)
@@ -70,13 +70,9 @@ class ShareIncompleteFragment : Fragment() {
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<IncompleteProductOverviewData> = response.body()!!.data.allPost
                         incompleteProductOverviewRecyclerViewAdapter.dataList = tmp
-                        incompleteProductOverviewRecyclerViewAdapter.notifyDataSetChanged()/*
-                        if (dataList.isEmpty()) {
-                            incomplete_empty.setVisibility(View.VISIBLE);
-                        }
-                        else {
+                        incompleteProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
+                        if(incompleteProductOverviewRecyclerViewAdapter.itemCount>0)
                             incomplete_empty.setVisibility(View.GONE);
-                        }*/
                         Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){

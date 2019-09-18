@@ -79,7 +79,9 @@ class RatingActivity : AppCompatActivity() {
         jsonObject.put("postIdx", u_postIdx)
         jsonObject.put("rating", u_rate)
 
-        val token = SharedPreference.getUserToken(ctx)
+        //val token = SharedPreference.getUserToken(ctx)
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
         val postRatingResponse: Call<PostRatingResponse> =
@@ -93,7 +95,7 @@ class RatingActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PostRatingResponse>, response: Response<PostRatingResponse>) {
                 if (response.isSuccessful){
                     if (response.body()!!.status == 200){
-                        finish()
+                        startActivity<MainActivity>()
                     }
                 }
             }

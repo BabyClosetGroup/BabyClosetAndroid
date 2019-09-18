@@ -2,7 +2,7 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="130dp"
         android:background="@drawable/round_border">
 
     <LinearLayout
@@ -11,13 +11,13 @@
             android:layout_marginBottom="30dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         <ImageView
-                android:layout_marginRight="14dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/user"
                 android:id="@+id/img_dlg_profile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="14dp"
+                app:srcCompat="@drawable/user"
         />
         <LinearLayout
                 android:layout_marginTop="5dp"

@@ -31,6 +31,11 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 import java.util.ArrayList
+import android.os.Build
+import android.graphics.drawable.shapes.OvalShape
+import android.graphics.drawable.ShapeDrawable
+
+
 
 class EditInfoActivity : AppCompatActivity() {
 
@@ -45,7 +50,12 @@ class EditInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_info)
+        setContentView(com.example.babycloset.R.layout.activity_edit_info)
+
+        img_info_thumbnail.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            img_info_thumbnail.setClipToOutline(true)
+        }
 
         getViewProfileResponse()
 
@@ -69,10 +79,9 @@ class EditInfoActivity : AppCompatActivity() {
     }
 
 
-    private fun getViewProfileResponse() {/*
-        val token = SharedPreference.getUserToken(ctx)*/
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
-
+    private fun getViewProfileResponse() {
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getViewProfileResponse = networkService.getViewProfileResponse(
             "application/json", token
@@ -89,8 +98,10 @@ class EditInfoActivity : AppCompatActivity() {
                         txt_info_nickname.setText(tmp.nickname)
                         txt_info_name.text = tmp.username
                         txt_info_id.text = tmp.userId
-
-                        Glide.with(ctx).load(tmp.profileImage).into(img_info_thumbnail)
+                        if(tmp.profileImage==null){
+                            img_info_thumbnail.setImageResource(R.drawable.user)
+                        } else
+                            Glide.with(ctx).load(tmp.profileImage).into(img_info_thumbnail)
                     }
                 }
             }
@@ -103,8 +114,8 @@ class EditInfoActivity : AppCompatActivity() {
 
     private fun putModifyProfileResponse() {
 
-       // val token = SharedPreference.getUserToken(ctx)
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val nickname = txt_info_nickname.text.toString()
         val password = txt_info_pw.text.toString()

@@ -51,8 +51,7 @@ class ShareCompleteFragment : Fragment() {
     }
 
     private fun getShareCompleteResponse(){
-/*
-        val token = SharedPreference.getUserToken(ctx)*/
+        //val token = SharedPreference.getUserToken(ctx)
         val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getShareCompleteResponse = networkService.getsharecompleteResponse("application/json", token)
@@ -67,13 +66,9 @@ class ShareCompleteFragment : Fragment() {
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<CompleteProductOverviewData> = response.body()!!.data.allPost
                         completeProductOverviewRecyclerViewAdapter.dataList = tmp
-                        completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()/*
-                         if (dataList.isEmpty()) {
-                            complete_empty.setVisibility(View.VISIBLE);
-                        }
-                        else {
+                        completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
+                        if(completeProductOverviewRecyclerViewAdapter.itemCount>0)
                             complete_empty.setVisibility(View.GONE);
-                         }*/
                         Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){

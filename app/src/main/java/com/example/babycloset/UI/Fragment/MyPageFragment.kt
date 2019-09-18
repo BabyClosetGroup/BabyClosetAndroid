@@ -54,9 +54,11 @@ class MyPageFragment : Fragment() {
 
         getViewProfileResponse()
 
-        yap.setOnClickListener {
-            getRatingResponse()
+        img_profile.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            img_profile.setClipToOutline(true)
         }
+
         // 나눈 상품
         btn_to_share.setOnClickListener {
             startActivity<ShareProductActivity>()
@@ -78,7 +80,7 @@ class MyPageFragment : Fragment() {
     private fun getRatingResponse() {
         //val token = SharedPreference.getUserToken(ctx)
         val token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getRatingResponse = networkService.getRatingResponse(
             "application/json", token, userIdx
@@ -92,9 +94,12 @@ class MyPageFragment : Fragment() {
                     if (response.body()!!.status == 200) {
                         var tmp: Getratingdata = response.body()!!.data!!
                         txt_account_name?.text = tmp.nickname
-                        txt_account_rate?.rating = tmp.rating.toFloat()
+                        txt_account_rate.rating = tmp.rating
                         txt_score?.text= tmp.rating.toString() + "점"
-                        Glide.with(ctx).load(tmp.profileImage).into(img_profile)
+                        if(tmp.profileImage==null){
+                            img_profile.setImageResource(R.drawable.user)
+                        } else
+                            Glide.with(ctx).load(tmp.profileImage).into(img_profile)
                     }
                 }
             }
@@ -120,6 +125,7 @@ class MyPageFragment : Fragment() {
                     if (response.body()!!.status == 200) {
                         var tmp: Getviewprofiledata = response.body()!!.data!!
                         userIdx = tmp.userIdx
+                        getRatingResponse()
                     }
                 }
             }
