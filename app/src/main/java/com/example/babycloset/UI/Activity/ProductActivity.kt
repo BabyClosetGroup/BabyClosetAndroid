@@ -94,7 +94,6 @@ class ProductActivity : AppCompatActivity(){
 
     //버튼
    fun configBtn(){
-        Log.e("configisSender", isSender.toString())
         //나눔신청
         if(isSender == 0){
             rl_apply_product.visibility = View.VISIBLE
@@ -319,7 +318,6 @@ class ProductActivity : AppCompatActivity(){
 
                     //쪽지
                     isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
-                    Log.e("isSender", isSender.toString())
                     txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
 
                     if(isSender == 0){

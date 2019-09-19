@@ -4,6 +4,7 @@ import com.example.babycloset.Network.Delete.DeletePostResponse
 import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.*
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
+import com.example.babycloset.Network.Put.PutPostResponse
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -133,6 +134,19 @@ interface NetworkService {
     ) : Call<PostWritePostResponse>
 
     //게시물 수정
+    @Multipart
+    @PUT("/post/{postIdx}")
+    fun putPostResponse(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int,
+        @Part("title") title :  RequestBody,
+        @Part("content") content:  RequestBody,
+        @Part("deadline") deadline:  RequestBody,
+        @Part("areaCategory") areaCategory:  RequestBody,
+        @Part("ageCategory") ageCategory:  RequestBody,
+        @Part("clothCategory") clothCategory :  RequestBody,
+        @Part postImages : ArrayList<MultipartBody.Part>
+    ) : Call<PutPostResponse>
 
     //게시물 삭제
     @DELETE("/post/{postIdx}")

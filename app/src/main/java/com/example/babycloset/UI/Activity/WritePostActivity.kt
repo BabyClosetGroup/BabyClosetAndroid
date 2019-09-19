@@ -12,11 +12,13 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.CategoryData
@@ -27,12 +29,15 @@ import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.imageURI
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
 
 
@@ -88,8 +93,6 @@ class WritePostActivity : AppCompatActivity() {
     }
 
 
-    //툴바
-
     //마감기간 선택 다이얼로그
     fun showDeadlineDialog(){
         val deadlineList = arrayOf<CharSequence>("5일","4일", "3일", "2일", "1일")
@@ -134,10 +137,22 @@ class WritePostActivity : AppCompatActivity() {
                 }
                 1->{
                     when(requestCodeNumber){
-                        1-> img_write_post1.setImageBitmap(null)
-                        2-> img_write_post2.setImageBitmap(null)
-                        3-> img_write_post3.setImageBitmap(null)
-                        4-> img_write_post4.setImageBitmap(null)
+                        1-> {
+                            img_write_post1.setImageBitmap(null)
+                            pictureUri1 = null
+                        }
+                        2-> {
+                            img_write_post2.setImageBitmap(null)
+                            pictureUri2 = null
+                        }
+                        3-> {
+                            img_write_post3.setImageBitmap(null)
+                            pictureUri3 = null
+                        }
+                        4-> {
+                            img_write_post4.setImageBitmap(null)
+                            pictureUri4 = null
+                        }
                     }
                 }
             }
@@ -201,7 +216,7 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri3 = it.data!!
-                    Glide.with(this).load(pictureUri3).thumbnail(0.1f).into(img_write_post3)
+                    Glide.with(this).load(pictureUri3).into(img_write_post3)
                 }
             }
         }
@@ -225,11 +240,14 @@ class WritePostActivity : AppCompatActivity() {
         }
         else if(edt_title_write_post.text.toString()==""){
             showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
+        }else if(pictureUri1 == null){
+           showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
             postWritePostResponse()
+            startActivity<MainActivity>()
+            finish()
         }
     }
-
     //통신
     fun postWritePostResponse(){
 
@@ -240,7 +258,23 @@ class WritePostActivity : AppCompatActivity() {
         val ageC_rb = stringToRequestBody(listToString(ageList))
         val catC_rb = stringToRequestBody(listToString(categoryList))
 
-        imagesToMBP(pictureUri1!!, pictureUri2!!, pictureUri3!!, pictureUri4!!, pictureList, contentResolver)
+
+        if(pictureUri1 != null)
+        {
+            bitmapToMBP(this, img_write_post1, pictureList, 1)
+        }
+        if(pictureUri2 != null)
+        {
+            bitmapToMBP(this, img_write_post2, pictureList, 2)
+        }
+        if(pictureUri3 != null)
+        {
+            bitmapToMBP(this, img_write_post3, pictureList, 3)
+        }
+        if(pictureUri4 != null)
+        {
+            bitmapToMBP(this, img_write_post4, pictureList, 4)
+        }
 
         val postWritePostResponse = networkService.postWritePostResponse(token, title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList)
 
@@ -254,7 +288,6 @@ class WritePostActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200) {
                         Log.e("성공", response.message())
                     }
-                    Log.e("10알", response.message())
                 }
 
             }
@@ -263,6 +296,7 @@ class WritePostActivity : AppCompatActivity() {
 
     //ModifyPostActivity 활용
     companion object{
+
         //알림 팝업
         fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){
             val builder = AlertDialog.Builder(ctx)
@@ -292,31 +326,29 @@ class WritePostActivity : AppCompatActivity() {
             return rb
         }
 
-        //uri -> RequestBody
-        fun imageToRequestBody(uri: Uri, contentResolver: ContentResolver) : RequestBody{
-            val options = BitmapFactory.Options()
-            val inputStream: InputStream = contentResolver.openInputStream(uri)
-            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-            val photoBody = RequestBody.create(MediaType.parse("image/jpg"),byteArrayOutputStream.toByteArray())
 
-            return photoBody
+        fun bitmapToMBP(ctx: Context, imgView : ImageView, list: ArrayList<MultipartBody.Part>, i : Int){
+            val b = (imgView.drawable as BitmapDrawable).bitmap
+            val file = File(bitmapToFile(ctx, b, "img$i"))
+            val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
+            val picture_rb = MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
+            list.add(picture_rb)
         }
 
-        //images requestBody -> ArrayList<MultipartBody.Part>
-        fun imagesToMBP(uri1: Uri, uri2: Uri, uri3: Uri, uri4: Uri, pictureList :  ArrayList<MultipartBody.Part>, contentResolver: ContentResolver){
-            val uriList = arrayListOf(uri1, uri2, uri3, uri4)
-            for(i in 0 .. uriList.size-1){
-                if(uriList[i] == null){
-                    Log.e("uri", "is null")
-                }
-                else{
-                    //리퀘스트 바디 만들기
-                    val picture_rb = MultipartBody.Part.createFormData("postImages", File(uriList[i].toString()).name, imageToRequestBody(uriList[i]!!, contentResolver))
-                    pictureList.add(picture_rb)
-                }
-            }
+        fun bitmapToFile(ctx : Context, b : Bitmap, fileName : String) : String{
+
+            //임시파일 저장 경로
+            val storage : File = ctx.cacheDir
+            val name = fileName
+
+            val tempFile = File(storage, name)
+
+            tempFile.createNewFile()
+            val fos  = FileOutputStream(tempFile)
+            b.compress(Bitmap.CompressFormat.JPEG, 90, fos)
+            fos.close()
+
+            return tempFile.absolutePath
         }
     }
 }
