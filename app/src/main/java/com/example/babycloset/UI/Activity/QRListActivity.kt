@@ -13,6 +13,7 @@ import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.QRListRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_qrlist.*
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +21,7 @@ import retrofit2.Response
 class QRListActivity : AppCompatActivity() {
     lateinit var qrListRecyclerAdapter: QRListRecyclerAdapter
     var qrListDataList: ArrayList<QRListData> = ArrayList()
+    var postindex: Int = -1
     val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
 
@@ -43,10 +45,10 @@ class QRListActivity : AppCompatActivity() {
 //        dataList.add(QRListData(0,"여아 투피스","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"))
 //        dataList.add(QRListData(0,"분홍색 치마","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","영등포구"))
 
+
         qrListRecyclerAdapter= QRListRecyclerAdapter(this,qrListDataList){QRListData ->
-            var intent= Intent(this,QRCreateActivity::class.java)
-            //intent.putExtra("","")
-            startActivity(intent)
+            postindex=qrListRecyclerAdapter.postindex
+            toast("${postindex}")
         }
         rv_qr_list.adapter=qrListRecyclerAdapter
         rv_qr_list.layoutManager=LinearLayoutManager(this,LinearLayout.VERTICAL,false)
@@ -63,9 +65,11 @@ class QRListActivity : AppCompatActivity() {
             override fun onResponse(call: Call<GetQRListResponse>, response: Response<GetQRListResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status==200){
+                        Log.e("qrlist success","성공")
                         qrListDataList.clear()
 
                         var tmp=response.body()!!.data.allPost
+
                         qrListRecyclerAdapter.dataList.addAll(tmp)
                         qrListRecyclerAdapter.notifyDataSetChanged()
                     }

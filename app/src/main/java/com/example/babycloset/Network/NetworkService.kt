@@ -27,6 +27,14 @@ interface NetworkService {
         @Header("token") token: String
     ): Call<GetQRListResponse>
 
+    //큐알 생성하기 조회
+    @GET("/qrcode/{postIdx}")
+    fun getQRCreateResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ): Call<GetQRCreateResponse>
+
     //회원가입
     @POST("/user/signup")
     fun postSignupResponse(
