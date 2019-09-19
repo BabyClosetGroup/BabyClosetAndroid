@@ -12,6 +12,7 @@
     <View android:layout_width="match_parent" android:layout_height="3dp"
           android:background="@drawable/tab_shadow"/>
     <ImageView
+            android:scaleType="centerCrop"
             android:layout_marginBottom="16dp"
             android:layout_gravity="center"
             android:layout_width="84dp"

@@ -92,7 +92,6 @@
                     android:text="별점주기"/>
         </RelativeLayout>
         <ImageView
-                android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"

@@ -48,6 +48,8 @@ class EditInfoActivity : AppCompatActivity() {
         ApplicationController.instance.networkService
     }
 
+    var mod:Int=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.babycloset.R.layout.activity_edit_info)
@@ -59,11 +61,19 @@ class EditInfoActivity : AppCompatActivity() {
 
         getViewProfileResponse()
 
+        txt_info_nickname.setOnClickListener {
+            mod=1;
+        }
+
         btn_save_info.setOnClickListener {
             // 데이터 저장
             if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
-                && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6))
-                putModifyProfileResponse()
+                && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)){
+                if(mod==0){
+                    putModifyProfileResponse1()
+                } else
+                    putModifyProfileResponse()
+            }
         }
 
 
@@ -85,8 +95,8 @@ class EditInfoActivity : AppCompatActivity() {
 
 
     private fun getViewProfileResponse() {
-        val token = SharedPreference.getUserToken(ctx)
-        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        //val token = SharedPreference.getUserToken(ctx)
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getViewProfileResponse = networkService.getViewProfileResponse(
             "application/json", token
@@ -119,10 +129,41 @@ class EditInfoActivity : AppCompatActivity() {
 
     private fun putModifyProfileResponse() {
 
-        val token = SharedPreference.getUserToken(ctx)
-        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        //val token = SharedPreference.getUserToken(ctx)
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val nickname = txt_info_nickname.text.toString()
+        val password = txt_info_pw.text.toString()
+
+        val nickname_rb = RequestBody.create(MediaType.parse("text/plain"), nickname)
+        val password_rb = RequestBody.create(MediaType.parse("text/plain"), password)
+
+        val putModifyProfileResponse = networkService.putModifyProfileResponse(
+            token,
+            password_rb,
+            nickname_rb,
+            mImage
+        )
+        putModifyProfileResponse.enqueue(object : Callback<PutModifyProfileResponse> {
+            override fun onFailure(call: Call<PutModifyProfileResponse>, t: Throwable) {
+                toast("put error")
+            }
+            override fun onResponse(call: Call<PutModifyProfileResponse>, response: Response<PutModifyProfileResponse>) {
+                if (response.isSuccessful) {
+                    toast(response.body()!!.message)
+                    if (response.body()!!.status == 200) {
+                        startActivity<MainActivity>()
+                    }
+                }
+            }
+        })
+    }
+    private fun putModifyProfileResponse1() {
+
+        //val token = SharedPreference.getUserToken(ctx)
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
+        val nickname = ""
         val password = txt_info_pw.text.toString()
 
         val nickname_rb = RequestBody.create(MediaType.parse("text/plain"), nickname)

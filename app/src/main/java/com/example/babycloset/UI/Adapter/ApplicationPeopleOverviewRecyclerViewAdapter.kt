@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,12 +16,16 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.babycloset.Data.ApplicationPeopleOverviewData
 import com.example.babycloset.Data.CompleteProductOverviewData
-import com.example.babycloset.R
+import com.example.babycloset.UI.Activity.MainActivity
 import com.example.babycloset.UI.Activity.RatingActivity
 import com.example.babycloset.UI.Activity.ShareProductActivity
 import com.example.babycloset.UI.Fragment.ShareCompleteFragment
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import android.widget.Toast
+import android.R
+
+
 
 class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ApplicationPeopleOverviewData>): RecyclerView.Adapter<ApplicationPeopleOverviewRecyclerViewAdapter.Holder>() {
 
@@ -40,7 +45,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
             holder.thumbnail.setClipToOutline(true)
         }
         if(dataList[position].profileImage==null){
-            holder.thumbnail.setImageResource(R.drawable.user)
+            holder.thumbnail.setImageResource(com.example.babycloset.R.drawable.user)
         } else
             Glide.with(ctx).load(dataList[position].profileImage).into(holder.thumbnail)
         holder.name.text = dataList[position].applicantNickname
@@ -54,30 +59,41 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var container = itemView.findViewById(R.id.ll_rv_item_application_overview_container) as LinearLayout
+        var container = itemView.findViewById(com.example.babycloset.R.id.ll_rv_item_application_overview_container) as LinearLayout
         var name = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_application_account_name) as TextView
-        var rate = itemView.findViewById(R.id.txt_rv_item_application_score) as TextView
-        var rb = itemView.findViewById(R.id.rb_rv_item_application_rate) as RatingBar
-        var thumbnail = itemView.findViewById(R.id.img_rv_item_application_overview_profile) as ImageView
+        var rate = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_application_score) as TextView
+        var rb = itemView.findViewById(com.example.babycloset.R.id.rb_rv_item_application_rate) as RatingBar
+        var thumbnail = itemView.findViewById(com.example.babycloset.R.id.img_rv_item_application_overview_profile) as ImageView
     }
     private fun showMailDialog() {
-        val MailDialog = AlertDialog.Builder(ctx)
-        MailDialog.setTitle("")
-        MailDialog.setMessage(nn+"님께 쪽지를 보낼까요?")
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("쪽지를보내시겠습니까?")
+        builder.setPositiveButton(
+            "네"
+        ) { dialog, which -> ctx.startActivity<MainActivity>() }
+        builder.setNegativeButton(
+            "아니오"
+        ) { dialog, which -> null }
+        builder.show()
 
-        /*var dialog_listener = object: DialogInterface.OnClickListener{
+      /*  val MailDialog = AlertDialog.Builder(ctx)
+        MailDialog.setTitle("")
+        MailDialog.setMessage("쪽지를 보내시겠습니까?")
+
+        var dialog_listener = object: DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 when(which){
                     DialogInterface.BUTTON_POSITIVE ->
                         //쪽지창으로
+                        startActivity<MainActivity>()
 
                     DialogInterface.BUTTON_NEGATIVE ->
                         finish()
-                        //toast("취소되었습니다")
                 }
             }
-        }*/
-        MailDialog.setPositiveButton("예",null)
-        MailDialog.show()
+        }
+        MailDialog.setPositiveButton("예",dialog_listener)
+        MailDialog.setNegativeButton("취소",dialog_listener)
+        MailDialog.show()*/
     }
 }

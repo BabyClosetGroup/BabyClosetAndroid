@@ -16,6 +16,7 @@
             android:paddingBottom="26dp">
 
         <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/img_rv_item_application_overview_profile"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
