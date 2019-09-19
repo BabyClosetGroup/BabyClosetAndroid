@@ -41,4 +41,5 @@ class SliderProductFragment : Fragment() {
     }
 
 
+
 }

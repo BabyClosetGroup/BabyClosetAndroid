@@ -11,9 +11,15 @@ import com.example.babycloset.Data.HomeDeadlineData
 import com.example.babycloset.Data.HomeRecentData
 
 import com.example.babycloset.R
+import com.example.babycloset.UI.Activity.AllProductActivity
+import com.example.babycloset.UI.Activity.DeadLineProductActivity
+import com.example.babycloset.UI.Activity.EmailActivity
+import com.example.babycloset.UI.Activity.QRMainActivity
 import com.example.babycloset.UI.Adapter.HomeDeadlineRecyclerAdapter
 import com.example.babycloset.UI.Adapter.HomeRecentRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.toobar_main.*
+import org.jetbrains.anko.support.v4.startActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +47,21 @@ class HomeFragment : Fragment() {
 
         configDeadline()
         configRecent()
+
+        img_home_qr_code.setOnClickListener {
+            startActivity<QRMainActivity>("id" to 4)
+        }
+        btn_email.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
+
+        txt_home_go_deadline_all_product.setOnClickListener {
+            startActivity<AllProductActivity>("id" to 5)
+        }
+        txt_home_go_recent_all_product.setOnClickListener {
+            startActivity<DeadLineProductActivity>("id" to 6)
+        }
+
     }
 
     private fun configDeadline(){
@@ -84,5 +105,6 @@ class HomeFragment : Fragment() {
         homeRecentRecyclerAdapter= HomeRecentRecyclerAdapter(context!!,dataList)
         rv_item_recent_all.adapter = homeRecentRecyclerAdapter
         rv_item_recent_all.layoutManager = GridLayoutManager(context!!,2)
+
     }
 }
