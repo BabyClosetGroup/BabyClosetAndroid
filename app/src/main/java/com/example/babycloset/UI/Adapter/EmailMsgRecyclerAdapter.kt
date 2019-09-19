@@ -24,7 +24,6 @@ class EmailMsgRecyclerAdapter (val ctx: Context, val dataList: ArrayList<EmailMs
             return Holder(view)
         }
         else{ //상대방
-//            Log.e("yellow", "${dataList[p1].msgContents}")
             var view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_email_msg_receive, p0,false)
             return Holder(view)
         }
