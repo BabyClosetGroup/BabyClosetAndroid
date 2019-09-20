@@ -3,6 +3,7 @@ package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.PostLoginResponse
+import com.example.babycloset.Network.Post.PostQRcodeResponse
 import com.example.babycloset.Network.Post.PostRatingResponse
 import com.example.babycloset.Network.Post.PostSignupResponse
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
@@ -34,6 +35,14 @@ interface NetworkService {
         @Header("token") token: String,
         @Path("postIdx") postIdx: Int
     ): Call<GetQRCreateResponse>
+
+    //큐알 스캔하기
+    @POST("/qrcode")
+    fun postQRcodeResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Body() body:JsonObject
+    ): Call<PostQRcodeResponse>
 
     //회원가입
     @POST("/user/signup")

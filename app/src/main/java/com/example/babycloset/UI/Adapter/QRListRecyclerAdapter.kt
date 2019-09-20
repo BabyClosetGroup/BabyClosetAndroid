@@ -17,22 +17,20 @@ import com.example.babycloset.Data.QRListData
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.QRCreateActivity
 
-class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListData>,val itemClick: (QRListData) -> Unit): RecyclerView.Adapter<QRListRecyclerAdapter.Holder>(){
+class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListData>): RecyclerView.Adapter<QRListRecyclerAdapter.Holder>(){
     var postindex: Int=-1
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): QRListRecyclerAdapter.Holder {
         val view: View=LayoutInflater.from(ctx).inflate(R.layout.rv_item_qr_list_,p0,false)
-        return Holder(view,itemClick)
+        return Holder(view)
     }
 
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(dataList[position],position)
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.qr_list_img)
         holder.qr_list_title.text=dataList[position].postTitle
         holder.qr_list_area.text=dataList[position].areaName[0]  //수정필요
         holder.qr_list_button.setOnClickListener {
-//            Toast.makeText(ctx,""+dataList.get(position),Toast.LENGTH_LONG).show()
             postindex = dataList.get(position).postIdx
             var intent= Intent(ctx, QRCreateActivity::class.java)
             intent.putExtra("postindex",postindex)
@@ -40,16 +38,10 @@ class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListDat
         }
     }
 
-    inner class Holder(itemView: View,itemClick: (QRListData) -> Unit): RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
         var qr_list_img=itemView.findViewById(R.id.qr_list_img) as ImageView
         var qr_list_title=itemView.findViewById(R.id.qr_list_txt_title) as TextView
         var qr_list_area=itemView.findViewById(R.id.qr_list_txt_area) as TextView
         var qr_list_button=itemView.findViewById(R.id.qr_list_btn_create) as Button
-
-        fun bind(qrListData: QRListData,index: Int){
-            itemView.setOnClickListener {
-                itemClick(qrListData)
-            }
-        }
     }
 }
