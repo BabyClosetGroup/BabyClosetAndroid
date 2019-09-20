@@ -34,6 +34,7 @@ import java.util.ArrayList
 import android.os.Build
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.ShapeDrawable
+import android.view.View
 import java.util.regex.Pattern
 
 
@@ -48,9 +49,6 @@ class EditInfoActivity : AppCompatActivity() {
         ApplicationController.instance.networkService
     }
 
-    var mod:Int=0
-    var mod2:Int=0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.babycloset.R.layout.activity_edit_info)
@@ -60,28 +58,43 @@ class EditInfoActivity : AppCompatActivity() {
             img_info_thumbnail.setClipToOutline(true)
         }
 
+        var mody:Int=0
+        var mod:Int=0
+        var mo:Int=0
+
+        fake_true.setVisibility(View.GONE)
+
         getViewProfileResponse()
 
         txt_info_nickname.setOnClickListener {
-            mod=1;
+            mody=1
         }
 
         btn_save_info.setOnClickListener {
             // 데이터 저장
-                if(mod==0){
-                    if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
-                        putModifyProfileResponse1()
-                } else if(mod2==0){
-                    if(txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
-                        putModifyProfileResponse2()
-                } else
-                    if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
-                        && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6))
-                        putModifyProfileResponse()
+            if(mod==0){ //닉네임만 수정
+                if(txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
+                    putModifyProfileResponse2()
             }
+            else if(mody==0){ //pw만 수정
+                if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
+                    putModifyProfileResponse1()
+            }
+            if(mod==0&&mody==0) //사진만 수정
+                putModifyProfileResponse3()
+            else{
+                if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
+                && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)){
+                    putModifyProfileResponse()
+                }
+            }
+        }
+
 
         btn_pw_del.setOnClickListener {
-            mod2=1;
+            mod=1
+            fake_false.setVisibility(View.GONE)
+            fake_true.setVisibility(View.VISIBLE)
             txt_info_pw.isEnabled=true
             btn_pw_del.setImageResource(R.drawable.ic_close_black_24dp)
             // x클릭시 비번칸 지우기
@@ -90,6 +103,7 @@ class EditInfoActivity : AppCompatActivity() {
 
         img_info_thumbnail.setOnClickListener {
             //갤러리 연동
+            mo=1
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
             intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -99,8 +113,8 @@ class EditInfoActivity : AppCompatActivity() {
 
 
     private fun getViewProfileResponse() {
-        //val token = SharedPreference.getUserToken(ctx)
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getViewProfileResponse = networkService.getViewProfileResponse(
             "application/json", token
@@ -133,8 +147,8 @@ class EditInfoActivity : AppCompatActivity() {
 
     private fun putModifyProfileResponse() {
 
-        //val token = SharedPreference.getUserToken(ctx)
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val nickname = txt_info_nickname.text.toString()
         val password = txt_info_pw.text.toString()
@@ -164,8 +178,8 @@ class EditInfoActivity : AppCompatActivity() {
     }
     private fun putModifyProfileResponse1() {
 
-        //val token = SharedPreference.getUserToken(ctx)
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val nickname = ""
         val password = txt_info_pw.text.toString()
@@ -195,10 +209,41 @@ class EditInfoActivity : AppCompatActivity() {
     }
     private fun putModifyProfileResponse2() {
 
-        //val token = SharedPreference.getUserToken(ctx)
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val nickname = txt_info_nickname.text.toString()
+        val password = ""
+
+        val nickname_rb = RequestBody.create(MediaType.parse("text/plain"), nickname)
+        val password_rb = RequestBody.create(MediaType.parse("text/plain"), password)
+
+        val putModifyProfileResponse = networkService.putModifyProfileResponse(
+            token,
+            password_rb,
+            nickname_rb,
+            mImage
+        )
+        putModifyProfileResponse.enqueue(object : Callback<PutModifyProfileResponse> {
+            override fun onFailure(call: Call<PutModifyProfileResponse>, t: Throwable) {
+                toast("put error")
+            }
+            override fun onResponse(call: Call<PutModifyProfileResponse>, response: Response<PutModifyProfileResponse>) {
+                if (response.isSuccessful) {
+                    toast(response.body()!!.message)
+                    if (response.body()!!.status == 200) {
+                        startActivity<MainActivity>()
+                    }
+                }
+            }
+        })
+    }
+    private fun putModifyProfileResponse3() {
+
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
+        val nickname = ""
         val password = ""
 
         val nickname_rb = RequestBody.create(MediaType.parse("text/plain"), nickname)

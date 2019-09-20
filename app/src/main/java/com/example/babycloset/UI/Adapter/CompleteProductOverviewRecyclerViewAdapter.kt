@@ -65,7 +65,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.date.text = dataList[position].sharedDate
         holder.owner.text = dataList[position].receiverNickname
 
-        if(dataList[position].receiverIsRated != 1){
+        if(dataList[position].receiverIsRated != 0){
             holder.rate.text = "부여"
             holder.btn.visibility=View.GONE
         } else

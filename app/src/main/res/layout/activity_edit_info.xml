@@ -21,6 +21,7 @@
             android:id="@+id/img_info_thumbnail"
             android:layout_marginTop="26dp"/>
     <RelativeLayout
+            android:id="@+id/whwh"
             android:layout_marginHorizontal="16dp"
             android:layout_height="42dp"
             android:layout_width="wrap_content">
@@ -139,22 +140,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
         />
-        <EditText
-                android:enabled="false"
-                android:background="@null"
-                android:layout_marginLeft="24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="영어와 숫자를 이용하여 6자 이상 가능해요. "
-                android:textSize="12sp"
-                android:text="비밀번호를입력"
-                android:textColor="#262626"
-                android:id="@+id/txt_info_pw" android:layout_weight="1"/>
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/chage_btn"
-                android:id="@+id/btn_pw_del"/>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/fake_false">
+                <EditText
+                        android:enabled="false"
+                        android:background="@null"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:text="0000000"
+                        android:textSize="12sp"
+                        android:textColor="#262626" android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/fake_true">
+                <EditText
+                        android:enabled="false"
+                        android:background="@null"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:hint="영어와 숫자를 이용하여 6자 이상 가능해요. "
+                        android:textSize="12sp"
+                        android:textColor="#262626"
+                        android:id="@+id/txt_info_pw" android:layout_weight="1"/>
+            </LinearLayout>
+            <ImageView
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/chage_btn"
+                    android:id="@+id/btn_pw_del"/>
+        </FrameLayout>
     </LinearLayout>
     <View
             android:layout_width="match_parent"
