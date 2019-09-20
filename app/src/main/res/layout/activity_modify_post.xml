@@ -132,6 +132,7 @@
                                     android:layout_width="82dp" android:layout_height="28dp" android:layout_marginTop="10dp"
                                     android:layout_below="@id/txt_deadline_modify_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="n일" android:textSize="14dp" android:textColor="#ffffff"
+                                    style="?android:attr/borderlessButtonStyle"
                                     android:clickable="false"  android:id="@+id/txt_deadline_modify_tag"
                             />
 
