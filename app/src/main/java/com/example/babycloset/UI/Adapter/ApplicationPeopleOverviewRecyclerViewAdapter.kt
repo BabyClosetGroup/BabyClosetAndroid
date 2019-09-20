@@ -29,7 +29,7 @@ import android.R
 
 class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ApplicationPeopleOverviewData>): RecyclerView.Adapter<ApplicationPeopleOverviewRecyclerViewAdapter.Holder>() {
 
-    var nn:String=""
+    var nn:Int=0
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(com.example.babycloset.R.layout.rv_application_people_overview, viewGroup, false)
@@ -54,7 +54,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         holder.rb.rating= score
 
         holder.container.setOnClickListener {
-            nn=dataList[position].applicantNickname!!
+            nn=dataList[position].applicantIdx
             showMailDialog()
         }
     }
@@ -70,7 +70,9 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         builder.setMessage("쪽지를보내시겠습니까?")
         builder.setPositiveButton(
             "네"
-        ) { dialog, which -> ctx.startActivity<MainActivity>() }
+        ) { dialog, which -> ctx.startActivity<MainActivity>(
+            "userIdx" to nn
+        ) }
         builder.setNegativeButton(
             "아니오"
         ) { dialog, which -> null }
