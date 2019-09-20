@@ -1,8 +1,9 @@
-/*
+
 package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.PostLoginResponse
+import com.example.babycloset.Network.Post.PostQRcodeResponse
 import com.example.babycloset.Network.Post.PostRatingResponse
 import com.example.babycloset.Network.Post.PostSignupResponse
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
@@ -13,6 +14,36 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NetworkService {
+    //홈화면 조회
+    @GET("/post/main")
+    fun getHomeResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String
+    ): Call<GetHomeResponse>
+
+    //큐알 리스트 조회
+    @GET("/post/qrcode")
+    fun getQRListResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String
+    ): Call<GetQRListResponse>
+
+    //큐알 생성하기 조회
+    @GET("/qrcode/{postIdx}")
+    fun getQRCreateResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ): Call<GetQRCreateResponse>
+
+    //큐알 스캔하기
+    @POST("/qrcode")
+    fun postQRcodeResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Body() body:JsonObject
+    ): Call<PostQRcodeResponse>
+
     //회원가입
     @POST("/user/signup")
     fun postSignupResponse(
@@ -87,4 +118,4 @@ interface NetworkService {
         @Header("Content-Type") content_type:String,
         @Header("token") token : String
     ):Call<GetRatingResponse>
-}*/
+}

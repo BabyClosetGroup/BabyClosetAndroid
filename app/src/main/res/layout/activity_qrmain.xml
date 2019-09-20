@@ -63,7 +63,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="28dp">
+                android:layout_marginTop="28dp"
+                android:orientation="vertical">
+            <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/img_qr_create"/>
             <Button
                     android:id="@+id/btn_qr_create"
                     android:layout_width="match_parent"
@@ -72,7 +78,8 @@
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#ffffff"
-                    android:background="@drawable/btn_yellow_fill_border"/>
+                    android:background="@drawable/btn_yellow_fill_border"
+                    style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 
@@ -81,8 +88,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="50dp"
                 android:orientation="vertical">
+            <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/img_qr_scan"/>
             <Button
                     android:id="@+id/btn_qr_scan"
                     android:layout_width="match_parent"
@@ -91,8 +102,8 @@
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="#ffffff"
-                    android:background="@drawable/btn_yellow_fill_border"/>
-
+                    android:background="@drawable/btn_yellow_fill_border"
+                    style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
 
