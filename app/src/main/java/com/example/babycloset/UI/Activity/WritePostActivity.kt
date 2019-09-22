@@ -244,7 +244,8 @@ class WritePostActivity : AppCompatActivity() {
            showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
             postWritePostResponse()
-            startActivity<MainActivity>()
+            Thread.sleep(1000)
+            startActivity<ProductActivity>()
             finish()
         }
     }

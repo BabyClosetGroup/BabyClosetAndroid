@@ -96,15 +96,15 @@ interface NetworkService {
 
 
     //모든 상품 보기 필터 적용
-    @GET("/post/filter/all/{pagination}")
-    fun getAllPostFilterResponse(
+    @POST("/post/filter/all/{pagination}")
+    fun postAllPostFilterResponse(
         @Header("token") token: String,
-        @Body() body: JsonObject,
-        @Path("pagination") pagination : Int
-    ): Call<GetAllPostFilterResponse>
+        @Path("pagination") pagination : Int,
+        @Body() body: JsonObject
+    ): Call<PostAllPostFilterResponse>
 
 
-    //마감 상품 필터
+    //마감 상품 필터 적용
     @GET("/post/filter/deadline/{pagination}")
     fun getDeadLinePostFilterResponse(
         @Header("token") token: String,

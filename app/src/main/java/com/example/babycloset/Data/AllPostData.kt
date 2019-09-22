@@ -14,13 +14,5 @@ data class AllPostRVData(
 
 data class AllPostFilterData(
     val isNewMessage : Int,
-    val filteredAllPost : ArrayList<AllPostFilterRVData>
-
-)
-
-data class AllPostFilterRVData(
-    var postIdx : Int,
-    var postTitle : String,
-    var mainImage : String,
-    var areaName : ArrayList<String>
+    val filteredAllPost : ArrayList<AllPostRVData>
 )

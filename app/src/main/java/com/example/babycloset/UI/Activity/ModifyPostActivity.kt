@@ -28,6 +28,7 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
 import okhttp3.MultipartBody
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -223,6 +224,8 @@ class ModifyPostActivity : AppCompatActivity() {
             WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
         } else {
             putPostResponse()
+            Thread.sleep(1000)
+            startActivity<ProductActivity>("postIdx" to postIdx)
             finish()
         }
     }
