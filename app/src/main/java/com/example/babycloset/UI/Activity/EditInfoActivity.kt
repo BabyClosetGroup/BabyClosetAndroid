@@ -34,6 +34,7 @@ import java.util.ArrayList
 import android.os.Build
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.ShapeDrawable
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
@@ -69,20 +70,15 @@ class EditInfoActivity : AppCompatActivity() {
 
         getViewProfileResponse()
 
-        /*txt_info_nickname.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                nick_mod=1
-            }
-        })*/
-
-        if(cur_nick.equals(txt_info_nickname.text.toString())) nick_mod=0
-        else nick_mod=1
+        Handler().postDelayed({
+            if(cur_nick.equals(txt_info_nickname.text.toString())) {
+                nick_mod=0
+                Log.e("txt_info_nickname",txt_info_nickname.text.toString())
+                Log.e("cur_nick", cur_nick)
+            } }, 1000)
 
         btn_save_info.setOnClickListener {
+            if(!cur_nick.equals(txt_info_nickname.text.toString())) nick_mod=1
             // 데이터 저장
             when(nick_mod) { //nick변경 여부
                 0 -> { when (pw_mod) {
@@ -100,22 +96,6 @@ class EditInfoActivity : AppCompatActivity() {
                     }
                 }
             }
-            /*if(mod==0){ //비번 변경이 없음
-                if(mody==0) showMailDialog3() //닉넴도 변견 없음 ->사진만 전송
-                if(mody==1) //닉네임은 변경
-                    if(txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
-                        showMailDialog2()
-            }
-            else if(mody==0){ //닉네임 변경없음
-                if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
-                    showMailDialog1()
-            }
-            else{
-                if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
-                && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)){
-                    showMailDialog()
-                }
-            }*/
         }
 
 

@@ -21,7 +21,6 @@
             android:id="@+id/img_info_thumbnail"
             android:layout_marginTop="26dp"/>
     <RelativeLayout
-            android:id="@+id/whwh"
             android:layout_marginHorizontal="16dp"
             android:layout_height="42dp"
             android:layout_width="wrap_content">
