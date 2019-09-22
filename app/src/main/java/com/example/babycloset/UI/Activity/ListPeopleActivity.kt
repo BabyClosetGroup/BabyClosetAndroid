@@ -74,10 +74,12 @@ class ListPeopleActivity : AppCompatActivity() {
                         var tmp1: Getproductdata = response.body()!!.data.post!!
                         txt_product.text = tmp1.postTitle
                         var locList:ArrayList<String> = tmp1.areaName
-                        if(locList.size-1!=0)
-                            txt_location.text = locList[0]+" 외 "+(locList.size-1)+"구"
-                        else
+                        if(locList.size-1!=0){
                             txt_location.text = locList[0]
+                            txt_location_extra.text ="외 "+(locList.size-1)+"구"
+                        } else{
+                            txt_location.text = locList[0]
+                            txt_location_extra.text ="" }
                         txt_number.text = tmp1.applicantNumber
                         var x = tmp1.applicantNumber
                         var item: Char

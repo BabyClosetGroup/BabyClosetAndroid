@@ -49,8 +49,9 @@
                             android:layout_marginTop="8dp"
                             android:layout_weight="1"
                             android:text="상품명"
-                            android:textSize="16dp"
-                            android:textStyle="bold"/>
+                            android:textSize="16sp"
+                            android:textColor="#262626"
+                            android:fontFamily="@font/seoulnamsanm"/>
 
                 </LinearLayout>
 
@@ -64,30 +65,43 @@
                             android:id="@+id/txt_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="#767676"
+                            android:fontFamily="@font/seoulnamsanm"
                             android:text="동대문구"
-                            android:textSize="12dp"/>
+                            android:textSize="12sp"/>
+                    <TextView
+                            android:layout_marginLeft="2dp"
+                            android:textColor="#767676"
+                            android:fontFamily="@font/seoulnamsanl"
+                            android:id="@+id/txt_location_extra"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="외 0구"
+                            android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="43dp"
+                        android:layout_marginTop="39dp"
                         android:orientation="horizontal">
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="나눔요청 인원 : "
-                            android:textColor="#555555"
-                            android:textSize="14dp"/>
+                            android:textColor="#262626"
+                            android:fontFamily="@font/seoulnamsanm"
+                            android:textSize="14sp"/>
 
                     <TextView
                             android:id="@+id/txt_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0명"
+                            android:fontFamily="@font/seoulnamsanb"
                             android:textColor="#FFC107"
-                            android:textSize="14dp"/>
+                            android:textSize="14sp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -103,25 +117,27 @@
                 android:orientation="horizontal">
 
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="신청한 사람 "
                     android:textColor="#262626"
                     android:textSize="16sp"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:id="@+id/txt_application_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(0)"
                     android:textColor="#262626"
                     android:textSize="16sp"/>
-            <TextView
+            <!--<TextView
                     android:textSize="13sp"
                     android:layout_marginLeft="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나눔을 함께할 한분!을 선정하세요"
-            />
+            />-->
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_application_people_overview"

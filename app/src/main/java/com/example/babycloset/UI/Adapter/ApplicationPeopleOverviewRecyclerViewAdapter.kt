@@ -77,25 +77,5 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
             "아니오"
         ) { dialog, which -> null }
         builder.show()
-
-      /*  val MailDialog = AlertDialog.Builder(ctx)
-        MailDialog.setTitle("")
-        MailDialog.setMessage("쪽지를 보내시겠습니까?")
-
-        var dialog_listener = object: DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                when(which){
-                    DialogInterface.BUTTON_POSITIVE ->
-                        //쪽지창으로
-                        startActivity<MainActivity>()
-
-                    DialogInterface.BUTTON_NEGATIVE ->
-                        finish()
-                }
-            }
-        }
-        MailDialog.setPositiveButton("예",dialog_listener)
-        MailDialog.setNegativeButton("취소",dialog_listener)
-        MailDialog.show()*/
     }
 }

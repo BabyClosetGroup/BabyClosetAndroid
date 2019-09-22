@@ -31,12 +31,16 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/share_empty"/>
                 <TextView
+                        android:textColor="#2f2f2f"
+                        android:fontFamily="@font/seoulnamsanm"
                         android:layout_gravity="center"
                         android:layout_marginTop="59.5dp"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:textSize="17sp"
                         android:text="아가옷장에서"/>
                 <TextView
+                        android:textColor="#2f2f2f"
+                        android:fontFamily="@font/seoulnamsanm"
                         android:layout_gravity="center"
                         android:layout_marginTop="18dp"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"

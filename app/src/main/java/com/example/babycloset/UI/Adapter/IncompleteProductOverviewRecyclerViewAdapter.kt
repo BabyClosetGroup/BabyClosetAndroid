@@ -32,10 +32,13 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         holder.title.text = dataList[position].postTitle
         val locList:ArrayList<String> = dataList[position].areaName
-        if(locList.size-1!=0)
-            holder.location.text = locList[0]+" 외 "+(locList.size-1)+"구"
-        else
+        if(locList.size-1!=0){
             holder.location.text = locList[0]
+            holder.extra_loc.text ="외 "+(locList.size-1)+"구"
+        } else{
+            holder.location.text = locList[0]
+            holder.extra_loc.text =""
+        }
 
         holder.num.text = dataList[position].registerNumber
 
@@ -55,5 +58,6 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         var num = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_number) as TextView
         var btn = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
         var thumbnail = itemView.findViewById(R.id.img_rv_item_incomplete_overview_thumbnail) as ImageView
+        var extra_loc = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_location_extra) as TextView
     }
 }

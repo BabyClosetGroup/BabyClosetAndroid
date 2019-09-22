@@ -39,14 +39,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                        android:fontFamily="@font/seoulnamsanm"
+                        android:textColor="#262626"
                     android:id="@+id/txt_rv_item_incomplete_overview_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:text="상품명"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
@@ -57,28 +58,42 @@
                 android:orientation="horizontal">
 
                 <TextView
+                        android:textColor="#767676"
+                        android:fontFamily="@font/seoulnamsanm"
                     android:id="@+id/txt_rv_item_incomplete_overview_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="동대문구"
                     android:textSize="12dp" />
 
+                <TextView
+                        android:layout_marginLeft="2dp"
+                        android:textColor="#767676"
+                        android:fontFamily="@font/seoulnamsanl"
+                        android:id="@+id/txt_rv_item_incomplete_overview_location_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="외 0구"
+                        android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="43dp"
+                android:layout_marginTop="39dp"
                 android:orientation="horizontal">
 
                 <TextView
+                        android:fontFamily="@font/seoulnamsanm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나눔요청 인원 : "
-                    android:textColor="#555555"
+                    android:textColor="#262626"
                     android:textSize="14dp" />
 
                 <TextView
+                        android:fontFamily="@font/seoulnamsanb"
                     android:id="@+id/txt_rv_item_incomplete_overview_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,10 +118,11 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"/>
         <TextView
+                android:fontFamily="@font/seoulnamsanb"
                 android:layout_height="42dp"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textColor="#ffffff"
                 android:text="나눔하기"/>
 

@@ -34,6 +34,9 @@ import java.util.ArrayList
 import android.os.Build
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.ShapeDrawable
+import android.support.v7.app.AlertDialog
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import java.util.regex.Pattern
 
@@ -48,6 +51,8 @@ class EditInfoActivity : AppCompatActivity() {
    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
+    var cur_nick:String=""
+    var nick_mod:Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,41 +63,64 @@ class EditInfoActivity : AppCompatActivity() {
             img_info_thumbnail.setClipToOutline(true)
         }
 
-        var mody:Int=0
-        var mod:Int=0
-        var mo:Int=0
+        var pw_mod:Int=0
 
         fake_true.setVisibility(View.GONE)
 
         getViewProfileResponse()
 
-        txt_info_nickname.setOnClickListener {
-            mody=1
-        }
+        /*txt_info_nickname.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                nick_mod=1
+            }
+        })*/
+
+        if(cur_nick.equals(txt_info_nickname.text.toString())) nick_mod=0
+        else nick_mod=1
 
         btn_save_info.setOnClickListener {
             // 데이터 저장
-            if(mod==0){ //닉네임만 수정
-                if(txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
-                    putModifyProfileResponse2()
+            when(nick_mod) { //nick변경 여부
+                0 -> { when (pw_mod) {
+                    0 -> showMailDialog3()
+                    1 -> { if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
+                            showMailDialog1() }
+                    }
+                }
+                1 -> { when (pw_mod) {
+                    0 -> { if (txt_info_nickname.text.toString().length < 8 && Pattern.matches("^[가-힣]*$", txt_info_nickname.text.toString()))
+                            showMailDialog2() }
+                    1 -> {if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
+                        && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6))
+                            showMailDialog() }
+                    }
+                }
             }
-            else if(mody==0){ //pw만 수정
+            /*if(mod==0){ //비번 변경이 없음
+                if(mody==0) showMailDialog3() //닉넴도 변견 없음 ->사진만 전송
+                if(mody==1) //닉네임은 변경
+                    if(txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
+                        showMailDialog2()
+            }
+            else if(mody==0){ //닉네임 변경없음
                 if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
-                    putModifyProfileResponse1()
+                    showMailDialog1()
             }
-            if(mod==0&&mody==0) //사진만 수정
-                putModifyProfileResponse3()
             else{
                 if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
                 && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)){
-                    putModifyProfileResponse()
+                    showMailDialog()
                 }
-            }
+            }*/
         }
 
 
         btn_pw_del.setOnClickListener {
-            mod=1
+            pw_mod=1
             fake_false.setVisibility(View.GONE)
             fake_true.setVisibility(View.VISIBLE)
             txt_info_pw.isEnabled=true
@@ -103,7 +131,6 @@ class EditInfoActivity : AppCompatActivity() {
 
         img_info_thumbnail.setOnClickListener {
             //갤러리 연동
-            mo=1
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
             intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -111,6 +138,34 @@ class EditInfoActivity : AppCompatActivity() {
         }
     }
 
+    private fun showMailDialog() {
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("변경된 내용을 저장할까요?")
+        builder.setPositiveButton("확인") { dialog, which -> putModifyProfileResponse() }
+        builder.setNegativeButton("취소") { dialog, which -> null }
+        builder.show()
+    }
+    private fun showMailDialog1() {
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("변경된 내용을 저장할까요?")
+        builder.setPositiveButton("확인") { dialog, which -> putModifyProfileResponse1() }
+        builder.setNegativeButton("취소") { dialog, which -> null }
+        builder.show()
+    }
+    private fun showMailDialog2() {
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("변경된 내용을 저장할까요?")
+        builder.setPositiveButton("확인") { dialog, which -> putModifyProfileResponse2() }
+        builder.setNegativeButton("취소") { dialog, which -> null }
+        builder.show()
+    }
+    private fun showMailDialog3() {
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("변경된 내용을 저장할까요?")
+        builder.setPositiveButton("확인") { dialog, which -> putModifyProfileResponse3() }
+        builder.setNegativeButton("취소") { dialog, which -> null }
+        builder.show()
+    }
 
     private fun getViewProfileResponse() {
         val token = SharedPreference.getUserToken(ctx)
@@ -129,6 +184,7 @@ class EditInfoActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200) {
                         var tmp: Getviewprofiledata = response.body()!!.data!!
                         txt_info_nickname.setText(tmp.nickname)
+                        cur_nick=tmp.nickname
                         txt_info_name.text = tmp.username
                         txt_info_id.text = tmp.userId
                         if(tmp.profileImage==null){
@@ -261,7 +317,7 @@ class EditInfoActivity : AppCompatActivity() {
             }
             override fun onResponse(call: Call<PutModifyProfileResponse>, response: Response<PutModifyProfileResponse>) {
                 if (response.isSuccessful) {
-                    toast(response.body()!!.message)
+                    //toast(response.body()!!.message)
                     if (response.body()!!.status == 200) {
                         startActivity<MainActivity>()
                     }
