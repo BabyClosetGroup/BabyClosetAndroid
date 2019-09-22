@@ -4,12 +4,12 @@ data class GetViewProfileResponse (
     val status: Int,
     val success:Boolean,
     val message: String,
-    val data: ArrayList<Getviewprofiledata>?
+    val data: Getviewprofiledata
 )
 data class Getviewprofiledata(
     var userIdx:Int,
     var userId:String,
     var username:String,
     var nickname:String,
-    var profileImage: String?
+    var profileImage: String
 )

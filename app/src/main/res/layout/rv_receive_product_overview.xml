@@ -18,6 +18,7 @@
         android:gravity="center">
 
         <ImageView
+                android:scaleType="centerCrop"
             android:id="@+id/img_rv_item_receive_overview_thumbnail"
             android:layout_width="109dp"
             android:layout_height="109dp"
@@ -44,7 +45,8 @@
                     android:layout_weight="1"
                     android:text="상품명"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textColor="#262626"
+                    android:fontFamily="@font/seoulnamsanm" />
 
             </LinearLayout>
 
@@ -58,8 +60,20 @@
                     android:id="@+id/txt_rv_item_receive_overview_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#767676"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:text="동대문구"
                     android:textSize="12dp" />
+
+                <TextView
+                        android:layout_marginLeft="2dp"
+                        android:textColor="#767676"
+                        android:fontFamily="@font/seoulnamsanl"
+                        android:id="@+id/txt_rv_item_receive_overview_location_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="외 0구"
+                        android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_rv_item_receive_overview_date"
@@ -67,12 +81,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="날짜"
-                    android:textSize="12dp" />
+                    android:textColor="#767676"
+                    android:fontFamily="@font/seoulnamsanm"
+                    android:textSize="12sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="18dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -80,12 +96,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="unknown"
+                    android:textColor="#262626"
+                    android:fontFamily="@font/seoulnamsanb"
                     android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="님과의 나눔"
+                    android:text="과의 나눔"
+                    android:textColor="#262626"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textSize="14dp" />
 
                 <ImageView
@@ -107,7 +127,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="별점 : "
-                    android:textColor="#555555"
+                    android:textColor="#262626"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textSize="14dp" />
 
                 <TextView
@@ -116,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#FFC107"
+                    android:fontFamily="@font/seoulnamsanb"
                     android:textSize="14dp" />
 
             </LinearLayout>
@@ -136,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"/>
         <TextView
+                android:fontFamily="@font/seoulnamsanb"
                 android:layout_height="42dp"
                 android:layout_width="match_parent"
                 android:gravity="center"
@@ -144,4 +167,10 @@
                 android:text="별점주기"/>
 
     </RelativeLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f1f1f1"
+    />
 </LinearLayout>

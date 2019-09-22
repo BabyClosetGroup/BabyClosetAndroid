@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log/*
+import android.util.Log
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Post.PostSignupResponse
 import com.example.babycloset.R
 import com.google.gson.JsonObject
@@ -22,9 +22,9 @@ import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
 
-  /*  val networkService: NetworkService by lazy {
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class SignupActivity : AppCompatActivity() {
                                     val signin_u_name: String = edt_name_siginin.text.toString()
                                     val signin_u_nickname: String = edt_nickname_signin.text.toString()
                                     val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                   // postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
+                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -90,7 +90,7 @@ class SignupActivity : AppCompatActivity() {
                                     val signin_u_name: String = edt_name_siginin.text.toString()
                                     val signin_u_nickname: String = edt_nickname_signin.text.toString()
                                     val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                    //postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
+                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -128,7 +128,7 @@ class SignupActivity : AppCompatActivity() {
                                     val signin_u_name: String = edt_name_siginin.text.toString()
                                     val signin_u_nickname: String = edt_nickname_signin.text.toString()
                                     val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                   // postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
+                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -166,7 +166,7 @@ class SignupActivity : AppCompatActivity() {
                                     val signin_u_name: String = edt_name_siginin.text.toString()
                                     val signin_u_nickname: String = edt_nickname_signin.text.toString()
                                     val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                   // postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
+                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -204,7 +204,7 @@ class SignupActivity : AppCompatActivity() {
                                     val signin_u_name: String = edt_name_siginin.text.toString()
                                     val signin_u_nickname: String = edt_nickname_signin.text.toString()
                                     val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                   // postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
+                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                                 }
                             }else{
                                 btn_signin.setOnClickListener {
@@ -227,7 +227,7 @@ class SignupActivity : AppCompatActivity() {
         })
     }
 
-/*
+
     fun postSignupResponse(u_id: String, u_name: String, u_nickname: String, u_pw: String) {
         var jsonObject = JSONObject()
         jsonObject.put("userId", u_id)
@@ -253,7 +253,6 @@ class SignupActivity : AppCompatActivity() {
             }
         })
     }
-*/
 
 }
 

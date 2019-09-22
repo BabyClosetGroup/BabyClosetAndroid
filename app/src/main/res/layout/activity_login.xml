@@ -14,6 +14,7 @@
                 android:layout_marginLeft="27dp"
                 android:layout_marginTop="104dp"
                 android:text="로그인하여"
+                android:fontFamily="@font/seoulnamsaneb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
@@ -23,6 +24,7 @@
                 android:text="아기옷장을 열어봐요!"
                 android:textSize="22sp"
                 android:textColor="#262626"
+                android:fontFamily="@font/seoulnamsanl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <TextView
@@ -31,9 +33,11 @@
                 android:textColor="#262626"
                 android:layout_marginTop="86dp"
                 android:layout_marginLeft="37dp"
+                android:fontFamily="@font/seoulnamsanm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <EditText
+                android:fontFamily="@font/seoulnamsanm"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="11dp"
@@ -45,6 +49,7 @@
                 android:ems="10"
                 android:id="@+id/edt_id_login"/>
         <TextView
+                android:fontFamily="@font/seoulnamsanm"
                 android:text="비밀번호는 무엇인가요?"
                 android:textSize="12sp"
                 android:textColor="#262626"
@@ -53,13 +58,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <EditText
+                android:fontFamily="@font/seoulnamsanm"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="11dp"
                 android:background="@drawable/signin_enter_border"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:textSize="12sp"
                 android:ems="10"
                 android:id="@+id/edt_pw_login"/>
@@ -68,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:text="앗! 아직 ID가 없으시다구요?"
                     android:textSize="12sp"
                     android:textColor="#262626"
@@ -76,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:text="회원가입"
                     android:textSize="12sp"
                     android:textColor="#ffc107"
@@ -92,8 +100,9 @@
             android:textColor="#ffffff"
             android:layout_gravity="bottom"
             android:textSize="20sp"
+            android:fontFamily="@font/seoulnamsanb"
             android:text="로그인 하기"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:id="@+id/btn_login"/>
 </RelativeLayout>
