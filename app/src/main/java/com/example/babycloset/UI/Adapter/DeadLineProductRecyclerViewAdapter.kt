@@ -10,10 +10,10 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.babycloset.Data.DeadLineProcuctData
+import com.example.babycloset.Data.DeadLinePostRVData
 import com.example.babycloset.R
 
-class DeadLineProductRecyclerViewAdapter(val ctx : Context, val dataList : ArrayList<DeadLineProcuctData>) : RecyclerView.Adapter<DeadLineProductRecyclerViewAdapter.Holder>(){
+class DeadLineProductRecyclerViewAdapter(val ctx : Context, var dataList : ArrayList<DeadLinePostRVData>) : RecyclerView.Adapter<DeadLineProductRecyclerViewAdapter.Holder>(){
     override fun onCreateViewHolder(viewgroup: ViewGroup, position: Int): Holder {
         val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_deadline_product,viewgroup,false)
         return Holder(view)
@@ -22,12 +22,20 @@ class DeadLineProductRecyclerViewAdapter(val ctx : Context, val dataList : Array
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        Glide.with(ctx)
-            .load(dataList[position].mainImage)
-            .into(holder.mainImage)
-        holder.postTitle.text = dataList[position].postTitle
-        holder.deadLine.text = dataList[position].deadLine
-        holder.areaName.text = dataList[position].areaName
+        val dataList : ArrayList<String> = dataList[position].areaName
+
+//        Glide.with(ctx)
+//            .load(dataList[position].)
+//            .into(holder.mainImage)
+//        holder.postTitle.text = dataList[position].postTitle
+//        holder.deadLine.text = dataList[position].deadLine
+//        holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
+//
+//        holder.container.setOnClickListener {
+//            ctx.startActivity<ProductActivity>(
+//                "postIdx" to RVDataList[position].postIdx
+//            )
+//        }
     }
 
     inner class Holder(itemview:View): RecyclerView.ViewHolder(itemview){

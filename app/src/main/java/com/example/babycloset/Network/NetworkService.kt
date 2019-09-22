@@ -98,6 +98,7 @@ interface NetworkService {
     //모든 상품 보기 필터 적용
     @POST("/post/filter/all/{pagination}")
     fun postAllPostFilterResponse(
+        @Header("Content-Type") content_type: String,
         @Header("token") token: String,
         @Path("pagination") pagination : Int,
         @Body() body: JsonObject

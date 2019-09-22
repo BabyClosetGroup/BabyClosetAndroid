@@ -315,7 +315,7 @@ class WritePostActivity : AppCompatActivity() {
                 if(i == list.size-1){
                     categoryStr += list[i]
                 }else{
-                    categoryStr += list[i] + ","
+                    categoryStr += list[i] + ", "
                 }
             }
             return categoryStr

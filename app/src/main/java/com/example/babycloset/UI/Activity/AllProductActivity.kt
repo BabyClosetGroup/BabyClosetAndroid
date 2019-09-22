@@ -40,6 +40,7 @@ class AllProductActivity : AppCompatActivity() {
     lateinit var allProductRecyclerViewAdapter: AllProductRecyclerViewAdapter
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
     var pagination : Int = 1
+    var fpagination : Int = 1
     var areaList = arrayListOf<String>()
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
@@ -54,15 +55,17 @@ class AllProductActivity : AppCompatActivity() {
         configRecyclerView()
 
         btn_more_all_product.setOnClickListener {
-            getAllPostResponse(pagination)
-            pagination++
+            if(rv_filter_all_product.visibility == View.VISIBLE){
+                toast("filter")
+                getAllPostFilterResponse()
+            }else{
+                getAllPostResponse()
+            }
         }
 
-        //getAllPostFilterResponse()
 
-//        if(rv_filter_all_product.visibility == View.VISIBLE){
-            //getAllPostFilterResponse()
-//        }
+
+
     }
 
     fun configRecyclerView(){
@@ -70,11 +73,10 @@ class AllProductActivity : AppCompatActivity() {
         allProductRecyclerViewAdapter = AllProductRecyclerViewAdapter(this, RVDataList)
         rv_item_all_product.adapter = allProductRecyclerViewAdapter
         rv_item_all_product.layoutManager = GridLayoutManager(this, 2)
-        getAllPostResponse(1)
-        pagination++
+        getAllPostResponse()
     }
 
-    fun getAllPostResponse(pagination : Int){
+    fun getAllPostResponse(){
         val getAllPostResponse = networkService.getAllPostResponse(token, pagination)
         getAllPostResponse.enqueue(object : Callback<GetAllPostResponse>{
             override fun onFailure(call: Call<GetAllPostResponse>, t: Throwable) {
@@ -84,11 +86,18 @@ class AllProductActivity : AppCompatActivity() {
             override fun onResponse(call: Call<GetAllPostResponse>, response: Response<GetAllPostResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
-                        val tmp : ArrayList<AllPostRVData> = response.body()!!.data.allPost
-                        for(i in 0..tmp.size-1){
-                            allProductRecyclerViewAdapter.RVDataList.add(tmp[i])
+                        Log.e("모든 상품 조회 성공", pagination.toString())
+                        if(response.body()!!.data.allPost.isNotEmpty()){
+                            val tmp : ArrayList<AllPostRVData> = response.body()!!.data.allPost
+                            for(i in 0..tmp.size-1){
+                                allProductRecyclerViewAdapter.RVDataList.add(tmp[i])
+                            }
+                            allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            pagination++
+                        }else{
+                            toast("게시물이 없습니다.")
+                           
                         }
-                        allProductRecyclerViewAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -96,12 +105,10 @@ class AllProductActivity : AppCompatActivity() {
     }
 
     fun getAllPostFilterResponse(){
-        val areaC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(areaList))
-        Log.e("1", WritePostActivity.listToString(areaList))
-        val ageC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(ageList))
-        Log.e("2", WritePostActivity.listToString(ageList))
-        val catC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(categoryList))
-        Log.e("3", WritePostActivity.listToString(categoryList))
+        val areaC_rb = WritePostActivity.listToString(areaList)
+        val ageC_rb = WritePostActivity.listToString(ageList)
+        val catC_rb = WritePostActivity.listToString(categoryList)
+
 
         var jsonObject = JSONObject()
         jsonObject.put("area", areaC_rb)
@@ -110,7 +117,7 @@ class AllProductActivity : AppCompatActivity() {
 
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
-        val getAllPostFilterResponse = networkService.postAllPostFilterResponse(token, 1, gsonObject)
+        val getAllPostFilterResponse = networkService.postAllPostFilterResponse("application/json", token,fpagination, gsonObject)
         getAllPostFilterResponse.enqueue(object : Callback<PostAllPostFilterResponse>{
             override fun onFailure(call: Call<PostAllPostFilterResponse>, t: Throwable) {
                 Log.e("모든 상품 필터 조회 실패", t.toString())
@@ -119,20 +126,24 @@ class AllProductActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PostAllPostFilterResponse>, response: Response<PostAllPostFilterResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
+                        Log.e("모든 상품 필터 조회 성공", fpagination.toString())
+
+
                         if(response.body()!!.data.filteredAllPost.isNotEmpty()){
-                            Log.e("모든 상품 필터 조회 성공", response.message())
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
-                            allProductRecyclerViewAdapter.RVDataList.clear()
+                           // allProductRecyclerViewAdapter.RVDataList.clear()
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
                                 allProductRecyclerViewAdapter.RVDataList.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            fpagination++
                         }else{
-                            allProductRecyclerViewAdapter.RVDataList.clear()
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            toast("조건에 맞는 게시물이 없습니다.")
 
-                            toast("필터에 해당하는 데이터가 없습니다.")
                         }
+
+
                     }
                 }
             }
@@ -152,8 +163,8 @@ class AllProductActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_CATEGORY) {
             if (resultCode == Activity.RESULT_OK) {
                 areaList = data!!.getStringArrayListExtra("areaList")
-                ageList = data!!.getStringArrayListExtra("ageList")
-                categoryList = data!!.getStringArrayListExtra("categoryList")
+                ageList = data.getStringArrayListExtra("ageList")
+                categoryList = data.getStringArrayListExtra("categoryList")
 
                 var dataList : ArrayList<CategoryData> = ArrayList()
 
@@ -172,6 +183,9 @@ class AllProductActivity : AppCompatActivity() {
                 rv_filter_all_product.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
 
                 rv_filter_all_product.visibility = View.VISIBLE
+
+                getAllPostFilterResponse()
+                toast("filter")
             }
         }
     }
