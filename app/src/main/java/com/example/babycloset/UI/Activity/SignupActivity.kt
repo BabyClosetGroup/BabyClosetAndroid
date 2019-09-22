@@ -245,7 +245,7 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<PostSignupResponse>, response: Response<PostSignupResponse>) {
                 if (response.isSuccessful){
-                    Log.e("tag", "회원가입 성공")
+                    toast(response.body()!!.message)
                     if (response.body()!!.status == 200){
                         startActivity<LoginActivity>()
                     }
