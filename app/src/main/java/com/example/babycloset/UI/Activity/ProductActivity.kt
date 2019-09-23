@@ -74,7 +74,12 @@ class ProductActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
-        initGetResponse()
+
+        val intent : Intent = getIntent()
+        postIdx = intent.getIntExtra("postIdx", 0)
+        Log.e("init postIdx", postIdx.toString())
+
+        getProductDetailResponse()
 
         Handler().postDelayed({
             configBtn()
@@ -85,9 +90,9 @@ class ProductActivity : AppCompatActivity(){
     }
 
     fun initGetResponse(){
-        val intent : Intent = getIntent()
-        postIdx = intent.getIntExtra("postIdx", 0)
-        getProductDetailResponse()
+        Handler().postDelayed({
+            getProductDetailResponse()
+        }, 300)
     }
 
 
@@ -305,6 +310,8 @@ class ProductActivity : AppCompatActivity(){
 
     //게시물 상세보기 통신
    fun getProductDetailResponse(){
+
+        Log.e("getPostIdx", postIdx.toString())
 
         val getProductDetailResponse = networkService.getProductDetailResponse(token, postIdx)
 

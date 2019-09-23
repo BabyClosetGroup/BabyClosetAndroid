@@ -9,6 +9,7 @@ import android.media.Image
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -27,6 +28,7 @@ import com.example.babycloset.Network.Put.PutPostResponse
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
+import kotlinx.android.synthetic.main.activity_write_post.*
 import okhttp3.MultipartBody
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
@@ -220,13 +222,18 @@ class ModifyPostActivity : AppCompatActivity() {
             WritePostActivity.showNoticeDialog(this, "마감기한을 선택해주세요!\n", "마감기한을 선택해야", "글을 작성할 수 있습니다.")
         } else if (edt_title_modify_post.text.toString() == "") {
             WritePostActivity.showNoticeDialog(this, "제목을 입력해주세요!\n", "제목을 입력하셔야", "글을 작성할 수 있습니다.")
-        } else if (pictureList[0] == null) {
+        }else if(edt_contents_modify_post.text.toString()==""){
+            WritePostActivity.showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
+        }
+        else if (pictureList[0] == null) {
             WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
         } else {
             putPostResponse()
-            Thread.sleep(1000)
-            startActivity<ProductActivity>("postIdx" to postIdx)
-            finish()
+            Handler().postDelayed({
+                Log.e("valid postIdx", postIdx.toString())
+                startActivity<ProductActivity>("postIdx" to postIdx)
+                finish()
+            },1000)
         }
     }
 

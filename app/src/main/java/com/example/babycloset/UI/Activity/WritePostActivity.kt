@@ -14,6 +14,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.util.Log
@@ -55,6 +56,7 @@ class WritePostActivity : AppCompatActivity() {
     var pictureUri4 : Uri? = null
     var pictureList =  ArrayList<MultipartBody.Part>()
 
+    var postIdx : Int = 0
 
     val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
@@ -240,13 +242,19 @@ class WritePostActivity : AppCompatActivity() {
         }
         else if(edt_title_write_post.text.toString()==""){
             showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
-        }else if(pictureUri1 == null){
+        }else if(edt_contents_wirte_post.text.toString()==""){
+            showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
+        }
+        else if(pictureUri1 == null){
            showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
             postWritePostResponse()
-            Thread.sleep(1000)
-            startActivity<ProductActivity>()
-            finish()
+
+            Handler().postDelayed({
+                Log.e("valid postIdx", postIdx.toString())
+                startActivity<ProductActivity>("postIdx" to postIdx)
+                finish()
+            },1000)
         }
     }
     //통신
@@ -287,7 +295,7 @@ class WritePostActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PostWritePostResponse>, response: Response<PostWritePostResponse>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
-                        Log.e("성공", response.message())
+                        postIdx = response.body()!!.data.postIdx
                     }
                 }
 
