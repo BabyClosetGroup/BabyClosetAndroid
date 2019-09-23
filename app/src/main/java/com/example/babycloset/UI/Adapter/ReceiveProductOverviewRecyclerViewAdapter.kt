@@ -69,7 +69,7 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
 
 
         if(dataList[position].senderIsRated != 0){
-            holder.rate.text = "부여"
+            holder.rate.text = dataList[position].rating.toString()+"점"
             holder.btn.visibility=View.GONE
         } else
             holder.rate.text = "미부여"

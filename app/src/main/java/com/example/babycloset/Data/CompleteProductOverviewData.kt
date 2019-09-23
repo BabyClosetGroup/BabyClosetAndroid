@@ -8,5 +8,6 @@ data class CompleteProductOverviewData(
     var receiverNickname: String,
     var sharedDate: String,
     var receiverIsRated: Int,
+    var rating: Int,
     var areaName: ArrayList<String>
 )

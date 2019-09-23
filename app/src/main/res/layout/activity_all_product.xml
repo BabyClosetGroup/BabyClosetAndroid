@@ -18,6 +18,7 @@
                 android:id="@+id/rv_item_all_product"  android:layout_centerHorizontal="true" android:layout_marginTop="15dp"/>
 
     <Button
+            android:fontFamily="@font/seoulnamsanm"
             android:layout_width="match_parent" android:layout_height="42dp"
             android:text="상품 더보기" android:textSize="17sp" android:textColor="#ffffff"
             android:layout_centerHorizontal="true"  android:layout_below="@id/rv_item_all_product"

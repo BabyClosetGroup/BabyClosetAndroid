@@ -8,5 +8,6 @@ data class ReceiveProductOverviewData(
     var senderNickname: String,
     var sharedDate: String,
     var senderIsRated: Int,
+    var rating: Int,
     var areaName: ArrayList<String>
 )
