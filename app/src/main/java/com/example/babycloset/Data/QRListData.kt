@@ -2,7 +2,7 @@ package com.example.babycloset.Data
 
 data class QRListData (
     var postIdx: Int,
-    var postName: String,
+    var postTitle: String,
     var mainImage: String,
-    var areaName: String
+    var areaName: ArrayList<String>
 )

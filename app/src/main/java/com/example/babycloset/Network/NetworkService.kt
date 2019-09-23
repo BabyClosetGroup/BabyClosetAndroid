@@ -5,6 +5,7 @@ import com.example.babycloset.Network.Get.*
 import com.example.babycloset.Network.Post.*
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
 import com.example.babycloset.Network.Put.PutPostResponse
+import com.example.babycloset.Network.Post.PostQRcodeResponse
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,6 +26,36 @@ interface NetworkService {
         @Header("Content-Type") content_type: String,
         @Body() body: JsonObject
     ): Call<PostLoginResponse>
+
+    //홈화면 조회
+    @GET("/post/main")
+    fun getHomeResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String
+    ): Call<GetHomeResponse>
+
+    //큐알 리스트 조회
+    @GET("/post/qrcode")
+    fun getQRListResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String
+    ): Call<GetQRListResponse>
+
+    //큐알 생성하기 조회
+    @GET("/qrcode/{postIdx}")
+    fun getQRCreateResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ): Call<GetQRCreateResponse>
+
+    //큐알 스캔하기
+    @POST("/qrcode")
+    fun postQRcodeResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Body() body:JsonObject
+    ): Call<PostQRcodeResponse>
 
     //프로필 수정
     @Multipart
@@ -62,7 +93,7 @@ interface NetworkService {
     fun getlistpeopleResponse(
         @Header("Content-Type") content_type:String,
         @Header("token") token : String,
-        @Header("postIdx") postIdx:Int
+        @Path("postIdx") postIdx:Int
     ):Call<GetListPeopleResponse>
 
     //받은 나눔 게시물 조회
@@ -84,7 +115,8 @@ interface NetworkService {
     @GET("/rating/{userIdx}")
     fun getRatingResponse(
         @Header("Content-Type") content_type:String,
-        @Header("token") token : String
+        @Header("token") token : String,
+        @Path("userIdx") userIdx : Int
     ):Call<GetRatingResponse>
 
     //모든 상품 보기

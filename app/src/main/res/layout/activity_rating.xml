@@ -13,11 +13,12 @@
         android:orientation="vertical">
 
         <ImageView
-                android:layout_marginLeft="16dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_close_black_24dp"
+                app:srcCompat="@drawable/btn_close"
                 android:id="@+id/btn_close"/>
         <LinearLayout
             android:layout_marginLeft="27dp"
@@ -27,18 +28,20 @@
             android:orientation="horizontal">
 
             <TextView
+                    android:fontFamily="@font/seoulnamsaneb"
                 android:id="@+id/txt_share_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22dp"
+                android:textSize="22sp"
                 android:textColor="#000000"
-                android:textStyle="bold"
                 android:text="UNKNOWN님" />
 
             <TextView
+                    android:textColor="#000000"
+                    android:fontFamily="@font/seoulnamsanl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22dp"
+                android:textSize="22sp"
                 android:text="과의" />
         </LinearLayout>
 
@@ -48,8 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="22dp"
-            android:textStyle="bold"
             android:textColor="#000000"
+            android:fontFamily="@font/seoulnamsaneb"
             android:text="상품명" />
 
         <TextView
@@ -57,6 +60,8 @@
             android:layout_height="wrap_content"
             android:textSize="22dp"
             android:layout_marginLeft="27dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/seoulnamsanl"
             android:text="나눔은 어떠셨나요?" />
 
         <RatingBar
@@ -84,13 +89,19 @@
                     android:id="@+id/btn_rating"
                     android:layout_weight="1"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanb"
                     android:layout_height="42dp"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textColor="#ffffff"
                     android:text="별점주기"/>
-
         </RelativeLayout>
+        <ImageView
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/rating_closet"/>
     </LinearLayout>
 </RelativeLayout>

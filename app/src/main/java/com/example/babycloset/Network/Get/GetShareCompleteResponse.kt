@@ -6,5 +6,8 @@ data class GetShareCompleteResponse(
     val status: Int,
     val success: Boolean,
     val message: String,
-    val data: ArrayList<CompleteProductOverviewData>?
+    val data: allPostComData
+)
+data class allPostComData(
+    val allPost: ArrayList<CompleteProductOverviewData>
 )

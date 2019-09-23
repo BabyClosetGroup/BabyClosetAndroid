@@ -4,10 +4,11 @@ data class GetRatingResponse (
     val status: Int,
     val success:Boolean,
     val message: String,
-    val data: ArrayList<Getratingdata>?
+    val data: Getratingdata
 )
 data class Getratingdata(
     var userIdx:Int,
     var nickname:String,
-    var rating: Int
+    var rating: Float,
+    var profileImage:String
 )
