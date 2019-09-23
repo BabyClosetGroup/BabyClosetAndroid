@@ -131,7 +131,10 @@ class AllProductActivity : AppCompatActivity() {
 
                         if(response.body()!!.data.filteredAllPost.isNotEmpty()){
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
-                           // allProductRecyclerViewAdapter.RVDataList.clear()
+                            if(fpagination == 1){
+                                allProductRecyclerViewAdapter.RVDataList.clear()
+                                allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            }
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
                                 allProductRecyclerViewAdapter.RVDataList.add(tmp[i])
                             }
