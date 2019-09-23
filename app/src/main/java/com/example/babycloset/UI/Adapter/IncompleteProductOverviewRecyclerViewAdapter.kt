@@ -18,6 +18,7 @@ import org.jetbrains.anko.image
 import org.jetbrains.anko.startActivity
 
 class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<IncompleteProductOverviewData>): RecyclerView.Adapter<IncompleteProductOverviewRecyclerViewAdapter.Holder>() {
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(com.example.babycloset.R.layout.rv_incomplete_product_overview, viewGroup, false)
@@ -30,12 +31,23 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         holder.title.text = dataList[position].postTitle
-        holder.location.text = dataList[position].areaName
+        val locList:ArrayList<String> = dataList[position].areaName
+        if(locList.size-1!=0){
+            holder.location.text = locList[0]
+            holder.extra_loc.text ="외 "+(locList.size-1)+"구"
+        } else{
+            holder.location.text = locList[0]
+            holder.extra_loc.text =""
+        }
+
         holder.num.text = dataList[position].registerNumber
 
         holder.btn.setOnClickListener {
             ctx.startActivity<ListPeopleActivity>(
-                "postIdx" to dataList[position].postIdx
+                "postIdx" to dataList[position].postIdx,
+                "mainImage" to dataList[position].mainImage,
+                "postTitle" to dataList[position].postTitle,
+                "registerNumber" to dataList[position].registerNumber
             )
         }
     }
@@ -46,5 +58,6 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         var num = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_number) as TextView
         var btn = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
         var thumbnail = itemView.findViewById(R.id.img_rv_item_incomplete_overview_thumbnail) as ImageView
+        var extra_loc = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_location_extra) as TextView
     }
 }

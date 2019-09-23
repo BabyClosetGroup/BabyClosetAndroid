@@ -9,6 +9,7 @@
             android:layout_height="match_parent"
     >
         <TextView
+                android:fontFamily="@font/seoulnamsanb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="정보수정"
@@ -23,7 +24,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_check_black_24dp"
+                app:srcCompat="@drawable/btn_save"
                 android:id="@+id/btn_save_info"/>
     </LinearLayout>
 

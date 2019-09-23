@@ -6,5 +6,8 @@ data class GetShareIncompleteResponse(
     val status: Int,
     val success: Boolean,
     val message: String,
-    val data: ArrayList<IncompleteProductOverviewData>?
+    val data: allPostInComData
+)
+data class allPostInComData(
+    val allPost: ArrayList<IncompleteProductOverviewData>
 )

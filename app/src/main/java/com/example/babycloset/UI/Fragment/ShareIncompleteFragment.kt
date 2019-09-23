@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CompleteProductOverviewData
 import com.example.babycloset.Data.IncompleteProductOverviewData
-import com.example.babycloset.Network.Get.GetShareIncompleteResponse/*
+import com.example.babycloset.Network.Get.GetShareIncompleteResponse
 import com.example.babycloset.Network.ApplicationController
-import com.example.babycloset.Network.NetworkService*/
+import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CompleteProductOverviewRecyclerViewAdapter
 import com.example.babycloset.UI.Adapter.IncompleteProductOverviewRecyclerViewAdapter
@@ -28,15 +28,16 @@ class ShareIncompleteFragment : Fragment() {
 
     lateinit var incompleteProductOverviewRecyclerViewAdapter: IncompleteProductOverviewRecyclerViewAdapter
 
-    /*val networkService: NetworkService by lazy {
+    var dataList: ArrayList<IncompleteProductOverviewData> = ArrayList()
+
+    val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
-    }*/
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_incomplete, container, false)
-
 
         //상품정보 가져오기
         //나눔하기 누르면 신청자목록으로
@@ -44,17 +45,18 @@ class ShareIncompleteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
 
-            var dataList: ArrayList<IncompleteProductOverviewData> = ArrayList()
-
             incompleteProductOverviewRecyclerViewAdapter = IncompleteProductOverviewRecyclerViewAdapter(context!!, dataList)
             rv_incomplete_product_overview.adapter = incompleteProductOverviewRecyclerViewAdapter
             rv_incomplete_product_overview.layoutManager = LinearLayoutManager(context!!)
 
-            //getShareIncompleteResponse()
+            getShareIncompleteResponse()
     }
-    /*private fun getShareIncompleteResponse(){
+    private fun getShareIncompleteResponse(){
 
-        val token = SharedPreference.getUserToken(ctx)
+
+        //val token = SharedPreference.getUserToken(ctx)
+
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getShareIncompleteResponse = networkService.getshareIncompleteResponse("application/json", token)
         getShareIncompleteResponse.enqueue(object : retrofit2.Callback<GetShareIncompleteResponse>{
@@ -66,11 +68,12 @@ class ShareIncompleteFragment : Fragment() {
             ) {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
-                        val tmp: ArrayList<IncompleteProductOverviewData> = response.body()!!.data!!
+                        val tmp: ArrayList<IncompleteProductOverviewData> = response.body()!!.data.allPost
                         incompleteProductOverviewRecyclerViewAdapter.dataList = tmp
                         incompleteProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
-
-                        Log.e("tag", "포폴리스트 성공")
+                        if(incompleteProductOverviewRecyclerViewAdapter.itemCount>0)
+                            incomplete_empty.setVisibility(View.GONE);
+                        Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){
                         Log.e("tag", "No token")
@@ -79,6 +82,6 @@ class ShareIncompleteFragment : Fragment() {
             }
         })
 
-    }*/
+    }
 
 }

@@ -20,6 +20,7 @@
                 android:orientation="horizontal">
 
             <TextView
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22dp"
@@ -31,15 +32,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
+                    android:fontFamily="@font/seoulnamsaneb"
                     android:layout_marginLeft="27dp"
                     android:id="@+id/txt_share_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22dp"
-                    android:textStyle="bold"
                     android:textColor="#000000"
                     android:text="필수항목 동의"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22dp"
@@ -63,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
+                        android:fontFamily="@font/seoulnamsanb"
                         android:layout_marginLeft="32dp"
                         android:textSize="16sp"
                         android:textColor="#262626"
@@ -88,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
+                        android:fontFamily="@font/seoulnamsanm"
                         android:textSize="14sp"
                         android:textColor="#262626"
                         android:layout_marginLeft="32dp"
@@ -110,6 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
+                        android:fontFamily="@font/seoulnamsanm"
                         android:textSize="14sp"
                         android:textColor="#262626"
                         android:layout_marginLeft="32dp"
@@ -142,6 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_weight="1"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanb"
                     android:layout_height="42dp"
                     android:layout_width="match_parent"
                     android:gravity="center"
