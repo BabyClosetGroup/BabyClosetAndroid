@@ -3,6 +3,7 @@ package com.example.babycloset.UI.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
 import com.example.babycloset.Network.ApplicationController
@@ -76,7 +77,11 @@ class QRMainActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<PostQRcodeResponse>, response: Response<PostQRcodeResponse>) {
                         if(response.isSuccessful){
                             if(response.body()!!.status==200) {
-                                toast("Scanned: "+result.contents)
+                                val builder: AlertDialog.Builder=AlertDialog.Builder(applicationContext)
+                                builder.setMessage("인증이 완료되었습니다.")
+                                builder.setPositiveButton("예"){dialog, i ->
+
+                                }
                             }
                         }
                     }

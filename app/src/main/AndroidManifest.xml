@@ -61,6 +61,8 @@
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
         <activity android:name=".UI.Activity.ReceiveProductActivity"/>
+        <activity android:name=".UI.Activity.EmailActivity"/>
+        <activity android:name=".UI.Activity.EmailMsgActivity"/>
     </application>
 
 </manifest>
