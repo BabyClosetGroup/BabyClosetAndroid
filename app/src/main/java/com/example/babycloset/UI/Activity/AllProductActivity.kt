@@ -56,8 +56,7 @@ class AllProductActivity : AppCompatActivity() {
 
         btn_more_all_product.setOnClickListener {
             if(rv_filter_all_product.visibility == View.VISIBLE){
-                toast("filter")
-                getAllPostFilterResponse()
+                postAllPostFilterResponse()
             }else{
                 getAllPostResponse()
             }
@@ -90,7 +89,7 @@ class AllProductActivity : AppCompatActivity() {
                         if(response.body()!!.data.allPost.isNotEmpty()){
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.allPost
                             for(i in 0..tmp.size-1){
-                                allProductRecyclerViewAdapter.RVDataList.add(tmp[i])
+                                allProductRecyclerViewAdapter.datalist.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             pagination++
@@ -104,7 +103,7 @@ class AllProductActivity : AppCompatActivity() {
         })
     }
 
-    fun getAllPostFilterResponse(){
+    fun postAllPostFilterResponse(){
         val areaC_rb = WritePostActivity.listToString(areaList)
         val ageC_rb = WritePostActivity.listToString(ageList)
         val catC_rb = WritePostActivity.listToString(categoryList)
@@ -132,11 +131,11 @@ class AllProductActivity : AppCompatActivity() {
                         if(response.body()!!.data.filteredAllPost.isNotEmpty()){
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
                             if(fpagination == 1){
-                                allProductRecyclerViewAdapter.RVDataList.clear()
+                                allProductRecyclerViewAdapter.datalist.clear()
                                 allProductRecyclerViewAdapter.notifyDataSetChanged()
                             }
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
-                                allProductRecyclerViewAdapter.RVDataList.add(tmp[i])
+                                allProductRecyclerViewAdapter.datalist.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++
@@ -187,8 +186,7 @@ class AllProductActivity : AppCompatActivity() {
 
                 rv_filter_all_product.visibility = View.VISIBLE
 
-                getAllPostFilterResponse()
-                toast("filter")
+                postAllPostFilterResponse()
             }
         }
     }

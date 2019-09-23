@@ -104,14 +104,22 @@ interface NetworkService {
         @Body() body: JsonObject
     ): Call<PostAllPostFilterResponse>
 
+    //마감 상품 보기
+    @GET("/post/deadline/{pagination}")
+    fun getDeadLinePostResponse(
+        @Header("token") token: String,
+        @Path("pagination") pagination : Int
+    ): Call<GetDeadLinePostResponse>
+
 
     //마감 상품 필터 적용
-    @GET("/post/filter/deadline/{pagination}")
-    fun getDeadLinePostFilterResponse(
+    @POST("/post/filter/deadline/{pagination}")
+    fun postDeadLinePostFilterResponse(
+        @Header("Content-Type") content_type: String,
         @Header("token") token: String,
-        @Body() body : JsonObject,
-        @Path("pagenation") pagenation : Int
-    ): Call<GetDeadLinePostFilterResponse>
+        @Path("pagination") pagination : Int,
+        @Body() body : JsonObject
+    ): Call<PostDeadLinePostFilterResponse>
 
     //게시물 상세조회
     @GET("/post/{postIdx}")

@@ -1,8 +1,6 @@
 package com.example.babycloset.UI.Adapter
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,26 +13,26 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.ProductActivity
 import org.jetbrains.anko.startActivity
 
-class AllProductRecyclerViewAdapter(var ctx : Context, var RVDataList : ArrayList<AllPostRVData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
+class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<AllPostRVData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):Holder {
        val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_all_product, viewGroup, false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = RVDataList.size
+    override fun getItemCount(): Int = datalist.size
 
     override fun onBindViewHolder(holder : Holder, position: Int) {
 
-        val dataList : ArrayList<String> = RVDataList[position].areaName
+        val dataList : ArrayList<String> = datalist[position].areaName
 
         Glide.with(ctx)
-            .load(RVDataList[position].mainImage)
+            .load(datalist[position].mainImage)
             .into(holder.mainImage)
-        holder.postTitle.text = RVDataList[position].postTitle
+        holder.postTitle.text = datalist[position].postTitle
         holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
         holder.container.setOnClickListener {
             ctx.startActivity<ProductActivity>(
-                "postIdx" to RVDataList[position].postIdx
+                "postIdx" to datalist[position].postIdx
             )
         }
     }

@@ -76,7 +76,7 @@ class ListPeopleActivity : AppCompatActivity() {
                         Glide.with(ctx).load(tmp1[0].mainImage).into(img_thumbnail)
 
                         val tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data!!
-                        applicationPeopleOverviewRecyclerViewAdapter.RVDataList = tmp
+                        applicationPeopleOverviewRecyclerViewAdapter.datalist = tmp
                         applicationPeopleOverviewRecyclerViewAdapter.notifyDataSetChanged()
 
                         Log.e("tag", "성공")

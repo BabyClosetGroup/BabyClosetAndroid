@@ -11,12 +11,19 @@
     <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
         <ImageView android:layout_width="164dp" android:layout_height="164dp" android:layout_marginBottom="10dp"
                    android:id="@+id/img_deadline_product"/>
-        <Button
-                android:layout_width="34dp" android:layout_height="34dp"
-                android:text="D-0" android:textColor="#ffffff" android:textSize="16sp"
-                android:background="@drawable/circle_layout" android:clickable="false"
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D-0"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
                 android:layout_alignRight="@id/img_deadline_product"
-                android:id="@+id/img_ddline_deadline_product"/>
+                android:background="@drawable/deadline_border"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="4dp"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="7dp"
+                android:id="@+id/txt_ddline_deadline_product"/>
     </RelativeLayout>
 
     <TextView android:layout_width="wrap_content" android:layout_height="32dp"

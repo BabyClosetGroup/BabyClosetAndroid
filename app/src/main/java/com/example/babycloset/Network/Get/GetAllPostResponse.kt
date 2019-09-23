@@ -7,5 +7,4 @@ data class GetAllPostResponse(
     val success : Boolean,
     val message : String,
     val data : AllPostData
-
 )

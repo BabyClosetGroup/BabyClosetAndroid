@@ -64,7 +64,7 @@ class ShareCompleteFragment : Fragment() {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
                         val tmp: ArrayList<CompleteProductOverviewData> = response.body()!!.data!!
-                        completeProductOverviewRecyclerViewAdapter.RVDataList = tmp
+                        completeProductOverviewRecyclerViewAdapter.datalist = tmp
                         completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
 
                         Log.e("tag", "성공")
