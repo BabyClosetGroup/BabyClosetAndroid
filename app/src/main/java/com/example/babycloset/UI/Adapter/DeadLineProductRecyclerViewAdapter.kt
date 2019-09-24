@@ -27,7 +27,9 @@ class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : Array
 
         Glide.with(ctx)
             .load(datalist[position].mainImage)
+            .centerCrop()
             .into(holder.mainImage)
+
         holder.postTitle.text = datalist[position].postTitle
         holder.deadLine.text = datalist[position].deadline
         holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"

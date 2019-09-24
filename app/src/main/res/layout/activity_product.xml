@@ -31,7 +31,7 @@
                 <TextView
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:layout_marginTop="15dp" android:layout_marginBottom="10dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="16dp" android:fontFamily="@font/seoulnamsanm"
                         android:text="상품이름" android:textColor="#262626" android:textSize="22sp"
                         android:id="@+id/txt_product_name_product"/>
 
@@ -39,7 +39,7 @@
                                 android:layout_height="wrap_content" android:layout_marginStart="16dp">
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:layout_marginEnd="10dp"
+                              android:layout_marginEnd="10dp" android:fontFamily="@font/seoulnamsanm"
                               android:text="D-?" android:textSize="16sp" android:textColor="#767676"
                               android:id="@+id/txt_deadline_product"/>
 
@@ -63,12 +63,13 @@
                         android:orientation="horizontal">
 
                     <ImageView
-                            android:background="@drawable/user"
-                            android:id="@+id/img_profile_product"
+                            android:scaleType="centerCrop"
                             android:layout_width="62dp"
                             android:layout_height="62dp"
+                            android:id="@+id/img_user_profile_product"
                             android:layout_marginLeft="16dp"
-                            android:layout_marginRight="24dp"/>
+                            android:layout_marginRight="24dp"
+                    />
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -87,6 +88,7 @@
                                     android:textSize="16sp"
                                     android:text="unknown"
                                     android:textColor="#262626"
+                                    android:fontFamily="@font/seoulnamsanl"
                             />
 
                             <TextView
@@ -95,6 +97,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="님의 나눔 별점"
                                     android:textColor="#262626"
+                                    android:fontFamily="@font/seoulnamsanl"
                             />
 
                         </LinearLayout>
@@ -112,6 +115,7 @@
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
                     <TextView
+                            android:fontFamily="@font/seoulnamsanm"
                             android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:layout_marginEnd="25dp" android:layout_marginStart="16dp"
                             android:layout_marginBottom="20dp"

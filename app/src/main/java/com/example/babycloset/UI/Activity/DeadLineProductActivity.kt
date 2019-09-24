@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
 import com.example.babycloset.Data.DeadLinePostRVData
 import com.example.babycloset.Network.ApplicationController
@@ -20,7 +21,7 @@ import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import com.example.babycloset.UI.Adapter.DeadLineProductRecyclerViewAdapter
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import kotlinx.android.synthetic.main.activity_dead_line_product.*
+import kotlinx.android.synthetic.main.activity_deadline_product.*
 import kotlinx.android.synthetic.main.toolbar_all_product.*
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
@@ -45,11 +46,9 @@ class DeadLineProductActivity : AppCompatActivity() {
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
 
-    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dead_line_product)
+        setContentView(R.layout.activity_deadline_product)
 
         txt_title_all_product.text = "마감임박"
         configToolBar()
@@ -81,7 +80,7 @@ class DeadLineProductActivity : AppCompatActivity() {
 
     //일반 조회
     fun getDeadLinePostResponse(){
-        val getDeadLinePostResponse = networkService.getDeadLinePostResponse(token, pagination)
+        val getDeadLinePostResponse = networkService.getDeadLinePostResponse(SharedPreference.getUserToken(this), pagination)
 
         getDeadLinePostResponse.enqueue(object : Callback<GetDeadLinePostResponse>{
             override fun onFailure(call: Call<GetDeadLinePostResponse>, t: Throwable) {
@@ -123,7 +122,8 @@ class DeadLineProductActivity : AppCompatActivity() {
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
 
-        val postDeadLinePostFilterResponse = networkService.postDeadLinePostFilterResponse("application/json", token,fpagination, gsonObject)
+        val postDeadLinePostFilterResponse = networkService.postDeadLinePostFilterResponse("application/json",
+            SharedPreference.getUserToken(this),fpagination, gsonObject)
 
         postDeadLinePostFilterResponse.enqueue(object : Callback<PostDeadLinePostFilterResponse>{
             override fun onFailure(call: Call<PostDeadLinePostFilterResponse>, t: Throwable) {
@@ -137,6 +137,7 @@ class DeadLineProductActivity : AppCompatActivity() {
 
 
                         if(response.body()!!.data.filteredDeadlinePost.isNotEmpty()){
+                            rl_not_filter_post_deadline_product.visibility = View.GONE
                             val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.filteredDeadlinePost
                             if(fpagination == 1){
                                 deadLineProductRecyclerViewAdapter.datalist.clear()
@@ -149,8 +150,7 @@ class DeadLineProductActivity : AppCompatActivity() {
                             fpagination++
                         }else{
                             deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
-                            toast("조건에 맞는 게시물이 없습니다.")
-
+                            rl_not_filter_post_deadline_product.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -186,6 +186,8 @@ class DeadLineProductActivity : AppCompatActivity() {
                 rv_filter_deadline_product.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
 
                 rv_filter_deadline_product.visibility = View.VISIBLE
+
+                txt_title_all_product.text = "필터적용"
 
                 postDeadLinePostFilterResponse()
             }

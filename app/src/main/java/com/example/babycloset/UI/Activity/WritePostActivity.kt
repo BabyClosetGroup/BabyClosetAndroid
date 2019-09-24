@@ -1,15 +1,12 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.Context
+import android.content.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
-import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -22,6 +19,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
@@ -33,6 +31,7 @@ import okhttp3.RequestBody
 import org.jetbrains.anko.imageURI
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,8 +66,6 @@ class WritePostActivity : AppCompatActivity() {
     val networkService : NetworkService by lazy {
         ApplicationController.instance.networkService
     }
-
-    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -250,8 +247,8 @@ class WritePostActivity : AppCompatActivity() {
         }else{
             postWritePostResponse()
 
+            toast("글 작성을 완료하였습니다!")
             Handler().postDelayed({
-                Log.e("valid postIdx", postIdx.toString())
                 startActivity<ProductActivity>("postIdx" to postIdx)
                 finish()
             },1000)
@@ -285,7 +282,8 @@ class WritePostActivity : AppCompatActivity() {
             bitmapToMBP(this, img_write_post4, pictureList, 4)
         }
 
-        val postWritePostResponse = networkService.postWritePostResponse(token, title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList)
+        val postWritePostResponse = networkService.postWritePostResponse(SharedPreference.getUserToken(this), title_rb,
+            content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList)
 
         postWritePostResponse.enqueue(object : Callback<PostWritePostResponse>{
             override fun onFailure(call: Call<PostWritePostResponse>, t: Throwable) {

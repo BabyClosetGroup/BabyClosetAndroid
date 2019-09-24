@@ -27,7 +27,9 @@ class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<
 
         Glide.with(ctx)
             .load(datalist[position].mainImage)
+            .centerCrop()
             .into(holder.mainImage)
+
         holder.postTitle.text = datalist[position].postTitle
         holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
         holder.container.setOnClickListener {

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.AllPostRVData
 import com.example.babycloset.Data.CategoryData
 import com.example.babycloset.Network.ApplicationController
@@ -45,8 +46,6 @@ class AllProductActivity : AppCompatActivity() {
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
 
-    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_product)
@@ -76,7 +75,7 @@ class AllProductActivity : AppCompatActivity() {
     }
 
     fun getAllPostResponse(){
-        val getAllPostResponse = networkService.getAllPostResponse(token, pagination)
+        val getAllPostResponse = networkService.getAllPostResponse(SharedPreference.getUserToken(this), pagination)
         getAllPostResponse.enqueue(object : Callback<GetAllPostResponse>{
             override fun onFailure(call: Call<GetAllPostResponse>, t: Throwable) {
                 Log.e("모든 상품 조회 실패", t.toString())
@@ -116,7 +115,9 @@ class AllProductActivity : AppCompatActivity() {
 
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
-        val getAllPostFilterResponse = networkService.postAllPostFilterResponse("application/json", token,fpagination, gsonObject)
+        val getAllPostFilterResponse = networkService.postAllPostFilterResponse("application/json",
+            SharedPreference.getUserToken(this),fpagination, gsonObject)
+
         getAllPostFilterResponse.enqueue(object : Callback<PostAllPostFilterResponse>{
             override fun onFailure(call: Call<PostAllPostFilterResponse>, t: Throwable) {
                 Log.e("모든 상품 필터 조회 실패", t.toString())
@@ -129,6 +130,7 @@ class AllProductActivity : AppCompatActivity() {
 
 
                         if(response.body()!!.data.filteredAllPost.isNotEmpty()){
+                            rl_not_filter_post_all_product.visibility = View.GONE
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
                             if(fpagination == 1){
                                 allProductRecyclerViewAdapter.datalist.clear()
@@ -141,8 +143,7 @@ class AllProductActivity : AppCompatActivity() {
                             fpagination++
                         }else{
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
-                            toast("조건에 맞는 게시물이 없습니다.")
-
+                            rl_not_filter_post_all_product.visibility = View.VISIBLE
                         }
 
 
@@ -185,6 +186,7 @@ class AllProductActivity : AppCompatActivity() {
                 rv_filter_all_product.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
 
                 rv_filter_all_product.visibility = View.VISIBLE
+                txt_title_all_product.text = "필터적용"
 
                 postAllPostFilterResponse()
             }

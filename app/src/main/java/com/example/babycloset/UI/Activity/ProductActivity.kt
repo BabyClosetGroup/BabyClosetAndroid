@@ -3,7 +3,10 @@ package com.example.babycloset.UI.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.net.Uri
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +23,8 @@ import android.view.WindowManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Delete.DeletePostResponse
@@ -38,6 +43,7 @@ import kotlinx.android.synthetic.main.toolbar_product.*
 import okhttp3.MultipartBody
 import org.jetbrains.anko.colorAttr
 import org.jetbrains.anko.db.FloatParser
+import org.jetbrains.anko.db.IntParser
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.json.JSONObject
@@ -66,14 +72,15 @@ class ProductActivity : AppCompatActivity(){
         ApplicationController.instance.networkService
     }
 
-    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
+
+        img_user_profile_product.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            img_user_profile_product.setClipToOutline(true)
+        }
 
         val intent : Intent = getIntent()
         postIdx = intent.getIntExtra("postIdx", 0)
@@ -170,7 +177,7 @@ class ProductActivity : AppCompatActivity(){
 
     //삭제 통신
     fun deletePostResponse(){
-         val deletePostResponse = networkService.deletePostResponse(token, postIdx)
+         val deletePostResponse = networkService.deletePostResponse(SharedPreference.getUserToken(this), postIdx)
         deletePostResponse.enqueue(object : Callback<DeletePostResponse>{
             override fun onFailure(call: Call<DeletePostResponse>, t: Throwable) {
                 Log.e("게시물 삭제 실패", t.toString())
@@ -190,7 +197,7 @@ class ProductActivity : AppCompatActivity(){
 
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
-        val postComplainResponse = networkService.postComplainResponse(token, gsonObject)
+        val postComplainResponse = networkService.postComplainResponse(SharedPreference.getUserToken(this), gsonObject)
         postComplainResponse.enqueue(object : Callback<PostComplainResponse>{
             override fun onFailure(call: Call<PostComplainResponse>, t: Throwable) {
                 Log.e("신고 통신 실패", t.toString())
@@ -243,7 +250,7 @@ class ProductActivity : AppCompatActivity(){
 
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(builderNew.window.attributes)
-        lp.height = 580
+        lp.height = 800
         val window = builderNew.window
         window.attributes = lp
 
@@ -293,7 +300,7 @@ class ProductActivity : AppCompatActivity(){
 
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
-        val postShareResponse = networkService.postShareResponse(token,gsonObject)
+        val postShareResponse = networkService.postShareResponse(SharedPreference.getUserToken(this),gsonObject)
         postShareResponse.enqueue(object : Callback<PostShareResponse>{
             override fun onFailure(call: Call<PostShareResponse>, t: Throwable) {
                 Log.e("나눔신청 통신 실패", t.toString())
@@ -313,7 +320,7 @@ class ProductActivity : AppCompatActivity(){
 
         Log.e("getPostIdx", postIdx.toString())
 
-        val getProductDetailResponse = networkService.getProductDetailResponse(token, postIdx)
+        val getProductDetailResponse = networkService.getProductDetailResponse(SharedPreference.getUserToken(this), postIdx)
 
         getProductDetailResponse.enqueue(object : Callback<GetProductDetailResponse>{
             override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
@@ -324,6 +331,11 @@ class ProductActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
 
                     //쪽지
+                    if(response.body()!!.data.isNewMessage == "1"){
+                        btn_letter_toolbar_product.setBackgroundResource(R.drawable.btn_letter_alarm)
+                    }else{
+                        btn_letter_toolbar_product.setBackgroundResource(R.drawable.home_btn_email)
+                    }
                     isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
                     txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
 
@@ -358,6 +370,11 @@ class ProductActivity : AppCompatActivity(){
                     rv_category_product.visibility = View.VISIBLE
 
                     //나눔자 정보
+                    Glide.with(this@ProductActivity)
+                        .load(response.body()!!.data.detailPost.profileImage)
+                        .placeholder(R.drawable.user)
+                        .into(img_user_profile_product)
+
                     txt_account_name_product.text = response.body()!!.data.detailPost.nickname
                     rab_product.rating = response.body()!!.data.detailPost.rating
                     userIdx = response.body()!!.data.detailPost.userIdx

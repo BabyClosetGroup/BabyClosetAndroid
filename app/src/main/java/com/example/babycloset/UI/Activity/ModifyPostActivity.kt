@@ -20,6 +20,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetProductDetailResponse
@@ -64,8 +65,6 @@ class ModifyPostActivity : AppCompatActivity() {
     val networkService : NetworkService by lazy {
         ApplicationController.instance.networkService
     }
-
-    val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -239,7 +238,7 @@ class ModifyPostActivity : AppCompatActivity() {
 
     //게시물 상세보기 통신
     fun getProductDetailResponse(){
-        val getProductDetailResponse = networkService.getProductDetailResponse(token, postIdx)
+        val getProductDetailResponse = networkService.getProductDetailResponse(SharedPreference.getUserToken(this), postIdx)
 
         getProductDetailResponse.enqueue(object : Callback<GetProductDetailResponse>{
             override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
@@ -365,7 +364,8 @@ class ModifyPostActivity : AppCompatActivity() {
         }
 
 
-        val putPostResponse = networkService.putPostResponse(token, postIdx ,title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb, catC_rb, pictureList)
+        val putPostResponse = networkService.putPostResponse(SharedPreference.getUserToken(this), postIdx,
+            title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb, catC_rb, pictureList)
 
         putPostResponse.enqueue(object : Callback<PutPostResponse>{
             override fun onFailure(call: Call<PutPostResponse>, t: Throwable) {

@@ -15,6 +15,7 @@ data class DetailPostData(
     var clothName : ArrayList<String>,
     var nickname: String,
     var userIdx : Int,
+    var profileImage : String,
     var rating : Float,
     var isSender : Int,
     var postImages : ArrayList<String>
