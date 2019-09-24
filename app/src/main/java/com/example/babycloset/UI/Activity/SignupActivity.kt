@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -44,6 +45,7 @@ class SignupActivity : AppCompatActivity() {
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
@@ -70,6 +72,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -82,6 +85,7 @@ class SignupActivity : AppCompatActivity() {
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
@@ -108,6 +112,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -120,6 +125,7 @@ class SignupActivity : AppCompatActivity() {
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
@@ -146,6 +152,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -158,6 +165,7 @@ class SignupActivity : AppCompatActivity() {
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
@@ -184,6 +192,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -196,6 +205,7 @@ class SignupActivity : AppCompatActivity() {
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
                     btn_signin.isEnabled = true
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
                     if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
                         if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
                             if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
@@ -222,6 +232,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
