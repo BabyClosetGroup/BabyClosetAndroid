@@ -41,6 +41,7 @@
                 android:background="@drawable/qr_code_background"
                 android:layout_marginHorizontal="16dp">
             <TextView
+                    android:id="@+id/txt_qr_create_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="여아 투피스 모음"
@@ -52,7 +53,7 @@
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     app:srcCompat="@drawable/blackberry_qr_code_variant"
-                    android:id="@+id/imageView"
+                    android:id="@+id/img_create_qr_code"
                     android:layout_gravity="center"
                     android:layout_marginTop="38dp"
                     android:layout_marginBottom="66dp"/>

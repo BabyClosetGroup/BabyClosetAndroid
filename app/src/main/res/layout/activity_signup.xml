@@ -15,6 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:layout_marginLeft="27dp"
                     android:layout_marginTop="104dp"
                     android:text="아기옷장에게 회원님의"
@@ -23,6 +24,7 @@
                     android:textSize="22sp"
                     android:textColor="#262626"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:layout_marginLeft="27dp"
                     android:text="정보를 알려주세요."
                     android:textSize="22sp"
@@ -30,6 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textSize="12sp"
                     android:textColor="#262626"
                     android:layout_marginTop="3dp"
@@ -38,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:text="이름"
                     android:textSize="12sp"
                     android:textColor="#262626"
@@ -46,6 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <EditText
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="2dp"
                     android:paddingLeft="11dp"
@@ -58,6 +63,7 @@
                     android:ems="10"
                     android:id="@+id/edt_name_siginin"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:text="아이디"
                     android:textSize="12sp"
                     android:textColor="#262626"
@@ -66,6 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <EditText
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="2dp"
                     android:paddingLeft="11dp"
@@ -78,6 +85,7 @@
                     android:ems="10"
                     android:id="@+id/edt_id_siginin"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textSize="12sp"
                     android:textColor="#262626"
                     android:layout_marginTop="19dp"
@@ -86,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <EditText
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="2dp"
                     android:paddingLeft="11dp"
@@ -98,6 +107,7 @@
                     android:ems="10"
                     android:id="@+id/edt_pw_siginin"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textSize="12sp"
                     android:textColor="#262626"
                     android:layout_marginTop="19dp"
@@ -106,6 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <EditText
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="2dp"
                     android:paddingLeft="11dp"
@@ -118,6 +129,7 @@
                     android:ems="10"
                     android:id="@+id/edt_pwck_siginin"/>
             <TextView
+                    android:fontFamily="@font/seoulnamsanm"
                     android:text="닉네임"
                     android:textSize="12sp"
                     android:textColor="#262626"
@@ -126,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <EditText
+                    android:fontFamily="@font/seoulnamsanl"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginTop="2dp"
                     android:paddingLeft="11dp"
@@ -144,6 +157,7 @@
     </ScrollView>
 
     <Button
+            android:fontFamily="@font/seoulnamsanb"
             android:layout_alignParentBottom="true"
             android:background="#ffc107"
             android:textColor="#ffffff"
@@ -151,6 +165,6 @@
             android:textSize="20sp"
             android:text="회원가입 완료 하기"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:id="@+id/btn_signin"/>
 </RelativeLayout>

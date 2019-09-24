@@ -6,5 +6,8 @@ data class GetReceiveProductResponse(
     val status: Int,
     val success: Boolean,
     val message: String,
-    val data: ArrayList<ReceiveProductOverviewData>?
+    val data: allPostReceiveData
+)
+data class allPostReceiveData(
+    val allPost: ArrayList<ReceiveProductOverviewData>
 )

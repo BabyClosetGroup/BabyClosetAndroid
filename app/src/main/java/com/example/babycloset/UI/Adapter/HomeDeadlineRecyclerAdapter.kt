@@ -24,7 +24,7 @@ class HomeDeadlineRecyclerAdapter (val ctx: Context, val dataList: ArrayList<Hom
         Glide.with(ctx).load(dataList[p1].mainImage).into(holder.img_deadline)
         holder.txt_deadline_day.text=dataList[p1].deadline
         holder.txt_title.text=dataList[p1].postTitle
-        holder.txt_area.text=dataList[p1].areaName
+        holder.txt_area.text=dataList[p1].areaName[0] //수정 필요
     }
 
     inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){

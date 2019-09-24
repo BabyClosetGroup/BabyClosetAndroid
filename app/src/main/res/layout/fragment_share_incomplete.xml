@@ -15,12 +15,39 @@
             android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="22dp"
-                android:layout_marginHorizontal="16dp"
                 android:id="@+id/rv_incomplete_product_overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false">
             </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                    android:id="@+id/incomplete_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <ImageView
+                        android:layout_marginTop="140dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/share_empty"/>
+                <TextView
+                        android:textColor="#2f2f2f"
+                        android:fontFamily="@font/seoulnamsanm"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="59.5dp"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:text="아가옷장에서"/>
+                <TextView
+                        android:textColor="#2f2f2f"
+                        android:fontFamily="@font/seoulnamsanm"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="18dp"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:text= "따뜻한 나눔을 진행해보세요!"/>
+            </LinearLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

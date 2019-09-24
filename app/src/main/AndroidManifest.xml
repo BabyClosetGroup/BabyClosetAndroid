@@ -11,10 +11,11 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
+            android:name=".Network.ApplicationController"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
+            android:label="아가옷장"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
@@ -49,7 +50,8 @@
         <activity android:name=".UI.Activity.InfoConsentActivity"/>
         <activity android:name=".UI.Activity.EditInfoActivity"/>
         <activity android:name=".UI.Activity.RatingActivity"/>
-        <activity android:name=".UI.Activity.ListPeopleActivity"/>
+        <activity android:name=".UI.Activity.ListPeopleActivity">
+        </activity>
         <activity android:name=".UI.Activity.ProductActivity">
         </activity>
         <activity android:name=".UI.Activity.DeadLineProductActivity">
@@ -59,7 +61,8 @@
         <activity android:name=".UI.Activity.WritePostActivity"/>
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
-        <activity android:name=".UI.Activity.ReceiveProductActivity"/>
+        <activity android:name=".UI.Activity.ReceiveProductActivity">
+        </activity>
     </application>
 
 </manifest>
