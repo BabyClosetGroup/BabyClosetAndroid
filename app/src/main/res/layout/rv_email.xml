@@ -4,8 +4,9 @@
         android:orientation="vertical"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="60dp">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -56,21 +57,10 @@
                 android:lineSpacingExtra="17sp"
                 tools:text="상대방1의 메세지" />
 
-        <TextView
-                android:id="@+id/text_email_msg_plus"
-                android:layout_weight="0"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textColor="#ffc107"
-                android:letterSpacing="-0.01"
-                android:lineSpacingExtra="17sp"
-                tools:text="+" />
 
         <TextView
-            android:id="@+id/text_email_msg_num"
             android:layout_weight="0"
+            android:id="@+id/text_email_msg_num"
             android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,6 +69,7 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="17sp"
             tools:text="3" />
+
 
     </LinearLayout>
 

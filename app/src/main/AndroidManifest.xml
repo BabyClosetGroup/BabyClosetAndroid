@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
+            android:name=".Network.ApplicationController"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/ic_launcher"
@@ -27,11 +28,7 @@
         <activity android:name=".UI.Activity.QRScanActivity">
         </activity>
         <activity android:name=".UI.Activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.CategoryActivity">
         </activity>
@@ -43,6 +40,11 @@
         <activity android:name=".UI.Activity.FilterActivity">
         </activity>
         <activity android:name=".UI.Activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".UI.Activity.SignupActivity">
         </activity>
@@ -60,6 +62,9 @@
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
         <activity android:name=".UI.Activity.ReceiveProductActivity"/>
+        <activity android:name=".UI.Activity.EmailActivity">
+        </activity>
+        <activity android:name=".UI.Activity.EmailMsgActivity"/>
     </application>
 
 </manifest>
