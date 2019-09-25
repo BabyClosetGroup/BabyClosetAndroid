@@ -62,7 +62,7 @@ class QRMainActivity : AppCompatActivity() {
         var result: IntentResult =IntentIntegrator.parseActivityResult(requestCode,resultCode,data)
         if(result!=null){
             if(result.contents==null){
-                toast("Cancelled")
+                toast("취소되었습니다.")
             }else{
                 var jsonObject=JSONObject()
                 jsonObject.put("decode",result.contents)
@@ -77,11 +77,12 @@ class QRMainActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<PostQRcodeResponse>, response: Response<PostQRcodeResponse>) {
                         if(response.isSuccessful){
                             if(response.body()!!.status==200) {
-                                val builder: AlertDialog.Builder=AlertDialog.Builder(applicationContext)
+                                val builder: AlertDialog.Builder=AlertDialog.Builder(this@QRMainActivity)
                                 builder.setMessage("인증이 완료되었습니다.")
                                 builder.setPositiveButton("예"){dialog, i ->
-
                                 }
+                                val dialog=builder.create()
+                                dialog.show()
                             }
                         }
                     }

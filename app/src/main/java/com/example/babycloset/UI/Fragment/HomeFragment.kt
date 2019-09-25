@@ -4,6 +4,7 @@ package com.example.babycloset.UI.Fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.KeyEvent
@@ -83,10 +84,20 @@ class HomeFragment : Fragment() {
         //검색
         edit_searh_value.setOnKeyListener { v, keyCode, event ->
             if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
-                startActivityForResult<SearchActivity>(1000,"search_word" to edit_searh_value.text.toString())
-                edit_searh_value.text=null
-                KeyEvent.ACTION_DOWN
-                return@setOnKeyListener true
+                if(edit_searh_value.text.toString()==""){
+                    val builder: AlertDialog.Builder= AlertDialog.Builder(context!!)
+                    builder.setMessage("검색어를 입력해주세요!")
+                    builder.setPositiveButton("예"){dialog, i ->
+                    }
+                    val dialog=builder.create()
+                    dialog.show()
+                    //커서 놓기
+                }else {
+                    startActivityForResult<SearchActivity>(1000, "search_word" to edit_searh_value.text.toString())
+                    edit_searh_value.text = null
+                    KeyEvent.ACTION_DOWN
+                    return@setOnKeyListener true
+                }
             }
             false
         }
@@ -152,7 +163,7 @@ class HomeFragment : Fragment() {
                         if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
                             btn_email.setImageResource(R.drawable.btn_letter_alarm)
                         }else if(isNewMessage == 0){
-                            btn_email.setImageResource(R.drawable.home_btn_email)
+                            btn_email.setImageResource(R.drawable.home_btn_email_update)
                         }
                         val tmp: ArrayList<HomeDeadlineData> = response.body()!!.data.deadlinePost
                         val tmp2: ArrayList<HomeRecentData> = response.body()!!.data.recentPost

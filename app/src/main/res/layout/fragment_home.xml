@@ -17,6 +17,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="5dp"
                 android:background="@color/white">
             <EditText
                     android:id="@+id/edit_searh_value"
@@ -44,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="10dp"
+                android:paddingTop="17dp"
                 android:paddingHorizontal="16dp"
                 android:background="#ffffff">
             <LinearLayout
@@ -72,7 +73,7 @@
                             android:text="더보기"
                             android:fontFamily="@font/seoulnamsanm"
                             android:textColor="#767676"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:layout_gravity="center"/>
                     <ImageView
                             android:id="@+id/imageView3"
@@ -126,7 +127,7 @@
                             android:text="모든상품 보기"
                             android:fontFamily="@font/seoulnamsanm"
                             android:textColor="#767676"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:layout_gravity="center"/>
                     <ImageView
                             android:id="@+id/imageView4"
