@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.AllPostRVData
 import com.example.babycloset.Data.CategoryData
@@ -29,6 +30,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+
 
 
 
@@ -140,9 +143,7 @@ class AllProductActivity : AppCompatActivity() {
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
                                 allProductRecyclerViewAdapter.datalist.add(tmp[i])
                             }
-                            val mlayoutManager = rv_filter_all_product.getLayoutManager() as LinearLayoutManager
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
-                            rv_filter_all_product.scrollToPosition(0)
                             fpagination++
                         }else{
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
@@ -187,8 +188,7 @@ class AllProductActivity : AppCompatActivity() {
                 categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this, dataList)
                 rv_filter_all_product.adapter = categoryRecyclerViewAdapter
                 rv_filter_all_product.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
-
-                rv_filter_all_product.isNestedScrollingEnabled = false
+                rv_filter_all_product.scrollToPosition(0)
                 rv_filter_all_product.visibility = View.VISIBLE
                 txt_title_all_product.text = "필터적용"
                 fpagination = 1

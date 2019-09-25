@@ -2,22 +2,30 @@ package com.example.babycloset.UI.Activity
 
 import android.app.Activity
 import android.content.*
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.nfc.Tag
+import android.os.Build
 import android.os.Handler
+import android.provider.Settings
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
@@ -28,20 +36,28 @@ import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.jetbrains.anko.imageURI
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.io.InputStream
+import java.util.jar.Manifest
 
 
 class WritePostActivity : AppCompatActivity() {
+
+    private var permissionsRequired =   //권한
+        arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+    private val PERMISSION_CALLBACK_CONSTANT = 101
+    private val REQUEST_PERMISSION_SETTING = 101
+
+    private var permissionStatus: Boolean = false
+    private var sentToSettings = false
+
     var deadline : String = ""
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
 
@@ -71,6 +87,35 @@ class WritePostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
 
+        configWritePost()
+
+        checkPermission()
+
+    }
+
+    fun checkPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Tag", "권한 설정 완료")
+            }  else {
+                Log.d("Tag", "권한 설정 요청")
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        Log.d("Tag", "onRequestPermissionsResult");
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Tag", "Permission: " + permissions[0] + "was " + grantResults[0]);
+        }
+    }
+
+    fun configWritePost(){
         //이미지 선택
         img_write_post1.setOnClickListener { showImageDialog(1) }
         img_write_post2.setOnClickListener { showImageDialog(2) }
@@ -87,10 +132,9 @@ class WritePostActivity : AppCompatActivity() {
 
         //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {
-           isValid()
+            isValid()
         }
     }
-
 
     //마감기간 선택 다이얼로그
     fun showDeadlineDialog(){

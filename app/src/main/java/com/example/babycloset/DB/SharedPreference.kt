@@ -8,6 +8,7 @@ object SharedPreference {
     val MY_ACCOUNT = "unique_string"
     val U_ID = "unique_string"
     val U_PW = "unique_string"
+    val PERMIS = "unique_string"
 
     fun setUserToken(ctx: Context, token: String){
         val preference: SharedPreferences = ctx.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
@@ -51,4 +52,17 @@ object SharedPreference {
         val preference: SharedPreferences = ctx.getSharedPreferences(U_PW, Context.MODE_PRIVATE)
         return preference.getString("u_pw", "")
     }
+
+    fun setPermission(ctx: Context, state : Boolean){
+        val preference: SharedPreferences = ctx.getSharedPreferences(PERMIS, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = preference.edit()
+        editor.putBoolean("permissionState", state)
+        editor.commit()
+    }
+
+    fun getPermission(ctx: Context):Boolean{
+        val preference : SharedPreferences = ctx.getSharedPreferences(PERMIS, Context.MODE_PRIVATE)
+        return preference.getBoolean("permissionState", false)
+    }
+
 }
