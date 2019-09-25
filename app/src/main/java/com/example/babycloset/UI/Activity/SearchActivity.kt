@@ -9,6 +9,7 @@ import android.text.Editable
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.SearchProductData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
@@ -81,6 +82,7 @@ class SearchActivity : AppCompatActivity() {
         jsonObject.put("query",search_word)
         val gsonObject= JsonParser().parse(jsonObject.toString()) as JsonObject
 
+        val token: String = SharedPreference.getUserToken(this)
         val postSearchResponse=networkService.postSearchResponse("application/json",token,page,gsonObject)
         postSearchResponse.enqueue(object: Callback<PostSearchResponse>{
             override fun onFailure(call: Call<PostSearchResponse>, t: Throwable) {

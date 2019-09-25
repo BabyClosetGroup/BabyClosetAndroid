@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Fragment
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -11,6 +12,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.HomeDeadlineData
 import com.example.babycloset.Data.HomeRecentData
 import com.example.babycloset.Network.ApplicationController
@@ -42,7 +44,7 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
     lateinit var homeDeadlineRecyclerAdapter: HomeDeadlineRecyclerAdapter
     lateinit var homeRecentRecyclerAdapter: HomeRecentRecyclerAdapter
-    val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
     var deadlineDataList: ArrayList<HomeDeadlineData> = ArrayList()
     var recentDataList: ArrayList<HomeRecentData> = ArrayList()
 
@@ -145,6 +147,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getHomeResponse(){
+        val token: String = SharedPreference.getUserToken(context!!)
         val getHomeResponse = networkService.getHomeResponse("application/json",token)
         getHomeResponse.enqueue(object: Callback<GetHomeResponse>{
             override fun onFailure(call: Call<GetHomeResponse>, t: Throwable) {

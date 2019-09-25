@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Post.PostQRcodeResponse
@@ -24,7 +25,6 @@ import retrofit2.Response
 
 class QRMainActivity : AppCompatActivity() {
     lateinit var qrscan: IntentIntegrator
-    val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
 
     val networkService: NetworkService by lazy{
@@ -68,6 +68,9 @@ class QRMainActivity : AppCompatActivity() {
                 jsonObject.put("decode",result.contents)
 
                 val gsonObject= JsonParser().parse(jsonObject.toString()) as JsonObject
+
+                val token: String = SharedPreference.getUserToken(this)
+
                 val postQRcodeResponse=networkService.postQRcodeResponse("application/json",token,gsonObject)
                 postQRcodeResponse.enqueue(object: Callback<PostQRcodeResponse>{
                     override fun onFailure(call: Call<PostQRcodeResponse>, t: Throwable) {
