@@ -21,18 +21,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="하늘색 잠옷"
+                android:fontFamily="@font/seoulnamsanm"
                 android:textColor="#262626"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"/>
 
-        <TextView
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp">
+            <TextView
                 android:id="@+id/txt_home_recent_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="동대문구"
-                android:textColor="#767676"
-                android:textSize="12sp"
-                android:layout_marginTop="5dp"/>
+                android:textColor="#767676"                                                                            
+                android:fontFamily="@font/seoulnamsanm"
+                android:textSize="12sp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="외 "
+                    android:textColor="#767676"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/seoulnamsanl"
+                    android:layout_marginLeft="2dp"/>
+            <TextView
+                    android:id="@+id/txt_home_recent_area_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textColor="#767676"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/seoulnamsanl"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="구"
+                    android:textColor="#767676"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/seoulnamsanl"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

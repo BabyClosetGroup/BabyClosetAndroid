@@ -1,10 +1,12 @@
 package com.example.babycloset.UI.Fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +17,14 @@ import com.example.babycloset.Network.Get.GetHomeResponse
 import com.example.babycloset.Network.NetworkService
 
 import com.example.babycloset.R
-import com.example.babycloset.UI.Activity.AllProductActivity
-import com.example.babycloset.UI.Activity.DeadLineProductActivity
-import com.example.babycloset.UI.Activity.EmailActivity
-import com.example.babycloset.UI.Activity.QRMainActivity
+import com.example.babycloset.UI.Activity.*
 import com.example.babycloset.UI.Adapter.HomeDeadlineRecyclerAdapter
 import com.example.babycloset.UI.Adapter.HomeRecentRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
+import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,6 +78,17 @@ class HomeFragment : Fragment() {
         }
         view_home_go_recent_all_product.setOnClickListener {
             startActivity<DeadLineProductActivity>("id" to 6)
+        }
+
+        //검색
+        edit_searh_value.setOnKeyListener { v, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+                startActivityForResult<SearchActivity>(1000,"search_word" to edit_searh_value.text.toString())
+                edit_searh_value.text=null
+                KeyEvent.ACTION_DOWN
+                return@setOnKeyListener true
+            }
+            false
         }
 
     }
@@ -135,9 +147,12 @@ class HomeFragment : Fragment() {
                         deadlineDataList.clear()
                         recentDataList.clear()
 
-                        val isNewMessage=response.body()!!.data.isNewMessage
-                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                        var isNewMessage=response.body()!!.data.isNewMessage
 
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_email.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_email.setImageResource(R.drawable.home_btn_email)
                         }
                         val tmp: ArrayList<HomeDeadlineData> = response.body()!!.data.deadlinePost
                         val tmp2: ArrayList<HomeRecentData> = response.body()!!.data.recentPost

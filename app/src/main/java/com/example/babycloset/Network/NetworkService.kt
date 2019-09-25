@@ -1,11 +1,8 @@
 package com.example.babycloset.Network
 
 import com.example.babycloset.Network.Get.*
-import com.example.babycloset.Network.Post.PostLoginResponse
-import com.example.babycloset.Network.Post.PostRatingResponse
-import com.example.babycloset.Network.Post.PostSignupResponse
+import com.example.babycloset.Network.Post.*
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
-import com.example.babycloset.Network.Post.PostQRcodeResponse
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -56,6 +53,15 @@ interface NetworkService {
         @Header("token") token: String,
         @Body() body:JsonObject
     ): Call<PostQRcodeResponse>
+
+    //검색 조회하기
+    @POST("/post/search/{pagination}")
+    fun postSearchResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("pagination") pagination: Int,
+        @Body() body:JsonObject
+    ): Call<PostSearchResponse>
 
     //프로필 수정
     @Multipart

@@ -23,13 +23,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나눔을 주는 "
+                    android:fontFamily="@font/seoulnamsaneb"
                     android:textColor="#262626"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
+                    android:textSize="22sp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="날 인가요?"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textColor="#262626"
                     android:textSize="22sp"/>
         </LinearLayout>
@@ -41,19 +42,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="혹은 "
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textColor="#262626"
                     android:textSize="22sp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나눔을 받는 "
+                    android:fontFamily="@font/seoulnamsaneb"
                     android:textColor="#262626"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
+                    android:textSize="22sp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="날 인가요?"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textColor="#262626"
                     android:textSize="22sp"/>
         </LinearLayout>
@@ -75,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="나눔 주기-QR 생성하기"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/seoulnamsanb"
                     android:textSize="17sp"
                     android:textColor="#ffffff"
                     android:background="@drawable/btn_yellow_fill_border"
@@ -99,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="나눔 받기-코드 스캔하기"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/seoulnamsanb"
                     android:textSize="17sp"
                     android:textColor="#ffffff"
                     android:background="@drawable/btn_yellow_fill_border"

@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/rl_home_deadline_product"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rl_search_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="15dp">
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
         <RelativeLayout
-                android:layout_width="105dp"
-                android:layout_height="105dp">
+                android:layout_width="158dp"
+                android:layout_height="158dp">
             <ImageView
-                    android:layout_width="105dp"
-                    android:layout_height="105dp"
+                    android:layout_width="158dp"
+                    android:layout_height="158dp"
                     app:srcCompat="@drawable/img_camera"
-                    android:id="@+id/img_home_deadline"/>
+                    android:id="@+id/img_search"/>
             <TextView
-                    android:id="@+id/txt_home_deadline_day"
+                    android:id="@+id/txt_search_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="D-0"
@@ -36,7 +38,7 @@
         </RelativeLayout>
 
         <TextView
-                android:id="@+id/txt_home_deadline_title"
+                android:id="@+id/txt_search_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="하늘색 잠옷"
@@ -47,7 +49,7 @@
 
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp">
             <TextView
-                    android:id="@+id/txt_home_deadline_area"
+                    android:id="@+id/txt_search_area"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="동대문구"
@@ -63,7 +65,7 @@
                     android:fontFamily="@font/seoulnamsanl"
                     android:layout_marginLeft="2dp"/>
             <TextView
-                    android:id="@+id/txt_home_deadline_area_etc"
+                    android:id="@+id/txt_search_area_etc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2"
