@@ -31,6 +31,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
 class AllProductActivity : AppCompatActivity() {
 
     val networkService: NetworkService by lazy{
@@ -139,7 +140,9 @@ class AllProductActivity : AppCompatActivity() {
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
                                 allProductRecyclerViewAdapter.datalist.add(tmp[i])
                             }
+                            val mlayoutManager = rv_filter_all_product.getLayoutManager() as LinearLayoutManager
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            rv_filter_all_product.scrollToPosition(0)
                             fpagination++
                         }else{
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
@@ -185,9 +188,10 @@ class AllProductActivity : AppCompatActivity() {
                 rv_filter_all_product.adapter = categoryRecyclerViewAdapter
                 rv_filter_all_product.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
 
+                rv_filter_all_product.isNestedScrollingEnabled = false
                 rv_filter_all_product.visibility = View.VISIBLE
                 txt_title_all_product.text = "필터적용"
-
+                fpagination = 1
                 postAllPostFilterResponse()
             }
         }

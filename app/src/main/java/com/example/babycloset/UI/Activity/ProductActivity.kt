@@ -111,6 +111,7 @@ class ProductActivity : AppCompatActivity(){
             rl_apply_product.visibility = View.VISIBLE
             btn_apply_product.setOnClickListener {
                 postShareResponse()
+                toast("신청이 완료되었습니다.")
             }
         }
 
@@ -250,7 +251,7 @@ class ProductActivity : AppCompatActivity(){
 
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(builderNew.window.attributes)
-        lp.height = 800
+        lp.height = 650
         val window = builderNew.window
         window.attributes = lp
 
