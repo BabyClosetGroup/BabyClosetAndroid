@@ -48,7 +48,7 @@ class ModifyPostActivity : AppCompatActivity() {
     var imgNum : Int = 0
     var postIdx : Int = 0
 
-    lateinit var b : Drawable
+    lateinit var mbp : MultipartBody.Part
 
     var imgList = ArrayList<String>()
     var areaList = arrayListOf<String>()
@@ -143,10 +143,32 @@ class ModifyPostActivity : AppCompatActivity() {
                 }
                 1->{
                     when(requestCodeNumber){
-                        1-> img_modify_post1.setImageBitmap(null)
-                        2-> img_modify_post2.setImageBitmap(null)
-                        3-> img_modify_post3.setImageBitmap(null)
-                        4-> img_modify_post4.setImageBitmap(null)
+                        1-> {
+                            img_modify_post1.setImageBitmap(null)
+                            pictureUri1 = null
+                            pictureList.remove(pictureList[0])
+                        }
+                        2-> {
+                            img_modify_post2.setImageBitmap(null)
+                            pictureUri2 = null
+                            if(pictureList.size >= 2){
+                                pictureList.remove(pictureList[1])
+                            }
+                        }
+                        3-> {
+                            img_modify_post3.setImageBitmap(null)
+                            pictureUri3 = null
+                            if(pictureList.size >= 3){
+                                pictureList.remove(pictureList[2])
+                            }
+                        }
+                        4-> {
+                            img_modify_post4.setImageBitmap(null)
+                            pictureUri4 = null
+                            if(pictureList.size >= 4){
+                                pictureList.remove(pictureList[3])
+                            }
+                        }
                     }
                 }
             }
@@ -297,6 +319,7 @@ class ModifyPostActivity : AppCompatActivity() {
                                 setImageView(response, array[i], i)
                             }
                         }
+
                     }
 
                 }
@@ -305,29 +328,24 @@ class ModifyPostActivity : AppCompatActivity() {
     }
 
     fun setImageView(response: Response<GetProductDetailResponse>, imageView: ImageView ,i : Int){
-        val target = object : SimpleTarget<Drawable>() {
-            override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
-                imageView.setImageDrawable(resource)
+        val target = object : SimpleTarget<Bitmap>() {
+            override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                imageView.setImageBitmap(resource)
                 bitmapToMBP(this@ModifyPostActivity, resource, pictureList, i)
-                Log.e("i", "ddkdk")
             }
         }
 
         Glide.with(this@ModifyPostActivity)
-            .asDrawable()
+            .asBitmap()
             .load(response.body()!!.data.detailPost.postImages[i])
-            .thumbnail(0.1f)
-            .fitCenter()
-            .into<SimpleTarget<Drawable>>(target)
-
+            .into<SimpleTarget<Bitmap>>(target)
     }
 
-    fun bitmapToMBP(ctx : Context, d : Drawable, list: ArrayList<MultipartBody.Part>, i : Int){
-        val b = (d as BitmapDrawable).bitmap
+    fun bitmapToMBP(ctx : Context, b : Bitmap,list : ArrayList<MultipartBody.Part> ,i : Int){
         val file = File(WritePostActivity.bitmapToFile(ctx, b, "img$i"))
         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
-        val picture_rb = MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
-        list.add(picture_rb)
+        val photo_rb= MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
+        list.add(photo_rb)
     }
 
 
@@ -336,7 +354,6 @@ class ModifyPostActivity : AppCompatActivity() {
         val title_rb = WritePostActivity.stringToRequestBody(edt_title_modify_post.text.toString())
         val content_rb = WritePostActivity.stringToRequestBody(edt_contents_modify_post.text.toString())
         val deadline_rb = WritePostActivity.stringToRequestBody(txt_deadline_modify_tag.text.toString())
-        Log.e("deadline", txt_deadline_modify_tag.text.toString())
         val areaC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(areaList))
         val ageC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(ageList))
         val catC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(categoryList))
@@ -350,22 +367,23 @@ class ModifyPostActivity : AppCompatActivity() {
         {
             if(pictureList.size > 2){
                 pictureList.remove(pictureList[1])
-                WritePostActivity.createMBP(contentResolver, pictureUri2!!, pictureList)
             }
+            WritePostActivity.createMBP(contentResolver, pictureUri2!!, pictureList)
+
         }
         if(pictureUri3 != null)
         {
             if(pictureList.size > 3) {
                 pictureList.remove(pictureList[2])
-                WritePostActivity.createMBP(contentResolver, pictureUri3!!, pictureList)
             }
+            WritePostActivity.createMBP(contentResolver, pictureUri3!!, pictureList)
         }
         if(pictureUri4 != null)
         {
             if(pictureList.size > 4) {
                 pictureList.remove(pictureList[3])
-                WritePostActivity.createMBP(contentResolver, pictureUri4!!, pictureList)
             }
+            WritePostActivity.createMBP(contentResolver, pictureUri4!!, pictureList)
         }
 
 

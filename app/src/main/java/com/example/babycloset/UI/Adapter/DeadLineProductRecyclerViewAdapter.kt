@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Adapter
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,9 @@ class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : Array
     override fun getItemCount(): Int = datalist.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val dataList : ArrayList<String> = datalist[position].areaName
+        val drawable : GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.mainImage.background = drawable
+        holder.mainImage.clipToOutline = true
 
         Glide.with(ctx)
             .load(datalist[position].mainImage)
@@ -32,7 +35,12 @@ class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : Array
 
         holder.postTitle.text = datalist[position].postTitle
         holder.deadLine.text = datalist[position].deadline
-        holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
+        val dataList : ArrayList<String> = datalist[position].areaName
+        if(dataList.size-1 != 0){
+            holder.areaName.text = dataList[0] + " 외 " + (dataList.size-1) + "구"
+        }else{
+            holder.areaName.text = dataList[0]
+        }
         holder.container.setOnClickListener {
             ctx.startActivity<ProductActivity>(
                 "postIdx" to datalist[position].postIdx
