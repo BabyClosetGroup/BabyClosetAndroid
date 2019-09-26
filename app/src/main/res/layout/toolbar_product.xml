@@ -22,7 +22,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_toStartOf="@id/btn_ddd_toolbar_product"
-                android:id="@+id/btn_msg_toolbar_product"
+                android:id="@+id/btn_letter_toolbar_product"
+                android:background="@drawable/home_btn_email"
         />
         <ImageButton android:layout_width="24dp"
                      android:layout_height="24dp"
@@ -30,6 +31,7 @@
                      android:layout_marginStart="9dp"
                      android:layout_marginEnd="16dp"
                      android:id="@+id/btn_ddd_toolbar_product"
+                     android:background="@drawable/setting_btn"
         />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

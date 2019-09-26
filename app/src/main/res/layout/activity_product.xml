@@ -31,7 +31,7 @@
                 <TextView
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:layout_marginTop="15dp" android:layout_marginBottom="10dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="16dp" android:fontFamily="@font/seoulnamsanm"
                         android:text="상품이름" android:textColor="#262626" android:textSize="22sp"
                         android:id="@+id/txt_product_name_product"/>
 
@@ -39,7 +39,7 @@
                                 android:layout_height="wrap_content" android:layout_marginStart="16dp">
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:layout_marginEnd="10dp"
+                              android:layout_marginEnd="10dp" android:fontFamily="@font/seoulnamsanm"
                               android:text="D-?" android:textSize="16sp" android:textColor="#767676"
                               android:id="@+id/txt_deadline_product"/>
 
@@ -47,31 +47,11 @@
                                 android:layout_height="wrap_content" android:layout_toEndOf="@id/txt_deadline_product">
                         <RelativeLayout android:layout_width="wrap_content"
                                         android:layout_height="wrap_content">
-                            <Button
-                                    android:layout_width="wrap_content" android:layout_height="28dp"
-                                    android:background="@drawable/cb_yellow_fill_border"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:text="자치구" android:textSize="14sp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_area_tag_product"
-                            />
-                            <Button android:layout_width="wrap_content" android:layout_height="28dp"
-                                    android:layout_toEndOf="@id/txt_area_tag_product"
-                                    android:background="@drawable/cb_yellow_fill_border"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:text="개월수" android:textSize="14sp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_age_tag_product"
-                            />
-
-                            <Button android:layout_width="wrap_content" android:layout_height="28dp"
-                                    android:layout_toEndOf="@id/txt_age_tag_product"
-                                    android:background="@drawable/cb_yellow_fill_border"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:text="카테고리" android:textSize="14sp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_category_tag_product"
-                            />
-
+                            <android.support.v7.widget.RecyclerView
+                                    android:layout_width="wrap_content" android:layout_height="match_parent"
+                                    android:id="@+id/rv_category_product"
+                                    android:visibility="gone">
+                            </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
                     </ScrollView>
                 </RelativeLayout>
@@ -83,12 +63,13 @@
                         android:orientation="horizontal">
 
                     <ImageView
-                            android:background="@drawable/user"
-                            android:id="@+id/img_profile_product"
+                            android:scaleType="centerCrop"
                             android:layout_width="62dp"
                             android:layout_height="62dp"
+                            android:id="@+id/img_user_profile_product"
                             android:layout_marginLeft="16dp"
-                            android:layout_marginRight="24dp"/>
+                            android:layout_marginRight="24dp"
+                    />
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -107,6 +88,7 @@
                                     android:textSize="16sp"
                                     android:text="unknown"
                                     android:textColor="#262626"
+                                    android:fontFamily="@font/seoulnamsanl"
                             />
 
                             <TextView
@@ -115,13 +97,14 @@
                                     android:layout_height="wrap_content"
                                     android:text="님의 나눔 별점"
                                     android:textColor="#262626"
+                                    android:fontFamily="@font/seoulnamsanl"
                             />
 
                         </LinearLayout>
 
                         <RatingBar
                                 android:isIndicator="true"
-                                android:rating="3.5"
+                                android:rating="0"
                                 android:stepSize="0.5"
                                 android:numStars="5"
                                 android:layout_width="wrap_content"
@@ -132,6 +115,7 @@
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
                     <TextView
+                            android:fontFamily="@font/seoulnamsanm"
                             android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:layout_marginEnd="25dp" android:layout_marginStart="16dp"
                             android:layout_marginBottom="20dp"
@@ -143,12 +127,15 @@
             </LinearLayout>
 
         </ScrollView>
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <RelativeLayout
+                android:id="@+id/rl_apply_product" android:visibility="gone"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
             <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="#ffc107"
-                    android:id="@+id/btn_apply_product" />
+                    android:id="@+id/btn_apply_product"
+            />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,6 +144,7 @@
                     android:text="신청하기"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
+                    android:id="@+id/txt_apply_product"
             />
         </RelativeLayout>
     </RelativeLayout>

@@ -84,10 +84,10 @@ class HomeFragment : Fragment() {
         }
 
         view_home_go_deadline_all_product.setOnClickListener {
-            startActivity<AllProductActivity>("id" to 5)
+            startActivity<DeadLineProductActivity>("id" to 5)
         }
         view_home_go_recent_all_product.setOnClickListener {
-            startActivity<DeadLineProductActivity>("id" to 6)
+            startActivity<AllProductActivity>("id" to 6)
         }
 
         //검색

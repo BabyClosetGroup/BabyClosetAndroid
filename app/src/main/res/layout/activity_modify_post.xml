@@ -77,11 +77,15 @@
                             android:orientation="vertical"
                             android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
                     >
-                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <RelativeLayout
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:id="@+id/rl_category_modify_post"
+                        >
                             <TextView
                                     android:fontFamily="@font/seoulnamsanm"
                                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/txt_category_modify_post"
                                     android:text="카테고리 선택" android:textSize="16dp" android:textColor="#262626"/>
+
                             <ImageButton
                                     android:layout_width="24dp" android:layout_height="24dp"
                                     android:layout_alignParentRight="true"
@@ -89,37 +93,19 @@
                                     android:background="@drawable/button_arrow"
                             />
 
-                            <Button
-                                    android:fontFamily="@font/seoulnamsanm"
-                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_modify_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="자치구" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_area_tag_modify_post"
-                            />
-                            <Button
-                                    android:fontFamily="@font/seoulnamsanm"
-                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp" android:layout_marginEnd="4dp"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_modify_post" android:layout_toEndOf="@id/txt_area_tag_modify_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="개월수" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_age_tag_modify_post"
-                            />
-                            <Button
-                                    android:fontFamily="@font/seoulnamsanm"
-                                    android:layout_width="wrap_content" android:layout_height="28dp" android:layout_marginTop="10dp"
-                                    android:paddingLeft="15dp" android:paddingRight="15dp"
-                                    android:layout_below="@id/btn_category_modify_post" android:layout_toEndOf="@id/txt_age_tag_modify_post" android:background="@drawable/cb_yellow_fill_border"
-                                    android:text="카테고리" android:textSize="14dp" android:textColor="#ffffff"
-                                    android:clickable="false" android:id="@+id/txt_category_tag_modify_post"
-                            />
+                           <android.support.v7.widget.RecyclerView
+                                   android:layout_width="wrap_content"  android:layout_height="match_parent"
+                                   android:layout_marginTop="10dp" android:layout_below="@id/txt_category_modify_post"
+                                   android:id="@+id/rv_category_modify_post" android:visibility="gone"
+                           >
+                           </android.support.v7.widget.RecyclerView>
                         </RelativeLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp"
                               android:layout_marginTop="15dp" android:background="#f1f1f1"/>
                         <RelativeLayout
                                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="15dp" android:id="@+id/rl_deadline_modify_post"
                         >
 
                             <TextView
@@ -139,7 +125,7 @@
                                     android:layout_width="82dp" android:layout_height="28dp" android:layout_marginTop="10dp"
                                     android:layout_below="@id/txt_deadline_modify_post" android:background="@drawable/cb_yellow_fill_border"
                                     android:text="n일" android:textSize="14dp" android:textColor="#ffffff"
-                                    style="?android:attr/borderlessButtonStyle"
+                                    style="?android:attr/borderlessButtonStyle" android:visibility="gone"
                                     android:clickable="false"  android:id="@+id/txt_deadline_modify_tag"
                             />
 
@@ -159,14 +145,15 @@
                         <View android:layout_width="match_parent" android:layout_height="1dp"
                               android:layout_marginTop="15dp" android:background="#f1f1f1"/>
 
-                        <ScrollView android:layout_width="wrap_content"
+                        <ScrollView android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
                             <EditText
                                     android:fontFamily="@font/seoulnamsanm"
-                                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                                    android:background="@null" android:layout_marginTop="15dp" android:gravity="top"
-                                    android:hint="내용을 작성해주세요\n\n\n\n\n\n\n\n\n\n\n\n" android:textSize="16dp" android:textColor="#262626"
-                                    android:id="@+id/edt_contents_modify_post"
+                                    android:id="@+id/edt_contents_modify_post" android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" android:layout_marginTop="15dp" android:background="@null"
+                                    android:gravity="top" android:hint="내용을 작성해주세요\n\n\n\n\n\n\n\n\n\n\n\n"
+                                    android:textColor="#262626"
+                                    android:textSize="16dp"
                             />
                         </ScrollView>
 

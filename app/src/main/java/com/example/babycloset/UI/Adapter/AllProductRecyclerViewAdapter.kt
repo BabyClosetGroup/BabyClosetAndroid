@@ -1,8 +1,6 @@
 package com.example.babycloset.UI.Adapter
-
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,30 +8,35 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.babycloset.Data.AllProductData
+import com.example.babycloset.Data.AllPostRVData
 import com.example.babycloset.R
+import com.example.babycloset.UI.Activity.ProductActivity
+import org.jetbrains.anko.startActivity
 
-class AllProductRecyclerViewAdapter(val ctx : Context, val dataList : ArrayList<AllProductData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
+class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<AllPostRVData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):Holder {
        val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_all_product, viewGroup, false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = datalist.size
 
     override fun onBindViewHolder(holder : Holder, position: Int) {
+
+        val dataList : ArrayList<String> = datalist[position].areaName
+
         Glide.with(ctx)
-            .load(dataList[position].mainImage)
+            .load(datalist[position].mainImage)
+            .centerCrop()
             .into(holder.mainImage)
-        holder.postTitle.text = dataList[position].postTitle
-        holder.areaName.text = dataList[position].areaName
 
-
+        holder.postTitle.text = datalist[position].postTitle
+        holder.areaName.text = dataList[0] + " 외 " + dataList.size + "구"
         holder.container.setOnClickListener {
-            Log.e("title", dataList[position].postTitle)
+            ctx.startActivity<ProductActivity>(
+                "postIdx" to datalist[position].postIdx
+            )
         }
-
-
     }
 
     inner class Holder(itemView:View) : RecyclerView.ViewHolder(itemView){
