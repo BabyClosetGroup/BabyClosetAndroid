@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
@@ -27,6 +28,11 @@ class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListDat
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        //이미지에 rounding 주기
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.qr_list_img.background = drawable
+        holder.qr_list_img.clipToOutline = true
+
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.qr_list_img)
         holder.qr_list_title.text=dataList[position].postTitle
         holder.qr_list_area.text=dataList[position].areaName[0]  //수정필요

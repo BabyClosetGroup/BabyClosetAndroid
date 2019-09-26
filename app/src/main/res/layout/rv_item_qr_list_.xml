@@ -13,6 +13,7 @@
             <ImageView
                     android:layout_width="109dp"
                     android:layout_height="109dp"
+
                     app:srcCompat="@drawable/qr_list_img"
                     android:id="@+id/qr_list_img"/>
             <LinearLayout

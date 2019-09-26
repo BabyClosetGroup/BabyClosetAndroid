@@ -4,6 +4,7 @@ package com.example.babycloset.UI.Fragment
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.getSystemService
@@ -28,6 +29,8 @@ import com.example.babycloset.UI.Adapter.HomeDeadlineRecyclerAdapter
 import com.example.babycloset.UI.Adapter.HomeRecentRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.rv_item_home_deadline.*
+import kotlinx.android.synthetic.main.rv_item_home_recent.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.startActivityForResult

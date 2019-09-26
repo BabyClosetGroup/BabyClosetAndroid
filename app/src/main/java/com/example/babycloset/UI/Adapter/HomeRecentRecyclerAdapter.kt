@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,11 @@ class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeR
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, p1: Int) {
+        //이미지에 rounding 주기
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.img_recent.background = drawable
+        holder.img_recent.clipToOutline = true
+
         Glide.with(ctx).load(dataList[p1].mainImage).into(holder.img_recent)
         holder.txt_title.text=dataList[p1].postTitle
         holder.txt_area.text=dataList[p1].areaName[0] //수정필요

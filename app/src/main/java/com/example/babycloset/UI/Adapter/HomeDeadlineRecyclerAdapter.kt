@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,9 @@ import com.bumptech.glide.Glide
 import com.example.babycloset.Data.HomeDeadlineData
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.ProductActivity
+import kotlinx.android.synthetic.main.rv_item_home_deadline.*
 import kotlinx.android.synthetic.main.rv_item_home_deadline.view.*
+import kotlinx.android.synthetic.main.rv_item_home_recent.*
 
 class HomeDeadlineRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeDeadlineData>): RecyclerView.Adapter<HomeDeadlineRecyclerAdapter.Holder>(){
     var postIdx = -1
@@ -26,6 +29,11 @@ class HomeDeadlineRecyclerAdapter (val ctx: Context, val dataList: ArrayList<Hom
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, p1: Int) {
+        //이미지에 rounding 주기
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.img_deadline.background = drawable
+        holder.img_deadline.clipToOutline = true
+
         Glide.with(ctx).load(dataList[p1].mainImage).into(holder.img_deadline)
         holder.txt_deadline_day.text=dataList[p1].deadline
         holder.txt_title.text=dataList[p1].postTitle
