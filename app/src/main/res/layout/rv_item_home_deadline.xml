@@ -16,6 +16,7 @@
             <ImageView
                     android:layout_width="105dp"
                     android:layout_height="105dp"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/img_camera"
                     android:id="@+id/img_home_deadline"/>
             <TextView

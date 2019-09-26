@@ -83,15 +83,15 @@
                             android:src="@drawable/home_btn_arrow"/>
                 </LinearLayout>
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/rv_item_deadline_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/rv_item_deadline_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -137,14 +137,16 @@
                             android:src="@drawable/home_btn_arrow"/>
                 </LinearLayout>
             </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/rv_item_recent_all"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="40dp">
-
-            </android.support.v7.widget.RecyclerView>
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/rv_item_recent_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="40dp">
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>

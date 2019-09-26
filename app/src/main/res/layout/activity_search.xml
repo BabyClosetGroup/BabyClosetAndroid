@@ -40,17 +40,16 @@
                     android:id="@+id/frame_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="invisible">
-                <LinearLayout
+                    android:visibility="visible">
+                <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent">
                     <android.support.v7.widget.RecyclerView
-                            android:layout_marginTop="16dp"
                             android:id="@+id/rv_item_search_all"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="25dp">
                     </android.support.v7.widget.RecyclerView>
                     <Button
                             android:id="@+id/btn_search_product_more"
@@ -61,13 +60,13 @@
                             android:textSize="17sp"
                             android:textColor="#ffffff"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="25dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:background="@drawable/cb_yellow_fill_border"
                             android:layout_marginBottom="16dp"
+                            android:layout_below="@+id/rv_item_search_all"
                             style="?android:attr/borderlessButtonStyle"/>
-                </LinearLayout>
+                </RelativeLayout>
             </ScrollView>
             <LinearLayout
                     android:id="@+id/frame_search_none"
@@ -75,7 +74,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@color/white"
-                    android:visibility="visible">
+                    android:visibility="invisible">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
