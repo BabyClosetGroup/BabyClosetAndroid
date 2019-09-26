@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.LinearLayout
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.QRListData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetQRListResponse
@@ -21,7 +22,6 @@ import retrofit2.Response
 class QRListActivity : AppCompatActivity() {
     lateinit var qrListRecyclerAdapter: QRListRecyclerAdapter
     var qrListDataList: ArrayList<QRListData> = ArrayList()
-    val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
 
     val networkService: NetworkService by lazy{
@@ -52,6 +52,7 @@ class QRListActivity : AppCompatActivity() {
     }
 
     private fun getQRListResponse(){
+        val token: String = SharedPreference.getUserToken(this)
         val getQRListResponse=networkService.getQRListResponse("application/json",token)
         getQRListResponse.enqueue(object: Callback<GetQRListResponse>{
             override fun onFailure(call: Call<GetQRListResponse>, t: Throwable) {

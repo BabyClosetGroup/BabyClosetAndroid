@@ -17,21 +17,49 @@
         <View android:layout_width="match_parent" android:layout_height="3dp"
             android:background="@drawable/tab_shadow"/>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="43dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_email"
-                    android:clickable="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                android:id="@+id/rv_email"
+                android:clickable="true"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="43dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/image"
+                    android:layout_marginBottom="59.7dp"/>
+
+                <TextView
+                    android:id="@+id/ll_text_email_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="21sp"
+                    android:textColor="#2f2f2f"
+                    android:textSize="17sp"
+                    android:text="아무도 말을 건 사람이 없어요!"
+                    android:layout_marginBottom="77dp"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 </RelativeLayout>

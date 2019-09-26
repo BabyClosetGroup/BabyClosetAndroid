@@ -57,6 +57,15 @@ interface NetworkService {
         @Body() body:JsonObject
     ): Call<PostQRcodeResponse>
 
+    //검색 조회하기
+    @POST("/post/search/{pagination}")
+    fun postSearchResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("pagination") pagination: Int,
+        @Body() body:JsonObject
+    ): Call<PostSearchResponse>
+
     //프로필 수정
     @Multipart
     @PUT("/user")

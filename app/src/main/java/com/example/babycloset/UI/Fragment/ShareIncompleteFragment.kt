@@ -54,9 +54,8 @@ class ShareIncompleteFragment : Fragment() {
     private fun getShareIncompleteResponse(){
 
 
-        //val token = SharedPreference.getUserToken(ctx)
-
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+        val token = SharedPreference.getUserToken(ctx)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
 
         val getShareIncompleteResponse = networkService.getshareIncompleteResponse("application/json", token)
         getShareIncompleteResponse.enqueue(object : retrofit2.Callback<GetShareIncompleteResponse>{
