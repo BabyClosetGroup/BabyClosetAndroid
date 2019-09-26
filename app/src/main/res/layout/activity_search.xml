@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.Activity.SearchActivity"
+        android:background="@color/white">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+        <EditText
+                android:id="@+id/edit_searh_after_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="어떤 옷을 찾으시나요?"
+                android:background="@drawable/search_background"
+                android:textSize="16sp"
+                android:textColor="#b9b9b9"
+                android:inputType="text"
+                android:fontFamily="@font/seoulnamsanm"
+                android:paddingLeft="33dp"
+                android:paddingVertical="12dp"
+                android:layout_marginHorizontal="16dp"/>
+        <ImageView
+                android:id="@+id/img_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search_img"
+                android:layout_marginLeft="24dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"/>
+    </RelativeLayout>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <ScrollView
+                    android:id="@+id/frame_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                    <android.support.v7.widget.RecyclerView
+                            android:layout_marginTop="16dp"
+                            android:id="@+id/rv_item_search_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+                    </android.support.v7.widget.RecyclerView>
+                    <Button
+                            android:id="@+id/btn_search_product_more"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:text="상품 더보기"
+                            android:fontFamily="@font/seoulnamsanm"
+                            android:textSize="17sp"
+                            android:textColor="#ffffff"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/cb_yellow_fill_border"
+                            android:layout_marginBottom="16dp"
+                            style="?android:attr/borderlessButtonStyle"/>
+                </LinearLayout>
+            </ScrollView>
+            <LinearLayout
+                    android:id="@+id/frame_search_none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:visibility="visible">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="검색 결과가 없습니다!"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/seoulnamsanm"
+                        android:textColor="#262626"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="125dp"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</RelativeLayout>

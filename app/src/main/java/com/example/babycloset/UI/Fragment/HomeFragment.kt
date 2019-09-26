@@ -1,13 +1,21 @@
 package com.example.babycloset.UI.Fragment
 
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat.getSystemService
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.HomeDeadlineData
 import com.example.babycloset.Data.HomeRecentData
 import com.example.babycloset.Network.ApplicationController
@@ -15,15 +23,15 @@ import com.example.babycloset.Network.Get.GetHomeResponse
 import com.example.babycloset.Network.NetworkService
 
 import com.example.babycloset.R
-import com.example.babycloset.UI.Activity.AllProductActivity
-import com.example.babycloset.UI.Activity.DeadLineProductActivity
-import com.example.babycloset.UI.Activity.EmailActivity
-import com.example.babycloset.UI.Activity.QRMainActivity
+import com.example.babycloset.UI.Activity.*
 import com.example.babycloset.UI.Adapter.HomeDeadlineRecyclerAdapter
 import com.example.babycloset.UI.Adapter.HomeRecentRecyclerAdapter
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.startActivityForResult
+import org.jetbrains.anko.support.v4.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,7 +48,7 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
     lateinit var homeDeadlineRecyclerAdapter: HomeDeadlineRecyclerAdapter
     lateinit var homeRecentRecyclerAdapter: HomeRecentRecyclerAdapter
-    val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
+
     var deadlineDataList: ArrayList<HomeDeadlineData> = ArrayList()
     var recentDataList: ArrayList<HomeRecentData> = ArrayList()
 
@@ -79,20 +87,34 @@ class HomeFragment : Fragment() {
             startActivity<DeadLineProductActivity>("id" to 6)
         }
 
+        //검색
+        edit_searh_value.setOnKeyListener { v, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
+                if(edit_searh_value.text.toString()==""){
+                    val builder: AlertDialog.Builder= AlertDialog.Builder(context!!)
+                    builder.setMessage("검색어를 입력해주세요!")
+                    builder.setPositiveButton("예"){dialog, i ->
+                        //커서 놓기
+                        edit_searh_value.isFocusableInTouchMode=true
+                        edit_searh_value.requestFocus()
+                        val imm=context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.showSoftInput(edit_searh_value,0)
+                    }
+                    val dialog=builder.create()
+                    dialog.show()
+                }else {
+                    startActivityForResult<SearchActivity>(1000, "search_word" to edit_searh_value.text.toString())
+                    edit_searh_value.text = null
+                    KeyEvent.ACTION_DOWN
+                    return@setOnKeyListener true
+                }
+            }
+            false
+        }
+
     }
 
     private fun configDeadline(){
-//        dataList.add(HomeDeadlineData(
-//            0,"하늘색 잠옷","D-0","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeDeadlineData(
-//            0,"하늘색 잠옷","D-0","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeDeadlineData(
-//            0,"하늘색 잠옷","D-0","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-
-
         homeDeadlineRecyclerAdapter= HomeDeadlineRecyclerAdapter(context!!,deadlineDataList)
         rv_item_deadline_all.adapter = homeDeadlineRecyclerAdapter
         rv_item_deadline_all.layoutManager = GridLayoutManager(context!!,3)
@@ -100,21 +122,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun configRecent(){
-
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-
-
         homeRecentRecyclerAdapter= HomeRecentRecyclerAdapter(context!!,recentDataList)
         rv_item_recent_all.adapter = homeRecentRecyclerAdapter
         rv_item_recent_all.layoutManager = GridLayoutManager(context!!,2)
@@ -122,6 +129,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getHomeResponse(){
+        val token: String = SharedPreference.getUserToken(context!!)
         val getHomeResponse = networkService.getHomeResponse("application/json",token)
         getHomeResponse.enqueue(object: Callback<GetHomeResponse>{
             override fun onFailure(call: Call<GetHomeResponse>, t: Throwable) {
@@ -135,9 +143,12 @@ class HomeFragment : Fragment() {
                         deadlineDataList.clear()
                         recentDataList.clear()
 
-                        val isNewMessage=response.body()!!.data.isNewMessage
-                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                        var isNewMessage=response.body()!!.data.isNewMessage
 
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_email.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_email.setImageResource(R.drawable.home_btn_email_update)
                         }
                         val tmp: ArrayList<HomeDeadlineData> = response.body()!!.data.deadlinePost
                         val tmp2: ArrayList<HomeRecentData> = response.body()!!.data.recentPost

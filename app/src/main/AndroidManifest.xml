@@ -18,7 +18,10 @@
             android:label="아가옷장"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme">
+        <activity android:name=".UI.Activity.SearchActivity">
+        </activity>
         <activity android:name=".UI.Activity.QRCreateActivity">
         </activity>
         <activity
@@ -61,8 +64,9 @@
         <activity android:name=".UI.Activity.WritePostActivity"/>
         <activity android:name=".UI.Activity.ShareProductActivity">
         </activity>
-        <activity android:name=".UI.Activity.ReceiveProductActivity">
-        </activity>
+        <activity android:name=".UI.Activity.ReceiveProductActivity"/>
+        <activity android:name=".UI.Activity.EmailActivity"/>
+        <activity android:name=".UI.Activity.EmailMsgActivity"/>
     </application>
 
 </manifest>
