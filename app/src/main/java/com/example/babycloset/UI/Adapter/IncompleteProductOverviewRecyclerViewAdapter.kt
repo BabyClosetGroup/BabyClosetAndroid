@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Adapter
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,10 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.thumbnail.background = drawable
+        holder.thumbnail.clipToOutline = true
+
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         holder.title.text = dataList[position].postTitle
         val locList:ArrayList<String> = dataList[position].areaName

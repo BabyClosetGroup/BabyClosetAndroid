@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
         var tabgroup=tl_ac_main_bottomTab.getChildAt(0) as ViewGroup
         var tab:View=tabgroup.getChildAt(0)
         var p: ViewGroup.MarginLayoutParams= tab.layoutParams as ViewGroup.MarginLayoutParams
-        p.setMargins(0,0,80,0)
+        p.setMargins(0,0,85,0)
         tab.requestLayout()
 
         var tab2: View=tabgroup.getChildAt(1)
         var p2: ViewGroup.MarginLayoutParams=tab2.layoutParams as ViewGroup.MarginLayoutParams
-        p2.setMargins(80,0,0,0)
+        p2.setMargins(85,0,0,0)
         tab2.requestLayout()
 
         tl_ac_main_bottomTab.getTabAt(0)!!.customView=navCategoryMainLayout.findViewById(R.id.btn_bottom_navi_home_tab) as RelativeLayout

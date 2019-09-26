@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -25,12 +26,19 @@ class EmailRecyclerAdapter (val ctx: Context, val dataList: ArrayList<EmailData>
         holder.text_email_person.text = dataList[position].personName
         holder.text_email_send_time.text = dataList[position].sendTime
         holder.text_email_msg.text = dataList[position].emailMsg
+        holder.text_email_msg_plus.text = dataList[position].msgPlus
         holder.text_email_msg_num.text = dataList[position].msgNum
 
         holder.ll_email_person.setOnClickListener {
             Log.e("email", dataList[position].personName)
             ctx.startActivity<EmailMsgActivity>()
         }
+
+        if(dataList[position].msgNum.equals("0")){ //온거 없으면 +(숫자) 없애기
+            holder.text_email_msg_plus.visibility = INVISIBLE
+            holder.text_email_msg_num.visibility = INVISIBLE
+        }
+
     }
 
     inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -38,6 +46,7 @@ class EmailRecyclerAdapter (val ctx: Context, val dataList: ArrayList<EmailData>
         var text_email_person = itemView.findViewById(R.id.text_email_person) as TextView
         var text_email_send_time = itemView.findViewById(R.id.text_email_send_time) as TextView
         var text_email_msg = itemView.findViewById(R.id.text_email_msg) as TextView
+        var text_email_msg_plus = itemView.findViewById(R.id.text_email_msg_plus) as TextView
         var text_email_msg_num = itemView.findViewById(R.id.text_email_msg_num) as TextView
     }
 }

@@ -1,42 +1,123 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
-import android.content.Context
+import android.content.*
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
-import android.content.DialogInterface
-import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.nfc.Tag
+import android.os.Build
+import android.os.Handler
+import android.provider.Settings
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
+import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Post.PostWritePostResponse
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.util.jar.Manifest
 
 
 class WritePostActivity : AppCompatActivity() {
+
+    private var permissionsRequired =   //권한
+        arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+    private val PERMISSION_CALLBACK_CONSTANT = 101
+    private val REQUEST_PERMISSION_SETTING = 101
+
+    private var permissionStatus: Boolean = false
+    private var sentToSettings = false
+
     var deadline : String = ""
-    lateinit var pictureUri : Uri
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
+
+    var areaList = arrayListOf<String>()
+    var ageList = arrayListOf<String>()
+    var categoryList = arrayListOf<String>()
+
+    var pictureUri1 : Uri? = null
+    var pictureUri2 : Uri? = null
+    var pictureUri3 : Uri? = null
+    var pictureUri4 : Uri? = null
+    var pictureList =  ArrayList<MultipartBody.Part>()
+
+    var postIdx : Int = 0
+
     val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
     val REQUEST_CODE_PICTURE2 : Int = 200
     val REQUEST_CODE_PICTURE3 : Int = 300
     val REQUEST_CODE_PICTURE4 : Int = 400
 
+    val networkService : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
 
+        configWritePost()
+
+        checkPermission()
+
+    }
+
+    fun checkPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Tag", "권한 설정 완료")
+            }  else {
+                Log.d("Tag", "권한 설정 요청")
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        Log.d("Tag", "onRequestPermissionsResult");
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Tag", "Permission: " + permissions[0] + "was " + grantResults[0]);
+        }
+    }
+
+    fun configWritePost(){
         //이미지 선택
         img_write_post1.setOnClickListener { showImageDialog(1) }
         img_write_post2.setOnClickListener { showImageDialog(2) }
@@ -44,21 +125,18 @@ class WritePostActivity : AppCompatActivity() {
         img_write_post4.setOnClickListener { showImageDialog(4) }
 
         //카테고리 선택 액티비티 이동
-        btn_category_write_post.setOnClickListener {
-            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY)
+        rl_category_write_post.setOnClickListener {
+            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY,"requestCode" to REQUEST_CODE_CATEGORY)
         }
 
         //다이얼로그 팝업
-        btn_deadline_write_post.setOnClickListener { showDeadlineDialog() }
+        rl_deadline_write_post.setOnClickListener { showDeadlineDialog() }
 
         //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {
-           isValid()
+            isValid()
         }
     }
-
-
-    //툴바
 
     //마감기간 선택 다이얼로그
     fun showDeadlineDialog(){
@@ -104,10 +182,22 @@ class WritePostActivity : AppCompatActivity() {
                 }
                 1->{
                     when(requestCodeNumber){
-                        1-> img_write_post1.setImageBitmap(null)
-                        2-> img_write_post2.setImageBitmap(null)
-                        3-> img_write_post3.setImageBitmap(null)
-                        4-> img_write_post4.setImageBitmap(null)
+                        1-> {
+                            img_write_post1.setImageBitmap(null)
+                            pictureUri1 = null
+                        }
+                        2-> {
+                            img_write_post2.setImageBitmap(null)
+                            pictureUri2 = null
+                        }
+                        3-> {
+                            img_write_post3.setImageBitmap(null)
+                            pictureUri3 = null
+                        }
+                        4-> {
+                            img_write_post4.setImageBitmap(null)
+                            pictureUri4 = null
+                        }
                     }
                 }
             }
@@ -125,19 +215,19 @@ class WritePostActivity : AppCompatActivity() {
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
 
-                val areaList = data!!.getStringArrayListExtra("areaList")
-                val ageList = data!!.getStringArrayListExtra("ageList")
-                val categoryList = data!!.getStringArrayListExtra("categoryList")
+                areaList = data!!.getStringArrayListExtra("areaList")
+                ageList = data!!.getStringArrayListExtra("ageList")
+                categoryList = data!!.getStringArrayListExtra("categoryList")
 
-                var dataList : ArrayList<CategoryData> = ArrayList()
+                val dataList : ArrayList<CategoryData> = ArrayList()
 
-                for(i in 0..areaList.size-1){
+                for(i in 0 .. areaList.size-1){
                     dataList.add(CategoryData(areaList[i]))
                 }
-                for(i in 0..ageList.size-1){
+                for(i in 0 .. ageList.size-1){
                     dataList.add(CategoryData(ageList[i]))
                 }
-                for(i in 0..categoryList.size-1){
+                for(i in 0 .. categoryList.size-1){
                     dataList.add(CategoryData(categoryList[i]))
                 }
 
@@ -154,38 +244,38 @@ class WritePostActivity : AppCompatActivity() {
         if(requestCode == REQUEST_CODE_PICTURE1){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post1)
+                    pictureUri1 = it.data!!
+                    Glide.with(this).load(pictureUri1).into(img_write_post1)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE2){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post2)
+                    pictureUri2 = it.data!!
+                    Glide.with(this).load(pictureUri2).into(img_write_post2)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE3){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).thumbnail(0.1f).into(img_write_post3)
+                    pictureUri3 = it.data!!
+                    Glide.with(this).load(pictureUri3).into(img_write_post3)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE4){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_write_post4)
+                    pictureUri4 = it.data!!
+                    Glide.with(this).load(pictureUri4)
+                        .into(img_write_post4)
 
                 }
             }
         }
     }
-
 
     fun isValid(){
         if(rv_category_write_post.visibility == View.GONE){
@@ -196,13 +286,73 @@ class WritePostActivity : AppCompatActivity() {
         }
         else if(edt_title_write_post.text.toString()==""){
             showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
+        }else if(edt_contents_wirte_post.text.toString()==""){
+            showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
+        }
+        else if(pictureUri1 == null){
+           showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
-            toast("통신")
+            postWritePostResponse()
+
+            toast("글 작성을 완료하였습니다!")
+            Handler().postDelayed({
+                startActivity<ProductActivity>("postIdx" to postIdx)
+                finish()
+            },1000)
         }
     }
+    //통신
+    fun postWritePostResponse(){
 
-    //알림 팝업
+        val title_rb = stringToRequestBody(edt_title_write_post.text.toString())
+        val content_rb = stringToRequestBody(edt_contents_wirte_post.text.toString())
+        val deadline_rb = stringToRequestBody(deadline)
+        val areaC_rb = stringToRequestBody(listToString(areaList))
+        val ageC_rb = stringToRequestBody(listToString(ageList))
+        val catC_rb = stringToRequestBody(listToString(categoryList))
+
+
+        if(pictureUri1 != null)
+        {
+            createMBP(contentResolver, pictureUri1!! ,pictureList)
+        }
+        if(pictureUri2 != null)
+        {
+            createMBP(contentResolver, pictureUri2!! ,pictureList)
+        }
+        if(pictureUri3 != null)
+        {
+            createMBP(contentResolver, pictureUri3!! ,pictureList)
+        }
+        if(pictureUri4 != null)
+        {
+            createMBP(contentResolver, pictureUri4!! ,pictureList)
+        }
+
+
+        val postWritePostResponse = networkService.postWritePostResponse(SharedPreference.getUserToken(this), title_rb,
+            content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList )
+
+        postWritePostResponse.enqueue(object : Callback<PostWritePostResponse>{
+            override fun onFailure(call: Call<PostWritePostResponse>, t: Throwable) {
+                Log.e("게시물 등록 액티비티 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<PostWritePostResponse>, response: Response<PostWritePostResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        postIdx = response.body()!!.data.postIdx
+                    }
+                }
+
+            }
+        })
+    }
+
+    //ModifyPostActivity 활용
     companion object{
+
+        //알림 팝업
         fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){
             val builder = AlertDialog.Builder(ctx)
             builder
@@ -211,7 +361,53 @@ class WritePostActivity : AppCompatActivity() {
                 .setNegativeButton(Html.fromHtml("<font color='#ffc107'>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
             builder.show()
         }
-    }
 
-    //통신
+        //카테고리->string
+        fun listToString(list: ArrayList<String>) : String{
+            var categoryStr = ""
+            for(i in 0 ..list.size-1){
+                if(i == list.size-1){
+                    categoryStr += list[i]
+                }else{
+                    categoryStr += list[i] + ", "
+                }
+            }
+            return categoryStr
+        }
+
+        //String -> RequestBody
+        fun stringToRequestBody(str : String):RequestBody{
+            val rb =  RequestBody.create(MediaType.parse("text/plain"), str)
+            return rb
+        }
+
+        fun createMBP(cr : ContentResolver, uri : Uri, list : ArrayList<MultipartBody.Part>){
+            val options = BitmapFactory.Options()
+            val inputStream  = cr.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+
+            val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
+            val picture_rb = MultipartBody.Part.createFormData("postImages", "img", photoBody)
+            list.add(picture_rb)
+
+        }
+
+        fun bitmapToFile(ctx : Context, b : Bitmap, fileName : String) : String{
+
+            //임시파일 저장 경로
+            val storage : File = ctx.cacheDir
+            val name = fileName
+
+            val tempFile = File(storage, name)
+
+            tempFile.createNewFile()
+            val fos  = FileOutputStream(tempFile)
+            b.compress(Bitmap.CompressFormat.JPEG, 90, fos)
+            fos.close()
+
+            return tempFile.absolutePath
+        }
+    }
 }

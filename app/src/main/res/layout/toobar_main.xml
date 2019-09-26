@@ -15,7 +15,7 @@
                 android:id="@+id/img_home_qr_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/home_btn_qrcode"
+                app:srcCompat="@drawable/home_btn_qr_code_update"
                 android:layout_centerVertical="true"/>
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:text="아가옷장"
             android:textColor="#383838"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/seoulnamsaneb"
             android:layout_centerInParent="true"
             android:layout_marginTop="23dp"
             android:layout_marginBottom="18dp"/>
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                app:srcCompat="@drawable/home_btn_email"/>
+                app:srcCompat="@drawable/home_btn_email_update"/>
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>

@@ -1,22 +1,67 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.media.Image
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.transition.Transition
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.example.babycloset.DB.SharedPreference
+import com.example.babycloset.Data.CategoryData
+import com.example.babycloset.Network.ApplicationController
+import com.example.babycloset.Network.Get.GetProductDetailResponse
+import com.example.babycloset.Network.NetworkService
+import com.example.babycloset.Network.Put.PutPostResponse
 import com.example.babycloset.R
+import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
+import kotlinx.android.synthetic.main.activity_write_post.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
-    lateinit var pictureUri : Uri
+    var imgNum : Int = 0
+    var postIdx : Int = 0
+
+    lateinit var b : Drawable
+
+    var imgList = ArrayList<String>()
+    var areaList = arrayListOf<String>()
+    var ageList = arrayListOf<String>()
+    var categoryList = arrayListOf<String>()
+
+    lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
+
+    var pictureUri1 : Uri? = null
+    var pictureUri2 : Uri? = null
+    var pictureUri3 : Uri? = null
+    var pictureUri4 : Uri? = null
+    var pictureList =  ArrayList<MultipartBody.Part>()
 
     val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
@@ -24,19 +69,28 @@ class ModifyPostActivity : AppCompatActivity() {
     val REQUEST_CODE_PICTURE3 : Int = 300
     val REQUEST_CODE_PICTURE4 : Int = 400
 
+    val networkService : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify_post)
+
+        val intent : Intent = getIntent()
+        postIdx = intent.getIntExtra("postIdx", 0)
+
+        getProductDetailResponse()
 
         img_modify_post1.setOnClickListener { showImageDialog(1) }
         img_modify_post2.setOnClickListener { showImageDialog(2) }
         img_modify_post3.setOnClickListener { showImageDialog(3) }
         img_modify_post4.setOnClickListener { showImageDialog(4) }
 
-        btn_category_modify_post.setOnClickListener {
-            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY)
+        rl_category_modify_post.setOnClickListener {
+            startActivityForResult<CategoryActivity>(REQUEST_CODE_CATEGORY, "requestCode" to REQUEST_CODE_CATEGORY)
         }
-        btn_deadline_modify_post.setOnClickListener {
+        rl_deadline_modify_post.setOnClickListener {
             showDeadlineDialog()
         }
         btn_share_modify_post.setOnClickListener {
@@ -107,13 +161,27 @@ class ModifyPostActivity : AppCompatActivity() {
         //카테고리
         if(requestCode == REQUEST_CODE_CATEGORY){
             if(resultCode == Activity.RESULT_OK) {
-                txt_area_tag_modify_post.text = data!!.getStringExtra("area")
-                txt_age_tag_modify_post.text = data.getStringExtra("age")
-                txt_category_tag_modify_post.text = data.getStringExtra("category")
+                areaList = data!!.getStringArrayListExtra("areaList")
+                ageList = data!!.getStringArrayListExtra("ageList")
+                categoryList = data!!.getStringArrayListExtra("categoryList")
 
-                txt_area_tag_modify_post.visibility = View.VISIBLE
-                txt_age_tag_modify_post.visibility = View.VISIBLE
-                txt_category_tag_modify_post.visibility = View.VISIBLE
+                var dataList : ArrayList<CategoryData> = ArrayList()
+
+                for(i in 0..areaList.size-1){
+                    dataList.add(CategoryData(areaList[i]))
+                }
+                for(i in 0..ageList.size-1){
+                    dataList.add(CategoryData(ageList[i]))
+                }
+                for(i in 0..categoryList.size-1){
+                    dataList.add(CategoryData(categoryList[i]))
+                }
+
+                categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this, dataList)
+                rv_category_modify_post.adapter = categoryRecyclerViewAdapter
+                rv_category_modify_post.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+
+                rv_category_modify_post.visibility = View.VISIBLE
             }
         }
 
@@ -121,51 +189,203 @@ class ModifyPostActivity : AppCompatActivity() {
         if(requestCode == REQUEST_CODE_PICTURE1){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_modify_post1)
+                    pictureUri1 = it.data
+                    Glide.with(this).load(pictureUri1).into(img_modify_post1)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE2){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_modify_post2)
+                    pictureUri2 = it.data
+                    Glide.with(this).load(pictureUri2).into(img_modify_post2)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE3){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).thumbnail(0.1f).into(img_modify_post3)
+                    pictureUri3 = it.data
+                    Glide.with(this).load(pictureUri3).into(img_modify_post3)
                 }
             }
         }
         if(requestCode == REQUEST_CODE_PICTURE4){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
-                    pictureUri = it.data
-                    Glide.with(this).load(pictureUri).into(img_modify_post4)
-
+                    pictureUri4 = it.data
+                    Glide.with(this).load(pictureUri4).into(img_modify_post4)
                 }
             }
         }
     }
 
-
-    fun isValid(){
-        if(txt_area_tag_modify_post.visibility == View.GONE || txt_age_tag_modify_post.visibility == View.GONE || txt_category_tag_modify_post.visibility == View.GONE){
-            WritePostActivity.showNoticeDialog(this,"카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
+    //유효성 검사
+    fun isValid() {
+        if (rv_category_modify_post.visibility == View.GONE) {
+            WritePostActivity.showNoticeDialog(this, "카테고리를 선택해주세요!\n", "카테고리를 선택해야", "글을 작성할 수 있습니다.")
+        } else if (txt_deadline_modify_tag.text == "") {
+            WritePostActivity.showNoticeDialog(this, "마감기한을 선택해주세요!\n", "마감기한을 선택해야", "글을 작성할 수 있습니다.")
+        } else if (edt_title_modify_post.text.toString() == "") {
+            WritePostActivity.showNoticeDialog(this, "제목을 입력해주세요!\n", "제목을 입력하셔야", "글을 작성할 수 있습니다.")
+        }else if(edt_contents_modify_post.text.toString()==""){
+            WritePostActivity.showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
         }
-        else if(deadline==""){
-            WritePostActivity.showNoticeDialog(this,"마감기한을 선택해주세요!\n","마감기한을 선택해야","글을 작성할 수 있습니다." )
-        }
-        else if(edt_title_modify_post.text.toString()==""){
-            WritePostActivity.showNoticeDialog(this, "제목을 입력해주세요!\n","제목을 입력하셔야","글을 작성할 수 있습니다." )
-        }else{
-            toast("통신")
+        else if (pictureList[0] == null) {
+            WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
+        } else {
+            putPostResponse()
+            Handler().postDelayed({
+                Log.e("valid postIdx", postIdx.toString())
+                startActivity<ProductActivity>("postIdx" to postIdx)
+                finish()
+            },1000)
         }
     }
+
+    //게시물 상세보기 통신
+    fun getProductDetailResponse(){
+        val getProductDetailResponse = networkService.getProductDetailResponse(SharedPreference.getUserToken(this), postIdx)
+
+        getProductDetailResponse.enqueue(object : Callback<GetProductDetailResponse>{
+            override fun onFailure(call: Call<GetProductDetailResponse>, t: Throwable) {
+                Log.e("상품상세보기 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<GetProductDetailResponse>, response: Response<GetProductDetailResponse>) {
+                if (response.isSuccessful) {
+                    if(response.body()!!.success ) {
+                        Log.e("성공", response.message())
+
+                        val title = response.body()!!.data.detailPost.postTitle
+                        edt_title_modify_post.setText(title)   //제목
+                        val content = response.body()!!.data.detailPost.postContent
+                        edt_contents_modify_post.setText(content) //내용
+                        txt_deadline_modify_tag.visibility = View.VISIBLE
+                        txt_deadline_modify_tag.text = response.body()!!.data.detailPost.deadline.substring(2,3) + "일" //마감일
+
+                        //카테고리
+                        areaList = response.body()!!.data.detailPost.areaName
+                        ageList = response.body()!!.data.detailPost.ageName
+                        categoryList = response.body()!!.data.detailPost.clothName
+
+                        val dataList : ArrayList<CategoryData> = ArrayList()
+
+                        for(i in 0 .. areaList.size-1){
+                            dataList.add(CategoryData(areaList[i]))
+                        }
+                        for(i in 0 .. ageList.size-1){
+                            dataList.add(CategoryData(ageList[i]))
+                        }
+                        for(i in 0 .. categoryList.size-1){
+                            dataList.add(CategoryData(categoryList[i]))
+                        }
+
+                        categoryRecyclerViewAdapter = CategoryRecyclerViewAdapter(this@ModifyPostActivity, dataList)
+                        rv_category_modify_post.adapter = categoryRecyclerViewAdapter
+                        rv_category_modify_post.layoutManager = LinearLayoutManager(this@ModifyPostActivity, LinearLayout.HORIZONTAL, false)
+
+                        rv_category_modify_post.visibility = View.VISIBLE
+
+                        //이미지
+                        imgNum = response.body()!!.data.detailPost.postImages.size
+                        imgList = response.body()!!.data.detailPost.postImages
+
+                        val array = arrayOf(img_modify_post1, img_modify_post2, img_modify_post3, img_modify_post4)
+                        for(i in 0..imgNum-1){
+                            if(imgList[i].isNotEmpty()){
+                                setImageView(response, array[i], i)
+                            }
+                        }
+                    }
+
+                }
+            }
+        })
+    }
+
+    fun setImageView(response: Response<GetProductDetailResponse>, imageView: ImageView ,i : Int){
+        val target = object : SimpleTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
+                imageView.setImageDrawable(resource)
+                bitmapToMBP(this@ModifyPostActivity, resource, pictureList, i)
+                Log.e("i", "ddkdk")
+            }
+        }
+
+        Glide.with(this@ModifyPostActivity)
+            .asDrawable()
+            .load(response.body()!!.data.detailPost.postImages[i])
+            .thumbnail(0.1f)
+            .fitCenter()
+            .into<SimpleTarget<Drawable>>(target)
+
+    }
+
+    fun bitmapToMBP(ctx : Context, d : Drawable, list: ArrayList<MultipartBody.Part>, i : Int){
+        val b = (d as BitmapDrawable).bitmap
+        val file = File(WritePostActivity.bitmapToFile(ctx, b, "img$i"))
+        val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
+        val picture_rb = MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
+        list.add(picture_rb)
+    }
+
+
+    //수정 통신
+    fun putPostResponse(){
+        val title_rb = WritePostActivity.stringToRequestBody(edt_title_modify_post.text.toString())
+        val content_rb = WritePostActivity.stringToRequestBody(edt_contents_modify_post.text.toString())
+        val deadline_rb = WritePostActivity.stringToRequestBody(txt_deadline_modify_tag.text.toString())
+        Log.e("deadline", txt_deadline_modify_tag.text.toString())
+        val areaC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(areaList))
+        val ageC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(ageList))
+        val catC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(categoryList))
+
+        if(pictureUri1 != null)
+        {
+            pictureList.remove(pictureList[0])
+            WritePostActivity.createMBP(contentResolver, pictureUri1!!, pictureList)
+        }
+        if(pictureUri2 != null)
+        {
+            if(pictureList.size > 2){
+                pictureList.remove(pictureList[1])
+                WritePostActivity.createMBP(contentResolver, pictureUri2!!, pictureList)
+            }
+        }
+        if(pictureUri3 != null)
+        {
+            if(pictureList.size > 3) {
+                pictureList.remove(pictureList[2])
+                WritePostActivity.createMBP(contentResolver, pictureUri3!!, pictureList)
+            }
+        }
+        if(pictureUri4 != null)
+        {
+            if(pictureList.size > 4) {
+                pictureList.remove(pictureList[3])
+                WritePostActivity.createMBP(contentResolver, pictureUri4!!, pictureList)
+            }
+        }
+
+
+        val putPostResponse = networkService.putPostResponse(SharedPreference.getUserToken(this), postIdx,
+            title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb, catC_rb, pictureList)
+
+        putPostResponse.enqueue(object : Callback<PutPostResponse>{
+            override fun onFailure(call: Call<PutPostResponse>, t: Throwable) {
+                Log.e("수정 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<PutPostResponse>, response: Response<PutPostResponse>) {
+                if(response.isSuccessful){
+                    Log.e("수정 통신 성공", response.message())
+                }else{
+                    Log.e("수정 통신 실패", response.message())
+                }
+            }
+        })
+
+}
 
 }

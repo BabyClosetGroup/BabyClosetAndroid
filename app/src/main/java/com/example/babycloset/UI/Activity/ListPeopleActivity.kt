@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -83,6 +84,11 @@ class ListPeopleActivity : AppCompatActivity() {
                         var item: Char
                         item = x[0]
                         txt_application_num.text="("+item+")"
+
+                        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+                        img_thumbnail.background = drawable
+                        img_thumbnail.clipToOutline = true
+
                         Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
                         var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!

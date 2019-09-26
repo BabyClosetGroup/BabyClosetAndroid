@@ -57,7 +57,7 @@
                 tools:text="상대방1의 메세지" />
 
         <TextView
-                android:id="@+id/text_email_msg_num"
+                android:id="@+id/text_email_msg_plus"
                 android:layout_weight="0"
                 android:layout_gravity="right"
                 android:layout_width="wrap_content"
@@ -66,7 +66,19 @@
                 android:textColor="#ffc107"
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="17sp"
-                tools:text="+3" />
+                tools:text="+" />
+
+        <TextView
+            android:id="@+id/text_email_msg_num"
+            android:layout_weight="0"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ffc107"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="17sp"
+            tools:text="3" />
 
     </LinearLayout>
 

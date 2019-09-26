@@ -10,7 +10,7 @@
             android:paddingLeft="15dp" android:paddingRight="15dp"
             android:layout_marginEnd="4dp"  android:background="@drawable/cb_yellow_fill_border"
             android:clickable="false" style="?android:attr/borderlessButtonStyle"
-            android:text="카테고리" android:textColor="#ffffff" android:textSize="14dp"
+            android:text="카테고리" android:textColor="#ffffff" android:textSize="14sp"
             android:id="@+id/txt_rv_item_category"
     />
 </LinearLayout>

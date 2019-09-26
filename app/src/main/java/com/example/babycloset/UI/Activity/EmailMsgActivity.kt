@@ -34,10 +34,10 @@ class EmailMsgActivity : AppCompatActivity() {
 
 //        if(dataList.size == 0) { //디폴트 글자 나오는 경우
 //            rv_email_msg.visibility = GONE
-//            ll_text_email_default.visibility = VISIBLE
+//            ll_text_email_msg_default.visibility = VISIBLE
 //        }
 
-        ll_text_email_default.visibility = GONE
+        ll_text_email_msg_default.visibility = GONE
 
         dataList.add(EmailMsgData(0,"19/01/12 15:51","축하합니다. 여아 투피스 나눔자로 선정 되셨어요!"))
         dataList.add(EmailMsgData(1,"19/01/12 15:55","우와! 감사합니다:)"))

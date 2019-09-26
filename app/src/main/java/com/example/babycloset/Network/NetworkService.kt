@@ -1,10 +1,10 @@
 package com.example.babycloset.Network
 
+import com.example.babycloset.Network.Delete.DeletePostResponse
 import com.example.babycloset.Network.Get.*
-import com.example.babycloset.Network.Post.PostLoginResponse
-import com.example.babycloset.Network.Post.PostRatingResponse
-import com.example.babycloset.Network.Post.PostSignupResponse
+import com.example.babycloset.Network.Post.*
 import com.example.babycloset.Network.Put.PutModifyProfileResponse
+import com.example.babycloset.Network.Put.PutPostResponse
 import com.example.babycloset.Network.Post.PostQRcodeResponse
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
@@ -56,6 +56,15 @@ interface NetworkService {
         @Header("token") token: String,
         @Body() body:JsonObject
     ): Call<PostQRcodeResponse>
+
+    //검색 조회하기
+    @POST("/post/search/{pagination}")
+    fun postSearchResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("pagination") pagination: Int,
+        @Body() body:JsonObject
+    ): Call<PostSearchResponse>
 
     //프로필 수정
     @Multipart
@@ -118,5 +127,95 @@ interface NetworkService {
         @Header("token") token : String,
         @Path("userIdx") userIdx : Int
     ):Call<GetRatingResponse>
-}
 
+    //모든 상품 보기
+    @GET("/post/all/{pagination}")
+    fun getAllPostResponse(
+        @Header("token") token: String,
+        @Path("pagination") pagination : Int
+    ): Call<GetAllPostResponse>
+
+
+    //모든 상품 보기 필터 적용
+    @POST("/post/filter/all/{pagination}")
+    fun postAllPostFilterResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("pagination") pagination : Int,
+        @Body() body: JsonObject
+    ): Call<PostAllPostFilterResponse>
+
+    //마감 상품 보기
+    @GET("/post/deadline/{pagination}")
+    fun getDeadLinePostResponse(
+        @Header("token") token: String,
+        @Path("pagination") pagination : Int
+    ): Call<GetDeadLinePostResponse>
+
+
+    //마감 상품 필터 적용
+    @POST("/post/filter/deadline/{pagination}")
+    fun postDeadLinePostFilterResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
+        @Path("pagination") pagination : Int,
+        @Body() body : JsonObject
+    ): Call<PostDeadLinePostFilterResponse>
+
+    //게시물 상세조회
+    @GET("/post/{postIdx}")
+    fun getProductDetailResponse(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<GetProductDetailResponse>
+
+    //게시물 등록
+    @Multipart
+    @POST("/post")
+    fun postWritePostResponse(
+        @Header("token") token:  String,
+        @Part("title") title :  RequestBody,
+        @Part("content") content:  RequestBody,
+        @Part("deadline") deadline:  RequestBody,
+        @Part("areaCategory") areaCategory:  RequestBody,
+        @Part("ageCategory") ageCategory:  RequestBody,
+        @Part("clothCategory") clothCategory :  RequestBody,
+        @Part postImages : ArrayList<MultipartBody.Part>
+    ) : Call<PostWritePostResponse>
+
+    //게시물 수정
+    @Multipart
+    @PUT("/post/{postIdx}")
+    fun putPostResponse(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int,
+        @Part("title") title :  RequestBody,
+        @Part("content") content:  RequestBody,
+        @Part("deadline") deadline:  RequestBody,
+        @Part("areaCategory") areaCategory:  RequestBody,
+        @Part("ageCategory") ageCategory:  RequestBody,
+        @Part("clothCategory") clothCategory :  RequestBody,
+        @Part postImages : ArrayList<MultipartBody.Part>
+    ) : Call<PutPostResponse>
+
+    //게시물 삭제
+    @DELETE("/post/{postIdx}")
+    fun deletePostResponse(
+        @Header("token") token: String,
+        @Path("postIdx") postIdx: Int
+    ) : Call<DeletePostResponse>
+
+    //게시물 신고
+    @POST("/complain")
+    fun postComplainResponse(
+        @Header("token") token: String,
+        @Body() jsonObject: JsonObject
+    ) : Call<PostComplainResponse>
+
+    //나눔신청
+    @POST("/share")
+    fun postShareResponse(
+        @Header("token") token: String,
+        @Body() jsonObject: JsonObject
+    ) : Call<PostShareResponse>
+}
