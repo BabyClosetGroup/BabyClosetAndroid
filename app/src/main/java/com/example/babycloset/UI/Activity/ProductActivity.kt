@@ -318,9 +318,6 @@ class ProductActivity : AppCompatActivity(){
 
     //게시물 상세보기 통신
    fun getProductDetailResponse(){
-
-        Log.e("getPostIdx", postIdx.toString())
-
         val getProductDetailResponse = networkService.getProductDetailResponse(SharedPreference.getUserToken(this), postIdx)
 
         getProductDetailResponse.enqueue(object : Callback<GetProductDetailResponse>{

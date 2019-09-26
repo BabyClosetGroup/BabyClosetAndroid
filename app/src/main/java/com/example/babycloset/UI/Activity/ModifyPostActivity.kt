@@ -1,9 +1,11 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
@@ -30,18 +32,23 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
 import kotlinx.android.synthetic.main.activity_write_post.*
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
     var imgNum : Int = 0
     var postIdx : Int = 0
+
+    lateinit var b : Drawable
 
     var imgList = ArrayList<String>()
     var areaList = arrayListOf<String>()
@@ -284,45 +291,45 @@ class ModifyPostActivity : AppCompatActivity() {
                         imgNum = response.body()!!.data.detailPost.postImages.size
                         imgList = response.body()!!.data.detailPost.postImages
 
-
-                        for(i in 0..imgList.size-1){
-                            val target = object : SimpleTarget<Drawable>() {
-                                override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
-                                  when(i){
-                                      0->{
-                                          img_modify_post1.setImageDrawable(resource)
-                                          WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post1, pictureList, i)
-                                      }
-                                      1->{
-                                          img_modify_post2.setImageDrawable(resource)
-                                          WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post2, pictureList, i)
-                                      }
-                                      2->{
-                                          img_modify_post3.setImageDrawable(resource)
-                                          WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post3, pictureList, i)
-                                      }
-                                      3->{
-                                          img_modify_post4.setImageDrawable(resource)
-                                          WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post4, pictureList, i)
-                                      }
-
-                                  } }
-
+                        val array = arrayOf(img_modify_post1, img_modify_post2, img_modify_post3, img_modify_post4)
+                        for(i in 0..imgNum-1){
+                            if(imgList[i].isNotEmpty()){
+                                setImageView(response, array[i], i)
                             }
-
-                            Glide.with(this@ModifyPostActivity)
-                                .asDrawable()
-                                .load(response.body()!!.data.detailPost.postImages[i])
-                                .fitCenter()
-                                .into<SimpleTarget<Drawable>>(target)
-
                         }
-
                     }
+
                 }
             }
         })
     }
+
+    fun setImageView(response: Response<GetProductDetailResponse>, imageView: ImageView ,i : Int){
+        val target = object : SimpleTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: com.bumptech.glide.request.transition.Transition<in Drawable>?) {
+                imageView.setImageDrawable(resource)
+                bitmapToMBP(this@ModifyPostActivity, resource, pictureList, i)
+                Log.e("i", "ddkdk")
+            }
+        }
+
+        Glide.with(this@ModifyPostActivity)
+            .asDrawable()
+            .load(response.body()!!.data.detailPost.postImages[i])
+            .thumbnail(0.1f)
+            .fitCenter()
+            .into<SimpleTarget<Drawable>>(target)
+
+    }
+
+    fun bitmapToMBP(ctx : Context, d : Drawable, list: ArrayList<MultipartBody.Part>, i : Int){
+        val b = (d as BitmapDrawable).bitmap
+        val file = File(WritePostActivity.bitmapToFile(ctx, b, "img$i"))
+        val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
+        val picture_rb = MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
+        list.add(picture_rb)
+    }
+
 
     //수정 통신
     fun putPostResponse(){
@@ -334,33 +341,31 @@ class ModifyPostActivity : AppCompatActivity() {
         val ageC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(ageList))
         val catC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(categoryList))
 
-        Log.e("pictureList", pictureList[0].toString())
         if(pictureUri1 != null)
         {
             pictureList.remove(pictureList[0])
-            WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post1, pictureList, 1)
+            WritePostActivity.createMBP(contentResolver, pictureUri1!!, pictureList)
         }
-        if(pictureUri2 != null) //사진이 없는데
+        if(pictureUri2 != null)
         {
             if(pictureList.size > 2){
                 pictureList.remove(pictureList[1])
+                WritePostActivity.createMBP(contentResolver, pictureUri2!!, pictureList)
             }
-            //사진이 없었는데 추가
-            WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post2, pictureList, 2)
         }
         if(pictureUri3 != null)
         {
             if(pictureList.size > 3) {
                 pictureList.remove(pictureList[2])
+                WritePostActivity.createMBP(contentResolver, pictureUri3!!, pictureList)
             }
-            WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post3, pictureList, 3)
         }
         if(pictureUri4 != null)
         {
             if(pictureList.size > 4) {
                 pictureList.remove(pictureList[3])
+                WritePostActivity.createMBP(contentResolver, pictureUri4!!, pictureList)
             }
-            WritePostActivity.bitmapToMBP(this@ModifyPostActivity, img_modify_post4, pictureList, 4)
         }
 
 

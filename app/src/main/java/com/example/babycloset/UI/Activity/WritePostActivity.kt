@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog
 import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.nfc.Tag
@@ -42,6 +43,7 @@ import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.jar.Manifest
@@ -267,7 +269,8 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri4 = it.data!!
-                    Glide.with(this).load(pictureUri4).into(img_write_post4)
+                    Glide.with(this).load(pictureUri4)
+                        .into(img_write_post4)
 
                 }
             }
@@ -311,23 +314,24 @@ class WritePostActivity : AppCompatActivity() {
 
         if(pictureUri1 != null)
         {
-            bitmapToMBP(this, img_write_post1, pictureList, 1)
+            createMBP(contentResolver, pictureUri1!! ,pictureList)
         }
         if(pictureUri2 != null)
         {
-            bitmapToMBP(this, img_write_post2, pictureList, 2)
+            createMBP(contentResolver, pictureUri2!! ,pictureList)
         }
         if(pictureUri3 != null)
         {
-            bitmapToMBP(this, img_write_post3, pictureList, 3)
+            createMBP(contentResolver, pictureUri3!! ,pictureList)
         }
         if(pictureUri4 != null)
         {
-            bitmapToMBP(this, img_write_post4, pictureList, 4)
+            createMBP(contentResolver, pictureUri4!! ,pictureList)
         }
 
+
         val postWritePostResponse = networkService.postWritePostResponse(SharedPreference.getUserToken(this), title_rb,
-            content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList)
+            content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList )
 
         postWritePostResponse.enqueue(object : Callback<PostWritePostResponse>{
             override fun onFailure(call: Call<PostWritePostResponse>, t: Throwable) {
@@ -377,13 +381,17 @@ class WritePostActivity : AppCompatActivity() {
             return rb
         }
 
+        fun createMBP(cr : ContentResolver, uri : Uri, list : ArrayList<MultipartBody.Part>){
+            val options = BitmapFactory.Options()
+            val inputStream  = cr.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
 
-        fun bitmapToMBP(ctx: Context, imgView : ImageView, list: ArrayList<MultipartBody.Part>, i : Int){
-            val b = (imgView.drawable as BitmapDrawable).bitmap
-            val file = File(bitmapToFile(ctx, b, "img$i"))
-            val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
-            val picture_rb = MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
+            val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
+            val picture_rb = MultipartBody.Part.createFormData("postImages", "img", photoBody)
             list.add(picture_rb)
+
         }
 
         fun bitmapToFile(ctx : Context, b : Bitmap, fileName : String) : String{
