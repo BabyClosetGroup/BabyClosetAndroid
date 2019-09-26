@@ -1,15 +1,16 @@
+
 package com.example.babycloset.Network
 
 import android.app.Application
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApplicationController : Application() {
+class ApplicationController : Application(){
 
     private val baseURL = "https://goldenticket.ga/"
     lateinit var networkService: NetworkService
 
-    companion object {
+    companion object{
         lateinit var instance: ApplicationController
     }
 
@@ -19,7 +20,7 @@ class ApplicationController : Application() {
         buildNetwork()
     }
 
-    fun buildNetwork() {
+    fun buildNetwork(){
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create())
