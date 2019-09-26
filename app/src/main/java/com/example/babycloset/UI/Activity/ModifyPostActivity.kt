@@ -327,6 +327,7 @@ class ModifyPostActivity : AppCompatActivity() {
         })
     }
 
+    //통신 이미지 set
     fun setImageView(response: Response<GetProductDetailResponse>, imageView: ImageView ,i : Int){
         val target = object : SimpleTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
@@ -341,6 +342,7 @@ class ModifyPostActivity : AppCompatActivity() {
             .into<SimpleTarget<Bitmap>>(target)
     }
 
+    //bitmap -> MultipartBody.Part & list에 추가
     fun bitmapToMBP(ctx : Context, b : Bitmap,list : ArrayList<MultipartBody.Part> ,i : Int){
         val file = File(WritePostActivity.bitmapToFile(ctx, b, "img$i"))
         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
