@@ -31,18 +31,28 @@ class LoginActivity : AppCompatActivity() {
         btn_to_signin.setOnClickListener {
             startActivity<InfoConsentActivity>()
         }
+
+       /* if(SharedPreference.getAutoLogin(this)){
+            postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
+            auto_login.isChecked=true
+        } else{
+            val login_u_id: String = edt_id_login.text.toString()
+            val login_u_pw: String = edt_pw_login.text.toString()
+
+            postLoginResponse(login_u_id, login_u_pw)
+        }*/
+
         //로그인
-        //if(SharedPreference.getUserID(this).isEmpty()){
+        if(SharedPreference.getUserID(this).isEmpty()){
             btn_login.setOnClickListener {
                 val login_u_id: String = edt_id_login.text.toString()
                 val login_u_pw: String = edt_pw_login.text.toString()
 
                 postLoginResponse(login_u_id, login_u_pw)
-          //  }
-        }/*else{
+            }
+        }else{
             postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
-        }*/
-
+        }
     }
 
     fun postLoginResponse(u_id: String, u_pw: String){
@@ -65,8 +75,9 @@ class LoginActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200){
                         Log.e("tag", "로그인 성공")
                         SharedPreference.setUserToken(this@LoginActivity, response.body()!!.data!!.token)
-                        //SharedPreference.setUserID(this@LoginActivity,u_id)
-                        //SharedPreference.setUserPW(this@LoginActivity, u_pw)
+                        SharedPreference.setUserID(this@LoginActivity,u_id)
+                        SharedPreference.setUserPW(this@LoginActivity, u_pw)
+                        SharedPreference.setAutoLogin(this@LoginActivity, true)
                         Log.e("tag", response.body()!!.data!!.token)
                         startActivity<MainActivity>()
                     }
@@ -74,8 +85,5 @@ class LoginActivity : AppCompatActivity() {
             }
 
         })
-
     }
-
-
 }
