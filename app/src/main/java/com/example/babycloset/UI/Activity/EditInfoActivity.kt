@@ -59,6 +59,11 @@ class EditInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.example.babycloset.R.layout.activity_edit_info)
 
+        btn_logout.setOnClickListener {
+            SharedPreference.clearUserToken(this)
+            startActivity<LoginActivity>()
+        }
+
         img_info_thumbnail.setBackground(ShapeDrawable(OvalShape()))
         if (Build.VERSION.SDK_INT >= 21) {
             img_info_thumbnail.setClipToOutline(true)

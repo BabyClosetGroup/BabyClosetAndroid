@@ -190,6 +190,44 @@
             android:layout_marginLeft="95dp"
             android:layout_marginRight="16dp"
             android:background="#CFCFCF"
-            android:layout_marginBottom="37dp"/>
+            android:layout_marginBottom="26dp"/>
+
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+          android:background="#f1f1f1"/>
+    <TextView
+            android:fontFamily="@font/seoulnamsanm"
+            android:textSize="16sp"
+            android:textColor="#262626"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="16dp"
+            android:text="계정정보"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    />
+    <LinearLayout
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:orientation="horizontal">
+
+        <TextView
+                android:fontFamily="@font/seoulnamsanm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="10"
+                android:paddingLeft="16dp"
+                android:textSize="16dp"
+                android:textColor="#000000"
+                android:text="로그아웃" />
+
+        <ImageView
+                android:layout_marginRight="15.9dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_more" />
+    </LinearLayout>
 
 </LinearLayout>

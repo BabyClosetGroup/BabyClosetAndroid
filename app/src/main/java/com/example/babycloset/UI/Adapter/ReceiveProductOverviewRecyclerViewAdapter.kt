@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Adapter
 
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
@@ -54,6 +55,10 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.thumbnail.background = drawable
+        holder.thumbnail.clipToOutline = true
+
         Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
         holder.title.text = dataList[position].postName
         var locList:ArrayList<String> = dataList[position].areaName

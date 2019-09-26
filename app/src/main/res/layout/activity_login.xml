@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_to_signin"/>
         </LinearLayout>
-    </LinearLayout>
+            </LinearLayout>
     <Button
             android:layout_alignParentBottom="true"
             android:background="#ffc107"

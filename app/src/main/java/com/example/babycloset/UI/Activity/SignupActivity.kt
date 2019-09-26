@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Post.PostSignupResponse
@@ -66,6 +67,14 @@ class SignupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
+                    id_error.visibility= View.VISIBLE
+                    edt_id_siginin.setBackgroundResource(R.drawable.signin_error_border)
+                }
+                else{
+                    id_error.visibility=View.INVISIBLE
+                    edt_id_siginin.setBackgroundResource(R.drawable.signin_enter_border)
+                }
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
@@ -91,6 +100,14 @@ class SignupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edt_pw_siginin.text.toString().length<6||!Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
+                    pw_error.visibility=View.VISIBLE
+                    edt_pw_siginin.setBackgroundResource(R.drawable.signin_error_border)
+                }
+                else{
+                    pw_error.visibility=View.INVISIBLE
+                    edt_pw_siginin.setBackgroundResource(R.drawable.signin_enter_border)
+                }
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
@@ -116,6 +133,14 @@ class SignupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edt_pw_siginin.text.toString() != edt_pwck_siginin.text.toString()){
+                    pwck_error.visibility=View.VISIBLE
+                    edt_pwck_siginin.setBackgroundResource(R.drawable.signin_error_border)
+                }
+                else{
+                    pwck_error.visibility=View.INVISIBLE
+                    edt_pwck_siginin.setBackgroundResource(R.drawable.signin_enter_border)
+                }
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
@@ -141,6 +166,14 @@ class SignupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edt_nickname_signin.text.toString().length >= 8 ||!Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())){
+                    nick_error.visibility=View.VISIBLE
+                    edt_nickname_signin.setBackgroundResource(R.drawable.signin_error_border)
+                }
+                else{
+                    nick_error.visibility=View.INVISIBLE
+                    edt_nickname_signin.setBackgroundResource(R.drawable.signin_enter_border)
+                }
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
                     && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
