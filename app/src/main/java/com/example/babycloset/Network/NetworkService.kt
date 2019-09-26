@@ -218,4 +218,27 @@ interface NetworkService {
         @Header("token") token: String,
         @Body() jsonObject: JsonObject
     ) : Call<PostShareResponse>
+
+    //전체 쪽지 조회
+    @GET("/note")
+    fun getEmailResponse(
+            @Header("Content-Type") content_type:String,
+            @Header("token") token : String
+    ) : Call<GetEmailResponse>
+
+    //특정 유저와의 쪽지 조회
+    @GET("/note/{userIdx}")
+    fun getSpecificEmailResponse(
+            @Header("Content-Type") content_type:String,
+            @Header("token") token: String,
+            @Path("userIdx") userIdx: Int
+    ) : Call<GetSpecificEmailResponse>
+
+    //쪽지 보내기
+    @POST("/note")
+    fun postSendEmailResponse(
+            @Header("Content-Type") content_type:String,
+            @Header("token") token: String,
+            @Body() jsonObject: JsonObject
+    ) : Call<PostSendEmailResponse>
 }

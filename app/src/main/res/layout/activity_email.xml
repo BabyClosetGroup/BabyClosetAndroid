@@ -23,7 +23,6 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_email"
-                android:clickable="true"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="43dp"
                 android:layout_width="match_parent"
@@ -31,10 +30,12 @@
             </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
+                android:id="@+id/ll_text_email_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -44,7 +45,6 @@
                     android:layout_marginBottom="59.7dp"/>
 
                 <TextView
-                    android:id="@+id/ll_text_email_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
