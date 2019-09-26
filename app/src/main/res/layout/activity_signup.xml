@@ -159,7 +159,7 @@
     <Button
             android:fontFamily="@font/seoulnamsanb"
             android:layout_alignParentBottom="true"
-            android:background="#ffc107"
+            android:background="#767676"
             android:textColor="#ffffff"
             android:layout_gravity="bottom"
             android:textSize="20sp"

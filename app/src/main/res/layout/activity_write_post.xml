@@ -36,6 +36,7 @@
                         />
 
                         <TextView
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:layout_width="39dp" android:layout_height="23dp"
                                 android:text="메인" android:textColor="#767676" android:textSize="13sp"
                                 android:gravity="center"
@@ -78,6 +79,7 @@
                     >
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                             <TextView
+                                    android:fontFamily="@font/seoulnamsanm"
                                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/txt_category_write_post"
                                     android:text="카테고리 선택" android:textSize="16dp" android:textColor="#262626"/>
                             <ImageButton
@@ -106,6 +108,7 @@
                         >
 
                             <TextView
+                                    android:fontFamily="@font/seoulnamsanm"
                                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:text="마감기한 선택" android:textSize="16dp" android:textColor="#262626"
                                     android:id="@+id/txt_deadline_write_post"
@@ -130,6 +133,7 @@
 
 
                         <EditText
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:layout_width="match_parent" android:layout_height="wrap_content"
                                 android:background="@null" android:layout_marginTop="15dp"
                                 android:hint="글 제목" android:textSize="16dp" android:textColor="#262626"
@@ -141,6 +145,7 @@
                         <ScrollView android:layout_width="wrap_content"
                                     android:layout_height="wrap_content">
                             <EditText
+                                    android:fontFamily="@font/seoulnamsanm"
                                     android:layout_width="match_parent" android:layout_height="wrap_content"
                                     android:background="@null" android:layout_marginTop="15dp" android:gravity="top"
                                     android:hint="내용을 작성해주세요\n\n\n\n\n\n\n\n\n\n\n\n" android:textSize="16dp" android:textColor="#262626"
@@ -164,6 +169,7 @@
                     android:id="@+id/btn_share_write_post"
             />
             <TextView
+                    android:fontFamily="@font/seoulnamsanb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
