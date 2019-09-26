@@ -62,6 +62,7 @@ class SearchActivity : AppCompatActivity() {
     }
     private fun research(){
         edit_searh_after_value.setOnKeyListener { v, keyCode, event ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP){
                 page=1
                 searchDataList.clear()
@@ -69,9 +70,8 @@ class SearchActivity : AppCompatActivity() {
                 this.postSearchResponse()
 
                 //키보드 내리기
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(currentFocus?.windowToken,InputMethodManager.SHOW_FORCED)
-                edit_searh_after_value.showSoftInputOnFocus=false
+                edit_searh_after_value.showSoftInputOnFocus=true
 
                 return@setOnKeyListener true
             }
