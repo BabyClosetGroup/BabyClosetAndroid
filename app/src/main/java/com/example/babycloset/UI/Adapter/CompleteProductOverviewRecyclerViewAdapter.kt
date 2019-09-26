@@ -69,7 +69,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.owner.text = dataList[position].receiverNickname+"님"
 
         if(dataList[position].receiverIsRated != 0){
-            holder.rate.text = "부여"
+            holder.rate.text = dataList[position].rating.toString()+"점"
             holder.btn.visibility=View.GONE
         } else
             holder.rate.text = "미부여"
@@ -103,8 +103,8 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
     }
 
     private fun getRatingResponse() {
-       // val token = SharedPreference.getUserToken(ctx)
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+        val token = SharedPreference.getUserToken(ctx)
+       // val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
 
 
         val getRatingResponse = networkService.getRatingResponse(
