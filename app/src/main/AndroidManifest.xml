@@ -18,7 +18,6 @@
             android:label="아가옷장"
             android:roundIcon="@drawable/babycloset_logo"
             android:supportsRtl="true"
-            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme">
         <activity android:name=".UI.Activity.SearchActivity">
         </activity>
