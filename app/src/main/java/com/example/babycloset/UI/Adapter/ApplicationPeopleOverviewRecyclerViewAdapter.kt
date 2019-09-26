@@ -24,7 +24,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import android.widget.Toast
 import android.R
-
+import com.example.babycloset.UI.Activity.EmailMsgActivity
 
 
 class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ApplicationPeopleOverviewData>): RecyclerView.Adapter<ApplicationPeopleOverviewRecyclerViewAdapter.Holder>() {
@@ -70,7 +70,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         builder.setMessage("쪽지를보내시겠습니까?")
         builder.setPositiveButton(
             "네"
-        ) { dialog, which -> ctx.startActivity<MainActivity>(
+        ) { dialog, which -> ctx.startActivity<EmailMsgActivity>(
             "userIdx" to nn
         ) }
         builder.setNegativeButton(
