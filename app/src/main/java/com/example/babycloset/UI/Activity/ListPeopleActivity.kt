@@ -60,7 +60,7 @@ class ListPeopleActivity : AppCompatActivity() {
         //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
         val token = SharedPreference.getUserToken(ctx)
 
-        val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, 17)
+        val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, postIdx)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
                 Log.e("tag", "실패!")
