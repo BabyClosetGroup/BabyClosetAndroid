@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.text.Editable
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.SearchProductData
 import com.example.babycloset.Network.ApplicationController
@@ -65,6 +67,12 @@ class SearchActivity : AppCompatActivity() {
                 searchDataList.clear()
                 search_word=edit_searh_after_value.text.toString()
                 this.postSearchResponse()
+
+                //키보드 내리기
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(currentFocus?.windowToken,InputMethodManager.SHOW_FORCED)
+                edit_searh_after_value.showSoftInputOnFocus=false
+
                 return@setOnKeyListener true
             }
             false
@@ -93,9 +101,11 @@ class SearchActivity : AppCompatActivity() {
                 if(response.isSuccessful) {
                     if (response.body()!!.status == 200) {
                         val tmp=response.body()!!.data.allPost
-                        if(tmp.size==0){
-                            frame_search.visibility=View.INVISIBLE
-                            frame_search_none.visibility=View.VISIBLE
+                        if(tmp.size == 0){
+                            if(page == 1) {
+                                frame_search.visibility = View.INVISIBLE
+                                frame_search_none.visibility = View.VISIBLE
+                            }
                         }else{
                             frame_search_none.visibility=View.INVISIBLE
                             frame_search.visibility= View.VISIBLE

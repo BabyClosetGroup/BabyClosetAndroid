@@ -1,10 +1,12 @@
 package com.example.babycloset.UI.Fragment
 
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
@@ -12,6 +14,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.HomeDeadlineData
 import com.example.babycloset.Data.HomeRecentData
@@ -23,6 +26,7 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.*
 import com.example.babycloset.UI.Adapter.HomeDeadlineRecyclerAdapter
 import com.example.babycloset.UI.Adapter.HomeRecentRecyclerAdapter
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -90,10 +94,14 @@ class HomeFragment : Fragment() {
                     val builder: AlertDialog.Builder= AlertDialog.Builder(context!!)
                     builder.setMessage("검색어를 입력해주세요!")
                     builder.setPositiveButton("예"){dialog, i ->
+                        //커서 놓기
+                        edit_searh_value.isFocusableInTouchMode=true
+                        edit_searh_value.requestFocus()
+                        val imm=context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.showSoftInput(edit_searh_value,0)
                     }
                     val dialog=builder.create()
                     dialog.show()
-                    //커서 놓기
                 }else {
                     startActivityForResult<SearchActivity>(1000, "search_word" to edit_searh_value.text.toString())
                     edit_searh_value.text = null
@@ -107,17 +115,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun configDeadline(){
-//        dataList.add(HomeDeadlineData(
-//            0,"하늘색 잠옷","D-0","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeDeadlineData(
-//            0,"하늘색 잠옷","D-0","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeDeadlineData(
-//            0,"하늘색 잠옷","D-0","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-
-
         homeDeadlineRecyclerAdapter= HomeDeadlineRecyclerAdapter(context!!,deadlineDataList)
         rv_item_deadline_all.adapter = homeDeadlineRecyclerAdapter
         rv_item_deadline_all.layoutManager = GridLayoutManager(context!!,3)
@@ -125,21 +122,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun configRecent(){
-
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-//        dataList.add(HomeRecentData(
-//            0,"하늘색 잠옷","https://sopt24server.s3.ap-northeast-2.amazonaws.com/1567341981635.jpeg","동대문구"
-//        ))
-
-
         homeRecentRecyclerAdapter= HomeRecentRecyclerAdapter(context!!,recentDataList)
         rv_item_recent_all.adapter = homeRecentRecyclerAdapter
         rv_item_recent_all.layoutManager = GridLayoutManager(context!!,2)
