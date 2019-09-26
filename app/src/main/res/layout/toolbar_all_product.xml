@@ -9,17 +9,19 @@
             android:layout_height="match_parent"
     >
         <TextView
+                android:fontFamily="@font/seoulnamsanb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:text="모든상품"
                 android:textSize="20sp"
-                android:layout_marginLeft="16dp"
                 android:textColor="#262626"
                 android:id="@+id/txt_title_all_product"
         />
 
         <ImageButton
+                android:src="@drawable/btn_filter"
+                android:background="@android:color/transparent"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_toStartOf="@id/btn_msg_toolbar_all_product"
@@ -29,7 +31,9 @@
                      android:layout_height="24dp"
                      android:layout_alignParentEnd="true"
                      android:layout_marginStart="9dp"
+                     android:layout_marginEnd="16dp"
                      android:id="@+id/btn_msg_toolbar_all_product"
+                     android:src="@drawable/home_btn_email"
         />
 
 

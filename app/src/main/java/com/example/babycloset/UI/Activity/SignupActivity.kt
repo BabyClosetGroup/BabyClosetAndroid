@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -42,34 +43,21 @@ class SignupActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
-                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8 && Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
+                    && Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString()) && Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                     btn_signin.isEnabled = true
-                    if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
-                        if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
-                            if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
-                                btn_signin.setOnClickListener {
-                                    val signin_u_id: String = edt_id_siginin.text.toString()
-                                    val signin_u_name: String = edt_name_siginin.text.toString()
-                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
-                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
-                                }
-                            }else{
-                                btn_signin.setOnClickListener {
-                                    toast("닉네임 형식 오류").show()}
-                            }
-                        } else {
-                            btn_signin.setOnClickListener {
-                            toast("아이디 형식 오류").show()}
-                        }
-                    } else {
-                        btn_signin.setOnClickListener {
-                            toast("비밀번호 형식 오류").show()
-                        }
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
+                    btn_signin.setOnClickListener {
+                        val signin_u_id: String = edt_id_siginin.text.toString()
+                        val signin_u_name: String = edt_name_siginin.text.toString()
+                        val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                        val signin_u_pw: String = edt_pw_siginin.text.toString()
+                        postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                     }
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -80,34 +68,21 @@ class SignupActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
-                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
+                    && Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString()) && Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                     btn_signin.isEnabled = true
-                    if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
-                        if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
-                            if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
-                                btn_signin.setOnClickListener {
-                                    val signin_u_id: String = edt_id_siginin.text.toString()
-                                    val signin_u_name: String = edt_name_siginin.text.toString()
-                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
-                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
-                                }
-                            }else{
-                                btn_signin.setOnClickListener {
-                                    toast("닉네임 형식 오류").show()}
-                            }
-                        } else {
-                            btn_signin.setOnClickListener {
-                                toast("아이디 형식 오류").show()}
-                        }
-                    } else {
-                        btn_signin.setOnClickListener {
-                            toast("비밀번호 형식 오류").show()
-                        }
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
+                    btn_signin.setOnClickListener {
+                        val signin_u_id: String = edt_id_siginin.text.toString()
+                        val signin_u_name: String = edt_name_siginin.text.toString()
+                        val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                        val signin_u_pw: String = edt_pw_siginin.text.toString()
+                        postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                     }
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -118,34 +93,21 @@ class SignupActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
-                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
+                    && Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString()) && Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                     btn_signin.isEnabled = true
-                    if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
-                        if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
-                            if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
-                                btn_signin.setOnClickListener {
-                                    val signin_u_id: String = edt_id_siginin.text.toString()
-                                    val signin_u_name: String = edt_name_siginin.text.toString()
-                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
-                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
-                                }
-                            }else{
-                                btn_signin.setOnClickListener {
-                                    toast("닉네임 형식 오류").show()}
-                            }
-                        } else {
-                            btn_signin.setOnClickListener {
-                                toast("아이디 형식 오류").show()}
-                        }
-                    } else {
-                        btn_signin.setOnClickListener {
-                            toast("비밀번호 형식 오류").show()
-                        }
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
+                    btn_signin.setOnClickListener {
+                        val signin_u_id: String = edt_id_siginin.text.toString()
+                        val signin_u_name: String = edt_name_siginin.text.toString()
+                        val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                        val signin_u_pw: String = edt_pw_siginin.text.toString()
+                        postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                     }
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -156,34 +118,21 @@ class SignupActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
-                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
+                    && Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString()) && Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                     btn_signin.isEnabled = true
-                    if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
-                        if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
-                            if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
-                                btn_signin.setOnClickListener {
-                                    val signin_u_id: String = edt_id_siginin.text.toString()
-                                    val signin_u_name: String = edt_name_siginin.text.toString()
-                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
-                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
-                                }
-                            }else{
-                                btn_signin.setOnClickListener {
-                                    toast("닉네임 형식 오류").show()}
-                            }
-                        } else {
-                            btn_signin.setOnClickListener {
-                                toast("아이디 형식 오류").show()}
-                        }
-                    } else {
-                        btn_signin.setOnClickListener {
-                            toast("비밀번호 형식 오류").show()
-                        }
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
+                    btn_signin.setOnClickListener {
+                        val signin_u_id: String = edt_id_siginin.text.toString()
+                        val signin_u_name: String = edt_name_siginin.text.toString()
+                        val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                        val signin_u_pw: String = edt_pw_siginin.text.toString()
+                        postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                     }
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })
@@ -194,34 +143,21 @@ class SignupActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (edt_pw_siginin.text.toString() == edt_pwck_siginin.text.toString() && edt_id_siginin.text.toString() != "" && edt_name_siginin.text.toString() != ""
                     && edt_pw_siginin.text.toString() != "" && edt_pwck_siginin.text.toString() != ""&& edt_nickname_signin.text.toString() != ""
-                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8) {
+                    && edt_pw_siginin.text.toString().length>=6 && edt_nickname_signin.text.toString().length<8&& Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())
+                    && Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString()) && Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
                     btn_signin.isEnabled = true
-                    if(Pattern.matches("^[a-zA-Z0-9]*$",edt_pw_siginin.text.toString())){
-                        if(Pattern.matches("^[a-zA-Z0-9]*$",edt_id_siginin.text.toString())){
-                            if(Pattern.matches("^[가-힣]*$",edt_nickname_signin.text.toString())) {
-                                btn_signin.setOnClickListener {
-                                    val signin_u_id: String = edt_id_siginin.text.toString()
-                                    val signin_u_name: String = edt_name_siginin.text.toString()
-                                    val signin_u_nickname: String = edt_nickname_signin.text.toString()
-                                    val signin_u_pw: String = edt_pw_siginin.text.toString()
-                                    postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
-                                }
-                            }else{
-                                btn_signin.setOnClickListener {
-                                    toast("닉네임 형식 오류").show()}
-                            }
-                        } else {
-                            btn_signin.setOnClickListener {
-                                toast("아이디 형식 오류").show()}
-                        }
-                    } else {
-                        btn_signin.setOnClickListener {
-                            toast("비밀번호 형식 오류").show()
-                        }
+                    btn_signin.setBackgroundColor(Color.parseColor("#ffc107"))
+                    btn_signin.setOnClickListener {
+                        val signin_u_id: String = edt_id_siginin.text.toString()
+                        val signin_u_name: String = edt_name_siginin.text.toString()
+                        val signin_u_nickname: String = edt_nickname_signin.text.toString()
+                        val signin_u_pw: String = edt_pw_siginin.text.toString()
+                        postSignupResponse(signin_u_id, signin_u_name, signin_u_nickname, signin_u_pw)
                     }
                 }
                 else {
                     btn_signin.isEnabled = false
+                    btn_signin.setBackgroundColor(Color.parseColor("#767676"))
                 }
             }
         })

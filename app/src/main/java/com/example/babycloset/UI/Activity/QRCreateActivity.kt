@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.bumptech.glide.Glide
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetQRCreateResponse
 import com.example.babycloset.Network.NetworkService
@@ -17,7 +18,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class QRCreateActivity : AppCompatActivity() {
-    val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJuaWNrbmFtZSI6IuuwlOuCmOuCmO2CpSIsImlhdCI6MTU2ODIxNzE4MiwiZXhwIjoxNTc5MDE3MTgyLCJpc3MiOiJiYWJ5Q2xvc2V0In0.7TL84zswMGWBmPFOVMUddb30FW3CVvir6cyvDPiBX60"
     var postindex = -1
 
     val networkService: NetworkService by lazy{
@@ -36,6 +36,7 @@ class QRCreateActivity : AppCompatActivity() {
     }
 
     private fun getCreateResponse(){
+        val token: String = SharedPreference.getUserToken(this)
         val getQRCreateResponse=networkService.getQRCreateResponse("application/json",token,postindex)
         getQRCreateResponse.enqueue(object: Callback<GetQRCreateResponse>{
             override fun onFailure(call: Call<GetQRCreateResponse>, t: Throwable) {

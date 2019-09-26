@@ -10,9 +10,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="QR인증하기"
-                android:textSize="17sp"
-                android:textColor="#2f2f2f"
-                android:layout_marginLeft="16dp"/>
+                android:fontFamily="@font/seoulnamsanb"
+                android:textSize="20sp"
+                android:textColor="#262626"/>
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>

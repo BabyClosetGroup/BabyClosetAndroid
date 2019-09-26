@@ -24,19 +24,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="지금 "
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textColor="#262626"
                     android:textSize="22sp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="어떤 옷"
+                    android:fontFamily="@font/seoulnamsaneb"
                     android:textColor="#262626"
-                    android:textSize="22sp"
-                    android:textStyle="bold"/>
+                    android:textSize="22sp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="을"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textColor="#262626"
                     android:textSize="22sp"/>
         </LinearLayout>
@@ -49,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나누기 위해 만나셨나요?"
+                    android:fontFamily="@font/seoulnamsanm"
                     android:textColor="#262626"
                     android:textSize="22sp"/>
         </LinearLayout>

@@ -114,12 +114,11 @@ class EmailMsgActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<PostSendEmailResponse>, response: Response<PostSendEmailResponse>) {
                 if (response.isSuccessful){
-//                    toast(response.body()!!.message)
-                    Log.e("sended", "${response.body()!!.message}   ${receiverIdx}  ${noteContent}")
+                    //Log.e("sended", "${response.body()!!.message}   ${receiverIdx}  ${noteContent}")
                     if (response.body()!!.status == 200){
                         //startActivity<LoginActivity>()
                         Log.e("tag", "쪽지 보내짐!")
-                        //메세지 인코딩 문제인듯!!!!!
+
                     }
                     else{
                         Log.e("tag", "status가 200 아님")

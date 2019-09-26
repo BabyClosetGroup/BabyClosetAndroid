@@ -9,22 +9,23 @@
             android:layout_height="match_parent"
     >
         <TextView
+                android:fontFamily="@font/seoulnamsanb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:text="나눔하기"
                 android:textSize="20sp"
-                android:layout_marginStart="16dp"
                 android:textColor="#262626"
         />
 
         <ImageButton
+                android:id="@+id/btn_letter_write_post"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
-        />
+                android:src="@drawable/home_btn_email"/>
     </RelativeLayout>
 
 </android.support.v7.widget.Toolbar>

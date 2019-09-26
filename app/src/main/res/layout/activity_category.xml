@@ -23,7 +23,7 @@
                         android:text="자치구"
                         android:textSize="16sp"
                         android:textColor="#262626"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/seoulnamsanb"
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="16dp"
                 />
@@ -39,6 +39,7 @@
                     <!--1-->
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_all_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -52,6 +53,7 @@
                                 android:tag="cb_area_category1"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_gangnam_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -65,6 +67,7 @@
                                 android:tag="cb_area_category2"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_gangdong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -78,6 +81,7 @@
                                 android:tag="cb_area_category3"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_gangbuk_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -94,6 +98,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                   android:layout_marginTop="10dp" >
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_gangseo_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -107,6 +112,7 @@
                                 android:tag="cb_area_category5"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_gwanak_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -120,6 +126,7 @@
                                 android:tag="cb_area_category6"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_gwangjin_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -133,6 +140,7 @@
                                 android:tag="cb_area_category7"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_guro_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -150,6 +158,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                   android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_geumcheon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -163,6 +172,7 @@
                                 android:tag="cb_area_category9"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_nowon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -176,6 +186,7 @@
                                 android:tag="cb_area_category10"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_dobong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -189,6 +200,7 @@
                                 android:tag="cb_area_category11"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_dongdaemon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -206,6 +218,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                   android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_dongjag_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -219,6 +232,7 @@
                                 android:tag="cb_area_category13"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_mapo_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -232,6 +246,7 @@
                                 android:tag="cb_area_category14"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_seodaemon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -245,6 +260,7 @@
                                 android:tag="cb_area_category15"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_seocho_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -262,6 +278,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                   android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_seongdong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -275,6 +292,7 @@
                                 android:tag="cb_area_category17"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_seongbuk_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -288,6 +306,7 @@
                                 android:tag="cb_area_category18"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_songpa_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -301,6 +320,7 @@
                                 android:tag="cb_area_category19"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_yangcheon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -318,6 +338,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                   android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_yeongdeungpo_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -331,6 +352,7 @@
                                 android:tag="cb_area_category21"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_yongsan_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -344,6 +366,7 @@
                                 android:tag="cb_area_category22"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_eunpyeong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -357,6 +380,7 @@
                                 android:tag="cb_area_category23"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_jongro_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -374,6 +398,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                   android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_jung_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -387,6 +412,7 @@
                                 android:tag="cb_area_category25"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_area_junglang_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -411,7 +437,7 @@
                         android:text="나이"
                         android:textSize="16sp"
                         android:textColor="#262626"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/seoulnamsanb"
                         android:layout_marginTop="37dp"
                         android:layout_marginLeft="16dp"/>
 
@@ -426,6 +452,7 @@
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_age_all_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -439,6 +466,7 @@
                                 android:tag="cb_age_category1"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_age_3_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -452,6 +480,7 @@
                                 android:tag="cb_age_category2"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_age_12_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -465,6 +494,7 @@
                                 android:tag="cb_age_category3"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_age_24_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -480,6 +510,7 @@
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_age_30_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -500,12 +531,12 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="카테고리"
-                        android:textSize="16sp"
-                        android:textColor="#262626"
-                        android:textStyle="bold"
+                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="37dp"
-                        android:layout_marginLeft="16dp"/>
+                        android:text="카테고리"
+                        android:textColor="#262626"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/seoulnamsanb"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -518,6 +549,7 @@
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_all_category"
                                 android:layout_width="162dp"
                                 android:layout_height="28dp"
@@ -531,6 +563,7 @@
                                 android:tag="cb_category_category_1"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_vest_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -544,6 +577,7 @@
                                 android:tag="cb_category_category_2"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_inner_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -560,6 +594,7 @@
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_bodysuit_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -573,6 +608,7 @@
                                 android:tag="cb_category_category_4"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_under_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -586,6 +622,7 @@
                                 android:tag="cb_category_category_5"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_seulliping_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -599,6 +636,7 @@
                                 android:tag="cb_category_category_6"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_dress_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -614,6 +652,7 @@
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_top_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -627,6 +666,7 @@
                                 android:tag="cb_category_category_8"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_bottom_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -640,6 +680,7 @@
                                 android:tag="cb_category_category_9"
                         />
                         <CheckBox
+                                android:fontFamily="@font/seoulnamsanm"
                                 android:id="@+id/cb_category_topbottom_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
@@ -662,6 +703,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="완료"
+                android:fontFamily="@font/seoulnamsanb"
                 android:background="#ffc107"
                 android:textSize="20sp"
                 android:textColor="#ffffff"
