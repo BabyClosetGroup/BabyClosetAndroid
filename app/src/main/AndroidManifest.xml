@@ -14,9 +14,9 @@
             android:name=".Network.ApplicationController"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
-            android:icon="@drawable/logo"
+            android:icon="@drawable/babycloset_logo"
             android:label="아가옷장"
-            android:roundIcon="@drawable/logo"
+            android:roundIcon="@drawable/babycloset_logo"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".UI.Activity.QRCreateActivity">
