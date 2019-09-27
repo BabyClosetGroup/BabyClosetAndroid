@@ -20,6 +20,7 @@
                 android:orientation="horizontal">
 
             <TextView
+                    android:textColor="#262626"
                     android:fontFamily="@font/seoulnamsanl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22dp"
+                    android:textColor="#262626"
                     android:text="가 필요해요."/>
         </LinearLayout>
 
@@ -100,13 +102,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <ImageView
-                        android:id="@+id/btn_agree1_select"
                         android:layout_marginRight="32dp"
                         android:layout_gravity="center"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/agree_selector"
-                />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/btn_backbtn"/>
             </LinearLayout>
             <LinearLayout
                     android:id="@+id/btn_agree2_info"
@@ -123,13 +123,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:layout_weight="1"/>
                 <ImageView
-                        android:id="@+id/btn_agree2_select"
                         android:layout_marginRight="32dp"
                         android:layout_gravity="center"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/agree_selector"
-                />
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/btn_backbtn"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -142,7 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_marginBottom="22dp">
             <ImageView
-                    android:background="@drawable/yellow_fill_border"
+                    android:id="@+id/info_consent_border"
+                    android:background="@drawable/gray_fill_border"
                     android:layout_height="42dp"
                     android:layout_width="match_parent"
                     android:layout_weight="1"/>

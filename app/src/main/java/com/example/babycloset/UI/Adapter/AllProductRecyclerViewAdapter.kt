@@ -14,13 +14,13 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.ProductActivity
 import org.jetbrains.anko.startActivity
 
-class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<AllPostRVData>): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
+class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<AllPostRVData>?): RecyclerView.Adapter<AllProductRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):Holder {
        val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_all_product, viewGroup, false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = datalist.size
+    override fun getItemCount(): Int = datalist!!.size
 
     override fun onBindViewHolder(holder : Holder, position: Int) {
         val drawable : GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
@@ -28,12 +28,12 @@ class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<
         holder.mainImage.clipToOutline = true
 
         Glide.with(ctx)
-            .load(datalist[position].mainImage)
-            .centerCrop()
+            .load(datalist!![position].mainImage)
+            .centerInside()
             .into(holder.mainImage)
 
-        holder.postTitle.text = datalist[position].postTitle
-        val dataList : ArrayList<String> = datalist[position].areaName
+        holder.postTitle.text = datalist!![position].postTitle
+        val dataList : ArrayList<String> = datalist!![position].areaName
         if(dataList.size-1 != 0){
             holder.areaName.text = dataList[0] + " 외 " + (dataList.size-1) + "구"
         }else{
@@ -41,7 +41,7 @@ class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<
         }
         holder.container.setOnClickListener {
             ctx.startActivity<ProductActivity>(
-                "postIdx" to datalist[position].postIdx
+                "postIdx" to datalist!![position].postIdx
             )
         }
     }

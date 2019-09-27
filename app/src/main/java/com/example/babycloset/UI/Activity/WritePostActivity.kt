@@ -10,23 +10,15 @@ import com.example.babycloset.R
 import kotlinx.android.synthetic.main.activity_write_post.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.nfc.Tag
 import android.os.Build
 import android.os.Handler
-import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.CategoryData
@@ -34,6 +26,8 @@ import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.Network.Post.PostWritePostResponse
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
+import kotlinx.android.synthetic.main.toolbar_product.*
+import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,19 +40,9 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.util.jar.Manifest
 
 
 class WritePostActivity : AppCompatActivity() {
-
-    private var permissionsRequired =   //권한
-        arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-    private val PERMISSION_CALLBACK_CONSTANT = 101
-    private val REQUEST_PERMISSION_SETTING = 101
-
-    private var permissionStatus: Boolean = false
-    private var sentToSettings = false
 
     var deadline : String = ""
     lateinit var categoryRecyclerViewAdapter: CategoryRecyclerViewAdapter
@@ -66,6 +50,8 @@ class WritePostActivity : AppCompatActivity() {
     var areaList = arrayListOf<String>()
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
+
+    var btnShareState : Boolean = true
 
     var pictureUri1 : Uri? = null
     var pictureUri2 : Uri? = null
@@ -89,10 +75,9 @@ class WritePostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
 
-        configWritePost()
-
         checkPermission()
 
+        configWritePost()
     }
 
     fun checkPermission(){
@@ -111,9 +96,9 @@ class WritePostActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        Log.d("Tag", "onRequestPermissionsResult");
+        Log.d("Tag", "onRequestPermissionsResult")
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            Log.d("Tag", "Permission: " + permissions[0] + "was " + grantResults[0]);
+            Log.d("Tag", "Permission: " + permissions[0] + "was " + grantResults[0])
         }
     }
 
@@ -134,7 +119,16 @@ class WritePostActivity : AppCompatActivity() {
 
         //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {
-            isValid()
+            if(btnShareState){
+                isValid()
+            }else{
+                showBasicDialog("서버에 업로딩중ㅜㅜ", this)
+            }
+        }
+
+        //쪽지
+        btn_letter_write_post.setOnClickListener {
+            startActivity<EmailActivity>()
         }
     }
 
@@ -292,19 +286,29 @@ class WritePostActivity : AppCompatActivity() {
         else if(pictureUri1 == null){
            showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
+            btnShareState = false
             postWritePostResponse()
-
-            toast("글 작성을 완료하였습니다!")
-            Handler().postDelayed({
-                startActivity<ProductActivity>("postIdx" to postIdx)
-                finish()
-            },1000)
+            showBasicDialog("글 작성을 완료하였습니다!", this)
+            when(pictureList.size){
+                1-> setDelayTime(1500)
+                2-> setDelayTime(1600)
+                3-> setDelayTime(2000)
+                4-> setDelayTime(2500)
+            }
         }
+    }
+
+    fun setDelayTime(time : Long){
+        Handler().postDelayed({
+            startActivity<ProductActivity>("postIdx" to postIdx)
+            finish()
+        },time)
     }
     //통신
     fun postWritePostResponse(){
 
         val title_rb = stringToRequestBody(edt_title_write_post.text.toString())
+        Log.e("content",edt_contents_wirte_post.text.toString())
         val content_rb = stringToRequestBody(edt_contents_wirte_post.text.toString())
         val deadline_rb = stringToRequestBody(deadline)
         val areaC_rb = stringToRequestBody(listToString(areaList))
@@ -342,6 +346,13 @@ class WritePostActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
                         postIdx = response.body()!!.data.postIdx
+                        var isNewMessage = response.body()!!.data.isNewMessage
+
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_letter_write_post.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_letter_write_post.setImageResource(R.drawable.home_btn_email_update)
+                        }
                     }
                 }
 
@@ -351,6 +362,14 @@ class WritePostActivity : AppCompatActivity() {
 
     //ModifyPostActivity 활용
     companion object{
+
+        fun showBasicDialog(str : String, ctx: Context){
+            val builder = AlertDialog.Builder(ctx)
+            builder
+                .setTitle(str)
+                .setNegativeButton(Html.fromHtml("<font color='#ffc107' size = 14>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
+            builder.show()
+        }
 
         //알림 팝업
         fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){

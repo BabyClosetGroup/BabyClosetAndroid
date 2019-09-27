@@ -24,6 +24,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_all_product.*
 import kotlinx.android.synthetic.main.toolbar_all_product.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.json.JSONObject
@@ -65,7 +66,9 @@ class AllProductActivity : AppCompatActivity() {
             }
         }
 
-
+        btn_letter_toolbar_all_product.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
 
 
     }
@@ -89,10 +92,18 @@ class AllProductActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
                         Log.e("모든 상품 조회 성공", pagination.toString())
+
+                        var isNewMessage = response.body()!!.data.isNewMessage
+
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
+                        }
                         if(response.body()!!.data.allPost.isNotEmpty()){
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.allPost
                             for(i in 0..tmp.size-1){
-                                allProductRecyclerViewAdapter.datalist.add(tmp[i])
+                                allProductRecyclerViewAdapter.datalist!!.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             pagination++
@@ -132,16 +143,22 @@ class AllProductActivity : AppCompatActivity() {
                     if(response.body()!!.status == 200){
                         Log.e("모든 상품 필터 조회 성공", fpagination.toString())
 
+                        var isNewMessage = response.body()!!.data.isNewMessage
 
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
+                        }
                         if(response.body()!!.data.filteredAllPost.isNotEmpty()){
                             rl_not_filter_post_all_product.visibility = View.GONE
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
                             if(fpagination == 1){
-                                allProductRecyclerViewAdapter.datalist.clear()
+                                allProductRecyclerViewAdapter.datalist!!.clear()
                                 allProductRecyclerViewAdapter.notifyDataSetChanged()
                             }
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
-                                allProductRecyclerViewAdapter.datalist.add(tmp[i])
+                                allProductRecyclerViewAdapter.datalist!!.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++
