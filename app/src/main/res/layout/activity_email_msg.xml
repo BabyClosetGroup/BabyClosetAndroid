@@ -26,7 +26,6 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_email_msg"
                 android:orientation="vertical"
-                android:visibility="visible"
                 android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

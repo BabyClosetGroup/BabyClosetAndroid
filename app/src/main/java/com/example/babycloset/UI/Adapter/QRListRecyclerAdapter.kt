@@ -18,14 +18,14 @@ import com.example.babycloset.Data.QRListData
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.QRCreateActivity
 
-class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListData>): RecyclerView.Adapter<QRListRecyclerAdapter.Holder>(){
+class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListData>?): RecyclerView.Adapter<QRListRecyclerAdapter.Holder>(){
     var postindex: Int=-1
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): QRListRecyclerAdapter.Holder {
         val view: View=LayoutInflater.from(ctx).inflate(R.layout.rv_item_qr_list_,p0,false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList!!.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         //이미지에 rounding 주기
@@ -33,12 +33,12 @@ class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListDat
         holder.qr_list_img.background = drawable
         holder.qr_list_img.clipToOutline = true
 
-        Glide.with(ctx).load(dataList[position].mainImage).into(holder.qr_list_img)
-        holder.qr_list_title.text=dataList[position].postTitle
-        holder.qr_list_area.text=dataList[position].areaName[0]  //수정필요
-        holder.qr_list_area_etc.text=dataList[position].areaName.size.toString()
+        Glide.with(ctx).load(dataList!![position].mainImage).into(holder.qr_list_img)
+        holder.qr_list_title.text=dataList!![position].postTitle
+        holder.qr_list_area.text=dataList!![position].areaName[0]  //수정필요
+        holder.qr_list_area_etc.text=dataList!![position].areaName.size.toString()
         holder.qr_list_button.setOnClickListener {
-            postindex = dataList.get(position).postIdx
+            postindex = dataList!!.get(position).postIdx
             var intent= Intent(ctx, QRCreateActivity::class.java)
             intent.putExtra("postindex",postindex)
             ctx.startActivity(intent)

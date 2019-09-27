@@ -157,8 +157,8 @@ class HomeFragment : Fragment() {
                         val tmp: ArrayList<HomeDeadlineData> = response.body()!!.data.deadlinePost
                         val tmp2: ArrayList<HomeRecentData> = response.body()!!.data.recentPost
 
-                        homeDeadlineRecyclerAdapter.dataList.addAll(tmp)
-                        homeRecentRecyclerAdapter.dataList.addAll(tmp2)
+                        homeDeadlineRecyclerAdapter.dataList!!.addAll(tmp)
+                        homeRecentRecyclerAdapter.dataList!!.addAll(tmp2)
 
                         homeDeadlineRecyclerAdapter.notifyDataSetChanged()
                         homeRecentRecyclerAdapter.notifyDataSetChanged()
