@@ -27,6 +27,6 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        handler.sendEmptyMessageDelayed(0, 3500)    // ms, 3초후 종료시킴
+        handler.sendEmptyMessageDelayed(0, 3500)
     }
 }
