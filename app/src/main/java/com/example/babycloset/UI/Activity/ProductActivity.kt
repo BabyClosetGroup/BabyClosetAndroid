@@ -60,6 +60,7 @@ import kotlin.concurrent.thread
 class ProductActivity : AppCompatActivity(){
 
     var isSender : Int = 0  //나눔자(1) 받을사람(0) 구별 변수
+    var btnApplyState : Boolean = true
     var isNewMessage : Int = 0
     var complainReason : String = "" //신고사유
     var imgNum : Int = 0
@@ -106,10 +107,16 @@ class ProductActivity : AppCompatActivity(){
         //나눔신청
         if(isSender == 0){
             rl_apply_product.visibility = View.VISIBLE
-            btn_apply_product.setOnClickListener {
-                postShareResponse()
-                toast("신청이 완료되었습니다.")
-            }
+                btn_apply_product.setOnClickListener {
+                    if(btnApplyState){
+                         btnApplyState = false
+                        postShareResponse()
+                        toast("신청이 완료되었습니다.")
+                    }else {
+                        toast("이미 나눔 신청을 하셨습니다.")
+                    }
+                }
+
         }
 
        btn_ddd_toolbar_product.setOnClickListener {
