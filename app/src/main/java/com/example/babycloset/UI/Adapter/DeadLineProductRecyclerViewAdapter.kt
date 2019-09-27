@@ -15,13 +15,13 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.ProductActivity
 import org.jetbrains.anko.startActivity
 
-class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : ArrayList<DeadLinePostRVData>) : RecyclerView.Adapter<DeadLineProductRecyclerViewAdapter.Holder>(){
+class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : ArrayList<DeadLinePostRVData>?) : RecyclerView.Adapter<DeadLineProductRecyclerViewAdapter.Holder>(){
     override fun onCreateViewHolder(viewgroup: ViewGroup, position: Int): Holder {
         val view : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_deadline_product,viewgroup,false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = datalist.size
+    override fun getItemCount(): Int = datalist!!.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val drawable : GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
@@ -29,13 +29,13 @@ class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : Array
         holder.mainImage.clipToOutline = true
 
         Glide.with(ctx)
-            .load(datalist[position].mainImage)
+            .load(datalist!![position].mainImage)
             .centerCrop()
             .into(holder.mainImage)
 
-        holder.postTitle.text = datalist[position].postTitle
-        holder.deadLine.text = datalist[position].deadline
-        val dataList : ArrayList<String> = datalist[position].areaName
+        holder.postTitle.text = datalist!![position].postTitle
+        holder.deadLine.text = datalist!![position].deadline
+        val dataList : ArrayList<String> = datalist!![position].areaName
         if(dataList.size-1 != 0){
             holder.areaName.text = dataList[0] + " 외 " + (dataList.size-1) + "구"
         }else{
@@ -43,7 +43,7 @@ class DeadLineProductRecyclerViewAdapter(val ctx : Context, var datalist : Array
         }
         holder.container.setOnClickListener {
             ctx.startActivity<ProductActivity>(
-                "postIdx" to datalist[position].postIdx
+                "postIdx" to datalist!![position].postIdx
             )
         }
     }

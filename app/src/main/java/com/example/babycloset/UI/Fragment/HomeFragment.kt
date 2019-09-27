@@ -73,6 +73,7 @@ class HomeFragment : Fragment() {
         configDeadline()
         configRecent()
 
+
         //통신
         getHomeResponse()
 

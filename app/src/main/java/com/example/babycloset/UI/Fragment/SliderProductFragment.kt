@@ -37,7 +37,6 @@ class SliderProductFragment : Fragment() {
         //통신
         Glide.with(this)
             .load(url)
-            .centerCrop()
             .into(img_fragment_slider_product)
     }
 
