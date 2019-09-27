@@ -35,6 +35,7 @@ import android.os.Build
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.ShapeDrawable
 import android.os.Handler
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
@@ -61,7 +62,10 @@ class EditInfoActivity : AppCompatActivity() {
 
         btn_logout.setOnClickListener {
             SharedPreference.clearUserToken(this)
-            startActivity<LoginActivity>()
+            val killApp = Intent(this, LoginActivity::class.java)
+            killApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            killApp.putExtra("KILL_APP", true)
+            startActivity(killApp)
         }
 
         img_info_thumbnail.setBackground(ShapeDrawable(OvalShape()))

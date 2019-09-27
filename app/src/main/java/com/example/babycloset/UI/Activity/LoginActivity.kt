@@ -68,6 +68,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+
+    }
+
     fun postLoginResponse(u_id: String, u_pw: String){
         var jsonObject = JSONObject()
         jsonObject.put("userId", u_id)
