@@ -39,6 +39,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.dialog_custom_complain.view.*
+import kotlinx.android.synthetic.main.toolbar_all_product.*
 import kotlinx.android.synthetic.main.toolbar_product.*
 import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MultipartBody
@@ -93,7 +94,9 @@ class ProductActivity : AppCompatActivity(){
             configBtn()
         }, 300)
 
-        toast(postIdx.toString())
+        btn_letter_toolbar_product.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
 
     }
 

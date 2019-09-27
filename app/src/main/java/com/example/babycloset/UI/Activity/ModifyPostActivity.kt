@@ -36,6 +36,7 @@ import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
 import kotlinx.android.synthetic.main.activity_write_post.*
 import kotlinx.android.synthetic.main.toolbar_all_product.*
+import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -105,6 +106,10 @@ class ModifyPostActivity : AppCompatActivity() {
         }
         btn_share_modify_post.setOnClickListener {
             isValid()
+        }
+
+        btn_letter_write_post.setOnClickListener {
+            startActivity<EmailActivity>()
         }
     }
 
@@ -321,9 +326,9 @@ class ModifyPostActivity : AppCompatActivity() {
                         var isNewMessage = response.body()!!.data.isNewMessage
 
                         if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
-                            btn_letter_toolbar_all_product.setImageResource(R.drawable.btn_letter_alarm)
+                            btn_letter_write_post.setImageResource(R.drawable.btn_letter_alarm)
                         }else if(isNewMessage == 0){
-                            btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
+                            btn_letter_write_post.setImageResource(R.drawable.home_btn_email_update)
                         }
 
                         //카테고리

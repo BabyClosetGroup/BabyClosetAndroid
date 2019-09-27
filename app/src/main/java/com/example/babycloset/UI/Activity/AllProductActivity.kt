@@ -24,6 +24,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_all_product.*
 import kotlinx.android.synthetic.main.toolbar_all_product.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.json.JSONObject
@@ -65,7 +66,9 @@ class AllProductActivity : AppCompatActivity() {
             }
         }
 
-
+        btn_letter_toolbar_all_product.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
 
 
     }

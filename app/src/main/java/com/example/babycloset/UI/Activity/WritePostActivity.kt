@@ -74,7 +74,7 @@ class WritePostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_write_post)
 
         checkPermission()
-        
+
         configWritePost()
     }
 
@@ -118,6 +118,10 @@ class WritePostActivity : AppCompatActivity() {
         //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {
             isValid()
+        }
+
+        btn_letter_write_post.setOnClickListener {
+            startActivity<EmailActivity>()
         }
     }
 
