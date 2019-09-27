@@ -154,11 +154,14 @@ class HomeFragment : Fragment() {
                         }else if(isNewMessage == 0){
                             btn_email.setImageResource(R.drawable.home_btn_email_update)
                         }
+                        Log.e("error","${response.body()!!.data.recentPost[0].postIdx}")
+
                         val tmp: ArrayList<HomeDeadlineData> = response.body()!!.data.deadlinePost
                         val tmp2: ArrayList<HomeRecentData> = response.body()!!.data.recentPost
 
-                        homeDeadlineRecyclerAdapter.dataList.addAll(tmp)
-                        homeRecentRecyclerAdapter.dataList.addAll(tmp2)
+
+                        homeDeadlineRecyclerAdapter.dataList!!.addAll(tmp)
+                        homeRecentRecyclerAdapter.dataList!!.addAll(tmp2)
 
                         homeDeadlineRecyclerAdapter.notifyDataSetChanged()
                         homeRecentRecyclerAdapter.notifyDataSetChanged()

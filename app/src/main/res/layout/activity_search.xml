@@ -74,7 +74,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@color/white"
-                    android:visibility="invisible">
+                    android:visibility="visible">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,6 +84,13 @@
                         android:textColor="#262626"
                         android:layout_gravity="center"
                         android:layout_marginTop="125dp"/>
+                <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/search"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"/>
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

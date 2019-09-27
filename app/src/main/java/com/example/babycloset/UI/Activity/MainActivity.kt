@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +12,10 @@ import com.example.babycloset.UI.Adapter.MainPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toobar_main.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
-
+    var lastBackPress: Long=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,6 +49,11 @@ class MainActivity : AppCompatActivity() {
             startActivity<WritePostActivity>("id" to 5)
         }
 
+    }
 
+    override fun onBackPressed() {
+        finishAffinity()
+        System.runFinalization()
+        System.exit(0)
     }
 }
