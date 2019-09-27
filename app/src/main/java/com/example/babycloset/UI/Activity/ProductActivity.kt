@@ -40,6 +40,7 @@ import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.dialog_custom_complain.view.*
 import kotlinx.android.synthetic.main.toolbar_product.*
+import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MultipartBody
 import org.jetbrains.anko.colorAttr
 import org.jetbrains.anko.db.FloatParser
@@ -95,14 +96,6 @@ class ProductActivity : AppCompatActivity(){
         toast(postIdx.toString())
 
     }
-
-    fun initGetResponse(){
-        Handler().postDelayed({
-            getProductDetailResponse()
-        }, 300)
-    }
-
-
 
     //버튼
    fun configBtn(){
@@ -329,11 +322,14 @@ class ProductActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
 
                     //쪽지
-                    if(response.body()!!.data.isNewMessage == "1"){
-                        btn_letter_toolbar_product.setBackgroundResource(R.drawable.btn_letter_alarm)
-                    }else{
-                        btn_letter_toolbar_product.setBackgroundResource(R.drawable.home_btn_email)
+                    var isNewMessage = response.body()!!.data.isNewMessage
+
+                    if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                        btn_letter_toolbar_product.setImageResource(R.drawable.btn_letter_alarm)
+                    }else if(isNewMessage == 0){
+                        btn_letter_toolbar_product.setImageResource(R.drawable.home_btn_email_update)
                     }
+
                     isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
                     txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
 

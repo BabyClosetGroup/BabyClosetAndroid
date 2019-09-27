@@ -91,6 +91,15 @@ class DeadLineProductActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     if(response.body()!!.status == 200){
                         Log.e("마감임박  상품 조회 성공", pagination.toString())
+
+                        var isNewMessage = response.body()!!.data.isNewMessage
+
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
+                        }
+
                         if(response.body()!!.data.deadlinePost.isNotEmpty()){
                             val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.deadlinePost
                             for(i in 0..tmp.size-1){
@@ -135,6 +144,13 @@ class DeadLineProductActivity : AppCompatActivity() {
                     if(response.body()!!.status == 200){
                         Log.e("모든 상품 필터 조회 성공", fpagination.toString())
 
+                        var isNewMessage = response.body()!!.data.isNewMessage
+
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
+                        }
 
                         if(response.body()!!.data.filteredDeadlinePost.isNotEmpty()){
                             rl_not_filter_post_deadline_product.visibility = View.GONE

@@ -8,5 +8,6 @@ data class PostWritePostResponse(
 )
 
 data class PostIdx(
-    var postIdx : Int
+    var postIdx : Int,
+    var isNewMessage : Int
 )
