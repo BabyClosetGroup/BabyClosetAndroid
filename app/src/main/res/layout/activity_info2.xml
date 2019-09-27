@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:background="#ffffff"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.Activity.info1Activity">
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:layout_marginTop="75dp"
+                    android:fontFamily="@font/seoulnamsanl"
+                    android:textColor="#262626"
+                    android:textSize="22sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:text="개인정보 수집 동의"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginRight="16dp"
+                  android:background="#f1f1f1" />
+            <TextView
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="182dp"
+                    android:textSize="12sp"
+                    android:textColor="#262626"
+                    android:fontFamily="@font/seoulnamsanl"
+                    android:text="1. 수집하는 개인정보 항목 \n아가옷장(이하 ‘서비스’라 합니다)는 서비스 이용을 위해 최초 회원
+가입시 이용자로부터 아래와 같은 개인정보를 수집하고 있습니다.
+이용자는 본 개인정보 수집·이용 동의서에 따른 동의 시, '필요한
+최소한의 정보 외의 개인정보' 수집·이용에 동의하지 아니할 권리가
+있습니다.
+\n\n2. 사용자가 생성하거나 제공하는 정보\n사용자는 아가옷장계정을 만들 때 이름과 비밀번호를 포함한
+개인정보를 아가옷장에 제공합니다.\n\n
+사용자가 서비스를 이용하면서 생성, 업로드하거나 다른 사람에게
+받는 콘텐츠를 수집합니다. 여기에는 사용자가 작성하거나 수신하는
+쪽지, 저장하는 사진, 게시물에 댓글 등이 포함됩니다.\n\n3. 아가옷장이 수집하는 정보\n사용자가 아가옷장 서비스에 액세스할 기기에 대한 정보를
+수집합니다.이 정보를 이용하여 자동 제품 업데이트 등을 제공할
+수 있습니다.\n\n수집하는 정보에는 고유 식별자, 운영체제, 모바일 네트워크 정보,
+애플리케이션 버전 번호가 포함됩니다. 또한 IP 주소, 비정상 종료
+보고서, 시스템 활동, 요청 날짜와 시간, 기기와 아가옷장 서비스의
+상호작용에 대한 정보를 수집합니다.\n\n기기의 아가옷장 서비스가 서버에 연결될 때, 예를 들어 Play 스토어
+에서 앱을 설치할 때나 서비스가 자동 업데이트를 확인할 때 이
+정보를 수집합니다.\n\n4. 사용자의 활동\n· 검색하는 단어\n
+· 구매(나눔) 활동\n
+· 사용자가 교류하거나 콘텐츠를 공유하는 사람들
+"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
