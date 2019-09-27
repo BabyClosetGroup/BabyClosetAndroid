@@ -29,7 +29,7 @@ class AllProductRecyclerViewAdapter(var ctx : Context, var datalist : ArrayList<
 
         Glide.with(ctx)
             .load(datalist[position].mainImage)
-            .centerCrop()
+            .centerInside()
             .into(holder.mainImage)
 
         holder.postTitle.text = datalist[position].postTitle

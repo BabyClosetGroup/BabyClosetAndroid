@@ -51,6 +51,8 @@ class WritePostActivity : AppCompatActivity() {
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
 
+    var btnShareState : Boolean = true
+
     var pictureUri1 : Uri? = null
     var pictureUri2 : Uri? = null
     var pictureUri3 : Uri? = null
@@ -117,9 +119,14 @@ class WritePostActivity : AppCompatActivity() {
 
         //검사(카테고리 선택, 마감기한 선택) -> 통신 -> (딜레이후) 상품보기 액티비티 이동
         btn_share_write_post.setOnClickListener {
-            isValid()
+            if(btnShareState){
+                isValid()
+            }else{
+                showBasicDialog("서버에 업로딩중ㅜㅜ", this)
+            }
         }
 
+        //쪽지
         btn_letter_write_post.setOnClickListener {
             startActivity<EmailActivity>()
         }
@@ -279,19 +286,29 @@ class WritePostActivity : AppCompatActivity() {
         else if(pictureUri1 == null){
            showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
+            btnShareState = false
             postWritePostResponse()
-
-            toast("글 작성을 완료하였습니다!")
-            Handler().postDelayed({
-                startActivity<ProductActivity>("postIdx" to postIdx)
-                finish()
-            },1500)
+            showBasicDialog("글 작성을 완료하였습니다!", this)
+            when(pictureList.size){
+                1-> setDelayTime(1500)
+                2-> setDelayTime(1600)
+                3-> setDelayTime(2000)
+                4-> setDelayTime(2500)
+            }
         }
+    }
+
+    fun setDelayTime(time : Long){
+        Handler().postDelayed({
+            startActivity<ProductActivity>("postIdx" to postIdx)
+            finish()
+        },time)
     }
     //통신
     fun postWritePostResponse(){
 
         val title_rb = stringToRequestBody(edt_title_write_post.text.toString())
+        Log.e("content",edt_contents_wirte_post.text.toString())
         val content_rb = stringToRequestBody(edt_contents_wirte_post.text.toString())
         val deadline_rb = stringToRequestBody(deadline)
         val areaC_rb = stringToRequestBody(listToString(areaList))
@@ -345,6 +362,14 @@ class WritePostActivity : AppCompatActivity() {
 
     //ModifyPostActivity 활용
     companion object{
+
+        fun showBasicDialog(str : String, ctx: Context){
+            val builder = AlertDialog.Builder(ctx)
+            builder
+                .setTitle(str)
+                .setNegativeButton(Html.fromHtml("<font color='#ffc107' size = 14>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
+            builder.show()
+        }
 
         //알림 팝업
         fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){

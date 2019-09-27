@@ -52,8 +52,7 @@ class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
     var imgNum : Int = 0
     var postIdx : Int = 0
-
-    lateinit var mbp : MultipartBody.Part
+    var btnShareState : Boolean = true
 
     var imgList = ArrayList<String>()
     var areaList = arrayListOf<String>()
@@ -87,6 +86,9 @@ class ModifyPostActivity : AppCompatActivity() {
 
         getProductDetailResponse()
 
+        txt_title_toolbar_write_post.text = "수정하기"
+
+
         checkPermission()
 
         configfModify()
@@ -105,7 +107,11 @@ class ModifyPostActivity : AppCompatActivity() {
             showDeadlineDialog()
         }
         btn_share_modify_post.setOnClickListener {
-            isValid()
+            if(btnShareState){
+                isValid()
+            }else{
+                WritePostActivity.showBasicDialog("서버에 업로딩중ㅜㅜ", this)
+            }
         }
 
         btn_letter_write_post.setOnClickListener {
@@ -294,12 +300,21 @@ class ModifyPostActivity : AppCompatActivity() {
             WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
         } else {
             putPostResponse()
-            Handler().postDelayed({
-                Log.e("valid postIdx", postIdx.toString())
-                startActivity<ProductActivity>("postIdx" to postIdx)
-                finish()
-            },1000)
+            WritePostActivity.showBasicDialog("글 작성을 완료하였습니다!", this)
+            when(pictureList.size){
+                1-> setDelayTime(1500)
+                2-> setDelayTime(1600)
+                3-> setDelayTime(2000)
+                4-> setDelayTime(2500)
+            }
         }
+    }
+
+    fun setDelayTime(time : Long){
+        Handler().postDelayed({
+            startActivity<ProductActivity>("postIdx" to postIdx)
+            finish()
+        },time)
     }
 
     //게시물 상세보기 통신
