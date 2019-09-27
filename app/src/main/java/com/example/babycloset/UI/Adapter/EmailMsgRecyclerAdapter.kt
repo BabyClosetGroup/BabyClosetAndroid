@@ -8,11 +8,13 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.babycloset.Data.EmailMsgData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
+import org.jetbrains.anko.textColorResource
 
 class EmailMsgRecyclerAdapter (var ctx: Context, var dataList: ArrayList<EmailMsgData>): RecyclerView.Adapter<EmailMsgRecyclerAdapter.Holder>(){
 
@@ -21,40 +23,40 @@ class EmailMsgRecyclerAdapter (var ctx: Context, var dataList: ArrayList<EmailMs
     }
 
     override fun getItemViewType(position: Int): Int { //뷰 종류 구분해서 리턴해주기
-        //Log.e("message", "${dataList[position].noteType}    ${dataList[position].noteContent}")
-        //Log.e("message", "${position}")
-        return dataList[position].noteType //보낸거면 0, 받은거면 1
+
+        return dataList[position].noteType //받은 쪽지가 0, 보낸 쪽지가 1
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): Holder { //뷰 종류따라 inflate 해주기
-        //Log.e("getitem", "${getItemViewType(p1)}")
-        Log.e("position", "${position}")
-        if(getItemViewType(position)==0){ //보낸쪽지(나)
-            //Log.e("message", "보낸 쪽지   ${dataList[p1].noteContent}")
-            var view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_email_msg_send, viewGroup,false)
-            return Holder(view)
-        }
-        else { //받은쪽지(상대방)
-            //Log.e("message", "받은 쪽지   ${dataList[p1].noteContent}")
-            var view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_email_msg_receive, viewGroup, false)
-            return Holder(view)
-        }
+        var view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_email_msg_receive, viewGroup, false)
+        return Holder(view)
 
     }
 
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        if(getItemViewType(position)==1) { //보낸 쪽지 (회색)
+            holder.rv_border.setBackgroundResource(R.drawable.email_msg_send_border)
+            holder.rv_txt_email_msg_what.text = "보낸 쪽지"
+            holder.rv_txt_email_msg_what.setTextColor(R.color.grey) //빨간줄 뜨는데 이상하게 걍 둬도 잘됨
+        }
+        else { //받은 쪽지 (노란색)
+            holder.rv_border.setBackgroundResource(R.drawable.email_msg_receive_border)
+            holder.rv_txt_email_msg_what.text = "받은 쪽지"
+        }
+
         holder.rv_txt_email_msg_time.text = dataList[position].createdTime
         holder.rv_txt_email_msg_contents.text = dataList[position].noteContent
-//        holder.rv_txt_email_msg_what.text = dataList[position].
 
     }
 
     inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
         var rv_txt_email_msg_time = itemView.findViewById(R.id.rv_txt_email_msg_time) as TextView
         var rv_txt_email_msg_contents = itemView.findViewById(R.id.rv_txt_email_msg_contents) as TextView
-        //var rv_txt_email_msg_what = itemView.findViewById(R.id.rv_txt_email_msg_what) as TextView
+        var rv_border = itemView.findViewById(R.id.borderrr) as LinearLayout
+        var rv_txt_email_msg_what = itemView.findViewById(R.id.rv_txt_email_msg_what) as TextView
     }
 
 }

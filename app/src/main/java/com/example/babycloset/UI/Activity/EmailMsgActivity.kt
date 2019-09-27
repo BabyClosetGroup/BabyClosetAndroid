@@ -43,6 +43,8 @@ class EmailMsgActivity : AppCompatActivity() {
 
         nickname = intent.getStringExtra("nickname")
         txt_toolbar_nickname.text = nickname
+        text_email_msg_person.text = nickname
+
 
         var dataList: ArrayList<EmailMsgData> = ArrayList()
 
@@ -83,12 +85,15 @@ class EmailMsgActivity : AppCompatActivity() {
                         val tmp: ArrayList<EmailMsgData> = response.body()!!.data.messages
                         emailMsgRecyclerAdapter.dataList = tmp
                         emailMsgRecyclerAdapter.notifyDataSetChanged()
-                        //Log.e("tag", "성공")
 
                         if(emailMsgRecyclerAdapter.dataList.size == 0) { //디폴트 글자 나오는 경우
                             rv_email_msg.visibility = GONE
                             ll_text_email_msg_default.visibility = VISIBLE
-                            text_email_msg_person.text = nickname
+                            //text_email_msg_person.text = nickname
+                        }
+                        else{ //rv visible
+                            rv_email_msg.visibility = VISIBLE
+                            ll_text_email_msg_default.visibility = GONE
                         }
                     }
                     else if (response.body()!!.status == 400){

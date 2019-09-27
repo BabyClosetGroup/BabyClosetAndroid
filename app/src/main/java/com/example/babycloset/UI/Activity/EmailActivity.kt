@@ -44,30 +44,11 @@ class EmailActivity : AppCompatActivity() {
 
 
     }
-/*
-    private fun configureList(){
-        var dataList: ArrayList<EmailData> = ArrayList()
 
-        //dataList.add(EmailData(0,"현아는베베","19/01/12 15:51","네네 알겠습니다", "0"))
-        //dataList.add(EmailData(1,"정미","19/01/12 15:51","3시 어떠신가요?","3"))
-
-
-//        if(dataList.size == 0) { //디폴트 글자 나오는 경우
-//            rv_email.visibility = GONE
-//            ll_text_email_default.visibility = VISIBLE
-//        }
-
-
-        emailRecyclerAdapter = EmailRecyclerAdapter(this, dataList)
-        rv_email.adapter = emailRecyclerAdapter
-        rv_email.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL,false)
-
-        getEmailResponse()
-    }*/
 
     private fun getEmailResponse(){
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
-        //val token = SharedPreference.getUserToken(this)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+        val token = SharedPreference.getUserToken(this)
         val getEmailResponse = networkService.getEmailResponse("application/json", token)
 
         getEmailResponse.enqueue(object : Callback<GetEmailResponse>{
@@ -83,6 +64,10 @@ class EmailActivity : AppCompatActivity() {
                         if(emailRecyclerAdapter.dataList.size == 0) { //디폴트 글자 나오는 경우
                             rv_email.visibility = GONE
                             ll_text_email_default.visibility = VISIBLE
+                        }
+                        else{
+                            rv_email.visibility = VISIBLE
+                            ll_text_email_default.visibility = GONE
                         }
                     }
                     else if (response.body()!!.status == 400){
