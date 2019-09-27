@@ -51,6 +51,8 @@ class LoginActivity : AppCompatActivity() {
                 postLoginResponse(login_u_id, login_u_pw)
             }
         }else{
+            edt_id_login.setText(SharedPreference.getUserID(this))
+            edt_pw_login.setText(SharedPreference.getUserPW(this))
             postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
         }
     }

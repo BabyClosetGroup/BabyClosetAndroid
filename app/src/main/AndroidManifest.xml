@@ -30,6 +30,8 @@
         <activity android:name=".UI.Activity.QRScanActivity">
         </activity>
         <activity android:name=".UI.Activity.LoginActivity">
+        </activity>
+        <activity android:name=".UI.Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
