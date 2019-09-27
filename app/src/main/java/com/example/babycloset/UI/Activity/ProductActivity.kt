@@ -42,6 +42,7 @@ import kotlinx.android.synthetic.main.dialog_custom_complain.view.*
 import kotlinx.android.synthetic.main.toolbar_product.*
 import okhttp3.MultipartBody
 import org.jetbrains.anko.colorAttr
+import org.jetbrains.anko.ctx
 import org.jetbrains.anko.db.FloatParser
 import org.jetbrains.anko.db.IntParser
 import org.jetbrains.anko.startActivity
@@ -151,7 +152,13 @@ class ProductActivity : AppCompatActivity(){
         builder.setItems(buyerItemList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
                 0->{
+
                     //쪽지보내기
+                    startActivity<EmailMsgActivity>(
+                            "userIdx" to userIdx,
+                            "nickname" to txt_account_name_product.text
+                    )
+
                 }
                 1->{
                     //신고하기
