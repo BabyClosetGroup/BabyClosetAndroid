@@ -19,14 +19,14 @@ import kotlinx.android.synthetic.main.rv_item_home_deadline.*
 import kotlinx.android.synthetic.main.rv_item_home_deadline.view.*
 import kotlinx.android.synthetic.main.rv_item_home_recent.*
 
-class HomeDeadlineRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeDeadlineData>): RecyclerView.Adapter<HomeDeadlineRecyclerAdapter.Holder>(){
+class HomeDeadlineRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeDeadlineData>?): RecyclerView.Adapter<HomeDeadlineRecyclerAdapter.Holder>(){
     var postIdx = -1
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): HomeDeadlineRecyclerAdapter.Holder {
         val view: View=LayoutInflater.from(ctx).inflate(R.layout.rv_item_home_deadline,p0,false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList!!.size
 
     override fun onBindViewHolder(holder: Holder, p1: Int) {
         //이미지에 rounding 주기
@@ -34,13 +34,13 @@ class HomeDeadlineRecyclerAdapter (val ctx: Context, val dataList: ArrayList<Hom
         holder.img_deadline.background = drawable
         holder.img_deadline.clipToOutline = true
 
-        Glide.with(ctx).load(dataList[p1].mainImage).into(holder.img_deadline)
-        holder.txt_deadline_day.text=dataList[p1].deadline
-        holder.txt_title.text=dataList[p1].postTitle
-        holder.txt_area.text=dataList[p1].areaName[0] //수정 필요
-        holder.txt_area_etc.text=dataList[p1].areaName.size.toString()
+        Glide.with(ctx).load(dataList!![p1].mainImage).into(holder.img_deadline)
+        holder.txt_deadline_day.text=dataList!![p1].deadline
+        holder.txt_title.text=dataList!![p1].postTitle
+        holder.txt_area.text=dataList!![p1].areaName[0] //수정 필요
+        holder.txt_area_etc.text=dataList!![p1].areaName.size.toString()
         holder.relative_layout.setOnClickListener {
-            postIdx=dataList.get(p1).postIdx
+            postIdx=dataList!!.get(p1).postIdx
             var intent= Intent(ctx,ProductActivity::class.java)
             intent.putExtra("postIdx",postIdx)
             ctx.startActivity(intent)

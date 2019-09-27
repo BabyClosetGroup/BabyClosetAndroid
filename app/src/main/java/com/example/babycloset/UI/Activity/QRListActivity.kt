@@ -67,7 +67,7 @@ class QRListActivity : AppCompatActivity() {
 
                         var tmp=response.body()!!.data.allPost
 
-                        qrListRecyclerAdapter.dataList.addAll(tmp)
+                        qrListRecyclerAdapter.dataList!!.addAll(tmp)
                         qrListRecyclerAdapter.notifyDataSetChanged()
                     }
                 }

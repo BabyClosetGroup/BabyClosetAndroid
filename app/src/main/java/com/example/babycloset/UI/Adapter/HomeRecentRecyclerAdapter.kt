@@ -16,14 +16,14 @@ import com.example.babycloset.Data.HomeRecentData
 import com.example.babycloset.R
 import com.example.babycloset.UI.Activity.ProductActivity
 
-class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeRecentData>): RecyclerView.Adapter<HomeRecentRecyclerAdapter.Holder>(){
+class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeRecentData>?): RecyclerView.Adapter<HomeRecentRecyclerAdapter.Holder>(){
     var postIdx=-1
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): HomeRecentRecyclerAdapter.Holder {
         val view: View=LayoutInflater.from(ctx).inflate(R.layout.rv_item_home_recent,p0,false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList!!.size
 
     override fun onBindViewHolder(holder: Holder, p1: Int) {
         //이미지에 rounding 주기
@@ -31,12 +31,12 @@ class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeR
         holder.img_recent.background = drawable
         holder.img_recent.clipToOutline = true
 
-        Glide.with(ctx).load(dataList[p1].mainImage).into(holder.img_recent)
-        holder.txt_title.text=dataList[p1].postTitle
-        holder.txt_area.text=dataList[p1].areaName[0] //수정필요
-        holder.txt_area_etc.text=dataList[p1].areaName.size.toString()
+        Glide.with(ctx).load(dataList!![p1].mainImage).into(holder.img_recent)
+        holder.txt_title.text=dataList!![p1].postTitle
+        holder.txt_area.text=dataList!![p1].areaName[0] //수정필요
+        holder.txt_area_etc.text=dataList!![p1].areaName.size.toString()
         holder.relative_layout.setOnClickListener {
-            postIdx=dataList.get(p1).postIdx
+            postIdx=dataList!!.get(p1).postIdx
             var intent= Intent(ctx,ProductActivity::class.java)
             intent.putExtra("postIdx",postIdx)
             ctx.startActivity(intent)

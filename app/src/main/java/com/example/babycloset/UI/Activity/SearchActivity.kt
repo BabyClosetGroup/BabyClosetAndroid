@@ -109,7 +109,7 @@ class SearchActivity : AppCompatActivity() {
                         }else{
                             frame_search_none.visibility=View.INVISIBLE
                             frame_search.visibility= View.VISIBLE
-                            searchProductRecyclerAdapter.dataList.addAll(tmp)
+                            searchProductRecyclerAdapter.dataList!!.addAll(tmp)
                             searchProductRecyclerAdapter.notifyDataSetChanged()
                         }
                     }
