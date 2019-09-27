@@ -285,7 +285,7 @@ class WritePostActivity : AppCompatActivity() {
             Handler().postDelayed({
                 startActivity<ProductActivity>("postIdx" to postIdx)
                 finish()
-            },1000)
+            },1500)
         }
     }
     //통신

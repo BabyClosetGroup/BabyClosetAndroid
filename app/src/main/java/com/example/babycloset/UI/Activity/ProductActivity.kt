@@ -60,6 +60,7 @@ import kotlin.concurrent.thread
 class ProductActivity : AppCompatActivity(){
 
     var isSender : Int = 0  //나눔자(1) 받을사람(0) 구별 변수
+    var isNewMessage : Int = 0
     var complainReason : String = "" //신고사유
     var imgNum : Int = 0
     var postIdx : Int = 0
@@ -74,15 +75,10 @@ class ProductActivity : AppCompatActivity(){
         ApplicationController.instance.networkService
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
-
-
-        img_user_profile_product.setBackground(ShapeDrawable(OvalShape()))
-        if (Build.VERSION.SDK_INT >= 21) {
-            img_user_profile_product.setClipToOutline(true)
-        }
 
         val intent : Intent = getIntent()
         postIdx = intent.getIntExtra("postIdx", 0)
@@ -92,10 +88,15 @@ class ProductActivity : AppCompatActivity(){
 
         Handler().postDelayed({
             configBtn()
-        }, 300)
+        }, 500)
 
         btn_letter_toolbar_product.setOnClickListener {
             startActivity<EmailActivity>()
+        }
+
+        img_user_profile_product.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            img_user_profile_product.setClipToOutline(true)
         }
 
     }
@@ -112,6 +113,12 @@ class ProductActivity : AppCompatActivity(){
         }
 
        btn_ddd_toolbar_product.setOnClickListener {
+           if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+               btn_letter_toolbar_product.setImageResource(R.drawable.btn_letter_alarm)
+           }else if(isNewMessage == 0){
+               btn_letter_toolbar_product.setImageResource(R.drawable.home_btn_email_update)
+           }
+
            if(isSender == 1){  //나눔자가 누르면 - 수정하기, 삭제하기 (isSender == 1)
                showSellerDialog()
            }
@@ -148,6 +155,8 @@ class ProductActivity : AppCompatActivity(){
             when(which){
                 0->{
                     //쪽지보내기
+                    startActivity<EmailActivity>()
+                    finish()
                 }
                 1->{
                     //신고하기
@@ -325,13 +334,7 @@ class ProductActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
 
                     //쪽지
-                    var isNewMessage = response.body()!!.data.isNewMessage
-
-                    if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
-                        btn_letter_toolbar_product.setImageResource(R.drawable.btn_letter_alarm)
-                    }else if(isNewMessage == 0){
-                        btn_letter_toolbar_product.setImageResource(R.drawable.home_btn_email_update)
-                    }
+                    isNewMessage = response.body()!!.data.isNewMessage
 
                     isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
                     txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
@@ -391,6 +394,5 @@ class ProductActivity : AppCompatActivity(){
         })
 
     }
-
 
 }
