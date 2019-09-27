@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View.*
 import android.widget.LinearLayout
+import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.EmailMsgData
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.Get.GetSpecificEmailResponse
@@ -66,8 +67,8 @@ class EmailMsgActivity : AppCompatActivity() {
     }
 
     private fun getSpecificEmailMsg(){
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
-        //val token = SharedPreference.getUserToken(this)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+        val token = SharedPreference.getUserToken(this)
         val getSpecificEmailResponse = networkService.getSpecificEmailResponse("application/json", token, userIdx)
 
         getSpecificEmailResponse.enqueue(object : Callback<GetSpecificEmailResponse> {
@@ -87,6 +88,7 @@ class EmailMsgActivity : AppCompatActivity() {
                         if(emailMsgRecyclerAdapter.dataList.size == 0) { //디폴트 글자 나오는 경우
                             rv_email_msg.visibility = GONE
                             ll_text_email_msg_default.visibility = VISIBLE
+                            text_email_msg_person.text = nickname
                         }
                     }
                     else if (response.body()!!.status == 400){
@@ -102,8 +104,8 @@ class EmailMsgActivity : AppCompatActivity() {
         jsonObject.put("receiverIdx", receiverIdx)
         jsonObject.put("noteContent", noteContent)
 
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
-//        val token = SharedPreference.getUserToken(this)
+        //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+        val token = SharedPreference.getUserToken(this)
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
         val postSendEmailResponse: Call<PostSendEmailResponse> = networkService.postSendEmailResponse("application/json", token, gsonObject)
 

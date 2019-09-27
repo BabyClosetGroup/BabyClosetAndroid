@@ -162,7 +162,10 @@ class ProductActivity : AppCompatActivity(){
             when(which){
                 0->{
                     //쪽지보내기
-                    startActivity<EmailActivity>()
+                    startActivity<EmailMsgActivity>(
+                            "userIdx" to userIdx,
+                            "nickname" to txt_account_name_product.text
+                    )
                     finish()
                 }
                 1->{
