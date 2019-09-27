@@ -35,7 +35,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<CompleteProductOverviewData>): RecyclerView.Adapter<CompleteProductOverviewRecyclerViewAdapter.Holder>() {
+class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<CompleteProductOverviewData>?): RecyclerView.Adapter<CompleteProductOverviewRecyclerViewAdapter.Holder>() {
 
     var name:String =""
     var starrate:Float =0.0f
@@ -52,7 +52,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList!!.size
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -60,9 +60,9 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.thumbnail.background = drawable
         holder.thumbnail.clipToOutline = true
 
-        Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
-        holder.title.text = dataList[position].postName
-        var locList:ArrayList<String> = dataList[position].areaName
+        Glide.with(ctx).load(dataList!![position].mainImage).into(holder.thumbnail)
+        holder.title.text = dataList!![position].postName
+        var locList:ArrayList<String> = dataList!![position].areaName
         if(locList.size-1!=0){
             holder.location.text = locList[0]
             holder.extra_loc.text ="외 "+(locList.size-1)+"구"
@@ -70,26 +70,26 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
             holder.location.text = locList[0]
             holder.extra_loc.text =""
         }
-        holder.date.text = dataList[position].sharedDate
-        holder.owner.text = dataList[position].receiverNickname+"님"
+        holder.date.text = dataList!![position].sharedDate
+        holder.owner.text = dataList!![position].receiverNickname+"님"
 
-        if(dataList[position].receiverIsRated != 0){
-            holder.rate.text = dataList[position].rating.toString()+"점"
+        if(dataList!![position].receiverIsRated != 0){
+            holder.rate.text = dataList!![position].rating.toString()+"점"
             holder.btn.visibility=View.GONE
         } else
             holder.rate.text = "미부여"
 
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
-                "receiverIdx" to dataList[position].receiverIdx,
-                "receiverNickname" to dataList[position].receiverNickname,
-                "postName" to dataList[position].postName,
-                "postIdx" to dataList[position].postIdx,
+                "receiverIdx" to dataList!![position].receiverIdx,
+                "receiverNickname" to dataList!![position].receiverNickname,
+                "postName" to dataList!![position].postName,
+                "postIdx" to dataList!![position].postIdx,
                 "REQUESTCODE" to 100
             )
         }
         holder.info.setOnClickListener {
-            userIdx = dataList[position].receiverIdx
+            userIdx = dataList!![position].receiverIdx
             // 팝업창
             getRatingResponse()
         }
