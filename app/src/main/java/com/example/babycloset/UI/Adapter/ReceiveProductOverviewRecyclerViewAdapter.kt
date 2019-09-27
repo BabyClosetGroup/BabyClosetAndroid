@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Adapter
 
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
@@ -33,7 +34,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ReceiveProductOverviewData>): RecyclerView.Adapter<ReceiveProductOverviewRecyclerViewAdapter.Holder>() {
+class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ReceiveProductOverviewData>?): RecyclerView.Adapter<ReceiveProductOverviewRecyclerViewAdapter.Holder>() {
 
     var name:String =""
     var starrate:Float = 0.0f
@@ -50,13 +51,17 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList!!.size
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
-        holder.title.text = dataList[position].postName
-        var locList:ArrayList<String> = dataList[position].areaName
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.thumbnail.background = drawable
+        holder.thumbnail.clipToOutline = true
+
+        Glide.with(ctx).load(dataList!![position].mainImage).into(holder.thumbnail)
+        holder.title.text = dataList!![position].postName
+        var locList:ArrayList<String> = dataList!![position].areaName
         if(locList.size-1!=0){
             holder.location.text = locList[0]
             holder.extra_loc.text ="외 "+(locList.size-1)+"구"
@@ -64,28 +69,28 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
             holder.location.text = locList[0]
             holder.extra_loc.text =""
         }
-        holder.date.text = dataList[position].sharedDate
-        holder.owner.text = dataList[position].senderNickname+"님"
+        holder.date.text = dataList!![position].sharedDate
+        holder.owner.text = dataList!![position].senderNickname+"님"
 
 
-        if(dataList[position].senderIsRated != 0){
-            holder.rate.text = dataList[position].rating.toString()+"점"
+        if(dataList!![position].senderIsRated != 0){
+            holder.rate.text = dataList!![position].rating.toString()+"점"
             holder.btn.visibility=View.GONE
         } else
             holder.rate.text = "미부여"
 
         holder.btn.setOnClickListener {
             ctx.startActivity<RatingActivity>(
-                "senderIdx" to dataList[position].senderIdx,
-                "senderNickname" to dataList[position].senderNickname,
-                "postName" to dataList[position].postName,
-                "postIdx" to dataList[position].postIdx,
+                "senderIdx" to dataList!![position].senderIdx,
+                "senderNickname" to dataList!![position].senderNickname,
+                "postName" to dataList!![position].postName,
+                "postIdx" to dataList!![position].postIdx,
                 "REQUESTCODE" to 200
             )
         }
         holder.info.setOnClickListener {
             // 팝업창
-            userIdx = dataList[position].senderIdx
+            userIdx = dataList!![position].senderIdx
             getRatingResponse()
         }
     }

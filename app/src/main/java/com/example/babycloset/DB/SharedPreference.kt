@@ -8,6 +8,7 @@ object SharedPreference {
     val MY_ACCOUNT = "unique_string"
     val U_ID = "unique_string"
     val U_PW = "unique_string"
+    val CHECK = "unique_string"
     val PERMIS = "unique_string"
 
     fun setUserToken(ctx: Context, token: String){
@@ -20,7 +21,7 @@ object SharedPreference {
     fun getUserToken(ctx: Context): String{
         val preference: SharedPreferences = ctx.getSharedPreferences(MY_ACCOUNT, Context.MODE_PRIVATE)
         return preference.getString("u_token", "")
-        //return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
+      //  return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
     }
 
     fun clearUserToken(ctx: Context){
@@ -52,6 +53,18 @@ object SharedPreference {
     fun getUserPW(ctx: Context): String{
         val preference: SharedPreferences = ctx.getSharedPreferences(U_PW, Context.MODE_PRIVATE)
         return preference.getString("u_pw", "")
+    }
+
+    fun setAutoLogin(ctx: Context, ck : Boolean){
+        val preference: SharedPreferences = ctx.getSharedPreferences(CHECK, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = preference.edit()
+        editor.putBoolean("check", ck)
+        editor.commit()
+    }
+
+    fun getAutoLogin(ctx: Context): Boolean{
+        val preference: SharedPreferences = ctx.getSharedPreferences(CHECK, Context.MODE_PRIVATE)
+        return preference.getBoolean("check", false)
     }
 
     fun setPermission(ctx: Context, state : Boolean){

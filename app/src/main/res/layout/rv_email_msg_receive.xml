@@ -23,7 +23,9 @@
             android:textColor="#ffc107"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="20sp"
-            android:text="받은 쪽지"/>
+            android:text="받은 쪽지"
+            android:fontFamily="@font/seoulnamsanb"
+        />
 
         <TextView
             android:id="@+id/rv_txt_email_msg_time"
@@ -35,7 +37,9 @@
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="20sp"
             android:gravity="end"
-            android:text="19/01/12 15:51"/>
+            android:text="19/01/12 15:51"
+            android:fontFamily="@font/seoulnamsanm"
+        />
 
     </LinearLayout>
 
@@ -50,6 +54,8 @@
         android:textColor="#262626"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="17sp"
-        android:text="우와! 감사합니다:)"/>
+        android:text="우와! 감사합니다:)"
+        android:fontFamily="@font/seoulnamsanm"
+    />
 
 </LinearLayout>

@@ -35,6 +35,7 @@ import android.os.Build
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.ShapeDrawable
 import android.os.Handler
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
@@ -58,6 +59,14 @@ class EditInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.babycloset.R.layout.activity_edit_info)
+
+        btn_logout.setOnClickListener {
+            SharedPreference.clearUserToken(this)
+            val killApp = Intent(this, LoginActivity::class.java)
+            killApp.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            killApp.putExtra("KILL_APP", true)
+            startActivity(killApp)
+        }
 
         img_info_thumbnail.setBackground(ShapeDrawable(OvalShape()))
         if (Build.VERSION.SDK_INT >= 21) {
@@ -83,16 +92,44 @@ class EditInfoActivity : AppCompatActivity() {
             when(nick_mod) { //nick변경 여부
                 0 -> { when (pw_mod) {
                     0 -> showMailDialog3()
-                    1 -> { if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
-                            showMailDialog1() }
+                    1 -> {
+                        if(Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6)
+                            showMailDialog1()
+                        else if(!Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) || txt_info_pw.text.toString().length<6){
+                            val builder = AlertDialog.Builder(ctx)
+                            builder.setMessage("비밀번호를 형식에 맞게 입력해주세요")
+                            builder.setNegativeButton("확인") { dialog, which -> null }
+                            builder.show()
+                        }
+                    }
                     }
                 }
                 1 -> { when (pw_mod) {
                     0 -> { if (txt_info_nickname.text.toString().length < 8 && Pattern.matches("^[가-힣]*$", txt_info_nickname.text.toString()))
-                            showMailDialog2() }
+                            showMailDialog2()
+                            else if(txt_info_nickname.text.toString().length >= 8 || !Pattern.matches("^[가-힣]*$", txt_info_nickname.text.toString())){
+                            val builder = AlertDialog.Builder(ctx)
+                            builder.setMessage("닉네임을 형식에 맞게 입력해주세요")
+                            builder.setNegativeButton("확인") { dialog, which -> null }
+                            builder.show()
+                        }
+                    }
                     1 -> {if((txt_info_nickname.text.toString().length<8 && Pattern.matches("^[가-힣]*$",txt_info_nickname.text.toString()))
                         && (Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) && txt_info_pw.text.toString().length>=6))
-                            showMailDialog() }
+                            showMailDialog()
+                        else if(txt_info_nickname.text.toString().length >= 8 || !Pattern.matches("^[가-힣]*$", txt_info_nickname.text.toString())){
+                            val builder = AlertDialog.Builder(ctx)
+                            builder.setMessage("닉네임을 형식에 맞게 입력해주세요")
+                            builder.setNegativeButton("확인") { dialog, which -> null }
+                            builder.show()
+                        }
+                        else if(!Pattern.matches("^[a-zA-Z0-9]*$",txt_info_pw.text.toString()) || txt_info_pw.text.toString().length<6){
+                            val builder = AlertDialog.Builder(ctx)
+                            builder.setMessage("비밀번호를 형식에 맞게 입력해주세요")
+                            builder.setNegativeButton("확인") { dialog, which -> null }
+                            builder.show()
+                        }
+                    }
                     }
                 }
             }

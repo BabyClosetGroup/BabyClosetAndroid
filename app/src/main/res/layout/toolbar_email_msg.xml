@@ -18,6 +18,7 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="8sp"
                 android:gravity="center_horizontal"
+                android:fontFamily="@font/seoulnamsanb"
                 android:text="상대방1"
                 />
 

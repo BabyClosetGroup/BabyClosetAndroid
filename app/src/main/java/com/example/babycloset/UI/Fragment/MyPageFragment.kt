@@ -48,11 +48,14 @@ class MyPageFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_my_page, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        // 이름, 평균 별점 가져오기
+        getViewProfileResponse()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // 이름, 평균 별점 가져오기
-
-        getViewProfileResponse()
 
         img_profile.setBackground(ShapeDrawable(OvalShape()))
         if (Build.VERSION.SDK_INT >= 21) {

@@ -1,7 +1,7 @@
 package com.example.babycloset.Data
 
 data class ProductDetailData(
-    val isNewMessage : String,
+    val isNewMessage : Int,
     val detailPost : DetailPostData
 )
 

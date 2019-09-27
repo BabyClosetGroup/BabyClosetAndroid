@@ -4,14 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -32,6 +35,8 @@ import com.example.babycloset.R
 import com.example.babycloset.UI.Adapter.CategoryRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_modify_post.*
 import kotlinx.android.synthetic.main.activity_write_post.*
+import kotlinx.android.synthetic.main.toolbar_all_product.*
+import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -47,8 +52,7 @@ class ModifyPostActivity : AppCompatActivity() {
     var deadline : String = ""
     var imgNum : Int = 0
     var postIdx : Int = 0
-
-    lateinit var mbp : MultipartBody.Part
+    var btnShareState : Boolean = true
 
     var imgList = ArrayList<String>()
     var areaList = arrayListOf<String>()
@@ -82,6 +86,15 @@ class ModifyPostActivity : AppCompatActivity() {
 
         getProductDetailResponse()
 
+        txt_title_toolbar_write_post.text = "수정하기"
+
+
+        checkPermission()
+
+        configfModify()
+    }
+
+    fun configfModify(){
         img_modify_post1.setOnClickListener { showImageDialog(1) }
         img_modify_post2.setOnClickListener { showImageDialog(2) }
         img_modify_post3.setOnClickListener { showImageDialog(3) }
@@ -94,7 +107,37 @@ class ModifyPostActivity : AppCompatActivity() {
             showDeadlineDialog()
         }
         btn_share_modify_post.setOnClickListener {
-            isValid()
+            if(btnShareState){
+                isValid()
+            }else{
+                WritePostActivity.showBasicDialog("서버에 업로딩중ㅜㅜ", this)
+            }
+        }
+
+        btn_letter_write_post.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
+    }
+
+    fun checkPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Tag", "권한 설정 완료")
+            }  else {
+                Log.d("Tag", "권한 설정 요청")
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        Log.d("Tag", "onRequestPermissionsResult")
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Tag", "Permission: " + permissions[0] + "was " + grantResults[0])
         }
     }
 
@@ -257,12 +300,21 @@ class ModifyPostActivity : AppCompatActivity() {
             WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
         } else {
             putPostResponse()
-            Handler().postDelayed({
-                Log.e("valid postIdx", postIdx.toString())
-                startActivity<ProductActivity>("postIdx" to postIdx)
-                finish()
-            },1000)
+            WritePostActivity.showBasicDialog("글 작성을 완료하였습니다!", this)
+            when(pictureList.size){
+                1-> setDelayTime(1500)
+                2-> setDelayTime(1600)
+                3-> setDelayTime(2000)
+                4-> setDelayTime(2500)
+            }
         }
+    }
+
+    fun setDelayTime(time : Long){
+        Handler().postDelayed({
+            startActivity<ProductActivity>("postIdx" to postIdx)
+            finish()
+        },time)
     }
 
     //게시물 상세보기 통신
@@ -285,6 +337,14 @@ class ModifyPostActivity : AppCompatActivity() {
                         edt_contents_modify_post.setText(content) //내용
                         txt_deadline_modify_tag.visibility = View.VISIBLE
                         txt_deadline_modify_tag.text = response.body()!!.data.detailPost.deadline.substring(2,3) + "일" //마감일
+
+                        var isNewMessage = response.body()!!.data.isNewMessage
+
+                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                            btn_letter_write_post.setImageResource(R.drawable.btn_letter_alarm)
+                        }else if(isNewMessage == 0){
+                            btn_letter_write_post.setImageResource(R.drawable.home_btn_email_update)
+                        }
 
                         //카테고리
                         areaList = response.body()!!.data.detailPost.areaName

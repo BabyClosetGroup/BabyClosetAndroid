@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -60,7 +61,7 @@ class ListPeopleActivity : AppCompatActivity() {
         //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
         val token = SharedPreference.getUserToken(ctx)
 
-        val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, 17)
+        val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, postIdx)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
                 Log.e("tag", "실패!")
@@ -83,6 +84,11 @@ class ListPeopleActivity : AppCompatActivity() {
                         var item: Char
                         item = x[0]
                         txt_application_num.text="("+item+")"
+
+                        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+                        img_thumbnail.background = drawable
+                        img_thumbnail.clipToOutline = true
+
                         Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
                         var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!

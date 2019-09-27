@@ -1,6 +1,7 @@
 package com.example.babycloset.UI.Adapter
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import com.example.babycloset.UI.Activity.RatingActivity
 import org.jetbrains.anko.image
 import org.jetbrains.anko.startActivity
 
-class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<IncompleteProductOverviewData>): RecyclerView.Adapter<IncompleteProductOverviewRecyclerViewAdapter.Holder>() {
+class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<IncompleteProductOverviewData>?): RecyclerView.Adapter<IncompleteProductOverviewRecyclerViewAdapter.Holder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
@@ -25,13 +26,17 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList!!.size
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        Glide.with(ctx).load(dataList[position].mainImage).into(holder.thumbnail)
-        holder.title.text = dataList[position].postTitle
-        val locList:ArrayList<String> = dataList[position].areaName
+        val drawable: GradientDrawable = ctx.getDrawable(R.drawable.img_background_rounding) as GradientDrawable
+        holder.thumbnail.background = drawable
+        holder.thumbnail.clipToOutline = true
+
+        Glide.with(ctx).load(dataList!![position].mainImage).into(holder.thumbnail)
+        holder.title.text = dataList!![position].postTitle
+        val locList:ArrayList<String> = dataList!![position].areaName
         if(locList.size-1!=0){
             holder.location.text = locList[0]
             holder.extra_loc.text ="외 "+(locList.size-1)+"구"
@@ -40,14 +45,14 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
             holder.extra_loc.text =""
         }
 
-        holder.num.text = dataList[position].registerNumber
+        holder.num.text = dataList!![position].registerNumber
 
         holder.btn.setOnClickListener {
             ctx.startActivity<ListPeopleActivity>(
-                "postIdx" to dataList[position].postIdx,
-                "mainImage" to dataList[position].mainImage,
-                "postTitle" to dataList[position].postTitle,
-                "registerNumber" to dataList[position].registerNumber
+                "postIdx" to dataList!![position].postIdx,
+                "mainImage" to dataList!![position].mainImage,
+                "postTitle" to dataList!![position].postTitle,
+                "registerNumber" to dataList!![position].registerNumber
             )
         }
     }

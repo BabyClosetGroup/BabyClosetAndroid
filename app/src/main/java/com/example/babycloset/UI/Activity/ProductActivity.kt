@@ -39,10 +39,11 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.dialog_custom_complain.view.*
+import kotlinx.android.synthetic.main.toolbar_all_product.*
 import kotlinx.android.synthetic.main.toolbar_product.*
+import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MultipartBody
 import org.jetbrains.anko.colorAttr
-import org.jetbrains.anko.ctx
 import org.jetbrains.anko.db.FloatParser
 import org.jetbrains.anko.db.IntParser
 import org.jetbrains.anko.startActivity
@@ -59,6 +60,8 @@ import kotlin.concurrent.thread
 class ProductActivity : AppCompatActivity(){
 
     var isSender : Int = 0  //나눔자(1) 받을사람(0) 구별 변수
+    var btnApplyState : Boolean = true
+    var isNewMessage : Int = 0
     var complainReason : String = "" //신고사유
     var imgNum : Int = 0
     var postIdx : Int = 0
@@ -73,15 +76,10 @@ class ProductActivity : AppCompatActivity(){
         ApplicationController.instance.networkService
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
-
-
-        img_user_profile_product.setBackground(ShapeDrawable(OvalShape()))
-        if (Build.VERSION.SDK_INT >= 21) {
-            img_user_profile_product.setClipToOutline(true)
-        }
 
         val intent : Intent = getIntent()
         postIdx = intent.getIntExtra("postIdx", 0)
@@ -91,32 +89,43 @@ class ProductActivity : AppCompatActivity(){
 
         Handler().postDelayed({
             configBtn()
-        }, 300)
+        }, 500)
 
-        toast(postIdx.toString())
+        btn_letter_toolbar_product.setOnClickListener {
+            startActivity<EmailActivity>()
+        }
+
+        img_user_profile_product.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            img_user_profile_product.setClipToOutline(true)
+        }
 
     }
-
-    fun initGetResponse(){
-        Handler().postDelayed({
-            getProductDetailResponse()
-        }, 300)
-    }
-
-
 
     //버튼
    fun configBtn(){
         //나눔신청
         if(isSender == 0){
             rl_apply_product.visibility = View.VISIBLE
-            btn_apply_product.setOnClickListener {
-                postShareResponse()
-                toast("신청이 완료되었습니다.")
-            }
+                btn_apply_product.setOnClickListener {
+                    if(btnApplyState){
+                         btnApplyState = false
+                        postShareResponse()
+                        toast("신청이 완료되었습니다.")
+                    }else {
+                        toast("이미 나눔 신청을 하셨습니다.")
+                    }
+                }
+
         }
 
        btn_ddd_toolbar_product.setOnClickListener {
+           if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+               btn_letter_toolbar_product.setImageResource(R.drawable.btn_letter_alarm)
+           }else if(isNewMessage == 0){
+               btn_letter_toolbar_product.setImageResource(R.drawable.home_btn_email_update)
+           }
+
            if(isSender == 1){  //나눔자가 누르면 - 수정하기, 삭제하기 (isSender == 1)
                showSellerDialog()
            }
@@ -152,13 +161,12 @@ class ProductActivity : AppCompatActivity(){
         builder.setItems(buyerItemList, DialogInterface.OnClickListener { dialog, which ->
             when(which){
                 0->{
-
                     //쪽지보내기
                     startActivity<EmailMsgActivity>(
                             "userIdx" to userIdx,
                             "nickname" to txt_account_name_product.text
                     )
-
+                    finish()
                 }
                 1->{
                     //신고하기
@@ -336,11 +344,8 @@ class ProductActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
 
                     //쪽지
-                    if(response.body()!!.data.isNewMessage == "1"){
-                        btn_letter_toolbar_product.setBackgroundResource(R.drawable.btn_letter_alarm)
-                    }else{
-                        btn_letter_toolbar_product.setBackgroundResource(R.drawable.home_btn_email)
-                    }
+                    isNewMessage = response.body()!!.data.isNewMessage
+
                     isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
                     txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
 
@@ -399,6 +404,5 @@ class ProductActivity : AppCompatActivity(){
         })
 
     }
-
 
 }

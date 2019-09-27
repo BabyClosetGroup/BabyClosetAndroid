@@ -30,6 +30,7 @@ import com.example.babycloset.UI.Activity.EmailMsgActivity
 class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ApplicationPeopleOverviewData>): RecyclerView.Adapter<ApplicationPeopleOverviewRecyclerViewAdapter.Holder>() {
 
     var nn:Int=0
+    var nickname:String = ""
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(com.example.babycloset.R.layout.rv_application_people_overview, viewGroup, false)
@@ -49,6 +50,8 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         } else
             Glide.with(ctx).load(dataList[position].profileImage).into(holder.thumbnail)
         holder.name.text = dataList[position].applicantNickname
+        nickname = dataList[position].applicantNickname
+
         holder.rate.text = dataList[position].rating.toString()+"점"
         var score = dataList[position].rating
         holder.rb.rating= score
@@ -67,11 +70,12 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
     }
     private fun showMailDialog() {
         val builder = AlertDialog.Builder(ctx)
-        builder.setMessage("쪽지를보내시겠습니까?")
+        builder.setMessage("쪽지를 보내시겠습니까?")
         builder.setPositiveButton(
             "네"
         ) { dialog, which -> ctx.startActivity<EmailMsgActivity>(
-            "userIdx" to nn
+                "userIdx" to nn,
+                "nickname" to nickname
         ) }
         builder.setNegativeButton(
             "아니오"

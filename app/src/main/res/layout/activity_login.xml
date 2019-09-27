@@ -27,19 +27,45 @@
                 android:fontFamily="@font/seoulnamsanl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        <TextView
-                android:text="ID는 무엇인가요?"
-                android:textSize="12sp"
-                android:textColor="#262626"
+        <LinearLayout
                 android:layout_marginTop="86dp"
-                android:layout_marginLeft="37dp"
-                android:fontFamily="@font/seoulnamsanm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="ID는 무엇인가요?"
+                    android:textSize="12sp"
+                    android:textColor="#262626"
+                    android:layout_marginLeft="37dp"
+                    android:fontFamily="@font/seoulnamsanm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <LinearLayout
+                    android:gravity="right"
+                    android:id="@+id/layout_auto"
+                    android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="2dp"
+                        android:id="@+id/txt_auto"
+                        android:text="자동로그인"
+                        android:textSize="12sp"
+                        android:textColor="#7d7d7d"
+                        android:layout_marginLeft="131dp"
+                        android:fontFamily="@font/seoulnamsanm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <ImageView
+                        android:id="@+id/btn_auto"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="33dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/agree_selector"/>
+            </LinearLayout>
+        </LinearLayout>
         <EditText
                 android:fontFamily="@font/seoulnamsanm"
                 android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="7dp"
                 android:paddingLeft="11dp"
                 android:background="@drawable/signin_enter_border"
                 android:layout_width="match_parent"
@@ -53,14 +79,14 @@
                 android:text="비밀번호는 무엇인가요?"
                 android:textSize="12sp"
                 android:textColor="#262626"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="19dp"
                 android:layout_marginLeft="37dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <EditText
                 android:fontFamily="@font/seoulnamsanm"
                 android:layout_marginHorizontal="32dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:paddingLeft="11dp"
                 android:background="@drawable/signin_enter_border"
                 android:layout_width="match_parent"
@@ -93,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_to_signin"/>
         </LinearLayout>
-    </LinearLayout>
+            </LinearLayout>
     <Button
             android:layout_alignParentBottom="true"
             android:background="#ffc107"

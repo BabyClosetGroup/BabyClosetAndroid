@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -31,17 +32,57 @@ class LoginActivity : AppCompatActivity() {
         btn_to_signin.setOnClickListener {
             startActivity<InfoConsentActivity>()
         }
-        //로그인
-        //if(SharedPreference.getUserID(this).isEmpty()){
+
+       /* if(SharedPreference.getAutoLogin(this)){
+            postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
+            auto_login.isChecked=true
+        } else{
+            val login_u_id: String = edt_id_login.text.toString()
+            val login_u_pw: String = edt_pw_login.text.toString()
+
+            postLoginResponse(login_u_id, login_u_pw)
+        }*/
+
+
+        layout_auto.setOnClickListener {
+            if(btn_auto.isSelected==true){
+                btn_auto.isSelected=false
+                SharedPreference.setAutoLogin(this,!btn_auto.isSelected)
+                txt_auto.setTextColor(Color.parseColor("#7d7d7d"))
+            } else {
+                btn_auto.isSelected=true
+                SharedPreference.setAutoLogin(this,btn_auto.isSelected)
+                txt_auto.setTextColor(Color.parseColor("#ffc107"))
+            }
+        }
+
+        if(SharedPreference.getAutoLogin(this)==true){
+            btn_auto.isSelected=true
+            txt_auto.setTextColor(Color.parseColor("#ffc107"))
+            if(SharedPreference.getUserID(this).isEmpty()){
+                btn_login.setOnClickListener {
+                    val login_u_id: String = edt_id_login.text.toString()
+                    val login_u_pw: String = edt_pw_login.text.toString()
+
+                    postLoginResponse(login_u_id, login_u_pw)
+                }
+            }else{
+                edt_id_login.setText(SharedPreference.getUserID(this))
+                edt_pw_login.setText(SharedPreference.getUserPW(this))
+                postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
+            }
+        } else {
             btn_login.setOnClickListener {
                 val login_u_id: String = edt_id_login.text.toString()
                 val login_u_pw: String = edt_pw_login.text.toString()
 
                 postLoginResponse(login_u_id, login_u_pw)
             }
-//        }else{
-//            postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
-//        }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
 
     }
 
@@ -75,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
 
         })
     }
+
 
 
 
