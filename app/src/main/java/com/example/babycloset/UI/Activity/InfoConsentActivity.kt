@@ -11,43 +11,31 @@ class InfoConsentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_consent)
 
+        btn_agree_info.isEnabled=false
+
         btn_agree_all_info.setOnClickListener {
-            if(btn_agree_all_select.isSelected==false){
-                btn_agree_all_select.isSelected=true
-                btn_agree1_select.isSelected=true
-                btn_agree2_select.isSelected=true
-            }else{
+            if(btn_agree_all_select.isSelected==false) {
+                btn_agree_all_select.isSelected = true
+                btn_agree_info.isEnabled=true
+                info_consent_border.setImageResource(R.drawable.yellow_fill_border)
+            } else {
                 btn_agree_all_select.isSelected=false
-                btn_agree1_select.isSelected=false
-                btn_agree2_select.isSelected=false
+                btn_agree_info.isEnabled=false
+                info_consent_border.setImageResource(R.drawable.gray_fill_border)
             }
         }
+
         btn_agree1_info.setOnClickListener {
-            if(btn_agree1_select.isSelected==false){
-                btn_agree1_select.isSelected=true
-                if(btn_agree2_select.isSelected==true)
-                    btn_agree_all_select.isSelected=true
-            }else{
-                btn_agree1_select.isSelected=false
-                btn_agree_all_select.isSelected=false
-            }
+            startActivity<info1Activity>()
         }
         btn_agree2_info.setOnClickListener {
-            if(btn_agree2_select.isSelected==false){
-                btn_agree2_select.isSelected=true
-                if(btn_agree1_select.isSelected==true)
-                    btn_agree_all_select.isSelected=true
-            }else{
-                btn_agree2_select.isSelected=false
-                btn_agree_all_select.isSelected=false
-            }
+            startActivity<info2Activity>()
         }
+
         // 전체동의시에만 처리되게 해야함
         btn_agree_info.setOnClickListener {
-            if(btn_agree_all_select.isSelected==true){
-                // 회원가입 정보입력 페이지
+            if(btn_agree_all_select.isSelected==true)
                 startActivity<SignupActivity>()
-            }
         }
     }
 }

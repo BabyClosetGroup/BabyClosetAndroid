@@ -1,5 +1,6 @@
 package com.example.babycloset.UI.Activity
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -41,6 +42,16 @@ class LoginActivity : AppCompatActivity() {
 
             postLoginResponse(login_u_id, login_u_pw)
         }*/
+
+        layout_auto.setOnClickListener {
+            if(btn_auto.isSelected==true){
+                btn_auto.isSelected=false
+                txt_auto.setTextColor(Color.parseColor("#7d7d7d"))
+            } else {
+                btn_auto.isSelected=true
+                txt_auto.setTextColor(Color.parseColor("#ffc107"))
+            }
+        }
 
         //로그인
         if(SharedPreference.getUserID(this).isEmpty()){
