@@ -20,8 +20,8 @@
     </LinearLayout>
 
     <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
-        <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:scrollbars="none">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="60dp" android:scrollbars="none">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="60dp" android:orientation="vertical">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="219dp" android:layout_marginBottom="42dp">
 
                     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
@@ -70,10 +70,10 @@
                     </RelativeLayout>
 
                 </LinearLayout>
-                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="60dp">
 
                     <LinearLayout
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="60dp"
                             android:orientation="vertical"
                             android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
                     >
@@ -143,11 +143,11 @@
                               android:layout_marginTop="15dp" android:background="#f1f1f1"/>
 
                         <ScrollView android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content" >
                             <EditText
                                     android:fontFamily="@font/seoulnamsanm"
                                     android:id="@+id/edt_contents_wirte_post" android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" android:layout_marginTop="15dp" android:background="@null"
+                                    android:layout_height="wrap_content" android:layout_marginBottom="60dp" android:layout_marginTop="15dp" android:background="@null"
                                     android:gravity="top" android:hint="내용을 작성해주세요\n\n\n\n\n\n\n\n\n\n\n\n" android:textColor="#262626"
                                     android:textSize="16dp"
                             />

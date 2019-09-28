@@ -59,17 +59,15 @@ class EmailMsgActivity : AppCompatActivity() {
 
         getSpecificEmailMsg()
 
-        edt_email_msg_write.setOnClickListener {
-            edt_email_msg_write.hint = ""
-        }
 
         btn_send_msg.setOnClickListener {
             //쪽지 리스트에 추가
             val receiverIdx: Int = userIdx
             val noteContent: String = edt_email_msg_write.text.toString()
+            edt_email_msg_write.setText("")
             postSendEmail(receiverIdx, noteContent)
             getSpecificEmailMsg()
-            edt_email_msg_write.hint = ""
+
         }
 
     }
