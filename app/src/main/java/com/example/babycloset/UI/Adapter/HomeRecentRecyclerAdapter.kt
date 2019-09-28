@@ -35,7 +35,13 @@ class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeR
         Glide.with(ctx).load(dataList!![p1].mainImage).into(holder.img_recent)
         holder.txt_title.text=dataList!![p1].postTitle
         holder.txt_area.text=dataList!![p1].areaName!![0] //수정필요
-        holder.txt_area_etc.text=dataList!![p1].areaName!!.size.toString()
+        if(dataList!![p1].areaName!!.size == 1){
+            holder.txt_area_etc.text=""
+        }else if(dataList!![p1].areaName!!.size > 1){
+            var size= dataList!![p1].areaName!!.size - 1
+            holder.txt_area_etc.text="외 " + size.toString() + "구"
+        }
+
 
         holder.relative_layout.setOnClickListener {
             postIdx=dataList!!.get(p1).postIdx

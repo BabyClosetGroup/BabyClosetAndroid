@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
         <include
-            layout="@layout/toolbar_filter"/>
+                layout="@layout/toolbar_filter"/>
 
         <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
@@ -23,7 +23,7 @@
                         android:text="자치구"
                         android:textSize="16sp"
                         android:textColor="#262626"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/seoulnamsanb"
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="16dp"
                 />
@@ -33,11 +33,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/ft_ll_area_category">
                     <!--1-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/ll">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <CheckBox
-                                android:id="@+id/cb_area_all"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_all_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -46,11 +48,12 @@
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
                                 android:textSize="14sp"
-                                android:tag="cb_area_1"
-
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category1"
                         />
                         <CheckBox
-                                android:id="@+id/cb_area_gangnam"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_gangnam_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -58,9 +61,13 @@
                                 android:text="강남구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category2"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_gangdong"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_gangdong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -68,21 +75,30 @@
                                 android:text="강동구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category3"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_gangbuk"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_gangbuk_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="강북구"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category4"
+                        />
                     </LinearLayout>
                     <!--2-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:layout_marginTop="10dp" >
                         <CheckBox
-                                android:id="@+id/cb_area_gangseo"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_gangseo_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -90,9 +106,13 @@
                                 android:text="강서구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category5"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_gwanak"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_gwanak_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -100,9 +120,13 @@
                                 android:text="관악구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category6"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_gwangjin"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_gwangjin_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -110,22 +134,31 @@
                                 android:text="광진구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category7"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_guro"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_guro_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="구로구"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category8"
+                        />
                     </LinearLayout>
 
                     <!--3-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_area_geumcheon"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_geumcheon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -133,9 +166,13 @@
                                 android:text="금천구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category9"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_nowon"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_nowon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -143,9 +180,13 @@
                                 android:text="노원구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category10"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_dobong"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_dobong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -153,22 +194,31 @@
                                 android:text="도봉구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category11"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_dongdaemon"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_dongdaemon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="동대문구"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category12"
+                        />
                     </LinearLayout>
 
                     <!--4-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_area_dongjag"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_dongjag_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -176,9 +226,13 @@
                                 android:text="동작구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category13"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_mapo"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_mapo_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -186,9 +240,13 @@
                                 android:text="마포구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category14"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_seodaemon"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_seodaemon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -196,22 +254,31 @@
                                 android:text="서대문구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category15"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_seocho"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_seocho_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="서초구"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category16"
+                        />
                     </LinearLayout>
 
                     <!--5-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_area_seongdong"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_seongdong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -219,9 +286,13 @@
                                 android:text="성동구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category17"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_seongbuk"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_seongbuk_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -229,9 +300,13 @@
                                 android:text="성북구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category18"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_songpa"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_songpa_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -239,22 +314,31 @@
                                 android:text="송파구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category19"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_yangcheon"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_yangcheon_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="양천구"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category20"
+                        />
                     </LinearLayout>
 
                     <!--6-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_area_yeongdeungpo"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_yeongdeungpo_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -262,9 +346,13 @@
                                 android:text="영등포구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category21"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_yongsan"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_yongsan_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -272,9 +360,13 @@
                                 android:text="용산구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category22"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_eunpyeong"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_eunpyeong_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -282,22 +374,31 @@
                                 android:text="은평구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category23"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_jongro"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_jongro_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="종로구"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category24"
+                        />
                     </LinearLayout>
 
                     <!--7-->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                  android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_area_jung"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_jung_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -305,9 +406,13 @@
                                 android:text="중구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category25"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_area_junglang"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_area_junglang_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -315,7 +420,10 @@
                                 android:text="중랑구"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_area_category26"
+                        />
 
                     </LinearLayout>
 
@@ -328,7 +436,7 @@
                         android:text="나이"
                         android:textSize="16sp"
                         android:textColor="#262626"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/seoulnamsanb"
                         android:layout_marginTop="37dp"
                         android:layout_marginLeft="16dp"/>
 
@@ -337,11 +445,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/ft_ll_age_category"
+                >
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <CheckBox
-                                android:id="@+id/cb_age_all"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_age_all_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -349,9 +460,13 @@
                                 android:text="나이 전체"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_age_category1"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_age_3"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_age_3_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -359,9 +474,13 @@
                                 android:text="3개월"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_age_category2"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_age_12"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_age_12_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -369,21 +488,29 @@
                                 android:text="12개월"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_age_category3"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_age_24"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_age_24_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="24개월"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_age_category4"
+                        />
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_age_30"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_age_30_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -391,7 +518,10 @@
                                 android:text="24~30개월"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_age_category5"
+                        />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -400,23 +530,26 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="카테고리"
-                        android:textSize="16sp"
-                        android:textColor="#262626"
-                        android:textStyle="bold"
+                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="37dp"
-                        android:layout_marginLeft="16dp"/>
+                        android:text="카테고리"
+                        android:textColor="#262626"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/seoulnamsanb"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/ft_ll_category_category"
+                >
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <CheckBox
-                                android:id="@+id/cb_category_all"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_all_category"
                                 android:layout_width="162dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -424,9 +557,13 @@
                                 android:text="카테고리 전체"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_1"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_vest"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_vest_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -434,9 +571,13 @@
                                 android:text="베스트"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_2"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_inner"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_inner_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -444,12 +585,16 @@
                                 android:text="배내옷"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_3"
+                        />
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_category_bodysuit"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_bodysuit_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -457,9 +602,13 @@
                                 android:text="바디슈트"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_4"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_under"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_under_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -467,9 +616,13 @@
                                 android:text="내의"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_5"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_seulliping"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_seulliping_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -477,21 +630,29 @@
                                 android:text="슬리핑가운"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_6"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_dress"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_dress_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
                                 android:button="@android:color/transparent"
                                 android:text="원피스"
                                 android:textAlignment="center"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_7"
+                        />
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
                         <CheckBox
-                                android:id="@+id/cb_category_top"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_top_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -499,9 +660,13 @@
                                 android:text="상의"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_8"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_bottom"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_bottom_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -509,9 +674,13 @@
                                 android:text="하의"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_9"
+                        />
                         <CheckBox
-                                android:id="@+id/cb_category_topbottom"
+                                android:fontFamily="@font/seoulnamsanm"
+                                android:id="@+id/ft_cb_category_topbottom_category"
                                 android:layout_width="79dp"
                                 android:layout_height="28dp"
                                 android:background="@drawable/cb_filter_selector"
@@ -519,20 +688,27 @@
                                 android:text="상하복"
                                 android:textAlignment="center"
                                 android:layout_marginRight="6dp"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp"
+                                android:textColor="#767676"
+                                android:tag="ft_cb_category_category_10"
+                        />
                     </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
         <Button
+                android:id="@+id/ft_btn_finish_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="필터 적용하기"
+                android:text="완료"
+                android:fontFamily="@font/seoulnamsanb"
                 android:background="#ffc107"
                 android:textSize="20sp"
                 android:textColor="#ffffff"
-                android:paddingVertical="18dp"/>
+                android:paddingVertical="18dp"
+                android:layout_marginTop="25dp"
+        />
 
     </LinearLayout>
 

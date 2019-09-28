@@ -36,7 +36,12 @@ class QRListRecyclerAdapter (val ctx: Context, val dataList: ArrayList<QRListDat
         Glide.with(ctx).load(dataList!![position].mainImage).into(holder.qr_list_img)
         holder.qr_list_title.text=dataList!![position].postTitle
         holder.qr_list_area.text=dataList!![position].areaName[0]  //수정필요
-        holder.qr_list_area_etc.text=dataList!![position].areaName.size.toString()
+        if(dataList!![position].areaName!!.size == 1){
+            holder.qr_list_area_etc.text=""
+        }else if(dataList!![position].areaName!!.size > 1){
+            var size= dataList!![position].areaName!!.size - 1
+            holder.qr_list_area_etc.text="외 " + size.toString() + "구"
+        }
         holder.qr_list_button.setOnClickListener {
             postindex = dataList!!.get(position).postIdx
             var intent= Intent(ctx, QRCreateActivity::class.java)
