@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".UI.Activity.DeadLineProductActivity"
         android:orientation="vertical"
+        android:background="#ffffff"
 >
     <include layout="@layout/toolbar_all_product" />
     <android.support.v7.widget.RecyclerView

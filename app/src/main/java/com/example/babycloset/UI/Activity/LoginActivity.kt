@@ -33,17 +33,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity<InfoConsentActivity>()
         }
 
-       /* if(SharedPreference.getAutoLogin(this)){
-            postLoginResponse(SharedPreference.getUserID(this), SharedPreference.getUserPW(this))
-            auto_login.isChecked=true
-        } else{
-            val login_u_id: String = edt_id_login.text.toString()
-            val login_u_pw: String = edt_pw_login.text.toString()
-
-            postLoginResponse(login_u_id, login_u_pw)
-        }*/
-
-
         layout_auto.setOnClickListener {
             if(btn_auto.isSelected==true){
                 btn_auto.isSelected=false
@@ -103,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<PostLoginResponse>, response: Response<PostLoginResponse>) {
                 if (response.isSuccessful){
+                    toast(response.body()!!.message)
                     if (response.body()!!.status == 200){
                         Log.e("tag", "로그인 성공")
                         SharedPreference.setUserToken(this@LoginActivity, response.body()!!.data!!.token)
@@ -113,11 +103,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
         })
     }
-
-
-
-
 }

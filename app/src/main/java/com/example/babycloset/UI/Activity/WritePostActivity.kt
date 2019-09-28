@@ -122,14 +122,10 @@ class WritePostActivity : AppCompatActivity() {
             if(btnShareState){
                 isValid()
             }else{
-               // showBasicDialog("서버에 업로딩중ㅜㅜ", this)
+
             }
         }
-
-        //쪽지
-        btn_letter_write_post.setOnClickListener {
-            startActivity<EmailActivity>()
-        }
+        
     }
 
     //마감기간 선택 다이얼로그
@@ -239,8 +235,8 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri1 = it.data!!
+                    Log.e("1", pictureUri1.toString())
                     Glide.with(this).load(pictureUri1).into(img_write_post1)
-                    createMBP(contentResolver, pictureUri1!! ,pictureList)
                 }
             }
         }
@@ -248,8 +244,8 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri2 = it.data!!
+                    Log.e("2", pictureUri2.toString())
                     Glide.with(this).load(pictureUri2).into(img_write_post2)
-                    createMBP(contentResolver, pictureUri2!! ,pictureList)
                 }
             }
         }
@@ -257,8 +253,8 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri3 = it.data!!
+                    Log.e("3", pictureUri3.toString())
                     Glide.with(this).load(pictureUri3).into(img_write_post3)
-                    createMBP(contentResolver, pictureUri3!! ,pictureList)
                 }
             }
         }
@@ -266,8 +262,8 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri4 = it.data!!
+                    Log.e("4", pictureUri4.toString())
                     Glide.with(this).load(pictureUri4).into(img_write_post4)
-                    createMBP(contentResolver, pictureUri4!! ,pictureList)
                 }
             }
         }
@@ -305,6 +301,31 @@ class WritePostActivity : AppCompatActivity() {
         val ageC_rb = stringToRequestBody(listToString(ageList))
         val catC_rb = stringToRequestBody(listToString(categoryList))
 
+        if(pictureUri1 != null)
+        {
+            val rb = createMBP(contentResolver, pictureUri1!!)
+            pictureList.add(rb)
+            Log.e("1", "성공")
+        }
+        if(pictureUri2 != null)
+        {
+            val rb =createMBP(contentResolver, pictureUri2!! )
+            pictureList.add(rb)
+            Log.e("2", "성공")
+        }
+        if(pictureUri3 != null)
+        {
+            val rb =createMBP(contentResolver, pictureUri3!!)
+            pictureList.add(rb)
+            Log.e("3", "성공")
+        }
+        if(pictureUri4 != null)
+        {
+            val rb =createMBP(contentResolver, pictureUri4!! )
+            pictureList.add(rb)
+            Log.e("4", "성공")
+        }
+
         val postWritePostResponse = networkService.postWritePostResponse(SharedPreference.getUserToken(this), title_rb,
             content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList )
 
@@ -321,13 +342,7 @@ class WritePostActivity : AppCompatActivity() {
 
                         startActivity<ProductActivity>("postIdx" to postIdx)
                         finish()
-                        var isNewMessage = response.body()!!.data.isNewMessage
 
-                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
-                            btn_letter_write_post.setImageResource(R.drawable.btn_letter_alarm)
-                        }else if(isNewMessage == 0){
-                            btn_letter_write_post.setImageResource(R.drawable.home_btn_email_update)
-                        }
                     }
                 }
 
@@ -368,7 +383,7 @@ class WritePostActivity : AppCompatActivity() {
             return rb
         }
 
-        fun createMBP(cr : ContentResolver, uri : Uri, list : ArrayList<MultipartBody.Part>){
+        fun createMBP(cr : ContentResolver, uri : Uri) : MultipartBody.Part {
             val options = BitmapFactory.Options()
             val inputStream  = cr.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
@@ -377,8 +392,8 @@ class WritePostActivity : AppCompatActivity() {
 
             val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
             val picture_rb = MultipartBody.Part.createFormData("postImages", "img", photoBody)
-            list.add(picture_rb)
 
+            return picture_rb
         }
 
         fun bitmapToFile(ctx : Context, b : Bitmap, fileName : String) : String{

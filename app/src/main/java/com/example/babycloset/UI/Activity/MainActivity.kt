@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        //back 버튼 눌렀을 시 앱 종료하기
         finishAffinity()
         System.runFinalization()
         System.exit(0)

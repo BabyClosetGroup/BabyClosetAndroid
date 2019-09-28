@@ -15,8 +15,6 @@
 
         <include
                 layout="@layout/toolbar_email"/>
-        <View android:layout_width="match_parent" android:layout_height="3dp"
-            android:background="@drawable/tab_shadow"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

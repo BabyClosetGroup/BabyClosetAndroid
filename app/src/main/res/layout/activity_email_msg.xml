@@ -15,9 +15,6 @@
 
         <include
             layout="@layout/toolbar_email_msg"/>
-        <View android:layout_width="match_parent" android:layout_height="3dp"
-            android:background="@drawable/tab_shadow"/>
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="vertical">
-<!--                android:visibility="gone">-->
 
                 <ImageView
                     android:layout_width="wrap_content"

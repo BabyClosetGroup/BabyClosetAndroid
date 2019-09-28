@@ -111,12 +111,10 @@ class ModifyPostActivity : AppCompatActivity() {
             if(btnShareState){
                 isValid()
             }else{
+                toast("이미 글을 작성하셨습니다.")
             }
         }
 
-        btn_letter_write_post.setOnClickListener {
-            startActivity<EmailActivity>()
-        }
     }
 
     fun checkPermission(){
@@ -185,11 +183,12 @@ class ModifyPostActivity : AppCompatActivity() {
                     }
                 }
                 1->{
+                    //이미지 삭제
                     when(requestCodeNumber){
                         1-> {
                             img_modify_post1.setImageBitmap(null)
                             pictureUri1 = null
-                            if(pictureList.isEmpty()){
+                            if(pictureList.size == 1){
                                 pictureList.remove(pictureList[0])
                             }
                         }
@@ -252,11 +251,12 @@ class ModifyPostActivity : AppCompatActivity() {
             }
         }
 
-        //이미지
+        //이미지 새로 첨부
         if(requestCode == REQUEST_CODE_PICTURE1){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri1 = it.data
+                    Log.e("1", pictureUri1.toString())
                     Glide.with(this).load(pictureUri1).into(img_modify_post1)
                 }
             }
@@ -298,10 +298,13 @@ class ModifyPostActivity : AppCompatActivity() {
         }else if(edt_contents_modify_post.text.toString()==""){
             WritePostActivity.showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
         }
-        else if (pictureList.isEmpty()) {
-            WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
+        else if (pictureList.size == 0) {
+            if(pictureUri1 == null){
+                WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
+            }else{
+                putPostResponse()
+            }
         } else {
-            pictureList.size
             putPostResponse()
         }
     }
@@ -326,14 +329,6 @@ class ModifyPostActivity : AppCompatActivity() {
                         edt_contents_modify_post.setText(content) //내용
                         txt_deadline_modify_tag.visibility = View.VISIBLE
                         txt_deadline_modify_tag.text = response.body()!!.data.detailPost.deadline.substring(2,3) + "일" //마감일
-
-                        var isNewMessage = response.body()!!.data.isNewMessage
-
-                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
-                            btn_letter_write_post.setImageResource(R.drawable.btn_letter_alarm)
-                        }else if(isNewMessage == 0){
-                            btn_letter_write_post.setImageResource(R.drawable.home_btn_email_update)
-                        }
 
                         //카테고리
                         areaList = response.body()!!.data.detailPost.areaName
@@ -397,6 +392,7 @@ class ModifyPostActivity : AppCompatActivity() {
         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
         val photo_rb= MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
         list.add(photo_rb)
+        Log.e("picturelist", list.size.toString())
     }
 
 
@@ -411,19 +407,19 @@ class ModifyPostActivity : AppCompatActivity() {
 
         if(pictureUri1 != null)
         {
-            if(pictureList.isEmpty()){
+            if(pictureList.size == 1){
                 pictureList.remove(pictureList[0])
             }
-            WritePostActivity.createMBP(contentResolver, pictureUri1!!, pictureList)
-            Log.e("1", pictureList.size.toString())
+            val rb =WritePostActivity.createMBP(contentResolver, pictureUri1!!)
+            pictureList.add(rb)
         }
         if(pictureUri2 != null)
         {
             if(pictureList.size >= 2){
                 pictureList.remove(pictureList[1])
             }
-            WritePostActivity.createMBP(contentResolver, pictureUri2!!, pictureList)
-            Log.e("2", pictureList.size.toString())
+            val rb =WritePostActivity.createMBP(contentResolver, pictureUri2!!)
+            pictureList.add(rb)
 
         }
         if(pictureUri3 != null)
@@ -431,19 +427,19 @@ class ModifyPostActivity : AppCompatActivity() {
             if(pictureList.size >= 3) {
                 pictureList.remove(pictureList[2])
             }
-            WritePostActivity.createMBP(contentResolver, pictureUri3!!, pictureList)
-            Log.e("3", pictureList.size.toString())
+            val rb =WritePostActivity.createMBP(contentResolver, pictureUri3!!)
+            pictureList.add(rb)
         }
         if(pictureUri4 != null)
         {
             if(pictureList.size == 4) {
                 pictureList.remove(pictureList[3])
             }
-            WritePostActivity.createMBP(contentResolver, pictureUri4!!, pictureList)
-            Log.e("4", pictureList.size.toString())
+            val rb = WritePostActivity.createMBP(contentResolver, pictureUri4!!)
+            pictureList.add(rb)
         }
 
-
+        pictureList.size
         val putPostResponse = networkService.putPostResponse(SharedPreference.getUserToken(this), postIdx,
             title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb, catC_rb, pictureList)
 
@@ -458,7 +454,7 @@ class ModifyPostActivity : AppCompatActivity() {
                     startActivity<ProductActivity>("postIdx" to postIdx)
                     finish()
                 }else{
-                    Log.e("수정 통신 실패", response.message())
+                    Log.e("수정 통신 실패(성공)", response.message())
                 }
             }
         })
