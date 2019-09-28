@@ -126,6 +126,19 @@ class WritePostActivity : AppCompatActivity() {
             }
         }
 
+        //쪽지
+//        btn_letter_write_post.setOnClickListener {
+//            startActivity<EmailActivity>()
+//        }
+
+
+        edt_title_write_post.setOnClickListener {
+            edt_title_write_post.requestFocus()
+        }
+        edt_contents_wirte_post.setOnClickListener {
+            edt_contents_wirte_post.requestFocus()
+        }
+
     }
 
     //마감기간 선택 다이얼로그
