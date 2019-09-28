@@ -110,7 +110,7 @@ class DeadLineProductActivity : AppCompatActivity() {
                             val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.deadlinePost
                             for(i in 0..tmp.size-1){
 
-                                deadLineProductRecyclerViewAdapter.datalist.add(tmp[i])
+                                deadLineProductRecyclerViewAdapter.datalist!!.add(tmp[i])
                             }
                             deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
                             pagination++
@@ -162,11 +162,11 @@ class DeadLineProductActivity : AppCompatActivity() {
                             rl_not_filter_post_deadline_product.visibility = View.GONE
                             val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.filteredDeadlinePost
                             if(fpagination == 1){
-                                deadLineProductRecyclerViewAdapter.datalist.clear()
+                                deadLineProductRecyclerViewAdapter.datalist!!.clear()
                                 deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
                             }
                             for(i in 0..response.body()!!.data.filteredDeadlinePost.size-1){
-                                deadLineProductRecyclerViewAdapter.datalist.add(tmp[i])
+                                deadLineProductRecyclerViewAdapter.datalist!!.add(tmp[i])
                             }
                             deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++

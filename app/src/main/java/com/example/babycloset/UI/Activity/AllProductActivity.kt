@@ -71,6 +71,12 @@ class AllProductActivity : AppCompatActivity() {
         }
 
 
+
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        getAllPostResponse()
     }
 
     fun configRecyclerView(){
@@ -103,7 +109,7 @@ class AllProductActivity : AppCompatActivity() {
                         if(response.body()!!.data.allPost.isNotEmpty()){
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.allPost
                             for(i in 0..tmp.size-1){
-                                allProductRecyclerViewAdapter.datalist.add(tmp[i])
+                                allProductRecyclerViewAdapter.datalist!!.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             pagination++
@@ -154,11 +160,11 @@ class AllProductActivity : AppCompatActivity() {
                             rl_not_filter_post_all_product.visibility = View.GONE
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
                             if(fpagination == 1){
-                                allProductRecyclerViewAdapter.datalist.clear()
+                                allProductRecyclerViewAdapter.datalist!!.clear()
                                 allProductRecyclerViewAdapter.notifyDataSetChanged()
                             }
                             for(i in 0..response.body()!!.data.filteredAllPost.size-1){
-                                allProductRecyclerViewAdapter.datalist.add(tmp[i])
+                                allProductRecyclerViewAdapter.datalist!!.add(tmp[i])
                             }
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++

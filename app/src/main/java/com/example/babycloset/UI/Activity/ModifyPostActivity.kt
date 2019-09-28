@@ -40,6 +40,7 @@ import kotlinx.android.synthetic.main.toolbar_write_post.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.imageBitmap
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
@@ -110,7 +111,6 @@ class ModifyPostActivity : AppCompatActivity() {
             if(btnShareState){
                 isValid()
             }else{
-                WritePostActivity.showBasicDialog("서버에 업로딩중ㅜㅜ", this)
             }
         }
 
@@ -189,7 +189,9 @@ class ModifyPostActivity : AppCompatActivity() {
                         1-> {
                             img_modify_post1.setImageBitmap(null)
                             pictureUri1 = null
-                            pictureList.remove(pictureList[0])
+                            if(pictureList.isEmpty()){
+                                pictureList.remove(pictureList[0])
+                            }
                         }
                         2-> {
                             img_modify_post2.setImageBitmap(null)
@@ -208,7 +210,7 @@ class ModifyPostActivity : AppCompatActivity() {
                         4-> {
                             img_modify_post4.setImageBitmap(null)
                             pictureUri4 = null
-                            if(pictureList.size >= 4){
+                            if(pictureList.size == 4){
                                 pictureList.remove(pictureList[3])
                             }
                         }
@@ -296,25 +298,12 @@ class ModifyPostActivity : AppCompatActivity() {
         }else if(edt_contents_modify_post.text.toString()==""){
             WritePostActivity.showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
         }
-        else if (pictureList[0] == null) {
+        else if (pictureList.isEmpty()) {
             WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
         } else {
+            pictureList.size
             putPostResponse()
-            WritePostActivity.showBasicDialog("글 작성을 완료하였습니다!", this)
-            when(pictureList.size){
-                1-> setDelayTime(1500)
-                2-> setDelayTime(1600)
-                3-> setDelayTime(2000)
-                4-> setDelayTime(2500)
-            }
         }
-    }
-
-    fun setDelayTime(time : Long){
-        Handler().postDelayed({
-            startActivity<ProductActivity>("postIdx" to postIdx)
-            finish()
-        },time)
     }
 
     //게시물 상세보기 통신
@@ -422,30 +411,36 @@ class ModifyPostActivity : AppCompatActivity() {
 
         if(pictureUri1 != null)
         {
-            pictureList.remove(pictureList[0])
+            if(pictureList.isEmpty()){
+                pictureList.remove(pictureList[0])
+            }
             WritePostActivity.createMBP(contentResolver, pictureUri1!!, pictureList)
+            Log.e("1", pictureList.size.toString())
         }
         if(pictureUri2 != null)
         {
-            if(pictureList.size > 2){
+            if(pictureList.size >= 2){
                 pictureList.remove(pictureList[1])
             }
             WritePostActivity.createMBP(contentResolver, pictureUri2!!, pictureList)
+            Log.e("2", pictureList.size.toString())
 
         }
         if(pictureUri3 != null)
         {
-            if(pictureList.size > 3) {
+            if(pictureList.size >= 3) {
                 pictureList.remove(pictureList[2])
             }
             WritePostActivity.createMBP(contentResolver, pictureUri3!!, pictureList)
+            Log.e("3", pictureList.size.toString())
         }
         if(pictureUri4 != null)
         {
-            if(pictureList.size > 4) {
+            if(pictureList.size == 4) {
                 pictureList.remove(pictureList[3])
             }
             WritePostActivity.createMBP(contentResolver, pictureUri4!!, pictureList)
+            Log.e("4", pictureList.size.toString())
         }
 
 
@@ -460,6 +455,8 @@ class ModifyPostActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PutPostResponse>, response: Response<PutPostResponse>) {
                 if(response.isSuccessful){
                     Log.e("수정 통신 성공", response.message())
+                    startActivity<ProductActivity>("postIdx" to postIdx)
+                    finish()
                 }else{
                     Log.e("수정 통신 실패", response.message())
                 }

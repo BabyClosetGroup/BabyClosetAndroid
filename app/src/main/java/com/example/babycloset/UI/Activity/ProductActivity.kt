@@ -61,7 +61,6 @@ class ProductActivity : AppCompatActivity(){
 
     var isSender : Int = 0  //나눔자(1) 받을사람(0) 구별 변수
     var btnApplyState : Boolean = true
-    var isNewMessage : Int = 0
     var complainReason : String = "" //신고사유
     var imgNum : Int = 0
     var postIdx : Int = 0
@@ -120,11 +119,6 @@ class ProductActivity : AppCompatActivity(){
         }
 
        btn_ddd_toolbar_product.setOnClickListener {
-           if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
-               btn_letter_toolbar_product.setImageResource(R.drawable.btn_letter_alarm)
-           }else if(isNewMessage == 0){
-               btn_letter_toolbar_product.setImageResource(R.drawable.home_btn_email_update)
-           }
 
            if(isSender == 1){  //나눔자가 누르면 - 수정하기, 삭제하기 (isSender == 1)
                showSellerDialog()
@@ -182,6 +176,7 @@ class ProductActivity : AppCompatActivity(){
             .setNegativeButton(Html.fromHtml("<font color='#262626' size = 14>취소</font>"), DialogInterface.OnClickListener { dialog, which ->  })
             .setPositiveButton(Html.fromHtml("<font color='#ffc107' size = 14>확인</font>"), DialogInterface.OnClickListener { dialog, which ->
                 deletePostResponse()
+
                 startActivity<MainActivity>()
                 finish()
             })
@@ -341,8 +336,12 @@ class ProductActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
 
                     //쪽지
-                    isNewMessage = response.body()!!.data.isNewMessage
-
+                    var isNewMessage = response.body()!!.data.isNewMessage
+                    if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
+                        btn_letter_toolbar_product.setImageResource(R.drawable.btn_letter_alarm)
+                    }else if(isNewMessage == 0){
+                        btn_letter_toolbar_product.setImageResource(R.drawable.home_btn_email_update)
+                    }
                     isSender = response.body()!!.data.detailPost.isSender //나눔자 판매자 변수
                     txt_product_name_product.text = response.body()!!.data.detailPost.postTitle //제목
 
