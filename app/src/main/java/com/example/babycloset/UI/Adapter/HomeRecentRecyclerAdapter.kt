@@ -34,14 +34,8 @@ class HomeRecentRecyclerAdapter (val ctx: Context, val dataList: ArrayList<HomeR
 
         Glide.with(ctx).load(dataList!![p1].mainImage).into(holder.img_recent)
         holder.txt_title.text=dataList!![p1].postTitle
-        //areaName이 null이 들어올 경우
-        if(dataList!![p1].areaName==null){
-            holder.txt_area.text="강남가라"
-            holder.txt_area_etc.text="1212"
-        }else{
-            holder.txt_area.text=dataList!![p1].areaName!![0] //수정필요
-            holder.txt_area_etc.text=dataList!![p1].areaName!!.size.toString()
-        }
+        holder.txt_area.text=dataList!![p1].areaName!![0] //수정필요
+        holder.txt_area_etc.text=dataList!![p1].areaName!!.size.toString()
 
         holder.relative_layout.setOnClickListener {
             postIdx=dataList!!.get(p1).postIdx
