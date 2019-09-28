@@ -293,7 +293,7 @@ class WritePostActivity : AppCompatActivity() {
             postWritePostResponse()
         }
     }
-    
+
     //통신
     fun postWritePostResponse(){
 

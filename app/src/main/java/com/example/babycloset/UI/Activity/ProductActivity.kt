@@ -176,9 +176,6 @@ class ProductActivity : AppCompatActivity(){
             .setNegativeButton(Html.fromHtml("<font color='#262626' size = 14>취소</font>"), DialogInterface.OnClickListener { dialog, which ->  })
             .setPositiveButton(Html.fromHtml("<font color='#ffc107' size = 14>확인</font>"), DialogInterface.OnClickListener { dialog, which ->
                 deletePostResponse()
-
-                startActivity<MainActivity>()
-                finish()
             })
         builder.show()
     }
@@ -193,6 +190,8 @@ class ProductActivity : AppCompatActivity(){
 
             override fun onResponse(call: Call<DeletePostResponse>, response: Response<DeletePostResponse>) {
                     Log.e("productActivity", response.message())
+                    startActivity<MainActivity>()
+                    finish()
             }
         })
     }
