@@ -9,8 +9,7 @@
         tools:context=".UI.Activity.EditInfoActivity"
         android:orientation="vertical">
     <include layout="@layout/toolbar_edit_info" android:id="@+id/toolbar_edit_info"/>
-    <View android:layout_width="match_parent" android:layout_height="3dp"
-          android:background="@drawable/tab_shadow"/>
+
     <ImageView
             android:scaleType="centerCrop"
             android:layout_marginBottom="16dp"

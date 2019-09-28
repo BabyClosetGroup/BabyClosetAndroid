@@ -210,6 +210,7 @@ class SignupActivity : AppCompatActivity() {
         postSignupResponse.enqueue(object: Callback<PostSignupResponse> {
             override fun onFailure(call: Call<PostSignupResponse>, t: Throwable) {
                 Log.e("tag", "회원가입 실패")
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<PostSignupResponse>, response: Response<PostSignupResponse>) {

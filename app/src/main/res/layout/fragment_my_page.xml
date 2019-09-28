@@ -14,8 +14,7 @@
             android:orientation="vertical">
 
         <include layout="@layout/toolbar_mypage" android:id="@+id/toolbar_mypage"/>
-        <View android:layout_width="match_parent" android:layout_height="3dp"
-              android:background="@drawable/tab_shadow"/>
+
         <LinearLayout
                 android:layout_marginTop="26dp"
                 android:paddingBottom="26dp"

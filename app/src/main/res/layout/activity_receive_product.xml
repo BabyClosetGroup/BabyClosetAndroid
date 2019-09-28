@@ -8,8 +8,7 @@
     tools:context=".UI.Activity.ReceiveProductActivity"
 android:background="#ffffff">
     <include layout="@layout/toolbar_receive_product" android:id="@+id/toolbar_receive_product"/>
-    <View android:layout_width="match_parent" android:layout_height="3dp"
-          android:background="@drawable/tab_shadow"/>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
