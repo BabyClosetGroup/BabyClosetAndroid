@@ -3,12 +3,14 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".UI.Fragment.SliderProductFragment">
+             tools:context=".UI.Fragment.SliderProductFragment"
+             android:background="#ffffff"
+>
 
     <ImageView
             android:layout_height="match_parent" android:layout_width="match_parent"
             android:id="@+id/img_fragment_slider_product"
-            android:scaleType="fitXY"
+            android:scaleType="centerInside"
     />
 
 </FrameLayout>
