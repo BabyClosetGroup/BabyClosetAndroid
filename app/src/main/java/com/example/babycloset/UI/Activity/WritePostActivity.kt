@@ -122,7 +122,7 @@ class WritePostActivity : AppCompatActivity() {
             if(btnShareState){
                 isValid()
             }else{
-                showBasicDialog("서버에 업로딩중ㅜㅜ", this)
+               // showBasicDialog("서버에 업로딩중ㅜㅜ", this)
             }
         }
 
@@ -164,6 +164,7 @@ class WritePostActivity : AppCompatActivity() {
         builder.setItems(option, DialogInterface.OnClickListener { dialog, which ->
             when(which){
                 0->{
+                    Log.e("이미지", "가져오기")
                     val intent = Intent(Intent.ACTION_PICK)
                     intent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
                     intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -233,13 +234,13 @@ class WritePostActivity : AppCompatActivity() {
             }
         }
 
-
         //이미지
         if(requestCode == REQUEST_CODE_PICTURE1){
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri1 = it.data!!
                     Glide.with(this).load(pictureUri1).into(img_write_post1)
+                    createMBP(contentResolver, pictureUri1!! ,pictureList)
                 }
             }
         }
@@ -248,6 +249,7 @@ class WritePostActivity : AppCompatActivity() {
                 data?.let {
                     pictureUri2 = it.data!!
                     Glide.with(this).load(pictureUri2).into(img_write_post2)
+                    createMBP(contentResolver, pictureUri2!! ,pictureList)
                 }
             }
         }
@@ -256,6 +258,7 @@ class WritePostActivity : AppCompatActivity() {
                 data?.let {
                     pictureUri3 = it.data!!
                     Glide.with(this).load(pictureUri3).into(img_write_post3)
+                    createMBP(contentResolver, pictureUri3!! ,pictureList)
                 }
             }
         }
@@ -263,9 +266,8 @@ class WritePostActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK){
                 data?.let {
                     pictureUri4 = it.data!!
-                    Glide.with(this).load(pictureUri4)
-                        .into(img_write_post4)
-
+                    Glide.with(this).load(pictureUri4).into(img_write_post4)
+                    createMBP(contentResolver, pictureUri4!! ,pictureList)
                 }
             }
         }
@@ -287,23 +289,11 @@ class WritePostActivity : AppCompatActivity() {
            showNoticeDialog(this, "메인 사진을 첨부해주세요!\n","사진을 한장 이상 첨부하셔야","글을 작성할 수 있습니다." )
         }else{
             btnShareState = false
+            toast("글 작성을 완료하였습니다!")
             postWritePostResponse()
-            showBasicDialog("글 작성을 완료하였습니다!", this)
-            when(pictureList.size){
-                1-> setDelayTime(1500)
-                2-> setDelayTime(1600)
-                3-> setDelayTime(2000)
-                4-> setDelayTime(2500)
-            }
         }
     }
 
-    fun setDelayTime(time : Long){
-        Handler().postDelayed({
-            startActivity<ProductActivity>("postIdx" to postIdx)
-            finish()
-        },time)
-    }
     //통신
     fun postWritePostResponse(){
 
@@ -314,25 +304,6 @@ class WritePostActivity : AppCompatActivity() {
         val areaC_rb = stringToRequestBody(listToString(areaList))
         val ageC_rb = stringToRequestBody(listToString(ageList))
         val catC_rb = stringToRequestBody(listToString(categoryList))
-
-
-        if(pictureUri1 != null)
-        {
-            createMBP(contentResolver, pictureUri1!! ,pictureList)
-        }
-        if(pictureUri2 != null)
-        {
-            createMBP(contentResolver, pictureUri2!! ,pictureList)
-        }
-        if(pictureUri3 != null)
-        {
-            createMBP(contentResolver, pictureUri3!! ,pictureList)
-        }
-        if(pictureUri4 != null)
-        {
-            createMBP(contentResolver, pictureUri4!! ,pictureList)
-        }
-
 
         val postWritePostResponse = networkService.postWritePostResponse(SharedPreference.getUserToken(this), title_rb,
             content_rb, deadline_rb, areaC_rb, ageC_rb,catC_rb, pictureList )
@@ -346,6 +317,10 @@ class WritePostActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.status == 200) {
                         postIdx = response.body()!!.data.postIdx
+                        Log.e("postIdx in response", postIdx.toString())
+
+                        startActivity<ProductActivity>("postIdx" to postIdx)
+                        finish()
                         var isNewMessage = response.body()!!.data.isNewMessage
 
                         if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
@@ -363,13 +338,6 @@ class WritePostActivity : AppCompatActivity() {
     //ModifyPostActivity 활용
     companion object{
 
-        fun showBasicDialog(str : String, ctx: Context){
-            val builder = AlertDialog.Builder(ctx)
-            builder
-                .setTitle(str)
-                .setNegativeButton(Html.fromHtml("<font color='#ffc107' size = 14>확인</font>"), DialogInterface.OnClickListener { dialog, which ->  })
-            builder.show()
-        }
 
         //알림 팝업
         fun showNoticeDialog(ctx: Context,title : String, msg1 : String, msg2 : String){

@@ -71,6 +71,12 @@ class AllProductActivity : AppCompatActivity() {
         }
 
 
+
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        getAllPostResponse()
     }
 
     fun configRecyclerView(){
