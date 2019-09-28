@@ -125,7 +125,7 @@ class WritePostActivity : AppCompatActivity() {
 
             }
         }
-        
+
     }
 
     //마감기간 선택 다이얼로그
