@@ -17,13 +17,14 @@ class CategoryActivity : AppCompatActivity() {
     var areaList = arrayListOf<String>()
     var ageList = arrayListOf<String>()
     var categoryList = arrayListOf<String>()
+    var requestCode = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
         val intent = getIntent()
-        var requestCode = intent.getIntExtra("requestCode", 0)
+        requestCode = intent.getIntExtra("requestCode", 0)
 
         if(requestCode == 1100){
             findViewById<TextView>(R.id.txt_title_toolbar_filter).text = "필터"
@@ -52,7 +53,17 @@ class CategoryActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         btn_finish_category.setOnClickListener {
-            isValid()
+            if(requestCode == 1100){
+                val intent  = Intent()
+                intent.putExtra("areaList", areaList)
+                intent.putExtra("ageList", ageList)
+                intent.putExtra("categoryList", categoryList)
+                setResult(Activity.RESULT_OK,intent)
+                finish()
+            }else{
+                isValid()
+            }
+
         }
     }
 

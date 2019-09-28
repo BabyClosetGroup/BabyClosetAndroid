@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.widget.LinearLayout
 import com.example.babycloset.DB.SharedPreference
 import com.example.babycloset.Data.QRListData
@@ -62,13 +63,23 @@ class QRListActivity : AppCompatActivity() {
             override fun onResponse(call: Call<GetQRListResponse>, response: Response<GetQRListResponse>) {
                 if(response.isSuccessful){
                     if(response.body()!!.status==200){
-                        Log.e("qrlist success","성공")
-                        qrListDataList.clear()
+
 
                         var tmp=response.body()!!.data.allPost
+                        if(tmp.size == 0){
+                            rv_qr_list.visibility= View.INVISIBLE
+                            linear_gr_list_none.visibility=View.VISIBLE
+                        }else{
+                            rv_qr_list.visibility= View.VISIBLE
+                            linear_gr_list_none.visibility=View.INVISIBLE
 
-                        qrListRecyclerAdapter.dataList!!.addAll(tmp)
-                        qrListRecyclerAdapter.notifyDataSetChanged()
+                            qrListDataList.clear()
+
+                            qrListRecyclerAdapter.dataList!!.addAll(tmp)
+                            qrListRecyclerAdapter.notifyDataSetChanged()
+                        }
+
+
                     }
                 }
             }
