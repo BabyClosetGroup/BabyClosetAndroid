@@ -200,7 +200,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:layout_marginLeft="16dp"
-            android:text="계정정보"
+            android:text="계정관리"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
     />

@@ -47,6 +47,7 @@ import org.jetbrains.anko.colorAttr
 import org.jetbrains.anko.db.FloatParser
 import org.jetbrains.anko.db.IntParser
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 import retrofit2.Call
@@ -99,6 +100,11 @@ class ProductActivity : AppCompatActivity(){
             img_user_profile_product.setClipToOutline(true)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductDetailResponse()
     }
 
     //버튼
@@ -157,9 +163,8 @@ class ProductActivity : AppCompatActivity(){
                 0->{
                     //쪽지보내기
                     startActivity<EmailMsgActivity>(
-                            "userIdx" to userIdx,
-                            "nickname" to txt_account_name_product.text
-                    )
+                        "userIdx" to userIdx,
+                        "nickname" to txt_account_name_product.text)
                     finish()
                 }
                 1->{
@@ -402,5 +407,6 @@ class ProductActivity : AppCompatActivity(){
         })
 
     }
+
 
 }

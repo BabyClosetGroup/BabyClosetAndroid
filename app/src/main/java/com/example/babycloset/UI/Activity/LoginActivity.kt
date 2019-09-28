@@ -92,15 +92,14 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<PostLoginResponse>, response: Response<PostLoginResponse>) {
                 if (response.isSuccessful){
-                    toast(response.body()!!.message)
                     if (response.body()!!.status == 200){
-                        Log.e("tag", "로그인 성공")
                         SharedPreference.setUserToken(this@LoginActivity, response.body()!!.data!!.token)
                         SharedPreference.setUserID(this@LoginActivity,u_id)
                         SharedPreference.setUserPW(this@LoginActivity, u_pw)
                         Log.e("tag", response.body()!!.data!!.token)
                         startActivity<MainActivity>()
-                    }
+                    } else
+                        toast(response.body()!!.message)
                 }
             }
         })
