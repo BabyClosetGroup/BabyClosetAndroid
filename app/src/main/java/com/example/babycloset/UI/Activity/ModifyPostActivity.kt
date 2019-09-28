@@ -115,9 +115,6 @@ class ModifyPostActivity : AppCompatActivity() {
             }
         }
 
-        btn_letter_write_post.setOnClickListener {
-            startActivity<EmailActivity>()
-        }
     }
 
     fun checkPermission(){
@@ -332,14 +329,6 @@ class ModifyPostActivity : AppCompatActivity() {
                         edt_contents_modify_post.setText(content) //내용
                         txt_deadline_modify_tag.visibility = View.VISIBLE
                         txt_deadline_modify_tag.text = response.body()!!.data.detailPost.deadline.substring(2,3) + "일" //마감일
-
-                        var isNewMessage = response.body()!!.data.isNewMessage
-
-                        if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
-                            btn_letter_write_post.setImageResource(R.drawable.btn_letter_alarm)
-                        }else if(isNewMessage == 0){
-                            btn_letter_write_post.setImageResource(R.drawable.home_btn_email_update)
-                        }
 
                         //카테고리
                         areaList = response.body()!!.data.detailPost.areaName
