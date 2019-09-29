@@ -30,6 +30,7 @@ import com.example.babycloset.UI.Activity.EmailMsgActivity
 class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataList: ArrayList<ApplicationPeopleOverviewData>): RecyclerView.Adapter<ApplicationPeopleOverviewRecyclerViewAdapter.Holder>() {
 
     var nn:Int=0
+    var nnn:String=""
     var nickname:String = ""
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
         val view: View = LayoutInflater.from(ctx)
@@ -58,6 +59,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
         holder.container.setOnClickListener {
             nn=dataList[position].applicantIdx
+            nnn=dataList[position].applicantNickname
             showMailDialog()
         }
     }
@@ -75,7 +77,7 @@ class ApplicationPeopleOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
             "네"
         ) { dialog, which -> ctx.startActivity<EmailMsgActivity>(
                 "userIdx" to nn,
-                "nickname" to nickname
+                "nickname" to nnn
         ) }
         builder.setNegativeButton(
             "아니오"
