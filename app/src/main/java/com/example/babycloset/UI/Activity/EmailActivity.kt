@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View.GONE
@@ -41,7 +42,10 @@ class EmailActivity : AppCompatActivity() {
 
         getEmailResponse()
 
-
+        swipe_layout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            getEmailResponse()
+            swipe_layout.isRefreshing = false
+        })
 
     }
 

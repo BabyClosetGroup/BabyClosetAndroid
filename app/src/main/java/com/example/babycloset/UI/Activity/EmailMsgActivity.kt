@@ -60,13 +60,20 @@ class EmailMsgActivity : AppCompatActivity() {
         getSpecificEmailMsg()
 
 
+        val receiverIdx: Int = userIdx
+
+
         btn_send_msg.setOnClickListener {
             //쪽지 리스트에 추가
-            val receiverIdx: Int = userIdx
+            Log.e("tag", "전송 버튼 눌림!!")
             val noteContent: String = edt_email_msg_write.text.toString()
-            edt_email_msg_write.setText("")
+
             postSendEmail(receiverIdx, noteContent)
             getSpecificEmailMsg()
+
+            edt_email_msg_write.setText("")
+
+
 
         }
 
@@ -89,6 +96,11 @@ class EmailMsgActivity : AppCompatActivity() {
                         val tmp: ArrayList<EmailMsgData> = response.body()!!.data.messages
                         emailMsgRecyclerAdapter.dataList = tmp
                         emailMsgRecyclerAdapter.notifyDataSetChanged()
+
+                        rv_email_msg.scrollToPosition(emailMsgRecyclerAdapter.dataList.size-1)
+
+                        Log.e("number", "메세지 ${emailMsgRecyclerAdapter.dataList.size} 개")
+                        Log.e("msgcontents", "마지막 메세지 : ${emailMsgRecyclerAdapter.dataList[emailMsgRecyclerAdapter.dataList.size - 1].noteContent}")
 
                         if(emailMsgRecyclerAdapter.dataList.size == 0) { //디폴트 글자 나오는 경우
                             rv_email_msg.visibility = GONE
