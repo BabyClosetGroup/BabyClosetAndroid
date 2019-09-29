@@ -159,6 +159,8 @@ class AllProductActivity : AppCompatActivity() {
                             rl_not_filter_post_all_product.visibility = View.GONE
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
 
+                            allProductRecyclerViewAdapter.datalist!!.clear()
+
                             allProductRecyclerViewAdapter.datalist!!.addAll(tmp)
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++
