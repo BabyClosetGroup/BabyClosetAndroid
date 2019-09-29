@@ -130,6 +130,7 @@ class AllProductActivity : AppCompatActivity() {
         val getAllPostFilterResponse = networkService.postAllPostFilterResponse("application/json",
             SharedPreference.getUserToken(this),fpagination, gsonObject)
 
+        Log.e("t",  SharedPreference.getUserToken(this))
         getAllPostFilterResponse.enqueue(object : Callback<PostAllPostFilterResponse>{
             override fun onFailure(call: Call<PostAllPostFilterResponse>, t: Throwable) {
                 Log.e("모든 상품 필터 조회 실패", t.toString())
@@ -140,6 +141,21 @@ class AllProductActivity : AppCompatActivity() {
                     if(response.body()!!.status == 200){
                         Log.e("모든 상품 필터 조회 성공", fpagination.toString())
 
+                        val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
+
+                        if(tmp.size == 0){
+                            allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            rl_not_filter_post_all_product.visibility = View.VISIBLE
+                        }else{
+                            rl_not_filter_post_all_product.visibility = View.GONE
+                            allProductRecyclerViewAdapter.datalist!!.clear()
+
+                            allProductRecyclerViewAdapter.datalist!!.addAll(tmp)
+                            allProductRecyclerViewAdapter.notifyDataSetChanged()
+                            fpagination++
+                        }
+
+
                         var isNewMessage = response.body()!!.data.isNewMessage
 
                         if(isNewMessage == 1){ //새메시지가 왔을 경우 이미지 change
@@ -147,23 +163,6 @@ class AllProductActivity : AppCompatActivity() {
                         }else if(isNewMessage == 0){
                             btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
                         }
-                        if(response.body()!!.data.filteredAllPost.isNotEmpty()){
-                            rl_not_filter_post_all_product.visibility = View.GONE
-                            val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
-
-                            allProductRecyclerViewAdapter.datalist!!.clear()
-
-                            allProductRecyclerViewAdapter.datalist!!.addAll(tmp)
-                            allProductRecyclerViewAdapter.notifyDataSetChanged()
-                            fpagination++
-
-                            response.body()!!.data.filteredAllPost
-                        }else{
-                            allProductRecyclerViewAdapter.notifyDataSetChanged()
-                            rl_not_filter_post_all_product.visibility = View.VISIBLE
-                        }
-
-
                     }
                 }
             }

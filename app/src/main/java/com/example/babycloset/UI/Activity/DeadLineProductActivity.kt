@@ -106,12 +106,10 @@ class DeadLineProductActivity : AppCompatActivity() {
                             btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
                         }
 
-                        if(response.body()!!.data.deadlinePost.isNotEmpty()){
-                            val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.deadlinePost
-                            for(i in 0..tmp.size-1){
+                        val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.deadlinePost
 
-                                deadLineProductRecyclerViewAdapter.datalist!!.add(tmp[i])
-                            }
+                        if(tmp.size != 0){
+                            deadLineProductRecyclerViewAdapter.datalist!!.addAll(tmp)
                             deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
                             pagination++
                         }else{
@@ -158,21 +156,18 @@ class DeadLineProductActivity : AppCompatActivity() {
                             btn_letter_toolbar_all_product.setImageResource(R.drawable.home_btn_email_update)
                         }
 
-                        if(response.body()!!.data.filteredDeadlinePost.isNotEmpty()){
-                            rl_not_filter_post_deadline_product.visibility = View.GONE
-                            val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.filteredDeadlinePost
-                            if(fpagination == 1){
-                                deadLineProductRecyclerViewAdapter.datalist!!.clear()
-                                deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
-                            }
-                            for(i in 0..response.body()!!.data.filteredDeadlinePost.size-1){
-                                deadLineProductRecyclerViewAdapter.datalist!!.add(tmp[i])
-                            }
-                            deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
-                            fpagination++
-                        }else{
+                        val tmp : ArrayList<DeadLinePostRVData> = response.body()!!.data.filteredDeadlinePost
+
+                        if(tmp.size == 0){
                             deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
                             rl_not_filter_post_deadline_product.visibility = View.VISIBLE
+                        }else{
+                            rl_not_filter_post_deadline_product.visibility = View.GONE
+                            deadLineProductRecyclerViewAdapter.datalist!!.clear()
+
+                            deadLineProductRecyclerViewAdapter.datalist!!.addAll(tmp)
+                            deadLineProductRecyclerViewAdapter.notifyDataSetChanged()
+                            fpagination++
                         }
                     }
                 }
