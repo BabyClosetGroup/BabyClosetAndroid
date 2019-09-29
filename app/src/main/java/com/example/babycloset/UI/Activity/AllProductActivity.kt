@@ -69,14 +69,6 @@ class AllProductActivity : AppCompatActivity() {
         btn_letter_toolbar_all_product.setOnClickListener {
             startActivity<EmailActivity>()
         }
-
-
-
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        getAllPostResponse()
     }
 
     fun configRecyclerView(){
@@ -164,6 +156,8 @@ class AllProductActivity : AppCompatActivity() {
                             allProductRecyclerViewAdapter.datalist!!.addAll(tmp)
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++
+
+                            response.body()!!.data.filteredAllPost
                         }else{
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             rl_not_filter_post_all_product.visibility = View.VISIBLE
