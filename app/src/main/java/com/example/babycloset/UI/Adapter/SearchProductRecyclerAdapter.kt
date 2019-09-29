@@ -34,7 +34,14 @@ class SearchProductRecyclerAdapter (val ctx: Context, val dataList: ArrayList<Se
         holder.txt_deadline_day.text=dataList!![p1].deadline
         holder.txt_title.text=dataList!![p1].postTitle
         holder.txt_area.text=dataList!![p1].areaName[0]
-        holder.txt_area_etc.text=dataList!![p1].areaName.size.toString()
+
+        if(dataList!![p1].areaName!!.size == 1){
+            holder.txt_area_etc.text=""
+        }else if(dataList!![p1].areaName!!.size > 1){
+            var size= dataList!![p1].areaName!!.size - 1
+            holder.txt_area_etc.text="외 " + size.toString() + "구"
+        }
+
         holder.relative_layout.setOnClickListener {
             postIdx=dataList!!.get(p1).postIdx
             var intent= Intent(ctx, ProductActivity::class.java)
