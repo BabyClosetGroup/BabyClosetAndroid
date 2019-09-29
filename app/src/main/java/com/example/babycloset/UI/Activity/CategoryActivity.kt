@@ -54,21 +54,32 @@ class CategoryActivity : AppCompatActivity() {
         super.onResume()
         btn_finish_category.setOnClickListener {
             if(requestCode == 1100){
-                val intent  = Intent()
-                intent.putExtra("areaList", areaList)
-                intent.putExtra("ageList", ageList)
-                intent.putExtra("categoryList", categoryList)
-                setResult(Activity.RESULT_OK,intent)
-                finish()
+                noCategory()
             }else{
                 isValid()
             }
-
         }
     }
 
-    fun isValid(){
+    fun noCategory(){
+        if(noCategoryClick(ll_area_category,"cb_area_category",26)){
+            areaList.add(cb_area_all_category.text.toString())
+        }
+        if(noCategoryClick(ll_age_category, "cb_age_category", 5)){
+            ageList.add(cb_age_all_category.text.toString())
+        }
+        if(noCategoryClick(ll_category_category, "cb_category_category_",10)){
+            categoryList.add(cb_category_all_category.text.toString())
+        }
+        val intent  = Intent()
+        intent.putExtra("areaList", areaList)
+        intent.putExtra("ageList", ageList)
+        intent.putExtra("categoryList", categoryList)
+        setResult(Activity.RESULT_OK,intent)
+        finish()
+    }
 
+    fun isValid(){
         if(noCategoryClick(ll_area_category,"cb_area_category",26)){
             WritePostActivity.showNoticeDialog(this, "자치구를 선택해주세요!\n", "자치구를 선택해야", "글을 작성할 수 있습니다.")
         }else if(noCategoryClick(ll_age_category, "cb_age_category", 5)){
