@@ -2,6 +2,7 @@ package com.example.babycloset.UI.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View.GONE
@@ -41,7 +42,13 @@ class EmailActivity : AppCompatActivity() {
 
         getEmailResponse()
 
+        swipe_layout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            getEmailResponse()
+            swipe_layout.isRefreshing = false
+        })
+
     }
+
 
     private fun getEmailResponse(){
         //val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjoxLCJuaWNrbmFtZSI6IuyEne2ZqSIsImlhdCI6MTU2ODIxNzMyNCwiZXhwIjoxNTc5MDE3MzI0LCJpc3MiOiJiYWJ5Q2xvc2V0In0.pGluiC04m2sXWdtHwWKR8SdSMQYS_kSd_uumifKBz18"
