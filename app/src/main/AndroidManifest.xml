@@ -15,9 +15,9 @@
             android:name=".Network.ApplicationController"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
-            android:icon="@drawable/babycloset_logo"
+            android:icon="@mipmap/babycloset_logo"
             android:label="아가옷장"
-            android:roundIcon="@drawable/babycloset_logo"
+            android:roundIcon="@mipmap/babycloset_logo"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".UI.Activity.info2Activity">
@@ -53,6 +53,7 @@
         <activity android:name=".UI.Activity.FilterActivity">
         </activity>
         <activity android:name=".UI.Activity.MainActivity">
+
         </activity>
         <activity android:name=".UI.Activity.SignupActivity">
         </activity>

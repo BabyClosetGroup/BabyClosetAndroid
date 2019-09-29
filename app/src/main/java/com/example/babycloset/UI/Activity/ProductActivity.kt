@@ -121,13 +121,9 @@ class ProductActivity : AppCompatActivity(){
         if(isSender == 0){
             rl_apply_product.visibility = View.VISIBLE
                 btn_apply_product.setOnClickListener {
-                    if(btnApplyState){
-                         btnApplyState = false
-                        postShareResponse()
-                        toast("신청이 완료되었습니다.")
-                    }else {
-                        toast("이미 나눔 신청을 하셨습니다.")
-                    }
+                    btn_apply_product.isEnabled = false
+                    postShareResponse()
+                    toast("신청이 완료되었습니다.")
                 }
 
         }
