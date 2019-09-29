@@ -58,19 +58,19 @@
                     </ScrollView>
                 </RelativeLayout>
                 <LinearLayout
-                        android:layout_marginTop="25dp"
-                        android:paddingBottom="26dp"
+                        android:id="@+id/ll_user_product"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="25dp"
+                        android:orientation="horizontal" android:paddingBottom="26dp">
 
                     <ImageView
-                            android:scaleType="centerCrop"
+                            android:id="@+id/img_user_profile_product"
                             android:layout_width="62dp"
                             android:layout_height="62dp"
-                            android:id="@+id/img_user_profile_product"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="24dp"
+                            android:scaleType="centerCrop"
                     />
 
                     <LinearLayout
@@ -87,31 +87,31 @@
                                     android:id="@+id/txt_account_name_product"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="16sp"
+                                    android:fontFamily="@font/seoulnamsanl"
                                     android:text="unknown"
                                     android:textColor="#262626"
-                                    android:fontFamily="@font/seoulnamsanl"
+                                    android:textSize="16sp"
                             />
 
                             <TextView
-                                    android:textSize="16sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/seoulnamsanl"
                                     android:text="님의 나눔 별점"
                                     android:textColor="#262626"
-                                    android:fontFamily="@font/seoulnamsanl"
+                                    android:textSize="16sp"
                             />
 
                         </LinearLayout>
 
                         <RatingBar
-                                android:isIndicator="true"
-                                android:rating="0"
-                                android:stepSize="0.5"
-                                android:numStars="5"
+                                android:id="@+id/rab_product"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/rab_product"
+                                android:isIndicator="true"
+                                android:numStars="5"
+                                android:rating="0"
+                                android:stepSize="0.5"
                         />
                     </LinearLayout>
                 </LinearLayout>

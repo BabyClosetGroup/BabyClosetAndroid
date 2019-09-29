@@ -100,6 +100,14 @@ class ProductActivity : AppCompatActivity(){
             img_user_profile_product.setClipToOutline(true)
         }
 
+        ll_user_product.setOnClickListener {
+            if(isSender == 1){  //나눔자가 누르면 - 수정하기, 삭제하기 (isSender == 1)
+               ll_user_product.isClickable = false
+            }
+            if(isSender == 0){  // 받는이가 누르면 - 쪽지보내기, 신고하기 (isSender == 0)
+                showBuyerDialog()
+            }
+        }
     }
 
     override fun onResume() {

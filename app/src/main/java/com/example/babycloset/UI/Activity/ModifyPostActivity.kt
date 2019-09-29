@@ -1,11 +1,13 @@
 package com.example.babycloset.UI.Activity
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
@@ -47,6 +49,7 @@ import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 class ModifyPostActivity : AppCompatActivity() {
@@ -66,7 +69,7 @@ class ModifyPostActivity : AppCompatActivity() {
     var pictureUri2 : Uri? = null
     var pictureUri3 : Uri? = null
     var pictureUri4 : Uri? = null
-    var pictureList =  ArrayList<MultipartBody.Part>()
+    var pictureList =  ArrayList<MultipartBody.Part?>()
 
     val REQUEST_CODE_CATEGORY : Int = 1000
     val REQUEST_CODE_PICTURE1 : Int = 100
@@ -117,6 +120,7 @@ class ModifyPostActivity : AppCompatActivity() {
 
     }
 
+    //권한 체크
     fun checkPermission(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
@@ -129,7 +133,6 @@ class ModifyPostActivity : AppCompatActivity() {
             }
         }
     }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -188,29 +191,29 @@ class ModifyPostActivity : AppCompatActivity() {
                         1-> {
                             img_modify_post1.setImageBitmap(null)
                             pictureUri1 = null
-                            if(pictureList.size == 1){
-                                pictureList.remove(pictureList[0])
+                            if(pictureList.size >= 1){
+                                pictureList[0] = null
                             }
                         }
                         2-> {
                             img_modify_post2.setImageBitmap(null)
                             pictureUri2 = null
                             if(pictureList.size >= 2){
-                                pictureList.remove(pictureList[1])
+                                pictureList[1] = null
                             }
                         }
                         3-> {
                             img_modify_post3.setImageBitmap(null)
                             pictureUri3 = null
                             if(pictureList.size >= 3){
-                                pictureList.remove(pictureList[2])
+                                pictureList[2] = null
                             }
                         }
                         4-> {
                             img_modify_post4.setImageBitmap(null)
                             pictureUri4 = null
-                            if(pictureList.size == 4){
-                                pictureList.remove(pictureList[3])
+                            if(pictureList.size >= 4){
+                               pictureList[3]= null
                             }
                         }
                     }
@@ -298,7 +301,7 @@ class ModifyPostActivity : AppCompatActivity() {
         }else if(edt_contents_modify_post.text.toString()==""){
             WritePostActivity.showNoticeDialog(this, "내용을 작성해주세요!\n", "내용을 작성하셔야", "글을 작성할 수 있습니다.")
         }
-        else if (pictureList.size == 0) {
+        else if (pictureList[0] == null) {
             if(pictureUri1 == null){
                 WritePostActivity.showNoticeDialog(this, "메인 사진을 첨부해주세요!\n", "사진을 한장 이상 첨부하셔야", "글을 작성할 수 있습니다.")
             }else{
@@ -387,12 +390,11 @@ class ModifyPostActivity : AppCompatActivity() {
     }
 
     //bitmap -> MultipartBody.Part & list에 추가
-    fun bitmapToMBP(ctx : Context, b : Bitmap,list : ArrayList<MultipartBody.Part> ,i : Int){
+    fun bitmapToMBP(ctx : Context, b : Bitmap,list : ArrayList<MultipartBody.Part?> ,i : Int){
         val file = File(WritePostActivity.bitmapToFile(ctx, b, "img$i"))
         val photoBody = RequestBody.create(MediaType.parse("image/jpg"), file)
         val photo_rb= MultipartBody.Part.createFormData("postImages", "img$i", photoBody)
         list.add(photo_rb)
-        Log.e("picturelist", list.size.toString())
     }
 
 
@@ -405,41 +407,28 @@ class ModifyPostActivity : AppCompatActivity() {
         val ageC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(ageList))
         val catC_rb = WritePostActivity.stringToRequestBody(WritePostActivity.listToString(categoryList))
 
-        if(pictureUri1 != null)
-        {
-            if(pictureList.size == 1){
-                pictureList.remove(pictureList[0])
-            }
-            val rb =WritePostActivity.createMBP(contentResolver, pictureUri1!!)
-            pictureList.add(rb)
-        }
-        if(pictureUri2 != null)
-        {
-            if(pictureList.size >= 2){
-                pictureList.remove(pictureList[1])
-            }
-            val rb =WritePostActivity.createMBP(contentResolver, pictureUri2!!)
-            pictureList.add(rb)
+        val array = arrayOf(pictureUri1, pictureUri2, pictureUri3, pictureUri4)
 
-        }
-        if(pictureUri3 != null)
-        {
-            if(pictureList.size >= 3) {
-                pictureList.remove(pictureList[2])
+        for(i in 0..3){
+            array[i]?.let {
+                val options = BitmapFactory.Options()
+                val inputStream  = contentResolver.openInputStream(it)
+                val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+
+                val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
+                val pictureMBP = MultipartBody.Part.createFormData("postImages",  File(it.toString()).name, photoBody)
+
+                if(pictureList.size >= i+1){    //기존 이미지가 있을 경우
+                    pictureList[i] = null
+                    pictureList[i] = pictureMBP
+                }else{  //기존 이미지 없을 경우
+                    pictureList.add(pictureMBP)
+                }
             }
-            val rb =WritePostActivity.createMBP(contentResolver, pictureUri3!!)
-            pictureList.add(rb)
-        }
-        if(pictureUri4 != null)
-        {
-            if(pictureList.size == 4) {
-                pictureList.remove(pictureList[3])
-            }
-            val rb = WritePostActivity.createMBP(contentResolver, pictureUri4!!)
-            pictureList.add(rb)
         }
 
-        pictureList.size
         val putPostResponse = networkService.putPostResponse(SharedPreference.getUserToken(this), postIdx,
             title_rb, content_rb, deadline_rb, areaC_rb, ageC_rb, catC_rb, pictureList)
 

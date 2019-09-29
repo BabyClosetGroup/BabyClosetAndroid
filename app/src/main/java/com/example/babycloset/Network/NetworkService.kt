@@ -195,7 +195,7 @@ interface NetworkService {
         @Part("areaCategory") areaCategory:  RequestBody,
         @Part("ageCategory") ageCategory:  RequestBody,
         @Part("clothCategory") clothCategory :  RequestBody,
-        @Part postImages : ArrayList<MultipartBody.Part>
+        @Part postImages : ArrayList<MultipartBody.Part?>
     ) : Call<PutPostResponse>
 
     //게시물 삭제
