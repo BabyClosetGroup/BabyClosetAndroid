@@ -108,9 +108,8 @@ class AllProductActivity : AppCompatActivity() {
                         }
                         if(response.body()!!.data.allPost.isNotEmpty()){
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.allPost
-                            for(i in 0..tmp.size-1){
-                                allProductRecyclerViewAdapter.datalist!!.add(tmp[i])
-                            }
+                            allProductRecyclerViewAdapter.datalist!!.addAll(tmp)
+
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             pagination++
                         }else{
@@ -159,13 +158,8 @@ class AllProductActivity : AppCompatActivity() {
                         if(response.body()!!.data.filteredAllPost.isNotEmpty()){
                             rl_not_filter_post_all_product.visibility = View.GONE
                             val tmp : ArrayList<AllPostRVData> = response.body()!!.data.filteredAllPost
-                            if(fpagination == 1){
-                                allProductRecyclerViewAdapter.datalist!!.clear()
-                                allProductRecyclerViewAdapter.notifyDataSetChanged()
-                            }
-                            for(i in 0..response.body()!!.data.filteredAllPost.size-1){
-                                allProductRecyclerViewAdapter.datalist!!.add(tmp[i])
-                            }
+
+                            allProductRecyclerViewAdapter.datalist!!.addAll(tmp)
                             allProductRecyclerViewAdapter.notifyDataSetChanged()
                             fpagination++
                         }else{
