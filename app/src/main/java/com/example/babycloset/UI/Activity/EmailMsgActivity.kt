@@ -60,20 +60,17 @@ class EmailMsgActivity : AppCompatActivity() {
         getSpecificEmailMsg()
 
 
-        val receiverIdx: Int = userIdx
-
 
         btn_send_msg.setOnClickListener {
             //쪽지 리스트에 추가
             Log.e("tag", "전송 버튼 눌림!!")
+            val receiverIdx: Int = userIdx
             val noteContent: String = edt_email_msg_write.text.toString()
 
             postSendEmail(receiverIdx, noteContent)
-            getSpecificEmailMsg()
+            //getSpecificEmailMsg()
 
             edt_email_msg_write.setText("")
-
-
 
         }
 
@@ -141,6 +138,7 @@ class EmailMsgActivity : AppCompatActivity() {
                     if (response.body()!!.status == 200){
                         //startActivity<LoginActivity>()
                         Log.e("tag", "쪽지 보내짐!")
+                        getSpecificEmailMsg()
 
                     }
                     else{

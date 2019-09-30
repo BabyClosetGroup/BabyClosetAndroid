@@ -73,6 +73,7 @@
         </activity>
         <activity android:name=".UI.Activity.ReceiveProductActivity"/>
         <activity android:name=".UI.Activity.EmailActivity">
+
         </activity>
         <activity android:name=".UI.Activity.EmailMsgActivity"/>
     </application>
