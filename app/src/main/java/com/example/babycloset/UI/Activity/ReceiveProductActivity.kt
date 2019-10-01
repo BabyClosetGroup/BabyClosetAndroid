@@ -61,7 +61,6 @@ class ReceiveProductActivity : AppCompatActivity() {
                         if(receiveProductOverviewRecyclerViewAdapter.itemCount>0)
                             receive_empty.setVisibility(View.GONE);
 
-                        Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){
                         Log.e("tag", "No token")

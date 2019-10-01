@@ -47,6 +47,7 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
 
         holder.num.text = dataList!![position].registerNumber
 
+        //나눔하기 누르면 신청자목록으로
         holder.btn.setOnClickListener {
             ctx.startActivity<ListPeopleActivity>(
                 "postIdx" to dataList!![position].postIdx,
@@ -57,7 +58,6 @@ class IncompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataLis
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //var container = itemView.findViewById(R.id.btn_rv_item_incomplete_overview_share) as RelativeLayout
         var title = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_incomplete_overview_product) as TextView
         var location = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_incomplete_overview_location) as TextView
         var num = itemView.findViewById(R.id.txt_rv_item_incomplete_overview_number) as TextView

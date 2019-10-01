@@ -129,30 +129,13 @@
                     android:text="(0)"
                     android:textColor="#262626"
                     android:textSize="16sp"/>
-            <!--<TextView
-                    android:textSize="13sp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="나눔을 함께할 한분!을 선정하세요"
-            />-->
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_application_people_overview"
+                android:id="@+id/rv_applicant_overview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:layout_marginBottom="60dp">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-    <!--<Button
-            android:layout_alignParentBottom="true"
-            android:background="#767676"
-            android:textColor="#ffffff"
-            android:layout_gravity="bottom"
-            android:textSize="20sp"
-            android:text="선택 후 쪽지 보내기"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/btn_send_note"/>-->
 </RelativeLayout>

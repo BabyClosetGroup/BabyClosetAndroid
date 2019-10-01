@@ -34,10 +34,6 @@ class ShareCompleteFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_complete, container, false)
-
-        //상품정보 가져오기
-        //별점주기 누르면 창이동, 별점 부여시 버튼 사라지게
-        //정보보기 누르면 상대 평점점
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -69,7 +65,6 @@ class ShareCompleteFragment : Fragment() {
                         completeProductOverviewRecyclerViewAdapter.notifyDataSetChanged()
                         if(completeProductOverviewRecyclerViewAdapter.itemCount>0)
                             complete_empty.setVisibility(View.GONE);
-                        Log.e("tag", "성공")
                     }
                     else if (response.body()!!.status == 400){
                         Log.e("tag", "No token")

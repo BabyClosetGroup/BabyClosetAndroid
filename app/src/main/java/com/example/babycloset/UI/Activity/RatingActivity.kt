@@ -65,10 +65,8 @@ class RatingActivity : AppCompatActivity() {
             }
         }
 
-        // 5개의 별!
         ratingStar.numStars=5
-        // 별점주기 버튼에 post
-        // 액티비티 종료 버튼
+
         btn_close.setOnClickListener {
             finish()
         }
@@ -90,7 +88,6 @@ class RatingActivity : AppCompatActivity() {
 
         postRatingResponse.enqueue(object : Callback<PostRatingResponse> {
             override fun onFailure(call: Call<PostRatingResponse>, t: Throwable) {
-               // toast("Login failed")
             }
 
             override fun onResponse(call: Call<PostRatingResponse>, response: Response<PostRatingResponse>) {

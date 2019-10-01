@@ -73,6 +73,7 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         holder.date.text = dataList!![position].sharedDate
         holder.owner.text = dataList!![position].receiverNickname+"님"
 
+        //별점주기 누르면 창이동, 별점 부여시 버튼 사라지게
         if(dataList!![position].receiverIsRated != 0){
             holder.rate.text = dataList!![position].rating.toString()+"점"
             holder.btn.visibility=View.GONE
@@ -88,6 +89,8 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
                 "REQUESTCODE" to 100
             )
         }
+
+        //정보보기 누르면 상대 평점
         holder.info.setOnClickListener {
             userIdx = dataList!![position].receiverIdx
             // 팝업창
@@ -95,7 +98,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         }
     }
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //var container = itemView.findViewById(R.id.ll_rv_item_complete_overview_container) as RelativeLayout
         var title = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_complete_overview_product) as TextView
         var location = itemView.findViewById(com.example.babycloset.R.id.txt_rv_item_complete_overview_location) as TextView
         var date = itemView.findViewById(R.id.txt_rv_item_complete_overview_date) as TextView
@@ -117,7 +119,6 @@ class CompleteProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList:
         )
         getRatingResponse.enqueue(object : Callback<GetRatingResponse> {
             override fun onFailure(call: Call<GetRatingResponse>, t: Throwable) {
-                Log.e("tag", "!!실패")
             }
             override fun onResponse(call: Call<GetRatingResponse>, response: Response<GetRatingResponse>) {
                 if (response.isSuccessful) {

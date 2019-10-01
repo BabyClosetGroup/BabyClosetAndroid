@@ -142,7 +142,6 @@ class EditInfoActivity : AppCompatActivity() {
             fake_true.setVisibility(View.VISIBLE)
             txt_info_pw.isEnabled=true
             btn_pw_del.setImageResource(R.drawable.ic_close_black_24dp)
-            // x클릭시 비번칸 지우기
             txt_info_pw.text=null
         }
 

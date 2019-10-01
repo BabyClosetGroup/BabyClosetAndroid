@@ -116,7 +116,6 @@ class ReceiveProductOverviewRecyclerViewAdapter(val ctx: Context, var dataList: 
         )
         getRatingResponse.enqueue(object : Callback<GetRatingResponse> {
             override fun onFailure(call: Call<GetRatingResponse>, t: Throwable) {
-                //toast("error")
             }
 
             override fun onResponse(call: Call<GetRatingResponse>, response: Response<GetRatingResponse>) {

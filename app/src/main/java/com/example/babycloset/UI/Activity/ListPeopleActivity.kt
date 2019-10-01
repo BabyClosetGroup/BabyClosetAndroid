@@ -7,20 +7,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.babycloset.DB.SharedPreference
-import com.example.babycloset.Data.ApplicationPeopleOverviewData
-import com.example.babycloset.Data.IncompleteProductOverviewData
+import com.example.babycloset.Data.ApplicantOverviewData
 import com.example.babycloset.Network.Get.GetListPeopleResponse
-import com.example.babycloset.Network.Get.GetShareIncompleteResponse
 import com.example.babycloset.Network.Get.Getproductdata
 import com.example.babycloset.Network.ApplicationController
 import com.example.babycloset.Network.NetworkService
 import com.example.babycloset.R
-import com.example.babycloset.UI.Adapter.ApplicationPeopleOverviewRecyclerViewAdapter
+import com.example.babycloset.UI.Adapter.ApplicantOverviewRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_list_people.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.ctx
-import org.jetbrains.anko.support.v4.ctx
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Response
 
@@ -28,7 +23,7 @@ class ListPeopleActivity : AppCompatActivity() {
 
     var postIdx: Int = -1
 
-    lateinit var applicationPeopleOverviewRecyclerViewAdapter: ApplicationPeopleOverviewRecyclerViewAdapter
+    lateinit var applicantOverviewRecyclerViewAdapter: ApplicantOverviewRecyclerViewAdapter
 
     val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -37,22 +32,19 @@ class ListPeopleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_people)
 
-        //상품 데이터 가져오기
-        //신청자 데이터 가져오기
-        //버튼 클릭시 쪽지 페이지로
         postIdx = intent.getIntExtra("postIdx", -1)
         if (postIdx == -1) finish()
         configureRecyclerView()
     }
     private fun configureRecyclerView() {
-        var dataList: ArrayList<ApplicationPeopleOverviewData> = ArrayList()
+        var dataList: ArrayList<ApplicantOverviewData> = ArrayList()
 
-        /*dataList.add(ApplicationPeopleOverviewData(
-            1,"지윤",3,null
+        /*dataList.add(ApplicantOverviewData(
+            1,"test",3f,null
         ))*/
-        applicationPeopleOverviewRecyclerViewAdapter = ApplicationPeopleOverviewRecyclerViewAdapter(this, dataList)
-        rv_application_people_overview.adapter = applicationPeopleOverviewRecyclerViewAdapter
-        rv_application_people_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        applicantOverviewRecyclerViewAdapter = ApplicantOverviewRecyclerViewAdapter(this, dataList)
+        rv_applicant_overview.adapter = applicantOverviewRecyclerViewAdapter
+        rv_applicant_overview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         getListPeopleResponse()
     }
@@ -64,7 +56,6 @@ class ListPeopleActivity : AppCompatActivity() {
         val getListPeopleResponse = networkService.getlistpeopleResponse("application/json", token, postIdx)
         getListPeopleResponse.enqueue(object : retrofit2.Callback<GetListPeopleResponse>{
             override fun onFailure(call: Call<GetListPeopleResponse>, t: Throwable) {
-                Log.e("tag", "실패!")
                 t.printStackTrace()
             }
             override fun onResponse(call: Call<GetListPeopleResponse>, response: Response<GetListPeopleResponse>) {
@@ -91,11 +82,9 @@ class ListPeopleActivity : AppCompatActivity() {
 
                         Glide.with(ctx).load(tmp1.mainImage).into(img_thumbnail)
 
-                        var tmp: ArrayList<ApplicationPeopleOverviewData> = response.body()!!.data.applicants!!
-                        applicationPeopleOverviewRecyclerViewAdapter.dataList = tmp
-                        applicationPeopleOverviewRecyclerViewAdapter.notifyDataSetChanged()
-
-                        Log.e("tag", "성공")
+                        var tmp: ArrayList<ApplicantOverviewData> = response.body()!!.data.applicants!!
+                        applicantOverviewRecyclerViewAdapter.dataList = tmp
+                        applicantOverviewRecyclerViewAdapter.notifyDataSetChanged()
                     }
                     else if (response.body()!!.status == 400){
                         Log.e("tag", "No token")

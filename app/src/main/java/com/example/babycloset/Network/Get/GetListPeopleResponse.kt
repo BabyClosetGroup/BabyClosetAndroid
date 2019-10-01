@@ -1,6 +1,6 @@
 package com.example.babycloset.Network.Get
 
-import com.example.babycloset.Data.ApplicationPeopleOverviewData
+import com.example.babycloset.Data.ApplicantOverviewData
 
 data class GetListPeopleResponse (
     val status: Int,
@@ -11,7 +11,7 @@ data class GetListPeopleResponse (
 
 data class PeopleData(
     val post: Getproductdata,
-    val applicants: ArrayList<ApplicationPeopleOverviewData>
+    val applicants: ArrayList<ApplicantOverviewData>
 )
 
 data class Getproductdata(

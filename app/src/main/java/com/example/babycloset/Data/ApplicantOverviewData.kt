@@ -1,6 +1,6 @@
 package com.example.babycloset.Data
 
-data class ApplicationPeopleOverviewData(
+data class ApplicantOverviewData(
     var applicantIdx: Int,
     var applicantNickname: String,
     var rating: Float,

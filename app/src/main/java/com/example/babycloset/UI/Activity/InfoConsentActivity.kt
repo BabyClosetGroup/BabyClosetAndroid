@@ -32,7 +32,6 @@ class InfoConsentActivity : AppCompatActivity() {
             startActivity<info2Activity>()
         }
 
-        // 전체동의시에만 처리되게 해야함
         btn_agree_info.setOnClickListener {
             if(btn_agree_all_select.isSelected==true)
                 startActivity<SignupActivity>()
